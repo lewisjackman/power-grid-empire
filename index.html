@@ -1,17 +1,832 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#0d2028"><title>Power Grid Empire — Mobile</title><style>
-*{box-sizing:border-box}body{margin:0;background:#10232b;color:#eaf3f1;font:14px system-ui,-apple-system,sans-serif;overflow:hidden;touch-action:none}#world{position:absolute;inset:74px 0 125px;width:100%;height:calc(100% - 199px);touch-action:none;background:linear-gradient(#7397a3,#c2d0c0)}header{position:absolute;top:0;left:0;right:0;height:74px;background:#10232b;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #45616b}header b{font-size:17px}small{color:#a5bdc4}#metrics{text-align:right;font-size:12px;line-height:1.6}#bottom{position:absolute;bottom:0;left:0;right:0;min-height:125px;background:#10232b;padding:9px 10px calc(10px + env(safe-area-inset-bottom));border-top:1px solid #45616b}#status{font-size:12px;color:#b8d4da;margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.buttons{display:flex;gap:6px;overflow-x:auto}button{background:#244856;border:1px solid #577987;color:white;border-radius:9px;padding:11px 10px;font-weight:650;white-space:nowrap;font-size:12px}button.active{background:#e2aa4c;color:#10232b}button:disabled{opacity:.35}#notice{position:absolute;top:82px;left:10px;right:10px;text-align:center;background:#142f39dc;border-radius:8px;padding:7px;font-size:12px;pointer-events:none}#detail{position:absolute;bottom:137px;left:10px;right:10px;background:#122e39ec;border:1px solid #53717b;border-radius:10px;padding:9px 12px;font-size:12px;pointer-events:none}#detail strong{color:#ffd080}#help{position:absolute;top:78px;right:9px;font-size:11px;background:#193e48c9;border-radius:6px;padding:5px}</style></head><body><header><div><b>⚡ Power Grid Empire</b><div><small>Meridian Power · East Midlands</small></div></div><div id="metrics"></div></header><canvas id="world"></canvas><div id="notice">Tap a building to inspect · Drag to pan · Pinch to zoom · Twist to rotate</div><div id="help">2026 · M1 Mobile Preview</div><div id="detail"></div><div id="bottom"><div id="status"></div><div class="buttons"><button id="rotleft">↶ Rotate</button><button id="rotright">↷ Rotate</button><button id="run">⏸ Pause</button><button id="speed">⏩ 1×</button><button id="gas">+ Gas £5m</button><button id="battery">+ Battery £3m</button><button id="save">💾 Save</button><button id="reset">↺ Reset</button></div></div><script>
-const cv=document.querySelector('#world'),ctx=cv.getContext('2d'),metrics=document.querySelector('#metrics'),status=document.querySelector('#status'),detail=document.querySelector('#detail');let W,H,dpr=1,offsetX=0,offsetY=0,zoom=1,angle=0,drag=false,last=null,pinch=0,build=null,selected=null,paused=false,speeds=[1,3,10,30],speedIdx=0,day=1,hour=8,cash=20,assets=[{type:'OCGT',x:5,y:5,mw:50,name:'Meridian OCGT 1'},{type:'Gas',x:3,y:7,name:'Gas receiving'},{type:'Grid',x:8,y:4,name:'Grid connection'},{type:'Office',x:3,y:3,name:'Control building'}],price=120,earnings=0;const SIZE=14,TW=43,TH=23;const colors={OCGT:'#758a97',Gas:'#c2a874',Grid:'#608e9e',Office:'#567f8f',Battery:'#d0c9a5'};
-function resize(){dpr=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}window.addEventListener('resize',resize);resize();
-function rotateXY(x,y){let c=Math.cos(angle),s=Math.sin(angle),cx=SIZE/2,cy=SIZE/2; x-=cx;y-=cy;return {x:x*c-y*s+cx,y:x*s+y*c+cy}}
-function iso(x,y,z=0){let q=rotateXY(x,y);return {x:W/2+offsetX+(q.x-q.y)*TW/2*zoom,y:H*.42+offsetY+(q.x+q.y)*TH/2*zoom-z*zoom}}
-function polygon(points,fill,stroke='#2e5156'){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);points.slice(1).forEach(p=>ctx.lineTo(p.x,p.y));ctx.closePath();ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke()}
-function tile(x,y,color){polygon([iso(x,y),iso(x+1,y),iso(x+1,y+1),iso(x,y+1)],color)}
-function cube(x,y,w,h,height,color){let a=iso(x,y,height),b=iso(x+w,y,height),c=iso(x+w,y+h,height),d=iso(x,y+h,height),e=iso(x+w,y+h,0),f=iso(x,y+h,0),g=iso(x+w,y,0);polygon([d,c,e,f],'#52616b');polygon([b,c,e,g],'#42535d');polygon([a,b,c,d],color)}
-function draw(){ctx.clearRect(0,0,W,H);for(let x=0;x<SIZE;x++)for(let y=0;y<SIZE;y++){let road=x===2||y===8;tile(x,y,road?'#657274':(x+y)%2?'#63866d':'#698b71')}for(let i=0;i<SIZE;i++){let p=iso(i,0);ctx.fillStyle='#e5e3cb';ctx.fillRect(p.x-1,p.y-5,2,5)}let ordered=[...assets].sort((a,b)=>{let p=rotateXY(a.x+1,a.y+1),q=rotateXY(b.x+1,b.y+1);return (p.x+p.y)-(q.x+q.y)});for(let a of ordered){let col=colors[a.type],ht=a.type==='OCGT'?25:a.type==='Grid'?12:10;cube(a.x+.1,a.y+.1,1.7,1.4,ht,col);if(a.type==='OCGT'){let p=iso(a.x+.45,a.y+.45,ht+17);ctx.fillStyle='#8b9ba2';ctx.fillRect(p.x-5,p.y,10,17*zoom)}if(a.type==='Battery'){let p=iso(a.x+.3,a.y+.3,ht+2);ctx.fillStyle='#eef4ee';ctx.fillRect(p.x,p.y,10*zoom,3*zoom)}if(selected===a){let p=iso(a.x+.8,a.y+.8,ht+8);ctx.fillStyle='#ffe39d';ctx.beginPath();ctx.arc(p.x,p.y,5,0,Math.PI*2);ctx.fill()}}if(build){ctx.fillStyle='#fff5d8';ctx.font='bold 14px system-ui';ctx.fillText('Tap an empty tile to build '+build,12,25)}requestAnimationFrame(draw)}draw();
-function getTile(px,py){let u=(px-W/2-offsetX)/zoom/(TW/2),v=(py-H*.42-offsetY)/zoom/(TH/2);let rx=(u+v)/2,ry=(v-u)/2,c=Math.cos(angle),s=Math.sin(angle),cx=SIZE/2,cy=SIZE/2;rx-=cx;ry-=cy;return {x:Math.floor(rx*c+ry*s+cx),y:Math.floor(-rx*s+ry*c+cy)}}
-function choose(px,py){let t=getTile(px,py);if(t.x<0||t.y<0||t.x>=SIZE||t.y>=SIZE)return;let a=assets.find(a=>t.x>=a.x&&t.x<a.x+2&&t.y>=a.y&&t.y<a.y+2);if(build){if(a){message('That location is occupied');return}let cost=build==='OCGT'?5:3;if(cash<cost){message('Insufficient cash');return}cash-=cost;let n={type:build,x:t.x,y:t.y,mw:build==='OCGT'?20:10,name:build==='OCGT'?'20MW gas generator':'10MW / 20MWh battery'};assets.push(n);selected=n;build=null;update();message('Construction complete — '+n.name)}else{selected=a||null;update()}}
-let touches=new Map(),moved=false,twist=null;cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);touches.set(e.pointerId,{x:e.clientX,y:e.clientY});moved=false});cv.addEventListener('pointermove',e=>{if(!touches.has(e.pointerId))return;let prev=touches.get(e.pointerId);let dx=e.clientX-prev.x,dy=e.clientY-prev.y;if(Math.abs(dx)+Math.abs(dy)>2)moved=true;touches.set(e.pointerId,{x:e.clientX,y:e.clientY});if(touches.size===1){offsetX+=dx;offsetY+=dy}else if(touches.size===2){let v=[...touches.values()],dist=Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y);let theta=Math.atan2(v[1].y-v[0].y,v[1].x-v[0].x);if(pinch)zoom=Math.max(.5,Math.min(2.2,zoom*dist/pinch));if(twist!==null){let delta=theta-twist;delta=Math.atan2(Math.sin(delta),Math.cos(delta));angle+=delta}pinch=dist;twist=theta;moved=true}});cv.addEventListener('pointerup',e=>{if(!moved&&touches.size===1)choose(e.clientX-cv.getBoundingClientRect().left,e.clientY-cv.getBoundingClientRect().top);touches.delete(e.pointerId);pinch=0;twist=null});cv.addEventListener('pointercancel',e=>{touches.delete(e.pointerId);pinch=0;twist=null});
-let noteTimeout;function message(t){let n=document.querySelector('#notice');n.textContent=t;clearTimeout(noteTimeout);noteTimeout=setTimeout(()=>n.textContent='Tap a building to inspect · Drag to pan · Pinch to zoom · Twist to rotate',3500)}
-function update(){let cap=assets.filter(a=>a.type==='OCGT').reduce((s,a)=>s+a.mw,0),bat=assets.filter(a=>a.type==='Battery').reduce((s,a)=>s+a.mw,0);metrics.innerHTML=`<b>£${cash.toFixed(2)}m</b><br><small>${cap}MW gas · ${bat}MW BESS</small>`;status.textContent=`Day ${day} · ${String(Math.floor(hour)).padStart(2,'0')}:00 · Power £${price}/MWh · Revenue £${earnings.toFixed(2)}m`;detail.innerHTML=selected?`<strong>${selected.name}</strong><br>Type: ${selected.type} · ${selected.mw||'Infrastructure'}${selected.mw?' MW':''} · ${selected.type==='OCGT'?'Simulated automatic dispatch':'Site asset'}`:'<strong>Site overview</strong><br>One operating gas plant. Tap an asset or build an expansion. This is a simplified mobile preview.';document.querySelector('#gas').classList.toggle('active',build==='OCGT');document.querySelector('#battery').classList.toggle('active',build==='Battery')}
-function tick(){if(paused)return;hour+=.25*speeds[speedIdx];while(hour>=24){hour-=24;day++}price=Math.max(-20,Math.round(85+48*Math.sin(day*.33+hour*.18)+24*Math.cos(day*.11)));let cap=assets.filter(a=>a.type==='OCGT').reduce((s,a)=>s+a.mw,0);let generated=price>95?cap:0;let profit=generated*Math.max(0,price-85)*.25*speeds[speedIdx]/1e6;cash+=profit;earnings+=profit;update()};setInterval(tick,750);document.querySelector('#rotleft').onclick=()=>{angle-=Math.PI/2;message('Camera rotated left')};document.querySelector('#rotright').onclick=()=>{angle+=Math.PI/2;message('Camera rotated right')};document.querySelector('#run').onclick=()=>{paused=!paused;document.querySelector('#run').textContent=paused?'▶ Resume':'⏸ Pause'};document.querySelector('#speed').onclick=()=>{speedIdx=(speedIdx+1)%speeds.length;document.querySelector('#speed').textContent='⏩ '+speeds[speedIdx]+'×'};document.querySelector('#gas').onclick=()=>{build=build==='OCGT'?null:'OCGT';update();message(build?'Tap an empty tile to place a 20MW gas unit':'Build cancelled')};document.querySelector('#battery').onclick=()=>{build=build==='Battery'?null:'Battery';update();message(build?'Tap an empty tile to place a 10MW battery':'Build cancelled')};document.querySelector('#save').onclick=()=>{localStorage.setItem('pge-mobile-m1',JSON.stringify({assets,cash,day,hour,earnings,angle,zoom,offsetX,offsetY}));message('Saved on this device')};document.querySelector('#reset').onclick=()=>{if(confirm('Reset your game?')){localStorage.removeItem('pge-mobile-m1');location.reload()}};try{let s=JSON.parse(localStorage.getItem('pge-mobile-m1'));if(s){assets=s.assets;cash=s.cash;day=s.day;hour=s.hour;earnings=s.earnings;angle=s.angle||0;zoom=s.zoom||1;offsetX=s.offsetX||0;offsetY=s.offsetY||0}}catch(e){}update();
-</script></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#10232b">
+<title>Power Grid Empire v0.2</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10232b;color:#edf5f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+header{position:absolute;top:0;left:0;right:0;z-index:5;background:#10232b;border-bottom:1px solid #395865;padding:calc(8px + env(safe-area-inset-top)) 12px 9px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+h1{font-size:16px;margin:0}
+.sub{font-size:10px;color:#a7c1c8;margin-top:3px}
+#topStats{text-align:right;white-space:nowrap;font-size:11px;line-height:1.55}
+#topStats strong{color:#f4d38b;font-size:15px}
+#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#89a9b0,#b3c8bd 60%,#7e9c85)}
+#floating{position:absolute;top:calc(88px + env(safe-area-inset-top));right:9px;display:flex;flex-direction:column;gap:7px;z-index:3}
+#floating button{width:43px;height:42px;font-size:19px;padding:0}
+button{background:#244957;color:#f1f6f5;border:1px solid #557b86;border-radius:10px;padding:10px;font-weight:650}
+button.active{background:#e7b65c;color:#16252c;border-color:#f2d291}
+button:disabled{opacity:.4}
+#notice{position:absolute;top:calc(86px + env(safe-area-inset-top));left:9px;right:62px;background:#102b36df;border:1px solid #496a74;border-radius:8px;padding:9px;z-index:3;font-size:11px;pointer-events:none}
+#panel{position:absolute;bottom:calc(107px + env(safe-area-inset-bottom));left:9px;right:9px;z-index:4;background:#102731ef;border:1px solid #4d727d;border-radius:12px;padding:10px 12px;max-height:32vh;overflow-y:auto}
+#panel h2{font-size:14px;margin:0 0 6px;color:#f6d28d}
+#panel p{margin:4px 0;font-size:11px;color:#d1e1e3;line-height:1.45}
+#panel .actions{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+#panel .actions button{font-size:11px;padding:7px 10px}
+#bottom{position:absolute;bottom:0;left:0;right:0;z-index:5;background:#10232b;border-top:1px solid #456470;padding:9px 9px calc(10px + env(safe-area-inset-bottom))}
+#clock{font-size:11px;color:#c5d9db;margin-bottom:7px}
+.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.toolbar button{flex-shrink:0;font-size:11px;padding:11px 10px}
+#buildMenu{position:absolute;bottom:calc(110px + env(safe-area-inset-bottom));left:9px;right:9px;z-index:7;background:#18343f;border:1px solid #688894;border-radius:12px;padding:12px;display:none;max-height:52vh;overflow:auto;box-shadow:0 6px 30px #0008}
+#buildMenu h2{font-size:15px;margin:0 0 8px}
+.buildOption{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #3b5862;padding:9px 0}
+.buildOption small{display:block;color:#a9c4ca;margin-top:3px}
+.buildOption button{white-space:nowrap;font-size:11px}
+#finance{display:none;position:absolute;top:calc(80px + env(safe-area-inset-top));left:9px;right:9px;z-index:8;background:#132e39;border:1px solid #60828d;border-radius:12px;padding:13px;max-height:65vh;overflow:auto;box-shadow:0 8px 30px #0009}
+#finance h2{margin:0 0 10px;font-size:16px}
+.finRow{display:flex;justify-content:space-between;border-bottom:1px solid #34525c;padding:7px 0}
+.finRow strong{font-variant-numeric:tabular-nums}
+.good{color:#91e6ae}.bad{color:#ff9e96}
+#finance .close{margin-top:12px;width:100%}
+</style>
+</head>
+<body>
+<canvas id="world"></canvas>
+
+<header>
+ <div>
+  <h1>⚡ Power Grid Empire</h1>
+  <div class="sub">Meridian Power · East Midlands · v0.2</div>
+ </div>
+ <div id="topStats"></div>
+</header>
+
+<div id="notice">Drag to pan · Pinch to zoom · ↶ ↷ to rotate</div>
+
+<div id="floating">
+ <button id="left" title="Rotate left">↶</button>
+ <button id="right" title="Rotate right">↷</button>
+ <button id="zin" title="Zoom in">+</button>
+ <button id="zout" title="Zoom out">−</button>
+ <button id="home" title="Centre camera">⌖</button>
+</div>
+
+<div id="panel"></div>
+
+<div id="buildMenu">
+ <h2>🏗 Construction projects</h2>
+ <div id="buildOptions"></div>
+ <button id="cancelBuild">Close / Cancel</button>
+</div>
+
+<div id="finance">
+ <h2>📊 Financial & operational report</h2>
+ <div id="financeRows"></div>
+ <button class="close" id="closeFinance">Close report</button>
+</div>
+
+<div id="bottom">
+ <div id="clock"></div>
+ <div class="toolbar">
+  <button id="buildBtn">🏗 Build</button>
+  <button id="financeBtn">📊 Finance</button>
+  <button id="pauseBtn">⏸ Pause</button>
+  <button id="speedBtn">⏩ 1×</button>
+  <button id="saveBtn">💾 Save</button>
+  <button id="resetBtn">↺ Reset</button>
+ </div>
+</div>
+
+<script>
+"use strict";
+
+const $=id=>document.getElementById(id);
+const canvas=$("world");
+const ctx=canvas.getContext("2d");
+const N=16,TW=48,TH=25;
+const SAVE_KEY="pge-v02";
+const OLD_KEY="pge-mobile-m1";
+
+const TYPES={
+ OCGT:{name:"Gas peaking turbine",cost:5,days:3,mw:20,size:2,color:"#8ca0aa"},
+ Battery:{name:"Battery storage",cost:3,days:2,mw:10,mwh:20,size:2,color:"#d9d5bd"},
+ Gas:{name:"Gas receiving station",cost:1.2,days:2,size:2,color:"#c6a56e"},
+ Grid:{name:"Grid transformer",cost:2,days:3,size:2,color:"#80a6bb"},
+ Office:{name:"Control building",cost:.5,days:1,size:2,color:"#b0c1ca"}
+};
+
+let state={
+ cash:20,day:1,hour:8,price:115,
+ revenue:0,fuel:0,carbon:0,opex:0,profit:0,
+ gasMWh:0,batteryMWh:0,exportMWh:0,
+ assets:[
+  {id:1,type:"OCGT",x:5,y:5,mw:50,name:"Meridian OCGT 1",status:"operational",progress:0},
+  {id:2,type:"Gas",x:3,y:7,name:"Gas receiving",status:"operational",progress:0},
+  {id:3,type:"Grid",x:8,y:4,name:"Grid connection",status:"operational",progress:0},
+  {id:4,type:"Office",x:3,y:3,name:"Control building",status:"operational",progress:0}
+ ],
+ nextId:5,paused:false,speed:0
+};
+
+let camera={x:0,y:-20,zoom:.9,rot:0};
+let selectedId=null;
+let buildType=null;
+let preview=null;
+let showBuild=false;
+let showFinance=false;
+let noticeTimer;
+let width=0,height=0,dpr=1;
+const speeds=[1,4,12,48];
+
+function resize(){
+ dpr=Math.min(devicePixelRatio||1,2);
+ width=canvas.clientWidth;
+ height=canvas.clientHeight;
+ canvas.width=Math.round(width*dpr);
+ canvas.height=Math.round(height*dpr);
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+window.addEventListener("resize",resize);
+resize();
+
+function rotate(x,y){
+ const cx=N/2,cy=N/2;
+ x-=cx;y-=cy;
+ const r=((camera.rot%4)+4)%4;
+ if(r===1)return {x:-y+cx,y:x+cy};
+ if(r===2)return {x:-x+cx,y:-y+cy};
+ if(r===3)return {x:y+cx,y:-x+cy};
+ return {x:x+cx,y:y+cy};
+}
+
+function unrotate(x,y){
+ const cx=N/2,cy=N/2;
+ x-=cx;y-=cy;
+ const r=((camera.rot%4)+4)%4;
+ if(r===1)return {x:y+cx,y:-x+cy};
+ if(r===2)return {x:-x+cx,y:-y+cy};
+ if(r===3)return {x:-y+cx,y:x+cy};
+ return {x:x+cx,y:y+cy};
+}
+
+function project(x,y,z=0){
+ const p=rotate(x,y);
+ return {
+  x:width/2+camera.x+(p.x-p.y)*TW/2*camera.zoom,
+  y:height*.42+camera.y+(p.x+p.y)*TH/2*camera.zoom-z*camera.zoom
+ };
+}
+
+function screenToTile(sx,sy){
+ const u=(sx-width/2-camera.x)/(TW/2*camera.zoom);
+ const v=(sy-height*.42-camera.y)/(TH/2*camera.zoom);
+ const p=unrotate((u+v)/2,(v-u)/2);
+ return {x:Math.floor(p.x),y:Math.floor(p.y)};
+}
+
+function poly(pts,fill,stroke="#344c50",line=1){
+ ctx.beginPath();
+ ctx.moveTo(pts[0].x,pts[0].y);
+ for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i].x,pts[i].y);
+ ctx.closePath();
+ ctx.fillStyle=fill;
+ ctx.fill();
+ if(stroke){
+  ctx.strokeStyle=stroke;
+  ctx.lineWidth=line;
+  ctx.stroke();
+ }
+}
+
+function tile(x,y,fill){
+ poly([project(x,y),project(x+1,y),project(x+1,y+1),project(x,y+1)],fill,"#587765",.6);
+}
+
+function block(x,y,w,h,z,color){
+ const a=project(x,y,z),b=project(x+w,y,z),
+ c=project(x+w,y+h,z),d=project(x,y+h,z);
+ const aa=project(x,y),bb=project(x+w,y),
+ cc=project(x+w,y+h),dd=project(x,y+h);
+ poly([d,c,cc,dd],"#526773");
+ poly([b,c,cc,bb],"#405865");
+ poly([a,b,c,d],color);
+}
+
+function line(a,b,color,lw=2){
+ ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+ ctx.strokeStyle=color;ctx.lineWidth=lw*camera.zoom;ctx.stroke();
+}
+
+function stack(x,y,height){
+ const bottom=project(x,y,12);
+ const top=project(x,y,height);
+ line(bottom,top,"#7a858b",12);
+ line(project(x,y,height-5),top,"#c5d0d4",11);
+ ctx.fillStyle="#394e58";
+ ctx.beginPath();ctx.ellipse(top.x,top.y,6*camera.zoom,3*camera.zoom,0,0,Math.PI*2);ctx.fill();
+}
+
+function drawAsset(a){
+ const type=TYPES[a.type];
+ const x=a.x,y=a.y;
+ const constructing=a.status==="building";
+ const alpha=constructing?.65:1;
+ ctx.globalAlpha=alpha;
+
+ if(a.type==="OCGT"){
+  block(x+.12,y+.12,1.65,1.55,21,type.color);
+  block(x+.2,y+.2,.8,.45,25,"#c2ccd0");
+  stack(x+1.45,y+.5,52);
+  stack(x+1.45,y+1.12,52);
+  line(project(x+.3,y+1.75,4),project(x+1.65,y+1.75,4),"#d8b85c",5);
+ }else if(a.type==="Battery"){
+  for(let j=0;j<2;j++){
+   block(x+.1,y+.12+j*.83,1.7,.68,13,j?"#d7d9d4":"#f0ece1");
+   for(let k=0;k<3;k++){
+    const p=project(x+.35+k*.42,y+.14+j*.83,14);
+    ctx.fillStyle="#607c85";
+    ctx.fillRect(p.x-2*camera.zoom,p.y-2*camera.zoom,5*camera.zoom,3*camera.zoom);
+   }
+  }
+ }else if(a.type==="Grid"){
+  block(x+.15,y+.15,1.7,1.6,3,"#8a9b99");
+  for(let j=0;j<2;j++){
+   block(x+.3+j*.8,y+.4,.55,.85,12,"#667e8b");
+   for(let k=0;k<3;k++){
+    const p=project(x+.5+j*.8,y+.6+k*.15,22);
+    line(p,project(x+.5+j*.8,y+.6+k*.15,13),"#bdc8c9",2);
+   }
+  }
+  for(let j=0;j<3;j++){
+   line(project(x+.3+j*.6,y+1.7,3),project(x+.3+j*.6,y+1.7,24),"#bec9c9",2);
+  }
+ }else if(a.type==="Gas"){
+  block(x+.1,y+.1,1.7,1.6,3,"#969e95");
+  for(let j=0;j<3;j++){
+   line(project(x+.3,y+.35+j*.45,7),project(x+1.7,y+.35+j*.45,7),"#d4b05f",6);
+  }
+  block(x+.45,y+.5,.7,.7,10,"#b6a477");
+ }else{
+  block(x+.1,y+.1,1.7,1.7,16,"#a6bac2");
+  block(x+.25,y+.3,1.4,.3,19,"#647e90");
+  block(x+.25,y+1.15,1.4,.3,19,"#647e90");
+ }
+
+ ctx.globalAlpha=1;
+ if(constructing){
+  const p=project(x+1,y+1,42);
+  ctx.fillStyle="#ffe0a0";
+  ctx.font="bold 12px system-ui";
+  ctx.textAlign="center";
+  ctx.fillText("🏗 "+Math.round(a.progress*100)+"%",p.x,p.y);
+  ctx.textAlign="left";
+ }
+
+ if(a.id===selectedId){
+  const p=project(x+1,y+1,56);
+  ctx.fillStyle="#ffe082";
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,6,0,Math.PI*2);
+  ctx.fill();
+ }
+}
+
+function draw(){
+ ctx.clearRect(0,0,width,height);
+
+ const tiles=[];
+ for(let x=0;x<N;x++)for(let y=0;y<N;y++){
+  const p=rotate(x+.5,y+.5);
+  tiles.push({x,y,depth:p.x+p.y});
+ }
+ tiles.sort((a,b)=>a.depth-b.depth);
+
+ for(const t of tiles){
+  const road=t.x===2||t.y===9||t.x===10&&t.y>3&&t.y<12;
+  const c=road?"#747d7a":(t.x+t.y)%2?"#729679":"#7c9d80";
+  tile(t.x,t.y,c);
+ }
+
+ // Site boundary and perimeter fence
+ const fence=[project(0,0),project(N,0),project(N,N),project(0,N)];
+ for(let i=0;i<4;i++)line(fence[i],fence[(i+1)%4],"#d5d6c7",2.5);
+
+ // Service road markings
+ for(let y=0;y<N;y+=2){
+  line(project(2.5,y+.2,1),project(2.5,y+.8,1),"#c4c8b1",1.5);
+ }
+
+ // Order buildings by visible depth
+ const sorted=[...state.assets].sort((a,b)=>{
+  const p=rotate(a.x+1,a.y+1);
+  const q=rotate(b.x+1,b.y+1);
+  return p.x+p.y-q.x-q.y;
+ });
+ sorted.forEach(drawAsset);
+
+ // Construction preview
+ if(buildType&&preview){
+  const valid=canPlace(buildType,preview.x,preview.y);
+  const size=TYPES[buildType].size;
+  const corners=[
+   project(preview.x,preview.y,2),
+   project(preview.x+size,preview.y,2),
+   project(preview.x+size,preview.y+size,2),
+   project(preview.x,preview.y+size,2)
+  ];
+  poly(corners,valid?"#7bf0aa80":"#ff6c6c88",
+       valid?"#a7ffba":"#ff9696",2);
+ }
+
+ requestAnimationFrame(draw);
+}
+
+function overlap(x,y,size,a){
+ const s=TYPES[a.type].size;
+ return x<a.x+s&&x+size>a.x&&y<a.y+s&&y+size>a.y;
+}
+
+function canPlace(type,x,y){
+ const s=TYPES[type].size;
+ if(x<0||y<0||x+s>N||y+s>N)return false;
+ if(state.assets.some(a=>overlap(x,y,s,a)))return false;
+ // Keep service roads clear
+ for(let i=x;i<x+s;i++)for(let j=y;j<y+s;j++){
+  if(i===2||j===9||(i===10&&j>3&&j<12))return false;
+ }
+ return true;
+}
+
+function distance(a,b){
+ return Math.abs(a.x-b.x)+Math.abs(a.y-b.y);
+}
+
+function connected(a,type,range=8){
+ return state.assets.some(b=>
+  b.id!==a.id&&b.type===type&&
+  b.status==="operational"&&distance(a,b)<=range
+ );
+}
+
+function getStatus(a){
+ if(a.status==="building")return "Under construction";
+ if(a.type==="OCGT"){
+  if(!connected(a,"Gas"))return "Disconnected: gas supply";
+  if(!connected(a,"Grid"))return "Disconnected: grid";
+  return "Operational";
+ }
+ if(a.type==="Battery"&&!connected(a,"Grid"))return "Disconnected: grid";
+ return "Operational";
+}
+
+function isAvailable(a){
+ return a.status==="operational"&&
+ (a.type==="OCGT"||a.type==="Battery")&&
+ getStatus(a)==="Operational";
+}
+
+function getGasMW(){
+ return state.assets.filter(a=>a.type==="OCGT"&&isAvailable(a))
+  .reduce((s,a)=>s+(a.mw||20),0);
+}
+
+function getBatteryMW(){
+ return state.assets.filter(a=>a.type==="Battery"&&isAvailable(a))
+  .reduce((s,a)=>s+(a.mw||10),0);
+}
+
+function getGridMW(){
+ return state.assets.filter(a=>a.type==="Grid"&&a.status==="operational").length*80;
+}
+
+function getSelected(){
+ return state.assets.find(a=>a.id===selectedId)||null;
+}
+
+function formatMoney(n){
+ return (n<0?"−":"")+"£"+Math.abs(n).toFixed(3)+"m";
+}
+
+function notify(text){
+ $("notice").textContent=text;
+ clearTimeout(noticeTimer);
+ noticeTimer=setTimeout(()=>{
+  $("notice").textContent="Drag to pan · Pinch to zoom · ↶ ↷ to rotate";
+ },3800);
+}
+
+function refreshPanel(){
+ const a=getSelected();
+ if(buildType){
+  $("panel").innerHTML=
+   "<h2>🏗 Place "+TYPES[buildType].name+"</h2>"+
+   "<p>Tap a clear area of the site. Green means valid placement; red means blocked.</p>"+
+   "<p>Cost: £"+TYPES[buildType].cost.toFixed(1)+"m · Build time: "+
+   TYPES[buildType].days+" days</p>"+
+   "<div class='actions'><button id='cancelPlacement'>Cancel placement</button></div>";
+  $("cancelPlacement").onclick=()=>{buildType=null;preview=null;refreshPanel();};
+  return;
+ }
+ if(!a){
+  $("panel").innerHTML=
+   "<h2>East Midlands generation hub</h2>"+
+   "<p>Tap a building to inspect it, or choose Build to expand.</p>"+
+   "<p>Gas turbines require a nearby gas station and grid connection. "+
+   "Batteries require a nearby grid connection.</p>";
+  return;
+ }
+ let info=TYPES[a.type];
+ let extra="";
+ if(a.type==="OCGT"){
+  extra="Capacity: "+(a.mw||20)+" MW · Dispatches when market prices cover fuel, carbon and variable operating costs.";
+ }else if(a.type==="Battery"){
+  extra="Capacity: 10 MW / 20 MWh · State of charge: "+
+   (a.soc||0).toFixed(1)+" MWh · Automatically charges at low prices and discharges at high prices.";
+ }else if(a.type==="Grid"){
+  extra="Grid export capacity: 80 MW per transformer. Total site grid limit: "+getGridMW()+" MW.";
+ }else if(a.type==="Gas"){
+  extra="Provides gas infrastructure to nearby generators.";
+ }else{
+  extra="Operations and site administration.";
+ }
+ let statusText=getStatus(a);
+ let progress=a.status==="building"
+  ?"<p>Construction: "+Math.round(a.progress*100)+"% complete</p>":"";
+ $("panel").innerHTML=
+  "<h2>"+a.name+"</h2>"+
+  "<p>Status: <strong>"+statusText+"</strong></p>"+
+  "<p>"+extra+"</p>"+progress+
+  "<div class='actions'><button id='deselect'>Close details</button></div>";
+ $("deselect").onclick=()=>{selectedId=null;refreshPanel();};
+}
+
+function refresh(){
+ const gas=state.assets.filter(a=>a.type==="OCGT").reduce((s,a)=>s+(a.mw||20),0);
+ const bat=state.assets.filter(a=>a.type==="Battery").length*10;
+ $("topStats").innerHTML=
+  "<strong>"+formatMoney(state.cash)+"</strong><br>"+
+  "<span>"+gas+"MW gas · "+bat+"MW BESS</span>";
+ $("clock").textContent=
+  "Day "+state.day+" · "+
+  String(Math.floor(state.hour)).padStart(2,"0")+":"+
+  (state.hour%1?".30":"00")+
+  " · Power £"+state.price.toFixed(0)+"/MWh"+
+  " · Grid "+getGridMW()+"MW";
+ $("pauseBtn").textContent=state.paused?"▶ Resume":"⏸ Pause";
+ $("speedBtn").textContent="⏩ "+speeds[state.speed]+"×";
+ if(showFinance)refreshFinance();
+ refreshPanel();
+}
+
+function refreshFinance(){
+ const rows=[
+  ["Cash balance",formatMoney(state.cash)],
+  ["Cumulative electricity revenue",formatMoney(state.revenue)],
+  ["Fuel costs",formatMoney(state.fuel)],
+  ["Carbon costs",formatMoney(state.carbon)],
+  ["Operating costs",formatMoney(state.opex)],
+  ["Operating profit",formatMoney(state.profit)],
+  ["Gas generation",state.gasMWh.toFixed(1)+" MWh"],
+  ["Battery discharge",state.batteryMWh.toFixed(1)+" MWh"],
+  ["Grid exports",state.exportMWh.toFixed(1)+" MWh"],
+  ["Available gas capacity",getGasMW()+" MW"],
+  ["Available battery power",getBatteryMW()+" MW"],
+  ["Grid connection capacity",getGridMW()+" MW"],
+  ["Current electricity price","£"+state.price.toFixed(0)+"/MWh"]
+ ];
+ $("financeRows").innerHTML=rows.map(([k,v])=>
+  "<div class='finRow'><span>"+k+"</span><strong>"+v+"</strong></div>"
+ ).join("");
+}
+
+function buildOptions(){
+ $("buildOptions").innerHTML=Object.entries(TYPES).map(([key,t])=>
+  "<div class='buildOption'><div><strong>"+t.name+"</strong>"+
+  "<small>£"+t.cost.toFixed(1)+"m · "+t.days+" days"+
+  (t.mw?" · "+t.mw+"MW":"")+"</small></div>"+
+  "<button data-type='"+key+"'>Select</button></div>"
+ ).join("");
+ document.querySelectorAll("[data-type]").forEach(b=>{
+  b.onclick=()=>{
+   const type=b.dataset.type;
+   if(state.cash<TYPES[type].cost){
+    notify("Insufficient cash for this project");
+    return;
+   }
+   buildType=type;
+   preview=null;
+   showBuild=false;
+   $("buildMenu").style.display="none";
+   refreshPanel();
+   notify("Tap a clear area to place "+TYPES[type].name);
+  };
+ });
+}
+
+function construct(type,x,y){
+ if(!canPlace(type,x,y)){
+  notify("Cannot build here: occupied or reserved land");
+  return;
+ }
+ const t=TYPES[type];
+ if(state.cash<t.cost){
+  notify("Insufficient cash");
+  return;
+ }
+ if(!confirm("Build "+t.name+" for £"+t.cost.toFixed(1)+
+             "m? Construction takes "+t.days+" days."))return;
+ state.cash-=t.cost;
+ const a={
+  id:state.nextId++,type,x,y,
+  name:t.name+" "+state.nextId,
+  mw:t.mw||0,status:"building",
+  progress:0,daysRequired:t.days,
+  soc:0
+ };
+ state.assets.push(a);
+ selectedId=a.id;
+ buildType=null;
+ preview=null;
+ refresh();
+ save(false);
+ notify("Construction started");
+}
+
+function chooseTile(sx,sy){
+ const t=screenToTile(sx,sy);
+ if(buildType){
+  if(preview&&preview.x===t.x&&preview.y===t.y){
+   construct(buildType,t.x,t.y);
+  }else{
+   preview=t;
+   notify(canPlace(buildType,t.x,t.y)
+    ?"Tap the highlighted location again to confirm"
+    :"Location unavailable — choose another tile");
+  }
+  return;
+ }
+ const a=[...state.assets].reverse().find(a=>
+  t.x>=a.x&&t.x<a.x+TYPES[a.type].size&&
+  t.y>=a.y&&t.y<a.y+TYPES[a.type].size
+ );
+ selectedId=a?a.id:null;
+ refreshPanel();
+}
+
+function marketPrice(){
+ const daily=45*Math.sin((state.hour-8)/24*Math.PI*2);
+ const seasonal=19*Math.cos(state.day*.12);
+ const wind=30*Math.sin(state.day*.39+state.hour*.08);
+ const volatility=14*Math.sin(state.day*.87+state.hour*.53);
+ return Math.max(-25,Math.min(270,100+daily+seasonal-wind+volatility));
+}
+
+function simulateHalfHour(){
+ state.hour+=.5;
+ if(state.hour>=24){
+  state.hour=0;
+  state.day++;
+ }
+
+ state.price=marketPrice();
+ const grid=getGridMW();
+ const gasCap=getGasMW();
+ const batAssets=state.assets.filter(a=>a.type==="Battery"&&isAvailable(a));
+
+ // Illustrative operating assumptions (£/MWh)
+ const gasFuel=55;
+ const gasCarbon=23;
+ const gasVariable=8;
+ const gasMarginal=gasFuel+gasCarbon+gasVariable;
+
+ // Dispatch gas only above marginal cost
+ let gasMW=state.price>gasMarginal?Math.min(gasCap,grid):0;
+ let remainingGrid=Math.max(0,grid-gasMW);
+
+ let batteryChargeMWh=0;
+ let batteryDischargeMWh=0;
+
+ for(const a of batAssets){
+  const maxEnergy=20;
+  const power=10;
+  const soc=a.soc||0;
+
+  if(state.price<65){
+   // Charging is an import and does not consume export capacity
+   const purchased=Math.min(power*.5,(maxEnergy-soc)/.9);
+   a.soc=Math.min(maxEnergy,soc+purchased*.9);
+   batteryChargeMWh+=purchased;
+  }else if(state.price>125&&remainingGrid>0){
+   const delivered=Math.min(power*.5,remainingGrid*.5,soc*.9);
+   a.soc=Math.max(0,soc-delivered/.9);
+   batteryDischargeMWh+=delivered;
+   remainingGrid-=delivered/.5;
+  }
+ }
+
+ const gasEnergy=gasMW*.5;
+ const exported=gasEnergy+batteryDischargeMWh;
+
+ const rev=exported*state.price/1e6;
+ const charging=batteryChargeMWh*state.price/1e6;
+ const fuel=gasEnergy*gasFuel/1e6;
+ const carbon=gasEnergy*gasCarbon/1e6;
+ const variable=gasEnergy*gasVariable/1e6;
+ const fixed=state.assets.filter(a=>a.status==="operational").length*120/1e6;
+
+ const operatingCost=variable+fixed+charging;
+ const profit=rev-fuel-carbon-operatingCost;
+
+ state.revenue+=rev;
+ state.fuel+=fuel;
+ state.carbon+=carbon;
+ state.opex+=operatingCost;
+ state.profit+=profit;
+ state.cash+=profit;
+ state.gasMWh+=gasEnergy;
+ state.batteryMWh+=batteryDischargeMWh;
+ state.exportMWh+=exported;
+
+ // Construction advances by half-hour intervals
+ for(const a of state.assets){
+  if(a.status==="building"){
+   a.progress+=.5/(a.daysRequired*24);
+   if(a.progress>=1){
+    a.progress=1;
+    a.status="operational";
+    notify(a.name+" construction completed");
+   }
+  }
+ }
+
+ if(state.cash<0&&!state.bankruptWarned){
+  state.bankruptWarned=true;
+  notify("Warning: cash balance is negative");
+ }
+}
+
+let last=performance.now();
+let accumulator=0;
+
+function loop(now){
+ const elapsed=Math.min((now-last)/1000,2);
+ last=now;
+ if(!state.paused){
+  // At 1x, one half-hour passes every 3 real seconds
+  accumulator+=elapsed*speeds[state.speed];
+  let steps=0;
+  while(accumulator>=3&&steps<80){
+   simulateHalfHour();
+   accumulator-=3;
+   steps++;
+  }
+  if(steps)refresh();
+ }
+ requestAnimationFrame(loop);
+}
+
+// Pointer controls
+const pointers=new Map();
+let gestureMoved=false;
+let gestureMulti=false;
+let oldDistance=0;
+let oldCentre=null;
+
+function localPoint(e){
+ const r=canvas.getBoundingClientRect();
+ return {x:e.clientX-r.left,y:e.clientY-r.top};
+}
+
+canvas.addEventListener("pointerdown",e=>{
+ canvas.setPointerCapture(e.pointerId);
+ pointers.set(e.pointerId,localPoint(e));
+ if(pointers.size===1){
+  gestureMoved=false;
+  gestureMulti=false;
+ }
+ if(pointers.size>1){
+  gestureMulti=true;
+  oldDistance=0;
+  oldCentre=null;
+ }
+});
+
+canvas.addEventListener("pointermove",e=>{
+ if(!pointers.has(e.pointerId))return;
+ const p=localPoint(e);
+ const old=pointers.get(e.pointerId);
+ pointers.set(e.pointerId,p);
+
+ if(pointers.size===1){
+  const dx=p.x-old.x,dy=p.y-old.y;
+  if(Math.abs(dx)+Math.abs(dy)>1)gestureMoved=true;
+  camera.x+=dx;
+  camera.y+=dy;
+ }else if(pointers.size===2){
+  gestureMulti=true;
+  gestureMoved=true;
+  const v=[...pointers.values()];
+  const dist=Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y);
+  const centre={x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2};
+  if(oldDistance>0){
+   camera.zoom=Math.max(.45,Math.min(2.2,camera.zoom*dist/oldDistance));
+  }
+  if(oldCentre){
+   camera.x+=centre.x-oldCentre.x;
+   camera.y+=centre.y-oldCentre.y;
+  }
+  oldDistance=dist;
+  oldCentre=centre;
+ }
+});
+
+canvas.addEventListener("pointerup",e=>{
+ if(pointers.has(e.pointerId)&&pointers.size===1&&!gestureMoved&&!gestureMulti){
+  const p=localPoint(e);
+  chooseTile(p.x,p.y);
+ }
+ pointers.delete(e.pointerId);
+ oldDistance=0;
+ oldCentre=null;
+});
+
+canvas.addEventListener("pointercancel",e=>{
+ pointers.delete(e.pointerId);
+ oldDistance=0;
+ oldCentre=null;
+});
+
+$("left").onclick=()=>{camera.rot=(camera.rot+3)%4;notify("Camera rotated left");};
+$("right").onclick=()=>{camera.rot=(camera.rot+1)%4;notify("Camera rotated right");};
+$("zin").onclick=()=>{camera.zoom=Math.min(2.2,camera.zoom*1.2);};
+$("zout").onclick=()=>{camera.zoom=Math.max(.45,camera.zoom/1.2);};
+$("home").onclick=()=>{camera.x=0;camera.y=-20;camera.zoom=.9;};
+
+$("buildBtn").onclick=()=>{
+ showBuild=!showBuild;
+ $("buildMenu").style.display=showBuild?"block":"none";
+ if(showBuild){
+  showFinance=false;
+  $("finance").style.display="none";
+  buildOptions();
+ }
+};
+$("cancelBuild").onclick=()=>{
+ showBuild=false;buildType=null;preview=null;
+ $("buildMenu").style.display="none";
+ refreshPanel();
+};
+
+$("financeBtn").onclick=()=>{
+ showFinance=!showFinance;
+ $("finance").style.display=showFinance?"block":"none";
+ if(showFinance){
+  showBuild=false;
+  $("buildMenu").style.display="none";
+  refreshFinance();
+ }
+};
+$("closeFinance").onclick=()=>{
+ showFinance=false;
+ $("finance").style.display="none";
+};
+
+$("pauseBtn").onclick=()=>{state.paused=!state.paused;refresh();};
+$("speedBtn").onclick=()=>{state.speed=(state.speed+1)%speeds.length;refresh();};
+
+function save(message=true){
+ try{
+  localStorage.setItem(SAVE_KEY,JSON.stringify({state,camera}));
+  if(message)notify("Game saved on this iPhone");
+ }catch(e){
+  notify("Save failed — check Safari storage settings");
+ }
+}
+$("saveBtn").onclick=()=>save();
+
+$("resetBtn").onclick=()=>{
+ if(confirm("Start a new game? This will erase your v0.2 progress.")){
+  localStorage.removeItem(SAVE_KEY);
+  location.reload();
+ }
+};
+
+try{
+ const saved=JSON.parse(localStorage.getItem(SAVE_KEY));
+ if(saved&&saved.state&&Array.isArray(saved.state.assets)){
+  state=saved.state;
+  camera=saved.camera||camera;
+  state.nextId=state.nextId||Math.max(...state.assets.map(a=>a.id))+1;
+ }
+}catch(e){
+ console.warn("Could not load saved game",e);
+}
+
+// Autosave every 30 seconds while the page is open
+setInterval(()=>save(false),30000);
+
+// Save on app backgrounding
+document.addEventListener("visibilitychange",()=>{
+ if(document.hidden)save(false);
+});
+
+refresh();
+requestAnimationFrame(draw);
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
