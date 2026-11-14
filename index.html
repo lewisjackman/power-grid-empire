@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#10232b">
-<title>Power Grid Empire v0.2</title>
+<title>Power Grid Empire v0.2.1</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10232b;color:#edf5f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}
@@ -50,12 +50,12 @@ button:disabled{opacity:.4}
 <header>
  <div>
   <h1>⚡ Power Grid Empire</h1>
-  <div class="sub">Meridian Power · East Midlands · v0.2</div>
+  <div class="sub">Meridian Power · East Midlands · v0.2.1</div>
  </div>
  <div id="topStats"></div>
 </header>
 
-<div id="notice">Drag to pan · Pinch to zoom · ↶ ↷ to rotate</div>
+<div id="notice">Drag to pan · Pinch to zoom · Twist to rotate</div>
 
 <div id="floating">
  <button id="left" title="Rotate left">↶</button>
@@ -99,7 +99,6 @@ const canvas=$("world");
 const ctx=canvas.getContext("2d");
 const N=16,TW=48,TH=25;
 const SAVE_KEY="pge-v02";
-const OLD_KEY="pge-mobile-m1";
 
 const TYPES={
  OCGT:{name:"Gas peaking turbine",cost:5,days:3,mw:20,size:2,color:"#8ca0aa"},
@@ -224,8 +223,7 @@ function drawAsset(a){
  const type=TYPES[a.type];
  const x=a.x,y=a.y;
  const constructing=a.status==="building";
- const alpha=constructing?.65:1;
- ctx.globalAlpha=alpha;
+ ctx.globalAlpha=constructing?.65:1;
 
  if(a.type==="OCGT"){
   block(x+.12,y+.12,1.65,1.55,21,type.color);
@@ -296,21 +294,18 @@ function draw(){
  tiles.sort((a,b)=>a.depth-b.depth);
 
  for(const t of tiles){
-  const road=t.x===2||t.y===9||t.x===10&&t.y>3&&t.y<12;
+  const road=t.x===2||t.y===9||(t.x===10&&t.y>3&&t.y<12);
   const c=road?"#747d7a":(t.x+t.y)%2?"#729679":"#7c9d80";
   tile(t.x,t.y,c);
  }
 
- // Site boundary and perimeter fence
  const fence=[project(0,0),project(N,0),project(N,N),project(0,N)];
  for(let i=0;i<4;i++)line(fence[i],fence[(i+1)%4],"#d5d6c7",2.5);
 
- // Service road markings
  for(let y=0;y<N;y+=2){
   line(project(2.5,y+.2,1),project(2.5,y+.8,1),"#c4c8b1",1.5);
  }
 
- // Order buildings by visible depth
  const sorted=[...state.assets].sort((a,b)=>{
   const p=rotate(a.x+1,a.y+1);
   const q=rotate(b.x+1,b.y+1);
@@ -318,7 +313,6 @@ function draw(){
  });
  sorted.forEach(drawAsset);
 
- // Construction preview
  if(buildType&&preview){
   const valid=canPlace(buildType,preview.x,preview.y);
   const size=TYPES[buildType].size;
@@ -344,7 +338,6 @@ function canPlace(type,x,y){
  const s=TYPES[type].size;
  if(x<0||y<0||x+s>N||y+s>N)return false;
  if(state.assets.some(a=>overlap(x,y,s,a)))return false;
- // Keep service roads clear
  for(let i=x;i<x+s;i++)for(let j=y;j<y+s;j++){
   if(i===2||j===9||(i===10&&j>3&&j<12))return false;
  }
@@ -405,7 +398,7 @@ function notify(text){
  $("notice").textContent=text;
  clearTimeout(noticeTimer);
  noticeTimer=setTimeout(()=>{
-  $("notice").textContent="Drag to pan · Pinch to zoom · ↶ ↷ to rotate";
+  $("notice").textContent="Drag to pan · Pinch to zoom · Twist to rotate";
  },3800);
 }
 
@@ -429,7 +422,6 @@ function refreshPanel(){
    "Batteries require a nearby grid connection.</p>";
   return;
  }
- let info=TYPES[a.type];
  let extra="";
  if(a.type==="OCGT"){
   extra="Capacity: "+(a.mw||20)+" MW · Dispatches when market prices cover fuel, carbon and variable operating costs.";
@@ -443,12 +435,11 @@ function refreshPanel(){
  }else{
   extra="Operations and site administration.";
  }
- let statusText=getStatus(a);
- let progress=a.status==="building"
+ const progress=a.status==="building"
   ?"<p>Construction: "+Math.round(a.progress*100)+"% complete</p>":"";
  $("panel").innerHTML=
   "<h2>"+a.name+"</h2>"+
-  "<p>Status: <strong>"+statusText+"</strong></p>"+
+  "<p>Status: <strong>"+getStatus(a)+"</strong></p>"+
   "<p>"+extra+"</p>"+progress+
   "<div class='actions'><button id='deselect'>Close details</button></div>";
  $("deselect").onclick=()=>{selectedId=null;refreshPanel();};
@@ -587,13 +578,11 @@ function simulateHalfHour(){
  const gasCap=getGasMW();
  const batAssets=state.assets.filter(a=>a.type==="Battery"&&isAvailable(a));
 
- // Illustrative operating assumptions (£/MWh)
  const gasFuel=55;
  const gasCarbon=23;
  const gasVariable=8;
  const gasMarginal=gasFuel+gasCarbon+gasVariable;
 
- // Dispatch gas only above marginal cost
  let gasMW=state.price>gasMarginal?Math.min(gasCap,grid):0;
  let remainingGrid=Math.max(0,grid-gasMW);
 
@@ -606,7 +595,6 @@ function simulateHalfHour(){
   const soc=a.soc||0;
 
   if(state.price<65){
-   // Charging is an import and does not consume export capacity
    const purchased=Math.min(power*.5,(maxEnergy-soc)/.9);
    a.soc=Math.min(maxEnergy,soc+purchased*.9);
    batteryChargeMWh+=purchased;
@@ -641,7 +629,6 @@ function simulateHalfHour(){
  state.batteryMWh+=batteryDischargeMWh;
  state.exportMWh+=exported;
 
- // Construction advances by half-hour intervals
  for(const a of state.assets){
   if(a.status==="building"){
    a.progress+=.5/(a.daysRequired*24);
@@ -666,7 +653,6 @@ function loop(now){
  const elapsed=Math.min((now-last)/1000,2);
  last=now;
  if(!state.paused){
-  // At 1x, one half-hour passes every 3 real seconds
   accumulator+=elapsed*speeds[state.speed];
   let steps=0;
   while(accumulator>=3&&steps<80){
@@ -679,123 +665,242 @@ function loop(now){
  requestAnimationFrame(loop);
 }
 
-// Pointer controls
+// TOUCH CONTROLS — v0.2.1
+// One finger: pan
+// Two fingers: pan and pinch
+// Two-finger twist: rotate in 90-degree steps
+
 const pointers=new Map();
 let gestureMoved=false;
 let gestureMulti=false;
 let oldDistance=0;
 let oldCentre=null;
+let oldAngle=null;
+let twistAccumulator=0;
 
 function localPoint(e){
  const r=canvas.getBoundingClientRect();
  return {x:e.clientX-r.left,y:e.clientY-r.top};
 }
 
+function resetGesture(){
+ oldDistance=0;
+ oldCentre=null;
+ oldAngle=null;
+ twistAccumulator=0;
+}
+
 canvas.addEventListener("pointerdown",e=>{
  canvas.setPointerCapture(e.pointerId);
  pointers.set(e.pointerId,localPoint(e));
+
  if(pointers.size===1){
   gestureMoved=false;
   gestureMulti=false;
+  resetGesture();
  }
+
  if(pointers.size>1){
   gestureMulti=true;
-  oldDistance=0;
-  oldCentre=null;
+  resetGesture();
  }
 });
 
 canvas.addEventListener("pointermove",e=>{
  if(!pointers.has(e.pointerId))return;
+
  const p=localPoint(e);
  const old=pointers.get(e.pointerId);
  pointers.set(e.pointerId,p);
 
  if(pointers.size===1){
-  const dx=p.x-old.x,dy=p.y-old.y;
-  if(Math.abs(dx)+Math.abs(dy)>1)gestureMoved=true;
+  const dx=p.x-old.x;
+  const dy=p.y-old.y;
+
+  if(Math.abs(dx)+Math.abs(dy)>1){
+   gestureMoved=true;
+  }
+
   camera.x+=dx;
   camera.y+=dy;
+
  }else if(pointers.size===2){
+
   gestureMulti=true;
   gestureMoved=true;
+
   const v=[...pointers.values()];
-  const dist=Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y);
-  const centre={x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2};
+
+  const dist=Math.hypot(
+   v[1].x-v[0].x,
+   v[1].y-v[0].y
+  );
+
+  const centre={
+   x:(v[0].x+v[1].x)/2,
+   y:(v[0].y+v[1].y)/2
+  };
+
+  const newAngle=Math.atan2(
+   v[1].y-v[0].y,
+   v[1].x-v[0].x
+  );
+
+  // Pinch to zoom
   if(oldDistance>0){
-   camera.zoom=Math.max(.45,Math.min(2.2,camera.zoom*dist/oldDistance));
+   camera.zoom=Math.max(
+    .45,
+    Math.min(2.2,camera.zoom*dist/oldDistance)
+   );
   }
+
+  // Two-finger pan
   if(oldCentre){
    camera.x+=centre.x-oldCentre.x;
    camera.y+=centre.y-oldCentre.y;
   }
+
+  // Two-finger twist to rotate
+  if(oldAngle!==null){
+   let delta=newAngle-oldAngle;
+
+   // Normalise the angle across the -PI / +PI boundary
+   delta=Math.atan2(
+    Math.sin(delta),
+    Math.cos(delta)
+   );
+
+   twistAccumulator+=delta;
+
+   // Rotate one quarter turn per 30 degrees of twisting
+   const threshold=Math.PI/6;
+
+   while(twistAccumulator>=threshold){
+    camera.rot=(camera.rot+1)%4;
+    twistAccumulator-=threshold;
+   }
+
+   while(twistAccumulator<=-threshold){
+    camera.rot=(camera.rot+3)%4;
+    twistAccumulator+=threshold;
+   }
+  }
+
   oldDistance=dist;
   oldCentre=centre;
+  oldAngle=newAngle;
  }
 });
 
 canvas.addEventListener("pointerup",e=>{
- if(pointers.has(e.pointerId)&&pointers.size===1&&!gestureMoved&&!gestureMulti){
+ if(
+  pointers.has(e.pointerId)&&
+  pointers.size===1&&
+  !gestureMoved&&
+  !gestureMulti
+ ){
   const p=localPoint(e);
   chooseTile(p.x,p.y);
  }
+
  pointers.delete(e.pointerId);
- oldDistance=0;
- oldCentre=null;
+ resetGesture();
 });
 
 canvas.addEventListener("pointercancel",e=>{
  pointers.delete(e.pointerId);
- oldDistance=0;
- oldCentre=null;
+ resetGesture();
 });
 
-$("left").onclick=()=>{camera.rot=(camera.rot+3)%4;notify("Camera rotated left");};
-$("right").onclick=()=>{camera.rot=(camera.rot+1)%4;notify("Camera rotated right");};
-$("zin").onclick=()=>{camera.zoom=Math.min(2.2,camera.zoom*1.2);};
-$("zout").onclick=()=>{camera.zoom=Math.max(.45,camera.zoom/1.2);};
-$("home").onclick=()=>{camera.x=0;camera.y=-20;camera.zoom=.9;};
+// CAMERA BUTTONS
+$("left").onclick=()=>{
+ camera.rot=(camera.rot+3)%4;
+ notify("Camera rotated left");
+};
 
+$("right").onclick=()=>{
+ camera.rot=(camera.rot+1)%4;
+ notify("Camera rotated right");
+};
+
+$("zin").onclick=()=>{
+ camera.zoom=Math.min(2.2,camera.zoom*1.2);
+};
+
+$("zout").onclick=()=>{
+ camera.zoom=Math.max(.45,camera.zoom/1.2);
+};
+
+$("home").onclick=()=>{
+ camera.x=0;
+ camera.y=-20;
+ camera.zoom=.9;
+};
+
+// CONSTRUCTION MENU
 $("buildBtn").onclick=()=>{
  showBuild=!showBuild;
  $("buildMenu").style.display=showBuild?"block":"none";
+
  if(showBuild){
   showFinance=false;
   $("finance").style.display="none";
   buildOptions();
  }
 };
+
 $("cancelBuild").onclick=()=>{
- showBuild=false;buildType=null;preview=null;
+ showBuild=false;
+ buildType=null;
+ preview=null;
  $("buildMenu").style.display="none";
  refreshPanel();
 };
 
+// FINANCE MENU
 $("financeBtn").onclick=()=>{
  showFinance=!showFinance;
  $("finance").style.display=showFinance?"block":"none";
+
  if(showFinance){
   showBuild=false;
   $("buildMenu").style.display="none";
   refreshFinance();
  }
 };
+
 $("closeFinance").onclick=()=>{
  showFinance=false;
  $("finance").style.display="none";
 };
 
-$("pauseBtn").onclick=()=>{state.paused=!state.paused;refresh();};
-$("speedBtn").onclick=()=>{state.speed=(state.speed+1)%speeds.length;refresh();};
+// GAME CONTROLS
+$("pauseBtn").onclick=()=>{
+ state.paused=!state.paused;
+ refresh();
+};
 
+$("speedBtn").onclick=()=>{
+ state.speed=(state.speed+1)%speeds.length;
+ refresh();
+};
+
+// SAVE / LOAD
 function save(message=true){
  try{
-  localStorage.setItem(SAVE_KEY,JSON.stringify({state,camera}));
-  if(message)notify("Game saved on this iPhone");
+  localStorage.setItem(
+   SAVE_KEY,
+   JSON.stringify({state,camera})
+  );
+
+  if(message){
+   notify("Game saved on this iPhone");
+  }
  }catch(e){
   notify("Save failed — check Safari storage settings");
  }
 }
+
 $("saveBtn").onclick=()=>save();
 
 $("resetBtn").onclick=()=>{
@@ -807,26 +912,29 @@ $("resetBtn").onclick=()=>{
 
 try{
  const saved=JSON.parse(localStorage.getItem(SAVE_KEY));
+
  if(saved&&saved.state&&Array.isArray(saved.state.assets)){
   state=saved.state;
   camera=saved.camera||camera;
-  state.nextId=state.nextId||Math.max(...state.assets.map(a=>a.id))+1;
+  state.nextId=state.nextId||
+   Math.max(...state.assets.map(a=>a.id))+1;
  }
 }catch(e){
  console.warn("Could not load saved game",e);
 }
 
-// Autosave every 30 seconds while the page is open
+// AUTOSAVE
 setInterval(()=>save(false),30000);
 
-// Save on app backgrounding
 document.addEventListener("visibilitychange",()=>{
  if(document.hidden)save(false);
 });
 
+// START GAME
 refresh();
 requestAnimationFrame(draw);
 requestAnimationFrame(loop);
+
 </script>
 </body>
 </html>
