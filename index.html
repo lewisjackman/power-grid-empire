@@ -5,1480 +5,804 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#10232b">
-<title>Power Grid Empire v0.2.4</title>
+<title>Power Grid Empire v0.3</title>
 <style>
 *{box-sizing:border-box}
-html,body{
- margin:0;width:100%;height:100%;overflow:hidden;
- background:#10232b;color:#edf5f4;
- font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif
-}
-button{font:inherit;cursor:pointer;touch-action:manipulation}
-button{
- background:#244957;color:#f1f6f5;
- border:1px solid #557b86;border-radius:10px;
- padding:10px;font-weight:650
-}
-button:disabled{opacity:.4}
-header{
- position:absolute;top:0;left:0;right:0;z-index:5;
- background:#10232b;border-bottom:1px solid #395865;
- padding:calc(8px + env(safe-area-inset-top)) 12px 9px;
- display:flex;align-items:center;justify-content:space-between;gap:8px
-}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10232b;color:#eaf3f3;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}
+button{font:inherit;cursor:pointer;touch-action:manipulation;background:#244957;color:#fff;border:1px solid #567d88;border-radius:9px;padding:10px;font-weight:650}
+button:disabled{opacity:.45}
+header{position:absolute;z-index:5;top:0;left:0;right:0;background:#10232bf5;border-bottom:1px solid #395865;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
 h1{font-size:16px;margin:0}
-.sub{font-size:10px;color:#a7c1c8;margin-top:3px}
-#topStats{text-align:right;white-space:nowrap;font-size:11px;line-height:1.55}
-#topStats strong{color:#f4d38b;font-size:15px}
-#world{
- position:absolute;inset:0;width:100%;height:100%;
- touch-action:none;
- background:linear-gradient(#89a9b0,#b3c8bd 60%,#7e9c85)
-}
-#floating{
- position:absolute;top:calc(88px + env(safe-area-inset-top));
- right:9px;display:flex;flex-direction:column;gap:7px;z-index:3
-}
-#floating button{width:43px;height:42px;font-size:19px;padding:0}
-#notice{
- position:absolute;top:calc(86px + env(safe-area-inset-top));
- left:9px;right:62px;background:#102b36df;
- border:1px solid #496a74;border-radius:8px;
- padding:9px;z-index:3;font-size:11px;pointer-events:none
-}
-#panel{
- display:none;position:absolute;
- bottom:calc(107px + env(safe-area-inset-bottom));
- left:9px;right:9px;z-index:4;
- background:#102731f5;border:1px solid #4d727d;
- border-radius:12px;padding:12px;
- max-height:35vh;overflow-y:auto
-}
-#panel h2{
- font-size:14px;margin:0 35px 7px 0;color:#f6d28d
-}
-#panel p{
- margin:5px 0;font-size:11px;
- color:#d1e1e3;line-height:1.5
-}
-#panelClose{
- position:absolute;top:7px;right:7px;
- width:36px;height:36px;padding:0;
- font-size:23px;background:#39515b
-}
-#panelActions{margin-top:10px}
-#panelActions button{font-size:11px}
-#bottom{
- position:absolute;bottom:0;left:0;right:0;z-index:5;
- background:#10232b;border-top:1px solid #456470;
- padding:9px 9px calc(10px + env(safe-area-inset-bottom))
-}
-#clock{font-size:11px;color:#c5d9db;margin-bottom:7px}
-.toolbar{
- display:flex;gap:6px;overflow-x:auto;scrollbar-width:none
-}
+.sub{font-size:10px;color:#aac5cb;margin-top:3px}
+#topStats{text-align:right;font-size:11px;white-space:nowrap;line-height:1.6}
+#topStats strong{font-size:15px;color:#f5d28b}
+#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#8eacb1,#b9cfc1 55%,#799b83)}
+#floating{position:absolute;top:calc(89px + env(safe-area-inset-top));right:9px;z-index:3;display:flex;flex-direction:column;gap:7px}
+#floating button{width:42px;height:42px;padding:0;font-size:19px}
+#notice{position:absolute;top:calc(88px + env(safe-area-inset-top));left:9px;right:61px;z-index:3;background:#102b36e8;border:1px solid #456c77;border-radius:9px;padding:9px;font-size:11px;pointer-events:none}
+#panel{display:none;position:absolute;z-index:4;bottom:calc(112px + env(safe-area-inset-bottom));left:9px;right:9px;max-height:38vh;overflow:auto;background:#102731f7;border:1px solid #587e87;border-radius:12px;padding:11px}
+#panelHeader{display:grid;grid-template-columns:minmax(0,1fr) 38px;align-items:start;gap:12px;border-bottom:1px solid #3d6069;padding-bottom:9px;margin-bottom:8px}
+#panelTitle{font-size:14px;color:#f6d28d;margin:3px 0 0;min-width:0;overflow-wrap:anywhere;line-height:1.35}
+#panelClose{width:38px;height:38px;padding:0;font-size:24px;flex-shrink:0}
+#panelContent{font-size:11px;line-height:1.5;color:#d4e3e6;overflow-wrap:anywhere}
+#panelContent p{margin:6px 0}
+#panelActions{display:flex;gap:7px;margin-top:10px}
+#panelActions button{font-size:11px;padding:8px 11px}
+#bottom{position:absolute;bottom:0;left:0;right:0;z-index:5;background:#10232b;border-top:1px solid #456470;padding:9px 9px calc(10px + env(safe-area-inset-bottom))}
+#clock{font-size:11px;color:#c6d9dc;margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
 .toolbar button{flex-shrink:0;font-size:11px;padding:11px 10px}
-#buildMenu{
- position:absolute;bottom:calc(110px + env(safe-area-inset-bottom));
- left:9px;right:9px;z-index:7;
- background:#18343f;border:1px solid #688894;
- border-radius:12px;padding:12px;display:none;
- max-height:52vh;overflow:auto;box-shadow:0 6px 30px #0008
-}
-#buildMenu h2{font-size:15px;margin:0 0 8px}
-.buildOption{
- display:flex;align-items:center;justify-content:space-between;
- gap:8px;border-top:1px solid #3b5862;padding:9px 0
-}
-.buildOption small{display:block;color:#a9c4ca;margin-top:3px}
-.buildOption button{white-space:nowrap;font-size:11px}
-#finance{
- display:none;position:absolute;
- top:calc(80px + env(safe-area-inset-top));
- left:9px;right:9px;z-index:8;
- background:#132e39;border:1px solid #60828d;
- border-radius:12px;padding:13px;
- max-height:65vh;overflow:auto;box-shadow:0 8px 30px #0009
-}
-#finance h2{margin:0 0 10px;font-size:16px}
-.finRow{
- display:flex;justify-content:space-between;
- border-bottom:1px solid #34525c;padding:7px 0
-}
-.finRow strong{font-variant-numeric:tabular-nums}
-#finance .close{margin-top:12px;width:100%}
+#buildMenu,#report{display:none;position:absolute;left:9px;right:9px;z-index:8;background:#16343f;border:1px solid #688994;border-radius:12px;padding:12px;max-height:65vh;overflow:auto;box-shadow:0 6px 30px #0009}
+#buildMenu{bottom:calc(112px + env(safe-area-inset-bottom))}
+#report{top:calc(80px + env(safe-area-inset-top))}
+#buildMenu h2,#report h2{font-size:15px;margin:0 0 10px}
+.buildOption,.statRow{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #365963;padding:9px 0}
+.buildOption small{display:block;color:#aac7cd;margin-top:3px}
+.buildOption button{font-size:11px;white-space:nowrap}
+.statRow span{color:#c6d9dc}
+.statRow strong{text-align:right;font-variant-numeric:tabular-nums}
+#reportClose,#cancelBuild{width:100%;margin-top:9px}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+.tabs button{flex:1;font-size:11px;padding:8px}
+.tabs button.active{background:#d8b264;color:#172e36}
+.hint{color:#b4cbd0;font-size:11px;line-height:1.5}
 </style>
 </head>
 <body>
-
 <canvas id="world"></canvas>
-
 <header>
- <div>
-  <h1>⚡ Power Grid Empire</h1>
-  <div class="sub">Meridian Power · East Midlands · v0.2.4</div>
- </div>
- <div id="topStats"></div>
+<div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v0.3</div></div>
+<div id="topStats"></div>
 </header>
-
-<div id="notice">
- Drag to pan · Pinch to zoom · Twist to rotate
-</div>
-
+<div id="notice">Drag to pan · Pinch to zoom · Twist to rotate</div>
 <div id="floating">
- <button id="left">↶</button>
- <button id="right">↷</button>
- <button id="zin">+</button>
- <button id="zout">−</button>
- <button id="home">⌖</button>
+<button id="left" aria-label="Rotate left">↶</button>
+<button id="right" aria-label="Rotate right">↷</button>
+<button id="zin" aria-label="Zoom in">+</button>
+<button id="zout" aria-label="Zoom out">−</button>
+<button id="home" aria-label="Reset camera">⌖</button>
 </div>
-
-<!-- Stable information panel -->
 <div id="panel">
- <button id="panelClose" aria-label="Close building details">×</button>
- <h2 id="panelTitle"></h2>
- <div id="panelContent"></div>
- <div id="panelActions">
-  <button id="deselect">Close details</button>
- </div>
+<div id="panelHeader">
+<h2 id="panelTitle"></h2>
+<button id="panelClose" aria-label="Close details">×</button>
 </div>
-
+<div id="panelContent"></div>
+<div id="panelActions"><button id="deselect">Close details</button></div>
+</div>
 <div id="buildMenu">
- <h2>🏗 Construction projects</h2>
- <div id="buildOptions"></div>
- <button id="cancelBuild">Close / Cancel</button>
+<h2>🏗 Construction projects</h2>
+<div id="buildOptions"></div>
+<button id="cancelBuild">Close / Cancel</button>
 </div>
-
-<div id="finance">
- <h2>📊 Financial & operational report</h2>
- <div id="financeRows"></div>
- <button class="close" id="closeFinance">Close report</button>
+<div id="report">
+<h2>📊 Meridian Power operations</h2>
+<div class="tabs">
+<button id="tabOperations" class="active">Operations</button>
+<button id="tabFinance">Finances</button>
+<button id="tabAssets">Assets</button>
 </div>
-
+<div id="reportContent"></div>
+<button id="reportClose">Close report</button>
+</div>
 <div id="bottom">
- <div id="clock"></div>
- <div class="toolbar">
-  <button id="buildBtn">🏗 Build</button>
-  <button id="financeBtn">📊 Finance</button>
-  <button id="pauseBtn">⏸ Pause</button>
-  <button id="speedBtn">⏩ 1×</button>
-  <button id="saveBtn">💾 Save</button>
-  <button id="resetBtn">↺ Reset</button>
- </div>
+<div id="clock"></div>
+<div class="toolbar">
+<button id="buildBtn">🏗 Build</button>
+<button id="reportBtn">📊 Operations</button>
+<button id="pauseBtn">⏸ Pause</button>
+<button id="speedBtn">⏩ 1×</button>
+<button id="saveBtn">💾 Save</button>
+<button id="resetBtn">↺ Reset</button>
 </div>
-
+</div>
 <script>
 "use strict";
-
 const $=id=>document.getElementById(id);
-const canvas=$("world");
-const ctx=canvas.getContext("2d");
-
-const N=16,TW=48,TH=25;
-const SAVE_KEY="pge-v02";
+const canvas=$("world"),ctx=canvas.getContext("2d");
+const N=16,TW=48,TH=25,SAVE_KEY="pge-v02";
 const speeds=[1,4,12,48];
 
 const TYPES={
- OCGT:{
-  name:"Gas peaking turbine",cost:5,
-  days:3,mw:20,size:2,color:"#8ca0aa"
- },
- Battery:{
-  name:"Battery storage",cost:3,
-  days:2,mw:10,mwh:20,size:2,color:"#d9d5bd"
- },
- Gas:{
-  name:"Gas receiving station",cost:1.2,
-  days:2,size:2,color:"#c6a56e"
- },
- Grid:{
-  name:"Grid transformer",cost:2,
-  days:3,size:2,color:"#80a6bb"
- },
- Office:{
-  name:"Control building",cost:.5,
-  days:1,size:2,color:"#b0c1ca"
- }
+OCGT:{name:"Gas peaking turbine",cost:5,days:3,mw:20,size:2,color:"#8ca0aa"},
+Battery:{name:"Battery storage",cost:3,days:2,mw:10,mwh:20,size:2,color:"#d9d5bd"},
+Gas:{name:"Gas receiving station",cost:1.2,days:2,size:2,color:"#c6a56e"},
+Grid:{name:"Grid transformer",cost:2,days:3,size:2,color:"#80a6bb"},
+Office:{name:"Control building",cost:.5,days:1,size:2,color:"#b0c1ca"}
 };
 
-function createNewGame(){
- return {
-  cash:20,day:1,hour:8,price:115,
-  revenue:0,fuel:0,carbon:0,opex:0,profit:0,
-  gasMWh:0,batteryMWh:0,exportMWh:0,
-  assets:[
-   {
-    id:1,type:"OCGT",x:5,y:5,mw:50,
-    name:"Meridian OCGT 1",
-    status:"operational",progress:0
-   },
-   {
-    id:2,type:"Gas",x:3,y:7,
-    name:"Gas receiving",
-    status:"operational",progress:0
-   },
-   {
-    id:3,type:"Grid",x:8,y:4,
-    name:"Grid connection",
-    status:"operational",progress:0
-   },
-   {
-    id:4,type:"Office",x:3,y:3,
-    name:"Control building",
-    status:"operational",progress:0
-   }
-  ],
-  nextId:5,paused:false,speed:0,
-  bankruptWarned:false
- };
+function newGame(){
+return {
+cash:20,day:1,hour:8,price:115,
+revenue:0,fuel:0,carbon:0,opex:0,profit:0,
+gasMWh:0,batteryMWh:0,exportMWh:0,
+assets:[
+{id:1,type:"OCGT",x:5,y:5,mw:50,name:"Meridian OCGT 1",status:"operational",progress:0},
+{id:2,type:"Gas",x:3,y:7,name:"Gas receiving",status:"operational",progress:0},
+{id:3,type:"Grid",x:8,y:4,name:"Grid connection",status:"operational",progress:0},
+{id:4,type:"Office",x:3,y:3,name:"Control building",status:"operational",progress:0}
+],
+nextId:5,paused:false,speed:0,bankruptWarned:false,
+daily:{day:1,revenue:0,cost:0,profit:0,export:0},
+lastDay:null
+};
 }
 
-function createNewCamera(){
- return {x:0,y:-20,zoom:.9,rot:0};
+function newCamera(){
+return {x:0,y:-20,zoom:.9,rot:0};
 }
 
-let state=createNewGame();
-let camera=createNewCamera();
-
-let selectedId=null;
-let buildType=null;
-let preview=null;
-let showBuild=false;
-let showFinance=false;
-
-let noticeTimer;
-let width=0,height=0,dpr=1;
-let accumulator=0;
-let last=performance.now();
-
-// CANVAS
+let state=newGame(),camera=newCamera();
+let selectedId=null,buildType=null,preview=null;
+let showBuild=false,showReport=false,reportTab="Operations";
+let noticeTimer,width=0,height=0,dpr=1;
+let accumulator=0,last=performance.now();
 
 function resize(){
- dpr=Math.min(window.devicePixelRatio||1,2);
- width=canvas.clientWidth;
- height=canvas.clientHeight;
- canvas.width=Math.round(width*dpr);
- canvas.height=Math.round(height*dpr);
- ctx.setTransform(dpr,0,0,dpr,0,0);
+dpr=Math.min(window.devicePixelRatio||1,2);
+width=canvas.clientWidth;
+height=canvas.clientHeight;
+canvas.width=Math.round(width*dpr);
+canvas.height=Math.round(height*dpr);
+ctx.setTransform(dpr,0,0,dpr,0,0);
 }
-
 window.addEventListener("resize",resize);
 resize();
 
-// CAMERA
-
 function rotate(x,y){
- const cx=N/2,cy=N/2;
- const dx=x-cx,dy=y-cy;
- const c=Math.cos(camera.rot);
- const s=Math.sin(camera.rot);
-
- return {
-  x:dx*c-dy*s+cx,
-  y:dx*s+dy*c+cy
- };
+const dx=x-N/2,dy=y-N/2;
+const c=Math.cos(camera.rot),s=Math.sin(camera.rot);
+return {x:dx*c-dy*s+N/2,y:dx*s+dy*c+N/2};
 }
-
 function unrotate(x,y){
- const cx=N/2,cy=N/2;
- const dx=x-cx,dy=y-cy;
- const c=Math.cos(camera.rot);
- const s=Math.sin(camera.rot);
-
- return {
-  x:dx*c+dy*s+cx,
-  y:-dx*s+dy*c+cy
- };
+const dx=x-N/2,dy=y-N/2;
+const c=Math.cos(camera.rot),s=Math.sin(camera.rot);
+return {x:dx*c+dy*s+N/2,y:-dx*s+dy*c+N/2};
 }
-
 function project(x,y,z=0){
- const p=rotate(x,y);
-
- return {
-  x:width/2+camera.x+
-    (p.x-p.y)*TW/2*camera.zoom,
-  y:height*.42+camera.y+
-    (p.x+p.y)*TH/2*camera.zoom-
-    z*camera.zoom
- };
+const p=rotate(x,y);
+return {
+x:width/2+camera.x+(p.x-p.y)*TW/2*camera.zoom,
+y:height*.42+camera.y+(p.x+p.y)*TH/2*camera.zoom-z*camera.zoom
+};
 }
-
-function screenToTile(sx,sy){
- const u=(sx-width/2-camera.x)/
-  (TW/2*camera.zoom);
-
- const v=(sy-height*.42-camera.y)/
-  (TH/2*camera.zoom);
-
- const p=unrotate((u+v)/2,(v-u)/2);
-
- return {
-  x:Math.floor(p.x),
-  y:Math.floor(p.y)
- };
+function screenToTile(x,y){
+const u=(x-width/2-camera.x)/(TW/2*camera.zoom);
+const v=(y-height*.42-camera.y)/(TH/2*camera.zoom);
+const p=unrotate((u+v)/2,(v-u)/2);
+return {x:Math.floor(p.x),y:Math.floor(p.y)};
 }
-
-// GRAPHICS
-
-function poly(pts,fill,stroke="#344c50",lw=1){
- ctx.beginPath();
- ctx.moveTo(pts[0].x,pts[0].y);
-
- for(let i=1;i<pts.length;i++){
-  ctx.lineTo(pts[i].x,pts[i].y);
- }
-
- ctx.closePath();
- ctx.fillStyle=fill;
- ctx.fill();
-
- if(stroke){
-  ctx.strokeStyle=stroke;
-  ctx.lineWidth=lw;
-  ctx.stroke();
- }
+function poly(points,fill,stroke="#344c50",lw=1){
+ctx.beginPath();
+ctx.moveTo(points[0].x,points[0].y);
+for(let i=1;i<points.length;i++)ctx.lineTo(points[i].x,points[i].y);
+ctx.closePath();
+ctx.fillStyle=fill;
+ctx.fill();
+if(stroke){
+ctx.strokeStyle=stroke;
+ctx.lineWidth=lw;
+ctx.stroke();
 }
-
+}
 function tile(x,y,fill){
- poly([
-  project(x,y),
-  project(x+1,y),
-  project(x+1,y+1),
-  project(x,y+1)
- ],fill,"#587765",.6);
+poly([project(x,y),project(x+1,y),project(x+1,y+1),project(x,y+1)],fill,"#587765",.6);
 }
-
 function block(x,y,w,h,z,color){
- const a=project(x,y,z);
- const b=project(x+w,y,z);
- const c=project(x+w,y+h,z);
- const d=project(x,y+h,z);
-
- const bb=project(x+w,y);
- const cc=project(x+w,y+h);
- const dd=project(x,y+h);
-
- poly([d,c,cc,dd],"#526773");
- poly([b,c,cc,bb],"#405865");
- poly([a,b,c,d],color);
+const a=project(x,y,z),b=project(x+w,y,z);
+const c=project(x+w,y+h,z),d=project(x,y+h,z);
+const bb=project(x+w,y),cc=project(x+w,y+h),dd=project(x,y+h);
+poly([d,c,cc,dd],"#526773");
+poly([b,c,cc,bb],"#405865");
+poly([a,b,c,d],color);
 }
-
 function line(a,b,color,lw=2){
- ctx.beginPath();
- ctx.moveTo(a.x,a.y);
- ctx.lineTo(b.x,b.y);
- ctx.strokeStyle=color;
- ctx.lineWidth=lw*camera.zoom;
- ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(a.x,a.y);
+ctx.lineTo(b.x,b.y);
+ctx.strokeStyle=color;
+ctx.lineWidth=lw*camera.zoom;
+ctx.stroke();
 }
-
 function stack(x,y,h){
- const bottom=project(x,y,12);
- const top=project(x,y,h);
-
- line(bottom,top,"#7a858b",12);
- line(project(x,y,h-5),top,"#c5d0d4",11);
-
- ctx.fillStyle="#394e58";
- ctx.beginPath();
- ctx.ellipse(
-  top.x,top.y,
-  6*camera.zoom,3*camera.zoom,
-  0,0,Math.PI*2
- );
- ctx.fill();
+const top=project(x,y,h);
+line(project(x,y,12),top,"#7a858b",12);
+line(project(x,y,h-5),top,"#c5d0d4",11);
+ctx.fillStyle="#394e58";
+ctx.beginPath();
+ctx.ellipse(top.x,top.y,6*camera.zoom,3*camera.zoom,0,0,Math.PI*2);
+ctx.fill();
 }
 
 function drawAsset(a){
- const type=TYPES[a.type];
- if(!type)return;
-
- const x=a.x,y=a.y;
- const constructing=a.status==="building";
-
- ctx.globalAlpha=constructing?.65:1;
-
- if(a.type==="OCGT"){
-
-  block(x+.12,y+.12,1.65,1.55,21,type.color);
-  block(x+.2,y+.2,.8,.45,25,"#c2ccd0");
-
-  stack(x+1.45,y+.5,52);
-  stack(x+1.45,y+1.12,52);
-
-  line(
-   project(x+.3,y+1.75,4),
-   project(x+1.65,y+1.75,4),
-   "#d8b85c",5
-  );
-
- }else if(a.type==="Battery"){
-
-  for(let j=0;j<2;j++){
-
-   block(
-    x+.1,y+.12+j*.83,
-    1.7,.68,13,
-    j?"#d7d9d4":"#f0ece1"
-   );
-
-   for(let k=0;k<3;k++){
-    const p=project(
-     x+.35+k*.42,
-     y+.14+j*.83,14
-    );
-
-    ctx.fillStyle="#607c85";
-    ctx.fillRect(
-     p.x-2*camera.zoom,
-     p.y-2*camera.zoom,
-     5*camera.zoom,
-     3*camera.zoom
-    );
-   }
-  }
-
- }else if(a.type==="Grid"){
-
-  block(x+.15,y+.15,1.7,1.6,3,"#8a9b99");
-
-  for(let j=0;j<2;j++){
-
-   block(
-    x+.3+j*.8,y+.4,
-    .55,.85,12,
-    "#667e8b"
-   );
-
-   for(let k=0;k<3;k++){
-    const p=project(
-     x+.5+j*.8,
-     y+.6+k*.15,22
-    );
-
-    line(
-     p,
-     project(
-      x+.5+j*.8,
-      y+.6+k*.15,13
-     ),
-     "#bdc8c9",2
-    );
-   }
-  }
-
-  for(let j=0;j<3;j++){
-   line(
-    project(x+.3+j*.6,y+1.7,3),
-    project(x+.3+j*.6,y+1.7,24),
-    "#bec9c9",2
-   );
-  }
-
- }else if(a.type==="Gas"){
-
-  block(x+.1,y+.1,1.7,1.6,3,"#969e95");
-
-  for(let j=0;j<3;j++){
-   line(
-    project(x+.3,y+.35+j*.45,7),
-    project(x+1.7,y+.35+j*.45,7),
-    "#d4b05f",6
-   );
-  }
-
-  block(x+.45,y+.5,.7,.7,10,"#b6a477");
-
- }else{
-
-  block(x+.1,y+.1,1.7,1.7,16,"#a6bac2");
-  block(x+.25,y+.3,1.4,.3,19,"#647e90");
-  block(x+.25,y+1.15,1.4,.3,19,"#647e90");
- }
-
- ctx.globalAlpha=1;
-
- if(constructing){
-  const p=project(x+1,y+1,42);
-
-  ctx.fillStyle="#ffe0a0";
-  ctx.font="bold 12px system-ui";
-  ctx.textAlign="center";
-  ctx.fillText(
-   "🏗 "+Math.round(a.progress*100)+"%",
-   p.x,p.y
-  );
-  ctx.textAlign="left";
- }
-
- if(a.id===selectedId){
-  const p=project(x+1,y+1,56);
-
-  ctx.fillStyle="#ffe082";
-  ctx.beginPath();
-  ctx.arc(p.x,p.y,6,0,Math.PI*2);
-  ctx.fill();
- }
+const t=TYPES[a.type];
+if(!t)return;
+const x=a.x,y=a.y,building=a.status==="building";
+ctx.globalAlpha=building?.65:1;
+if(a.type==="OCGT"){
+block(x+.12,y+.12,1.65,1.55,21,t.color);
+block(x+.2,y+.2,.8,.45,25,"#c2ccd0");
+stack(x+1.45,y+.5,52);
+stack(x+1.45,y+1.12,52);
+line(project(x+.3,y+1.75,4),project(x+1.65,y+1.75,4),"#d8b85c",5);
+}else if(a.type==="Battery"){
+for(let j=0;j<2;j++){
+block(x+.1,y+.12+j*.83,1.7,.68,13,j?"#d7d9d4":"#f0ece1");
+for(let k=0;k<3;k++){
+const p=project(x+.35+k*.42,y+.14+j*.83,14);
+ctx.fillStyle="#607c85";
+ctx.fillRect(p.x-2*camera.zoom,p.y-2*camera.zoom,5*camera.zoom,3*camera.zoom);
+}
+}
+}else if(a.type==="Grid"){
+block(x+.15,y+.15,1.7,1.6,3,"#8a9b99");
+for(let j=0;j<2;j++){
+block(x+.3+j*.8,y+.4,.55,.85,12,"#667e8b");
+for(let k=0;k<3;k++){
+const p=project(x+.5+j*.8,y+.6+k*.15,22);
+line(p,project(x+.5+j*.8,y+.6+k*.15,13),"#bdc8c9",2);
+}
+}
+for(let j=0;j<3;j++)
+line(project(x+.3+j*.6,y+1.7,3),project(x+.3+j*.6,y+1.7,24),"#bec9c9",2);
+}else if(a.type==="Gas"){
+block(x+.1,y+.1,1.7,1.6,3,"#969e95");
+for(let j=0;j<3;j++)
+line(project(x+.3,y+.35+j*.45,7),project(x+1.7,y+.35+j*.45,7),"#d4b05f",6);
+block(x+.45,y+.5,.7,.7,10,"#b6a477");
+}else{
+block(x+.1,y+.1,1.7,1.7,16,"#a6bac2");
+block(x+.25,y+.3,1.4,.3,19,"#647e90");
+block(x+.25,y+1.15,1.4,.3,19,"#647e90");
+}
+ctx.globalAlpha=1;
+if(building){
+const p=project(x+1,y+1,42);
+ctx.fillStyle="#ffe0a0";
+ctx.font="bold 12px system-ui";
+ctx.textAlign="center";
+ctx.fillText("🏗 "+Math.round(a.progress*100)+"%",p.x,p.y);
+ctx.textAlign="left";
+}
+if(a.id===selectedId){
+const p=project(x+1,y+1,56);
+ctx.fillStyle="#ffe082";
+ctx.beginPath();
+ctx.arc(p.x,p.y,6,0,Math.PI*2);
+ctx.fill();
+}
 }
 
 function draw(){
- ctx.clearRect(0,0,width,height);
-
- const tiles=[];
-
- for(let x=0;x<N;x++){
-  for(let y=0;y<N;y++){
-   const p=rotate(x+.5,y+.5);
-   tiles.push({x,y,depth:p.x+p.y});
-  }
- }
-
- tiles.sort((a,b)=>a.depth-b.depth);
-
- for(const t of tiles){
-  const road=
-   t.x===2||
-   t.y===9||
-   (t.x===10&&t.y>3&&t.y<12);
-
-  const color=road
-   ?"#747d7a"
-   :(t.x+t.y)%2
-    ?"#729679"
-    :"#7c9d80";
-
-  tile(t.x,t.y,color);
- }
-
- const fence=[
-  project(0,0),
-  project(N,0),
-  project(N,N),
-  project(0,N)
- ];
-
- for(let i=0;i<4;i++){
-  line(
-   fence[i],
-   fence[(i+1)%4],
-   "#d5d6c7",2.5
-  );
- }
-
- for(let y=0;y<N;y+=2){
-  line(
-   project(2.5,y+.2,1),
-   project(2.5,y+.8,1),
-   "#c4c8b1",1.5
-  );
- }
-
- const sorted=[...state.assets].sort((a,b)=>{
-  const p=rotate(a.x+1,a.y+1);
-  const q=rotate(b.x+1,b.y+1);
-  return p.x+p.y-q.x-q.y;
- });
-
- sorted.forEach(drawAsset);
-
- if(buildType&&preview){
-  const valid=canPlace(
-   buildType,preview.x,preview.y
-  );
-
-  const size=TYPES[buildType].size;
-
-  const corners=[
-   project(preview.x,preview.y,2),
-   project(preview.x+size,preview.y,2),
-   project(preview.x+size,preview.y+size,2),
-   project(preview.x,preview.y+size,2)
-  ];
-
-  poly(
-   corners,
-   valid?"#7bf0aa80":"#ff6c6c88",
-   valid?"#a7ffba":"#ff9696",
-   2
-  );
- }
-
- requestAnimationFrame(draw);
+ctx.clearRect(0,0,width,height);
+const tiles=[];
+for(let x=0;x<N;x++)for(let y=0;y<N;y++){
+const p=rotate(x+.5,y+.5);
+tiles.push({x,y,depth:p.x+p.y});
 }
-
-// INFRASTRUCTURE
+tiles.sort((a,b)=>a.depth-b.depth);
+for(const t of tiles){
+const road=t.x===2||t.y===9||(t.x===10&&t.y>3&&t.y<12);
+tile(t.x,t.y,road?"#747d7a":(t.x+t.y)%2?"#729679":"#7c9d80");
+}
+const fence=[project(0,0),project(N,0),project(N,N),project(0,N)];
+for(let i=0;i<4;i++)
+line(fence[i],fence[(i+1)%4],"#d5d6c7",2.5);
+for(let y=0;y<N;y+=2)
+line(project(2.5,y+.2,1),project(2.5,y+.8,1),"#c4c8b1",1.5);
+[...state.assets].sort((a,b)=>{
+const p=rotate(a.x+1,a.y+1),q=rotate(b.x+1,b.y+1);
+return p.x+p.y-q.x-q.y;
+}).forEach(drawAsset);
+if(buildType&&preview){
+const valid=canPlace(buildType,preview.x,preview.y);
+const s=TYPES[buildType].size;
+poly([
+project(preview.x,preview.y,2),
+project(preview.x+s,preview.y,2),
+project(preview.x+s,preview.y+s,2),
+project(preview.x,preview.y+s,2)
+],valid?"#7bf0aa80":"#ff6c6c88",valid?"#a7ffba":"#ff9696",2);
+}
+requestAnimationFrame(draw);
+}
 
 function overlap(x,y,size,a){
- const s=TYPES[a.type].size;
-
- return x<a.x+s&&
-  x+size>a.x&&
-  y<a.y+s&&
-  y+size>a.y;
+const s=TYPES[a.type].size;
+return x<a.x+s&&x+size>a.x&&y<a.y+s&&y+size>a.y;
 }
-
 function canPlace(type,x,y){
- const s=TYPES[type].size;
-
- if(x<0||y<0||x+s>N||y+s>N){
-  return false;
- }
-
- if(state.assets.some(a=>overlap(x,y,s,a))){
-  return false;
- }
-
- for(let i=x;i<x+s;i++){
-  for(let j=y;j<y+s;j++){
-   if(
-    i===2||
-    j===9||
-    (i===10&&j>3&&j<12)
-   )return false;
-  }
- }
-
- return true;
+const s=TYPES[type].size;
+if(x<0||y<0||x+s>N||y+s>N||state.assets.some(a=>overlap(x,y,s,a)))return false;
+for(let i=x;i<x+s;i++)
+for(let j=y;j<y+s;j++)
+if(i===2||j===9||(i===10&&j>3&&j<12))return false;
+return true;
 }
-
 function distance(a,b){
- return Math.abs(a.x-b.x)+Math.abs(a.y-b.y);
+return Math.abs(a.x-b.x)+Math.abs(a.y-b.y);
 }
-
 function connected(a,type,range=8){
- return state.assets.some(b=>
-  b.id!==a.id&&
-  b.type===type&&
-  b.status==="operational"&&
-  distance(a,b)<=range
- );
+return state.assets.some(b=>b.id!==a.id&&b.type===type&&b.status==="operational"&&distance(a,b)<=range);
 }
-
 function getStatus(a){
- if(a.status==="building"){
-  return "Under construction";
- }
-
- if(a.type==="OCGT"){
-  if(!connected(a,"Gas")){
-   return "Disconnected: gas supply";
-  }
-  if(!connected(a,"Grid")){
-   return "Disconnected: grid";
-  }
- }
-
- if(a.type==="Battery"&&!connected(a,"Grid")){
-  return "Disconnected: grid";
- }
-
- return "Operational";
+if(a.status==="building")return "Under construction";
+if(a.type==="OCGT"){
+if(!connected(a,"Gas"))return "Disconnected: gas supply";
+if(!connected(a,"Grid"))return "Disconnected: grid";
 }
-
-function isAvailable(a){
- return a.status==="operational"&&
-  (a.type==="OCGT"||a.type==="Battery")&&
-  getStatus(a)==="Operational";
+if(a.type==="Battery"&&!connected(a,"Grid"))return "Disconnected: grid";
+return "Operational";
 }
-
-function getGasMW(){
- return state.assets
-  .filter(a=>a.type==="OCGT"&&isAvailable(a))
-  .reduce((s,a)=>s+(a.mw||20),0);
+function available(a){
+return a.status==="operational"&&(a.type==="OCGT"||a.type==="Battery")&&getStatus(a)==="Operational";
 }
-
-function getBatteryMW(){
- return state.assets
-  .filter(a=>a.type==="Battery"&&isAvailable(a))
-  .reduce((s,a)=>s+(a.mw||10),0);
+function gasMW(){
+return state.assets.filter(a=>a.type==="OCGT"&&available(a)).reduce((n,a)=>n+(a.mw||20),0);
 }
-
-function getGridMW(){
- return state.assets.filter(a=>
-  a.type==="Grid"&&a.status==="operational"
- ).length*80;
+function batteryMW(){
+return state.assets.filter(a=>a.type==="Battery"&&available(a)).reduce((n,a)=>n+(a.mw||10),0);
 }
-
-function getSelected(){
- return state.assets.find(a=>a.id===selectedId)||null;
+function gridMW(){
+return state.assets.filter(a=>a.type==="Grid"&&a.status==="operational").length*80;
 }
-
-function formatMoney(n){
- return (n<0?"−":"")+
-  "£"+Math.abs(n).toFixed(3)+"m";
+function money(n){
+return (n<0?"−":"")+"£"+Math.abs(n).toFixed(3)+"m";
 }
-
-// NOTIFICATIONS
-
 function notify(message){
- $("notice").textContent=message;
- clearTimeout(noticeTimer);
-
- noticeTimer=setTimeout(()=>{
-  $("notice").textContent=
-   "Drag to pan · Pinch to zoom · Twist to rotate";
- },3800);
+$("notice").textContent=message;
+clearTimeout(noticeTimer);
+noticeTimer=setTimeout(()=>{
+$("notice").textContent="Drag to pan · Pinch to zoom · Twist to rotate";
+},3800);
 }
-
-// BUILDING INFORMATION PANEL
-// v0.2.4: Permanent close buttons.
-// The panel is hidden rather than immediately recreated.
-// Only the text changes during simulation updates.
-
 function closePanel(){
- selectedId=null;
- buildType=null;
- preview=null;
- $("panel").style.display="none";
+selectedId=null;
+buildType=null;
+preview=null;
+$("panel").style.display="none";
 }
-
 $("panelClose").onclick=closePanel;
 $("deselect").onclick=closePanel;
 
 function refreshPanel(){
- const a=getSelected();
-
- if(!a&&!buildType){
-  $("panel").style.display="none";
-  return;
- }
-
- $("panel").style.display="block";
-
- if(buildType){
-  const t=TYPES[buildType];
-
-  $("panelTitle").textContent=
-   "🏗 Place "+t.name;
-
-  $("panelContent").textContent=
-   "Tap a clear location twice to confirm. "+
-   "Cost £"+t.cost.toFixed(1)+"m. "+
-   "Construction takes "+t.days+" days.";
-
-  return;
- }
-
- $("panelTitle").textContent=a.name;
-
- let description="";
-
- if(a.type==="OCGT"){
-  description=
-   "Capacity: "+(a.mw||20)+
-   " MW. Gas turbine dispatches when electricity "+
-   "prices cover fuel, carbon and variable operating costs.";
-
- }else if(a.type==="Battery"){
-  description=
-   "Capacity: 10 MW / 20 MWh. "+
-   "State of charge: "+(a.soc||0).toFixed(1)+
-   " MWh. Automatically charges and discharges.";
-
- }else if(a.type==="Grid"){
-  description=
-   "Grid export capacity: 80 MW per transformer. "+
-   "Total site capacity: "+getGridMW()+" MW.";
-
- }else if(a.type==="Gas"){
-  description=
-   "Provides gas infrastructure to nearby generators.";
-
- }else{
-  description="Operations and site administration.";
- }
-
- let status=getStatus(a);
-
- if(a.status==="building"){
-  status+=" ("+Math.round(a.progress*100)+"%)";
- }
-
- $("panelContent").textContent=
-  "Status: "+status+". "+description;
+const a=state.assets.find(x=>x.id===selectedId);
+if(!a&&!buildType){
+$("panel").style.display="none";
+return;
+}
+$("panel").style.display="block";
+if(buildType){
+const t=TYPES[buildType];
+$("panelTitle").textContent="🏗 Place "+t.name;
+$("panelContent").textContent="Tap an empty location twice to confirm. Cost £"+t.cost.toFixed(1)+"m. Build time "+t.days+" days.";
+return;
+}
+$("panelTitle").textContent=a.name;
+let detail="";
+if(a.type==="OCGT")
+detail="Capacity: "+(a.mw||20)+" MW. Dispatches when prices exceed £86/MWh.";
+else if(a.type==="Battery")
+detail="Capacity: 10 MW / 20 MWh. State of charge: "+(a.soc||0).toFixed(1)+" MWh.";
+else if(a.type==="Grid")
+detail="Transformer capacity: 80 MW. Site grid limit: "+gridMW()+" MW.";
+else if(a.type==="Gas")
+detail="Gas infrastructure for nearby generators.";
+else detail="Operations and site administration.";
+$("panelContent").textContent="Status: "+getStatus(a)+(a.status==="building"?" ("+Math.round(a.progress*100)+"%)":"")+". "+detail;
 }
 
-// TOP-LEVEL UI
+function row(label,value){
+return '<div class="statRow"><span>'+label+'</span><strong>'+value+'</strong></div>';
+}
+
+function refreshReport(){
+if(!showReport)return;
+$("tabOperations").classList.toggle("active",reportTab==="Operations");
+$("tabFinance").classList.toggle("active",reportTab==="Finances");
+$("tabAssets").classList.toggle("active",reportTab==="Assets");
+let html="";
+if(reportTab==="Operations"){
+html+=row("Day / time",state.day+" / "+String(Math.floor(state.hour)).padStart(2,"0")+":"+(state.hour%1?"30":"00"));
+html+=row("Electricity price","£"+state.price.toFixed(0)+"/MWh");
+html+=row("Available gas capacity",gasMW()+" MW");
+html+=row("Available battery power",batteryMW()+" MW");
+html+=row("Grid export limit",gridMW()+" MW");
+html+=row("Lifetime exports",state.exportMWh.toFixed(1)+" MWh");
+html+=row("Battery discharge",state.batteryMWh.toFixed(1)+" MWh");
+if(state.lastDay)html+=row("Previous day profit",money(state.lastDay.profit));
+}else if(reportTab==="Finances"){
+html+=row("Cash",money(state.cash));
+html+=row("Cumulative revenue",money(state.revenue));
+html+=row("Fuel costs",money(state.fuel));
+html+=row("Carbon costs",money(state.carbon));
+html+=row("Operating costs",money(state.opex));
+html+=row("Operating profit",money(state.profit));
+html+='<p class="hint">Daily operating results exclude construction capital expenditure. Financial values are cumulative since the start of the game.</p>';
+if(state.daily){
+html+=row("Current day revenue",money(state.daily.revenue));
+html+=row("Current day operating profit",money(state.daily.profit));
+html+=row("Current day exports",state.daily.export.toFixed(1)+" MWh");
+}
+}else{
+const operational=state.assets.filter(a=>a.status==="operational").length;
+const building=state.assets.filter(a=>a.status==="building").length;
+html+=row("Total assets",state.assets.length);
+html+=row("Operational",operational);
+html+=row("Under construction",building);
+for(const type of Object.keys(TYPES)){
+const list=state.assets.filter(a=>a.type===type);
+if(list.length)html+=row(TYPES[type].name,list.length);
+}
+html+='<p class="hint">Tap an asset on the site for individual status and capacity.</p>';
+}
+$("reportContent").innerHTML=html;
+}
 
 function refresh(){
- const gas=state.assets
-  .filter(a=>a.type==="OCGT")
-  .reduce((s,a)=>s+(a.mw||20),0);
-
- const bat=state.assets
-  .filter(a=>a.type==="Battery").length*10;
-
- $("topStats").innerHTML=
-  "<strong>"+formatMoney(state.cash)+"</strong><br>"+
-  "<span>"+gas+"MW gas · "+bat+"MW BESS</span>";
-
- $("clock").textContent=
-  "Day "+state.day+" · "+
-  String(Math.floor(state.hour)).padStart(2,"0")+
-  ":"+(state.hour%1?"30":"00")+
-  " · Power £"+state.price.toFixed(0)+"/MWh"+
-  " · Grid "+getGridMW()+"MW";
-
- $("pauseBtn").textContent=
-  state.paused?"▶ Resume":"⏸ Pause";
-
- $("speedBtn").textContent=
-  "⏩ "+speeds[state.speed]+"×";
-
- if(showFinance)refreshFinance();
-
- if(selectedId!==null||buildType){
-  refreshPanel();
- }
+const gas=state.assets.filter(a=>a.type==="OCGT").reduce((n,a)=>n+(a.mw||20),0);
+const bat=state.assets.filter(a=>a.type==="Battery").length*10;
+$("topStats").innerHTML="<strong>"+money(state.cash)+"</strong><br>"+gas+"MW gas · "+bat+"MW BESS";
+$("clock").textContent="Day "+state.day+" · "+String(Math.floor(state.hour)).padStart(2,"0")+":"+(state.hour%1?"30":"00")+" · Power £"+state.price.toFixed(0)+"/MWh · Grid "+gridMW()+"MW";
+$("pauseBtn").textContent=state.paused?"▶ Resume":"⏸ Pause";
+$("speedBtn").textContent="⏩ "+speeds[state.speed]+"×";
+if(showReport)refreshReport();
+if(selectedId!==null||buildType)refreshPanel();
 }
-
-function refreshFinance(){
- const rows=[
-  ["Cash balance",formatMoney(state.cash)],
-  ["Electricity revenue",formatMoney(state.revenue)],
-  ["Fuel costs",formatMoney(state.fuel)],
-  ["Carbon costs",formatMoney(state.carbon)],
-  ["Operating costs",formatMoney(state.opex)],
-  ["Operating profit",formatMoney(state.profit)],
-  ["Gas generation",state.gasMWh.toFixed(1)+" MWh"],
-  ["Battery discharge",state.batteryMWh.toFixed(1)+" MWh"],
-  ["Grid exports",state.exportMWh.toFixed(1)+" MWh"],
-  ["Available gas capacity",getGasMW()+" MW"],
-  ["Available battery power",getBatteryMW()+" MW"],
-  ["Grid capacity",getGridMW()+" MW"],
-  ["Electricity price","£"+state.price.toFixed(0)+"/MWh"]
- ];
-
- $("financeRows").innerHTML=rows.map(([k,v])=>
-  "<div class='finRow'>"+
-  "<span>"+k+"</span>"+
-  "<strong>"+v+"</strong>"+
-  "</div>"
- ).join("");
-}
-
-// CONSTRUCTION
 
 function buildOptions(){
- $("buildOptions").innerHTML=
-  Object.entries(TYPES).map(([key,t])=>
-   "<div class='buildOption'>"+
-   "<div><strong>"+t.name+"</strong>"+
-   "<small>£"+t.cost.toFixed(1)+"m · "+
-   t.days+" days"+
-   (t.mw?" · "+t.mw+"MW":"")+
-   "</small></div>"+
-   "<button data-type='"+key+"'>Select</button>"+
-   "</div>"
-  ).join("");
-
- document.querySelectorAll("[data-type]").forEach(b=>{
-  b.onclick=()=>{
-   const type=b.dataset.type;
-
-   if(state.cash<TYPES[type].cost){
-    notify("Insufficient cash for this project");
-    return;
-   }
-
-   selectedId=null;
-   buildType=type;
-   preview=null;
-   showBuild=false;
-
-   $("buildMenu").style.display="none";
-
-   refreshPanel();
-   notify("Tap a clear area to place "+TYPES[type].name);
-  };
- });
+$("buildOptions").innerHTML=Object.entries(TYPES).map(([key,t])=>
+'<div class="buildOption"><div><strong>'+t.name+'</strong><small>£'+t.cost.toFixed(1)+'m · '+t.days+' days'+(t.mw?' · '+t.mw+'MW':'')+'</small></div><button data-type="'+key+'">Select</button></div>'
+).join("");
+document.querySelectorAll("[data-type]").forEach(b=>{
+b.onclick=()=>{
+const type=b.dataset.type;
+if(state.cash<TYPES[type].cost){
+notify("Insufficient cash");
+return;
+}
+selectedId=null;
+buildType=type;
+preview=null;
+showBuild=false;
+$("buildMenu").style.display="none";
+refreshPanel();
+notify("Tap a clear area to place "+TYPES[type].name);
+};
+});
 }
 
 function construct(type,x,y){
- if(!canPlace(type,x,y)){
-  notify("Cannot build here");
-  return;
- }
-
- const t=TYPES[type];
-
- if(state.cash<t.cost){
-  notify("Insufficient cash");
-  return;
- }
-
- if(!confirm(
-  "Build "+t.name+" for £"+
-  t.cost.toFixed(1)+"m? "+
-  "Construction takes "+t.days+" days."
- ))return;
-
- state.cash-=t.cost;
-
- const id=state.nextId++;
-
- const a={
-  id,type,x,y,
-  name:t.name+" "+id,
-  mw:t.mw||0,
-  status:"building",
-  progress:0,
-  daysRequired:t.days,
-  soc:0
- };
-
- state.assets.push(a);
- selectedId=id;
- buildType=null;
- preview=null;
-
- refresh();
- refreshPanel();
- save(false);
- notify("Construction started");
+if(!canPlace(type,x,y)){
+notify("Location unavailable");
+return;
+}
+const t=TYPES[type];
+if(state.cash<t.cost){
+notify("Insufficient cash");
+return;
+}
+if(!confirm("Build "+t.name+" for £"+t.cost.toFixed(1)+"m? Construction takes "+t.days+" days."))return;
+state.cash-=t.cost;
+const id=state.nextId++;
+state.assets.push({
+id,type,x,y,name:t.name+" "+id,mw:t.mw||0,
+status:"building",progress:0,daysRequired:t.days,soc:0
+});
+selectedId=id;
+buildType=null;
+preview=null;
+refresh();
+save(false);
+notify("Construction started");
 }
 
 function chooseTile(sx,sy){
- const t=screenToTile(sx,sy);
-
- if(buildType){
-  if(
-   preview&&
-   preview.x===t.x&&
-   preview.y===t.y
-  ){
-   construct(buildType,t.x,t.y);
-  }else{
-   preview=t;
-
-   notify(
-    canPlace(buildType,t.x,t.y)
-     ?"Tap the highlighted location again to confirm"
-     :"Location unavailable"
-   );
-  }
-  return;
- }
-
- const a=[...state.assets].reverse().find(a=>
-  t.x>=a.x&&
-  t.x<a.x+TYPES[a.type].size&&
-  t.y>=a.y&&
-  t.y<a.y+TYPES[a.type].size
- );
-
- if(a){
-  // Tap the same selected building to close it.
-  if(selectedId===a.id){
-   closePanel();
-  }else{
-   selectedId=a.id;
-   refreshPanel();
-  }
- }else{
-  // Tap empty ground to close the panel.
-  closePanel();
- }
+const t=screenToTile(sx,sy);
+if(buildType){
+if(preview&&preview.x===t.x&&preview.y===t.y)
+construct(buildType,t.x,t.y);
+else{
+preview=t;
+notify(canPlace(buildType,t.x,t.y)?"Tap highlighted area again to confirm":"Location unavailable");
+}
+return;
+}
+const a=[...state.assets].reverse().find(a=>
+t.x>=a.x&&t.x<a.x+TYPES[a.type].size&&
+t.y>=a.y&&t.y<a.y+TYPES[a.type].size
+);
+if(!a||a.id===selectedId)closePanel();
+else{
+selectedId=a.id;
+refreshPanel();
+}
 }
 
-// MARKET
-
 function marketPrice(){
- const daily=
-  45*Math.sin((state.hour-8)/24*Math.PI*2);
-
- const seasonal=
-  19*Math.cos(state.day*.12);
-
- const wind=
-  30*Math.sin(state.day*.39+state.hour*.08);
-
- const volatility=
-  14*Math.sin(state.day*.87+state.hour*.53);
-
- return Math.max(
-  -25,
-  Math.min(270,
-   100+daily+seasonal-wind+volatility
-  )
- );
+return Math.max(-25,Math.min(270,
+100+
+45*Math.sin((state.hour-8)/24*Math.PI*2)+
+19*Math.cos(state.day*.12)-
+30*Math.sin(state.day*.39+state.hour*.08)+
+14*Math.sin(state.day*.87+state.hour*.53)
+));
 }
 
 function simulateHalfHour(){
- state.hour+=.5;
-
- if(state.hour>=24){
-  state.hour=0;
-  state.day++;
- }
-
- state.price=marketPrice();
-
- const grid=getGridMW();
- const gasCap=getGasMW();
-
- const batteries=state.assets.filter(a=>
-  a.type==="Battery"&&isAvailable(a)
- );
-
- const gasFuel=55;
- const gasCarbon=23;
- const gasVariable=8;
-
- const gasMarginal=
-  gasFuel+gasCarbon+gasVariable;
-
- const gasMW=
-  state.price>gasMarginal
-   ?Math.min(gasCap,grid)
-   :0;
-
- let remainingGrid=Math.max(0,grid-gasMW);
-
- let batteryChargeMWh=0;
- let batteryDischargeMWh=0;
-
- for(const a of batteries){
-  const maxEnergy=20;
-  const power=10;
-  const soc=a.soc||0;
-
-  if(state.price<65){
-   const purchased=Math.min(
-    power*.5,
-    (maxEnergy-soc)/.9
-   );
-
-   a.soc=Math.min(
-    maxEnergy,
-    soc+purchased*.9
-   );
-
-   batteryChargeMWh+=purchased;
-
-  }else if(
-   state.price>125&&
-   remainingGrid>0
-  ){
-   const delivered=Math.min(
-    power*.5,
-    remainingGrid*.5,
-    soc*.9
-   );
-
-   a.soc=Math.max(0,soc-delivered/.9);
-   batteryDischargeMWh+=delivered;
-   remainingGrid-=delivered/.5;
-  }
- }
-
- const gasEnergy=gasMW*.5;
- const exported=gasEnergy+batteryDischargeMWh;
-
- const rev=exported*state.price/1e6;
- const charging=batteryChargeMWh*state.price/1e6;
- const fuel=gasEnergy*gasFuel/1e6;
- const carbon=gasEnergy*gasCarbon/1e6;
- const variable=gasEnergy*gasVariable/1e6;
-
- const fixed=state.assets.filter(a=>
-  a.status==="operational"
- ).length*120/1e6;
-
- const operatingCost=variable+fixed+charging;
- const profit=rev-fuel-carbon-operatingCost;
-
- state.revenue+=rev;
- state.fuel+=fuel;
- state.carbon+=carbon;
- state.opex+=operatingCost;
- state.profit+=profit;
- state.cash+=profit;
-
- state.gasMWh+=gasEnergy;
- state.batteryMWh+=batteryDischargeMWh;
- state.exportMWh+=exported;
-
- for(const a of state.assets){
-  if(a.status==="building"){
-   a.progress+=.5/(a.daysRequired*24);
-
-   if(a.progress>=1){
-    a.progress=1;
-    a.status="operational";
-    notify(a.name+" construction completed");
-   }
-  }
- }
-
- if(state.cash<0&&!state.bankruptWarned){
-  state.bankruptWarned=true;
-  notify("Warning: cash balance is negative");
- }
+state.hour+=.5;
+if(state.hour>=24){
+state.hour=0;
+state.lastDay=state.daily?{...state.daily}:null;
+state.day++;
+state.daily={day:state.day,revenue:0,cost:0,profit:0,export:0};
+}
+if(!state.daily)
+state.daily={day:state.day,revenue:0,cost:0,profit:0,export:0};
+state.price=marketPrice();
+const grid=gridMW(),gasCap=gasMW();
+const batteries=state.assets.filter(a=>a.type==="Battery"&&available(a));
+const gasFuel=55,gasCarbon=23,gasVariable=8;
+const gasMW=state.price>86?Math.min(gasCap,grid):0;
+let remainingGrid=Math.max(0,grid-gasMW);
+let charge=0,discharge=0;
+for(const a of batteries){
+const soc=a.soc||0;
+if(state.price<65){
+const purchased=Math.max(0,Math.min(5,(20-soc)/.9));
+a.soc=Math.min(20,soc+purchased*.9);
+charge+=purchased;
+}else if(state.price>125&&remainingGrid>0){
+const delivered=Math.max(0,Math.min(5,remainingGrid*.5,soc*.9));
+a.soc=Math.max(0,soc-delivered/.9);
+discharge+=delivered;
+remainingGrid-=delivered/.5;
+}
+}
+const gasEnergy=gasMW*.5;
+const exported=gasEnergy+discharge;
+const rev=exported*state.price/1e6;
+const fuel=gasEnergy*gasFuel/1e6;
+const carbon=gasEnergy*gasCarbon/1e6;
+const operating=gasEnergy*gasVariable/1e6+
+state.assets.filter(a=>a.status==="operational").length*120/1e6+
+charge*state.price/1e6;
+const profit=rev-fuel-carbon-operating;
+state.revenue+=rev;
+state.fuel+=fuel;
+state.carbon+=carbon;
+state.opex+=operating;
+state.profit+=profit;
+state.cash+=profit;
+state.gasMWh+=gasEnergy;
+state.batteryMWh+=discharge;
+state.exportMWh+=exported;
+state.daily.revenue+=rev;
+state.daily.cost+=fuel+carbon+operating;
+state.daily.profit+=profit;
+state.daily.export+=exported;
+for(const a of state.assets){
+if(a.status==="building"){
+a.progress+=.5/((a.daysRequired||TYPES[a.type].days)*24);
+if(a.progress>=1){
+a.progress=1;
+a.status="operational";
+notify(a.name+" construction completed");
+}
+}
+}
+if(state.cash<0&&!state.bankruptWarned){
+state.bankruptWarned=true;
+notify("Warning: cash balance is negative");
+}
 }
 
 function loop(now){
- const elapsed=Math.min((now-last)/1000,2);
- last=now;
-
- if(!state.paused){
-  accumulator+=elapsed*speeds[state.speed];
-
-  let steps=0;
-
-  while(accumulator>=3&&steps<80){
-   simulateHalfHour();
-   accumulator-=3;
-   steps++;
-  }
-
-  if(steps)refresh();
- }
-
- requestAnimationFrame(loop);
+const elapsed=Math.min((now-last)/1000,2);
+last=now;
+if(!state.paused){
+accumulator+=elapsed*speeds[state.speed];
+let steps=0;
+while(accumulator>=3&&steps<80){
+simulateHalfHour();
+accumulator-=3;
+steps++;
+}
+if(steps)refresh();
+}
+requestAnimationFrame(loop);
 }
 
-// TOUCH CONTROLS
-
+// Touch and camera controls
 const pointers=new Map();
-
-let gestureMoved=false;
-let gestureMulti=false;
-let oldDistance=0;
-let oldCentre=null;
-let oldAngle=null;
-let touchStart=null;
-
+let gestureMoved=false,gestureMulti=false;
+let oldDistance=0,oldCentre=null,oldAngle=null,touchStart=null;
 function localPoint(e){
- const r=canvas.getBoundingClientRect();
-
- return {
-  x:e.clientX-r.left,
-  y:e.clientY-r.top
- };
+const r=canvas.getBoundingClientRect();
+return {x:e.clientX-r.left,y:e.clientY-r.top};
 }
-
 function resetGesture(){
- oldDistance=0;
- oldCentre=null;
- oldAngle=null;
+oldDistance=0;
+oldCentre=null;
+oldAngle=null;
 }
-
 canvas.addEventListener("pointerdown",e=>{
- canvas.setPointerCapture(e.pointerId);
-
- const p=localPoint(e);
- pointers.set(e.pointerId,p);
-
- if(pointers.size===1){
-  gestureMoved=false;
-  gestureMulti=false;
-  touchStart=p;
-  resetGesture();
- }
-
- if(pointers.size>1){
-  gestureMulti=true;
-  resetGesture();
- }
+canvas.setPointerCapture(e.pointerId);
+const p=localPoint(e);
+pointers.set(e.pointerId,p);
+if(pointers.size===1){
+gestureMoved=false;
+gestureMulti=false;
+touchStart=p;
+resetGesture();
+}
+if(pointers.size>1){
+gestureMulti=true;
+resetGesture();
+}
 });
-
 canvas.addEventListener("pointermove",e=>{
- if(!pointers.has(e.pointerId))return;
-
- const p=localPoint(e);
- const old=pointers.get(e.pointerId);
-
- pointers.set(e.pointerId,p);
-
- if(pointers.size===1){
-  const dx=p.x-old.x;
-  const dy=p.y-old.y;
-
-  if(touchStart&&Math.hypot(
-   p.x-touchStart.x,
-   p.y-touchStart.y
-  )>6){
-   gestureMoved=true;
-  }
-
-  camera.x+=dx;
-  camera.y+=dy;
-
- }else if(pointers.size===2){
-  gestureMulti=true;
-  gestureMoved=true;
-
-  const v=[...pointers.values()];
-
-  const dist=Math.hypot(
-   v[1].x-v[0].x,
-   v[1].y-v[0].y
-  );
-
-  const centre={
-   x:(v[0].x+v[1].x)/2,
-   y:(v[0].y+v[1].y)/2
-  };
-
-  const newAngle=Math.atan2(
-   v[1].y-v[0].y,
-   v[1].x-v[0].x
-  );
-
-  // Smooth pinch zoom
-  if(oldDistance>0){
-   camera.zoom=Math.max(
-    .45,
-    Math.min(
-     2.2,
-     camera.zoom*dist/oldDistance
-    )
-   );
-  }
-
-  // Two-finger pan
-  if(oldCentre){
-   camera.x+=centre.x-oldCentre.x;
-   camera.y+=centre.y-oldCentre.y;
-  }
-
-  // Smooth 360-degree rotation
-  if(oldAngle!==null){
-   let delta=newAngle-oldAngle;
-
-   delta=Math.atan2(
-    Math.sin(delta),
-    Math.cos(delta)
-   );
-
-   camera.rot+=delta;
-  }
-
-  oldDistance=dist;
-  oldCentre=centre;
-  oldAngle=newAngle;
- }
+if(!pointers.has(e.pointerId))return;
+const p=localPoint(e),old=pointers.get(e.pointerId);
+pointers.set(e.pointerId,p);
+if(pointers.size===1){
+if(touchStart&&Math.hypot(p.x-touchStart.x,p.y-touchStart.y)>6)
+gestureMoved=true;
+camera.x+=p.x-old.x;
+camera.y+=p.y-old.y;
+}else if(pointers.size===2){
+gestureMulti=true;
+gestureMoved=true;
+const v=[...pointers.values()];
+const dist=Math.hypot(v[1].x-v[0].x,v[1].y-v[0].y);
+const centre={
+x:(v[0].x+v[1].x)/2,
+y:(v[0].y+v[1].y)/2
+};
+const angle=Math.atan2(v[1].y-v[0].y,v[1].x-v[0].x);
+if(oldDistance>0)
+camera.zoom=Math.max(.45,Math.min(2.2,camera.zoom*dist/oldDistance));
+if(oldCentre){
+camera.x+=centre.x-oldCentre.x;
+camera.y+=centre.y-oldCentre.y;
+}
+if(oldAngle!==null){
+const delta=angle-oldAngle;
+camera.rot+=Math.atan2(Math.sin(delta),Math.cos(delta));
+}
+oldDistance=dist;
+oldCentre=centre;
+oldAngle=angle;
+}
 });
+function pointerEnd(e){
+if(pointers.has(e.pointerId)&&pointers.size===1&&!gestureMoved&&!gestureMulti&&e.type==="pointerup"){
+const p=localPoint(e);
+chooseTile(p.x,p.y);
+}
+pointers.delete(e.pointerId);
+resetGesture();
+if(!pointers.size){
+touchStart=null;
+gestureMoved=false;
+gestureMulti=false;
+}
+}
+canvas.addEventListener("pointerup",pointerEnd);
+canvas.addEventListener("pointercancel",pointerEnd);
 
-canvas.addEventListener("pointerup",e=>{
- if(
-  pointers.has(e.pointerId)&&
-  pointers.size===1&&
-  !gestureMoved&&
-  !gestureMulti
- ){
-  const p=localPoint(e);
-  chooseTile(p.x,p.y);
- }
-
- pointers.delete(e.pointerId);
- resetGesture();
-
- if(pointers.size===0){
-  touchStart=null;
-  gestureMoved=false;
-  gestureMulti=false;
- }
-});
-
-canvas.addEventListener("pointercancel",e=>{
- pointers.delete(e.pointerId);
- resetGesture();
-
- if(pointers.size===0){
-  touchStart=null;
-  gestureMoved=false;
-  gestureMulti=false;
- }
-});
-
-// CAMERA BUTTONS
-
-$("left").onclick=()=>{
- camera.rot-=Math.PI/4;
-};
-
-$("right").onclick=()=>{
- camera.rot+=Math.PI/4;
-};
-
-$("zin").onclick=()=>{
- camera.zoom=Math.min(2.2,camera.zoom*1.2);
-};
-
-$("zout").onclick=()=>{
- camera.zoom=Math.max(.45,camera.zoom/1.2);
-};
-
+$("left").onclick=()=>camera.rot-=Math.PI/4;
+$("right").onclick=()=>camera.rot+=Math.PI/4;
+$("zin").onclick=()=>camera.zoom=Math.min(2.2,camera.zoom*1.2);
+$("zout").onclick=()=>camera.zoom=Math.max(.45,camera.zoom/1.2);
 $("home").onclick=()=>{
- camera=createNewCamera();
- notify("Camera centred");
+camera=newCamera();
+notify("Camera centred");
 };
-
-// MENUS
 
 $("buildBtn").onclick=()=>{
- showBuild=!showBuild;
-
- $("buildMenu").style.display=
-  showBuild?"block":"none";
-
- if(showBuild){
-  showFinance=false;
-  $("finance").style.display="none";
-  buildOptions();
- }
+showBuild=!showBuild;
+$("buildMenu").style.display=showBuild?"block":"none";
+if(showBuild){
+showReport=false;
+$("report").style.display="none";
+buildOptions();
+}
 };
-
 $("cancelBuild").onclick=()=>{
- showBuild=false;
- buildType=null;
- preview=null;
-
- $("buildMenu").style.display="none";
- refreshPanel();
+showBuild=false;
+buildType=null;
+preview=null;
+$("buildMenu").style.display="none";
+refreshPanel();
 };
-
-$("financeBtn").onclick=()=>{
- showFinance=!showFinance;
-
- $("finance").style.display=
-  showFinance?"block":"none";
-
- if(showFinance){
-  showBuild=false;
-  $("buildMenu").style.display="none";
-  refreshFinance();
- }
+$("reportBtn").onclick=()=>{
+showReport=!showReport;
+$("report").style.display=showReport?"block":"none";
+if(showReport){
+showBuild=false;
+$("buildMenu").style.display="none";
+refreshReport();
+}
 };
-
-$("closeFinance").onclick=()=>{
- showFinance=false;
- $("finance").style.display="none";
+$("reportClose").onclick=()=>{
+showReport=false;
+$("report").style.display="none";
 };
-
-// SIMULATION CONTROLS
-
+for(const tab of ["Operations","Finance","Assets"]){
+$("tab"+tab).onclick=()=>{
+reportTab=tab==="Finance"?"Finances":tab;
+refreshReport();
+};
+}
 $("pauseBtn").onclick=()=>{
- state.paused=!state.paused;
- refresh();
+state.paused=!state.paused;
+refresh();
 };
-
 $("speedBtn").onclick=()=>{
- state.speed=(state.speed+1)%speeds.length;
- refresh();
+state.speed=(state.speed+1)%speeds.length;
+refresh();
 };
-
-// SAVE
 
 function save(message=true){
- try{
-  localStorage.setItem(
-   SAVE_KEY,
-   JSON.stringify({
-    state,
-    camera,
-    smoothRotation:true
-   })
-  );
-
-  if(message){
-   notify("Game saved on this iPhone");
-  }
-
- }catch(e){
-  notify("Save failed — check Safari storage settings");
- }
+try{
+localStorage.setItem(SAVE_KEY,JSON.stringify({
+state,camera,smoothRotation:true
+}));
+if(message)notify("Game saved on this device");
+}catch(e){
+notify("Save failed — check browser storage");
 }
-
+}
 $("saveBtn").onclick=()=>save(true);
 
-// RESET
-
 function resetGame(){
- if(!confirm(
-  "Start a completely new game?\n\n"+
-  "This will erase your buildings, "+
-  "construction and financial progress.\n\n"+
-  "This cannot be undone."
- ))return;
-
- pointers.clear();
- resetGesture();
-
- gestureMoved=false;
- gestureMulti=false;
- touchStart=null;
-
- state=createNewGame();
- camera=createNewCamera();
-
- selectedId=null;
- buildType=null;
- preview=null;
-
- showBuild=false;
- showFinance=false;
-
- $("buildMenu").style.display="none";
- $("finance").style.display="none";
- $("panel").style.display="none";
-
- accumulator=0;
- last=performance.now();
-
- save(false);
- refresh();
-
- notify("New game started — £20m cash and 50MW turbine");
+if(!confirm("Start a completely new game? This permanently erases your current progress."))return;
+pointers.clear();
+resetGesture();
+gestureMoved=false;
+gestureMulti=false;
+touchStart=null;
+state=newGame();
+camera=newCamera();
+selectedId=null;
+buildType=null;
+preview=null;
+showBuild=false;
+showReport=false;
+reportTab="Operations";
+$("buildMenu").style.display="none";
+$("report").style.display="none";
+$("panel").style.display="none";
+accumulator=0;
+last=performance.now();
+save(false);
+refresh();
+notify("New game started — £20m cash and 50MW turbine");
 }
-
 $("resetBtn").onclick=resetGame;
 
-// LOAD SAVED GAME
-
 try{
- const saved=JSON.parse(
-  localStorage.getItem(SAVE_KEY)
- );
-
- if(
-  saved&&
-  saved.state&&
-  Array.isArray(saved.state.assets)
- ){
-  state=saved.state;
-  camera=saved.camera||createNewCamera();
-
-  if(!saved.smoothRotation){
-   camera.rot=(camera.rot||0)*Math.PI/2;
-  }
-
-  state.nextId=state.nextId||
-   Math.max(
-    0,
-    ...state.assets.map(a=>a.id)
-   )+1;
- }
-}catch(e){
- console.warn("Could not load saved game",e);
+const saved=JSON.parse(localStorage.getItem(SAVE_KEY));
+if(saved&&saved.state&&Array.isArray(saved.state.assets)){
+state={...newGame(),...saved.state};
+camera={...newCamera(),...(saved.camera||{})};
+if(!saved.smoothRotation)
+camera.rot=(camera.rot||0)*Math.PI/2;
+state.nextId=Math.max(state.nextId||0,...state.assets.map(a=>a.id+1),5);
+if(!state.daily)
+state.daily={day:state.day,revenue:0,cost:0,profit:0,export:0};
 }
-
-// AUTOSAVE
-
+}catch(e){
+console.warn("Could not load saved game",e);
+}
 setInterval(()=>save(false),30000);
-
 document.addEventListener("visibilitychange",()=>{
- if(document.hidden)save(false);
+if(document.hidden)save(false);
 });
-
-// START
-
 refresh();
 requestAnimationFrame(draw);
 requestAnimationFrame(loop);
-
 </script>
 </body>
 </html>
