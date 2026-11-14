@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#10232b">
-<title>Power Grid Empire v0.2.1</title>
+<title>Power Grid Empire v0.2.2</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10232b;color:#edf5f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}
@@ -50,12 +50,12 @@ button:disabled{opacity:.4}
 <header>
  <div>
   <h1>⚡ Power Grid Empire</h1>
-  <div class="sub">Meridian Power · East Midlands · v0.2.1</div>
+  <div class="sub">Meridian Power · East Midlands · v0.2.2</div>
  </div>
  <div id="topStats"></div>
 </header>
 
-<div id="notice">Drag to pan · Pinch to zoom · Twist to rotate</div>
+<div id="notice">Drag to pan · Pinch to zoom · Twist to rotate smoothly</div>
 
 <div id="floating">
  <button id="left" title="Rotate left">↶</button>
@@ -142,24 +142,27 @@ function resize(){
 window.addEventListener("resize",resize);
 resize();
 
+// SMOOTH 360-DEGREE ROTATION
 function rotate(x,y){
  const cx=N/2,cy=N/2;
- x-=cx;y-=cy;
- const r=((camera.rot%4)+4)%4;
- if(r===1)return {x:-y+cx,y:x+cy};
- if(r===2)return {x:-x+cx,y:-y+cy};
- if(r===3)return {x:y+cx,y:-x+cy};
- return {x:x+cx,y:y+cy};
+ const dx=x-cx,dy=y-cy;
+ const c=Math.cos(camera.rot);
+ const s=Math.sin(camera.rot);
+ return {
+  x:dx*c-dy*s+cx,
+  y:dx*s+dy*c+cy
+ };
 }
 
 function unrotate(x,y){
  const cx=N/2,cy=N/2;
- x-=cx;y-=cy;
- const r=((camera.rot%4)+4)%4;
- if(r===1)return {x:y+cx,y:-x+cy};
- if(r===2)return {x:-x+cx,y:-y+cy};
- if(r===3)return {x:-y+cx,y:x+cy};
- return {x:x+cx,y:y+cy};
+ const dx=x-cx,dy=y-cy;
+ const c=Math.cos(camera.rot);
+ const s=Math.sin(camera.rot);
+ return {
+  x:dx*c+dy*s+cx,
+  y:-dx*s+dy*c+cy
+ };
 }
 
 function project(x,y,z=0){
@@ -398,7 +401,7 @@ function notify(text){
  $("notice").textContent=text;
  clearTimeout(noticeTimer);
  noticeTimer=setTimeout(()=>{
-  $("notice").textContent="Drag to pan · Pinch to zoom · Twist to rotate";
+  $("notice").textContent="Drag to pan · Pinch to zoom · Twist to rotate smoothly";
  },3800);
 }
 
@@ -665,18 +668,13 @@ function loop(now){
  requestAnimationFrame(loop);
 }
 
-// TOUCH CONTROLS — v0.2.1
-// One finger: pan
-// Two fingers: pan and pinch
-// Two-finger twist: rotate in 90-degree steps
-
+// TOUCH CONTROLS
 const pointers=new Map();
 let gestureMoved=false;
 let gestureMulti=false;
 let oldDistance=0;
 let oldCentre=null;
 let oldAngle=null;
-let twistAccumulator=0;
 
 function localPoint(e){
  const r=canvas.getBoundingClientRect();
@@ -687,7 +685,6 @@ function resetGesture(){
  oldDistance=0;
  oldCentre=null;
  oldAngle=null;
- twistAccumulator=0;
 }
 
 canvas.addEventListener("pointerdown",e=>{
@@ -760,30 +757,16 @@ canvas.addEventListener("pointermove",e=>{
    camera.y+=centre.y-oldCentre.y;
   }
 
-  // Two-finger twist to rotate
+  // Smooth 360-degree two-finger rotation
   if(oldAngle!==null){
    let delta=newAngle-oldAngle;
 
-   // Normalise the angle across the -PI / +PI boundary
    delta=Math.atan2(
     Math.sin(delta),
     Math.cos(delta)
    );
 
-   twistAccumulator+=delta;
-
-   // Rotate one quarter turn per 30 degrees of twisting
-   const threshold=Math.PI/6;
-
-   while(twistAccumulator>=threshold){
-    camera.rot=(camera.rot+1)%4;
-    twistAccumulator-=threshold;
-   }
-
-   while(twistAccumulator<=-threshold){
-    camera.rot=(camera.rot+3)%4;
-    twistAccumulator+=threshold;
-   }
+   camera.rot+=delta;
   }
 
   oldDistance=dist;
@@ -814,12 +797,12 @@ canvas.addEventListener("pointercancel",e=>{
 
 // CAMERA BUTTONS
 $("left").onclick=()=>{
- camera.rot=(camera.rot+3)%4;
+ camera.rot-=Math.PI/4;
  notify("Camera rotated left");
 };
 
 $("right").onclick=()=>{
- camera.rot=(camera.rot+1)%4;
+ camera.rot+=Math.PI/4;
  notify("Camera rotated right");
 };
 
@@ -890,7 +873,11 @@ function save(message=true){
  try{
   localStorage.setItem(
    SAVE_KEY,
-   JSON.stringify({state,camera})
+   JSON.stringify({
+    state,
+    camera,
+    smoothRotation:true
+   })
   );
 
   if(message){
@@ -916,8 +903,14 @@ try{
  if(saved&&saved.state&&Array.isArray(saved.state.assets)){
   state=saved.state;
   camera=saved.camera||camera;
+
+  // Convert quarter-turn rotation from v0.2 / v0.2.1
+  if(!saved.smoothRotation){
+   camera.rot=(camera.rot||0)*Math.PI/2;
+  }
+
   state.nextId=state.nextId||
-   Math.max(...state.assets.map(a=>a.id))+1;
+   Math.max(0,...state.assets.map(a=>a.id))+1;
  }
 }catch(e){
  console.warn("Could not load saved game",e);
