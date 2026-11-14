@@ -5,801 +5,1747 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#10232b">
-<title>Power Grid Empire v0.3</title>
+<title>Power Grid Empire v0.4</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10232b;color:#eaf3f3;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}
 button{font:inherit;cursor:pointer;touch-action:manipulation;background:#244957;color:#fff;border:1px solid #567d88;border-radius:9px;padding:10px;font-weight:650}
-button:disabled{opacity:.45}
+button.active{background:#dfb66a;color:#172c33}
 header{position:absolute;z-index:5;top:0;left:0;right:0;background:#10232bf5;border-bottom:1px solid #395865;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
 h1{font-size:16px;margin:0}
 .sub{font-size:10px;color:#aac5cb;margin-top:3px}
 #topStats{text-align:right;font-size:11px;white-space:nowrap;line-height:1.6}
 #topStats strong{font-size:15px;color:#f5d28b}
 #world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#8eacb1,#b9cfc1 55%,#799b83)}
-#floating{position:absolute;top:calc(89px + env(safe-area-inset-top));right:9px;z-index:3;display:flex;flex-direction:column;gap:7px}
-#floating button{width:42px;height:42px;padding:0;font-size:19px}
-#notice{position:absolute;top:calc(88px + env(safe-area-inset-top));left:9px;right:61px;z-index:3;background:#102b36e8;border:1px solid #456c77;border-radius:9px;padding:9px;font-size:11px;pointer-events:none}
-#panel{display:none;position:absolute;z-index:4;bottom:calc(112px + env(safe-area-inset-bottom));left:9px;right:9px;max-height:38vh;overflow:auto;background:#102731f7;border:1px solid #587e87;border-radius:12px;padding:11px}
-#panelHeader{display:grid;grid-template-columns:minmax(0,1fr) 38px;align-items:start;gap:12px;border-bottom:1px solid #3d6069;padding-bottom:9px;margin-bottom:8px}
-#panelTitle{font-size:14px;color:#f6d28d;margin:3px 0 0;min-width:0;overflow-wrap:anywhere;line-height:1.35}
-#panelClose{width:38px;height:38px;padding:0;font-size:24px;flex-shrink:0}
-#panelContent{font-size:11px;line-height:1.5;color:#d4e3e6;overflow-wrap:anywhere}
-#panelContent p{margin:6px 0}
-#panelActions{display:flex;gap:7px;margin-top:10px}
-#panelActions button{font-size:11px;padding:8px 11px}
+#toast{display:none;position:absolute;top:calc(82px + env(safe-area-inset-top));left:10px;right:10px;z-index:10;background:#102b36ef;border:1px solid #456c77;border-radius:9px;padding:9px;font-size:11px;pointer-events:none}
+#panel{display:none;position:absolute;z-index:4;bottom:calc(111px + env(safe-area-inset-bottom));left:9px;right:9px;max-height:39vh;overflow:auto;background:#102731f7;border:1px solid #587e87;border-radius:12px;padding:11px}
+.panelHeader{display:grid;grid-template-columns:minmax(0,1fr) 38px;gap:12px;align-items:start;border-bottom:1px solid #3d6069;padding-bottom:8px;margin-bottom:8px}
+.panelHeader h2{font-size:14px;color:#f6d28d;margin:4px 0 0;min-width:0;overflow-wrap:anywhere;line-height:1.35}
+.panelHeader button{width:38px;height:38px;padding:0;font-size:23px}
+#panelBody{font-size:11px;line-height:1.55;overflow-wrap:anywhere}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.actions button{font-size:11px;padding:9px}
 #bottom{position:absolute;bottom:0;left:0;right:0;z-index:5;background:#10232b;border-top:1px solid #456470;padding:9px 9px calc(10px + env(safe-area-inset-bottom))}
 #clock{font-size:11px;color:#c6d9dc;margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
 .toolbar button{flex-shrink:0;font-size:11px;padding:11px 10px}
-#buildMenu,#report{display:none;position:absolute;left:9px;right:9px;z-index:8;background:#16343f;border:1px solid #688994;border-radius:12px;padding:12px;max-height:65vh;overflow:auto;box-shadow:0 6px 30px #0009}
-#buildMenu{bottom:calc(112px + env(safe-area-inset-bottom))}
-#report{top:calc(80px + env(safe-area-inset-top))}
+#buildMenu,#report{display:none;position:absolute;left:9px;right:9px;z-index:8;background:#16343f;border:1px solid #688994;border-radius:12px;padding:12px;max-height:66vh;overflow:auto;box-shadow:0 6px 30px #0009}
+#buildMenu{bottom:calc(111px + env(safe-area-inset-bottom))}
+#report{top:calc(76px + env(safe-area-inset-top))}
 #buildMenu h2,#report h2{font-size:15px;margin:0 0 10px}
 .buildOption,.statRow{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #365963;padding:9px 0}
-.buildOption small{display:block;color:#aac7cd;margin-top:3px}
+.buildOption small{display:block;color:#aac7cd;margin-top:3px;line-height:1.5}
 .buildOption button{font-size:11px;white-space:nowrap}
 .statRow span{color:#c6d9dc}
 .statRow strong{text-align:right;font-variant-numeric:tabular-nums}
 #reportClose,#cancelBuild{width:100%;margin-top:9px}
 .tabs{display:flex;gap:6px;margin-bottom:10px}
 .tabs button{flex:1;font-size:11px;padding:8px}
-.tabs button.active{background:#d8b264;color:#172e36}
 .hint{color:#b4cbd0;font-size:11px;line-height:1.5}
+.chart{width:100%;height:154px;display:block;background:#0c2630;border-radius:8px;margin:8px 0 14px}
+.chartTitle{font-size:12px;color:#e9c789;margin-top:12px}
+.ok{color:#8ef0b3}
+.bad{color:#ff9999}
 </style>
 </head>
 <body>
 <canvas id="world"></canvas>
+
 <header>
-<div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v0.3</div></div>
+<div>
+<h1>⚡ Power Grid Empire</h1>
+<div class="sub">Meridian Power · East Midlands · v0.4</div>
+</div>
 <div id="topStats"></div>
 </header>
-<div id="notice">Drag to pan · Pinch to zoom · Twist to rotate</div>
-<div id="floating">
-<button id="left" aria-label="Rotate left">↶</button>
-<button id="right" aria-label="Rotate right">↷</button>
-<button id="zin" aria-label="Zoom in">+</button>
-<button id="zout" aria-label="Zoom out">−</button>
-<button id="home" aria-label="Reset camera">⌖</button>
-</div>
+
+<div id="toast"></div>
+
 <div id="panel">
-<div id="panelHeader">
+<div class="panelHeader">
 <h2 id="panelTitle"></h2>
-<button id="panelClose" aria-label="Close details">×</button>
+<button id="panelClose" aria-label="Close panel">×</button>
 </div>
-<div id="panelContent"></div>
-<div id="panelActions"><button id="deselect">Close details</button></div>
+<div id="panelBody"></div>
+<div class="actions" id="panelActions"></div>
 </div>
+
 <div id="buildMenu">
-<h2>🏗 Construction projects</h2>
+<h2>🏗 Build infrastructure</h2>
 <div id="buildOptions"></div>
-<button id="cancelBuild">Close / Cancel</button>
+<button id="cancelBuild">Close</button>
 </div>
+
 <div id="report">
-<h2>📊 Meridian Power operations</h2>
+<h2>📊 Meridian Power management</h2>
 <div class="tabs">
-<button id="tabOperations" class="active">Operations</button>
-<button id="tabFinance">Finances</button>
-<button id="tabAssets">Assets</button>
+<button data-tab="Operations" class="active">Operations</button>
+<button data-tab="Finances">Finances</button>
+<button data-tab="Assets">Assets</button>
 </div>
 <div id="reportContent"></div>
 <button id="reportClose">Close report</button>
 </div>
+
 <div id="bottom">
 <div id="clock"></div>
 <div class="toolbar">
 <button id="buildBtn">🏗 Build</button>
-<button id="reportBtn">📊 Operations</button>
+<button id="reportBtn">📊 Analytics</button>
+<button id="removeBtn">🗑 Remove</button>
 <button id="pauseBtn">⏸ Pause</button>
 <button id="speedBtn">⏩ 1×</button>
 <button id="saveBtn">💾 Save</button>
 <button id="resetBtn">↺ Reset</button>
 </div>
 </div>
+
 <script>
 "use strict";
+
 const $=id=>document.getElementById(id);
-const canvas=$("world"),ctx=canvas.getContext("2d");
-const N=16,TW=48,TH=25,SAVE_KEY="pge-v02";
+const canvas=$("world");
+const ctx=canvas.getContext("2d");
+
+const N=16,TW=48,TH=25;
+const SAVE_KEY="pge-v02";
 const speeds=[1,4,12,48];
 
 const TYPES={
-OCGT:{name:"Gas peaking turbine",cost:5,days:3,mw:20,size:2,color:"#8ca0aa"},
-Battery:{name:"Battery storage",cost:3,days:2,mw:10,mwh:20,size:2,color:"#d9d5bd"},
-Gas:{name:"Gas receiving station",cost:1.2,days:2,size:2,color:"#c6a56e"},
-Grid:{name:"Grid transformer",cost:2,days:3,size:2,color:"#80a6bb"},
-Office:{name:"Control building",cost:.5,days:1,size:2,color:"#b0c1ca"}
+ OCGT:{
+  name:"Gas peaking turbine",
+  cost:5,days:3,mw:20,size:2,
+  color:"#8ca0aa",
+  description:"Generates electricity when wholesale prices exceed gas, carbon and operating costs. Needs a nearby gas station and grid transformer.",
+  requires:["Gas","Grid"]
+ },
+ Battery:{
+  name:"Battery storage",
+  cost:3,days:2,mw:10,mwh:20,size:2,
+  color:"#d9d5bd",
+  description:"10MW / 20MWh battery. Charges during cheap electricity and discharges at higher prices. Needs a grid transformer.",
+  requires:["Grid"]
+ },
+ Gas:{
+  name:"Gas receiving station",
+  cost:1.2,days:2,size:2,
+  color:"#c6a56e",
+  description:"Supplies natural gas to turbines within 8 tiles. Expand coverage by building additional stations.",
+  requires:[]
+ },
+ Grid:{
+  name:"Grid transformer",
+  cost:2,days:3,size:2,
+  color:"#80a6bb",
+  description:"Provides 80MW of grid export capacity and connects turbines and batteries within 8 tiles.",
+  requires:[]
+ },
+ Office:{
+  name:"Control building",
+  cost:.5,days:1,size:2,
+  color:"#b0c1ca",
+  description:"Site operations and administration. Adds fixed operating costs; currently an optional supporting facility.",
+  requires:[]
+ },
+ Road:{
+  name:"Access road",
+  cost:.05,days:0,size:1,
+  color:"#737d7b",
+  description:"Build one road tile for £50,000. Roads are optional access infrastructure in this version; they do not yet affect dispatch.",
+  requires:[]
+ }
 };
 
+const BASE_ROADS=[];
+for(let y=0;y<N;y++)BASE_ROADS.push([2,y]);
+for(let x=0;x<N;x++)BASE_ROADS.push([x,9]);
+for(let y=4;y<12;y++)BASE_ROADS.push([10,y]);
+
+const key=(x,y)=>x+","+y;
+
 function newGame(){
-return {
-cash:20,day:1,hour:8,price:115,
-revenue:0,fuel:0,carbon:0,opex:0,profit:0,
-gasMWh:0,batteryMWh:0,exportMWh:0,
-assets:[
-{id:1,type:"OCGT",x:5,y:5,mw:50,name:"Meridian OCGT 1",status:"operational",progress:0},
-{id:2,type:"Gas",x:3,y:7,name:"Gas receiving",status:"operational",progress:0},
-{id:3,type:"Grid",x:8,y:4,name:"Grid connection",status:"operational",progress:0},
-{id:4,type:"Office",x:3,y:3,name:"Control building",status:"operational",progress:0}
-],
-nextId:5,paused:false,speed:0,bankruptWarned:false,
-daily:{day:1,revenue:0,cost:0,profit:0,export:0},
-lastDay:null
-};
+ return {
+  cash:20,day:1,hour:8,price:115,
+  revenue:0,fuel:0,carbon:0,opex:0,profit:0,
+  gasMWh:0,batteryMWh:0,exportMWh:0,
+  assets:[
+   {id:1,type:"OCGT",x:5,y:5,mw:50,name:"Meridian OCGT 1",status:"operational",progress:0},
+   {id:2,type:"Gas",x:3,y:7,name:"Gas receiving",status:"operational",progress:0},
+   {id:3,type:"Grid",x:8,y:4,name:"Grid connection",status:"operational",progress:0},
+   {id:4,type:"Office",x:3,y:3,name:"Control building",status:"operational",progress:0}
+  ],
+  roads:[...new Set(BASE_ROADS.map(([x,y])=>key(x,y)))],
+  nextId:5,paused:false,speed:0,
+  bankruptWarned:false,
+  daily:{day:1,revenue:0,cost:0,profit:0,export:0},
+  lastDay:null,
+  history:[]
+ };
 }
 
 function newCamera(){
-return {x:0,y:-20,zoom:.9,rot:0};
+ return {x:0,y:-20,zoom:.9,rot:0};
 }
 
-let state=newGame(),camera=newCamera();
-let selectedId=null,buildType=null,preview=null;
-let showBuild=false,showReport=false,reportTab="Operations";
-let noticeTimer,width=0,height=0,dpr=1;
+let state=newGame();
+let camera=newCamera();
+let selectedId=null;
+let mode=null;
+let preview=null;
+let showReport=false;
+let reportTab="Operations";
+let removeMode=false;
+
+let width=0,height=0,dpr=1;
 let accumulator=0,last=performance.now();
+let toastTimer;
 
 function resize(){
-dpr=Math.min(window.devicePixelRatio||1,2);
-width=canvas.clientWidth;
-height=canvas.clientHeight;
-canvas.width=Math.round(width*dpr);
-canvas.height=Math.round(height*dpr);
-ctx.setTransform(dpr,0,0,dpr,0,0);
+ dpr=Math.min(devicePixelRatio||1,2);
+ width=canvas.clientWidth;
+ height=canvas.clientHeight;
+ canvas.width=Math.round(width*dpr);
+ canvas.height=Math.round(height*dpr);
+ ctx.setTransform(dpr,0,0,dpr,0,0);
 }
-window.addEventListener("resize",resize);
+
+addEventListener("resize",resize);
 resize();
 
+// CAMERA
+
 function rotate(x,y){
-const dx=x-N/2,dy=y-N/2;
-const c=Math.cos(camera.rot),s=Math.sin(camera.rot);
-return {x:dx*c-dy*s+N/2,y:dx*s+dy*c+N/2};
+ const dx=x-N/2,dy=y-N/2;
+ const c=Math.cos(camera.rot),s=Math.sin(camera.rot);
+ return {
+  x:dx*c-dy*s+N/2,
+  y:dx*s+dy*c+N/2
+ };
 }
+
 function unrotate(x,y){
-const dx=x-N/2,dy=y-N/2;
-const c=Math.cos(camera.rot),s=Math.sin(camera.rot);
-return {x:dx*c+dy*s+N/2,y:-dx*s+dy*c+N/2};
+ const dx=x-N/2,dy=y-N/2;
+ const c=Math.cos(camera.rot),s=Math.sin(camera.rot);
+ return {
+  x:dx*c+dy*s+N/2,
+  y:-dx*s+dy*c+N/2
+ };
 }
+
 function project(x,y,z=0){
-const p=rotate(x,y);
-return {
-x:width/2+camera.x+(p.x-p.y)*TW/2*camera.zoom,
-y:height*.42+camera.y+(p.x+p.y)*TH/2*camera.zoom-z*camera.zoom
-};
+ const p=rotate(x,y);
+ return {
+  x:width/2+camera.x+(p.x-p.y)*TW/2*camera.zoom,
+  y:height*.42+camera.y+(p.x+p.y)*TH/2*camera.zoom-z*camera.zoom
+ };
 }
+
 function screenToTile(x,y){
-const u=(x-width/2-camera.x)/(TW/2*camera.zoom);
-const v=(y-height*.42-camera.y)/(TH/2*camera.zoom);
-const p=unrotate((u+v)/2,(v-u)/2);
-return {x:Math.floor(p.x),y:Math.floor(p.y)};
+ const u=(x-width/2-camera.x)/(TW/2*camera.zoom);
+ const v=(y-height*.42-camera.y)/(TH/2*camera.zoom);
+ const p=unrotate((u+v)/2,(v-u)/2);
+ return {x:Math.floor(p.x),y:Math.floor(p.y)};
 }
-function poly(points,fill,stroke="#344c50",lw=1){
-ctx.beginPath();
-ctx.moveTo(points[0].x,points[0].y);
-for(let i=1;i<points.length;i++)ctx.lineTo(points[i].x,points[i].y);
-ctx.closePath();
-ctx.fillStyle=fill;
-ctx.fill();
-if(stroke){
-ctx.strokeStyle=stroke;
-ctx.lineWidth=lw;
-ctx.stroke();
+
+// DRAWING
+
+function poly(ps,fill,stroke="#344c50",lw=1){
+ ctx.beginPath();
+ ctx.moveTo(ps[0].x,ps[0].y);
+ for(let i=1;i<ps.length;i++)
+  ctx.lineTo(ps[i].x,ps[i].y);
+ ctx.closePath();
+ ctx.fillStyle=fill;
+ ctx.fill();
+ if(stroke){
+  ctx.strokeStyle=stroke;
+  ctx.lineWidth=lw;
+  ctx.stroke();
+ }
 }
-}
+
 function tile(x,y,fill){
-poly([project(x,y),project(x+1,y),project(x+1,y+1),project(x,y+1)],fill,"#587765",.6);
+ poly([
+  project(x,y),
+  project(x+1,y),
+  project(x+1,y+1),
+  project(x,y+1)
+ ],fill,"#587765",.6);
 }
+
 function block(x,y,w,h,z,color){
-const a=project(x,y,z),b=project(x+w,y,z);
-const c=project(x+w,y+h,z),d=project(x,y+h,z);
-const bb=project(x+w,y),cc=project(x+w,y+h),dd=project(x,y+h);
-poly([d,c,cc,dd],"#526773");
-poly([b,c,cc,bb],"#405865");
-poly([a,b,c,d],color);
+ const a=project(x,y,z);
+ const b=project(x+w,y,z);
+ const c=project(x+w,y+h,z);
+ const d=project(x,y+h,z);
+ const bb=project(x+w,y);
+ const cc=project(x+w,y+h);
+ const dd=project(x,y+h);
+ poly([d,c,cc,dd],"#526773");
+ poly([b,c,cc,bb],"#405865");
+ poly([a,b,c,d],color);
 }
+
 function line(a,b,color,lw=2){
-ctx.beginPath();
-ctx.moveTo(a.x,a.y);
-ctx.lineTo(b.x,b.y);
-ctx.strokeStyle=color;
-ctx.lineWidth=lw*camera.zoom;
-ctx.stroke();
+ ctx.beginPath();
+ ctx.moveTo(a.x,a.y);
+ ctx.lineTo(b.x,b.y);
+ ctx.strokeStyle=color;
+ ctx.lineWidth=lw*camera.zoom;
+ ctx.stroke();
 }
+
 function stack(x,y,h){
-const top=project(x,y,h);
-line(project(x,y,12),top,"#7a858b",12);
-line(project(x,y,h-5),top,"#c5d0d4",11);
-ctx.fillStyle="#394e58";
-ctx.beginPath();
-ctx.ellipse(top.x,top.y,6*camera.zoom,3*camera.zoom,0,0,Math.PI*2);
-ctx.fill();
+ const p=project(x,y,h);
+ line(project(x,y,12),p,"#7a858b",12);
+ line(project(x,y,h-5),p,"#c5d0d4",11);
+ ctx.fillStyle="#394e58";
+ ctx.beginPath();
+ ctx.ellipse(
+  p.x,p.y,6*camera.zoom,3*camera.zoom,
+  0,0,Math.PI*2
+ );
+ ctx.fill();
 }
 
 function drawAsset(a){
-const t=TYPES[a.type];
-if(!t)return;
-const x=a.x,y=a.y,building=a.status==="building";
-ctx.globalAlpha=building?.65:1;
-if(a.type==="OCGT"){
-block(x+.12,y+.12,1.65,1.55,21,t.color);
-block(x+.2,y+.2,.8,.45,25,"#c2ccd0");
-stack(x+1.45,y+.5,52);
-stack(x+1.45,y+1.12,52);
-line(project(x+.3,y+1.75,4),project(x+1.65,y+1.75,4),"#d8b85c",5);
-}else if(a.type==="Battery"){
-for(let j=0;j<2;j++){
-block(x+.1,y+.12+j*.83,1.7,.68,13,j?"#d7d9d4":"#f0ece1");
-for(let k=0;k<3;k++){
-const p=project(x+.35+k*.42,y+.14+j*.83,14);
-ctx.fillStyle="#607c85";
-ctx.fillRect(p.x-2*camera.zoom,p.y-2*camera.zoom,5*camera.zoom,3*camera.zoom);
+ const t=TYPES[a.type];
+ if(!t)return;
+
+ const x=a.x,y=a.y;
+ const building=a.status==="building";
+ ctx.globalAlpha=building?0.65:1;
+
+ if(a.type==="OCGT"){
+  block(x+.12,y+.12,1.65,1.55,21,t.color);
+  block(x+.2,y+.2,.8,.45,25,"#c2ccd0");
+  stack(x+1.45,y+.5,52);
+  stack(x+1.45,y+1.12,52);
+  line(
+   project(x+.3,y+1.75,4),
+   project(x+1.65,y+1.75,4),
+   "#d8b85c",5
+  );
+ }else if(a.type==="Battery"){
+  for(let j=0;j<2;j++){
+   block(
+    x+.1,y+.12+j*.83,
+    1.7,.68,13,
+    j?"#d7d9d4":"#f0ece1"
+   );
+   for(let k=0;k<3;k++){
+    const p=project(
+     x+.35+k*.42,
+     y+.14+j*.83,14
+    );
+    ctx.fillStyle="#607c85";
+    ctx.fillRect(
+     p.x-2*camera.zoom,
+     p.y-2*camera.zoom,
+     5*camera.zoom,
+     3*camera.zoom
+    );
+   }
+  }
+ }else if(a.type==="Grid"){
+  block(x+.15,y+.15,1.7,1.6,3,"#8a9b99");
+  for(let j=0;j<2;j++){
+   block(x+.3+j*.8,y+.4,.55,.85,12,"#667e8b");
+   for(let k=0;k<3;k++){
+    const p=project(
+     x+.5+j*.8,
+     y+.6+k*.15,22
+    );
+    line(
+     p,
+     project(x+.5+j*.8,y+.6+k*.15,13),
+     "#bdc8c9",2
+    );
+   }
+  }
+  for(let j=0;j<3;j++)
+   line(
+    project(x+.3+j*.6,y+1.7,3),
+    project(x+.3+j*.6,y+1.7,24),
+    "#bec9c9",2
+   );
+ }else if(a.type==="Gas"){
+  block(x+.1,y+.1,1.7,1.6,3,"#969e95");
+  for(let j=0;j<3;j++)
+   line(
+    project(x+.3,y+.35+j*.45,7),
+    project(x+1.7,y+.35+j*.45,7),
+    "#d4b05f",6
+   );
+  block(x+.45,y+.5,.7,.7,10,"#b6a477");
+ }else{
+  block(x+.1,y+.1,1.7,1.7,16,"#a6bac2");
+  block(x+.25,y+.3,1.4,.3,19,"#647e90");
+  block(x+.25,y+1.15,1.4,.3,19,"#647e90");
+ }
+
+ ctx.globalAlpha=1;
+
+ if(building){
+  const p=project(x+1,y+1,42);
+  ctx.fillStyle="#ffe0a0";
+  ctx.font="bold 12px system-ui";
+  ctx.textAlign="center";
+  ctx.fillText(
+   "🏗 "+Math.round(a.progress*100)+"%",
+   p.x,p.y
+  );
+  ctx.textAlign="left";
+ }
+
+ if(a.id===selectedId){
+  const p=project(x+1,y+1,56);
+  ctx.fillStyle="#ffe082";
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,6,0,Math.PI*2);
+  ctx.fill();
+ }
 }
+
+// SERVICES
+
+function serviceMatch(type,x,y){
+ return state.assets
+  .filter(a=>
+   a.type===type&&
+   a.status==="operational"
+  )
+  .map(a=>({
+   ...a,
+   dist:Math.abs(x-a.x)+Math.abs(y-a.y)
+  }));
 }
-}else if(a.type==="Grid"){
-block(x+.15,y+.15,1.7,1.6,3,"#8a9b99");
-for(let j=0;j<2;j++){
-block(x+.3+j*.8,y+.4,.55,.85,12,"#667e8b");
-for(let k=0;k<3;k++){
-const p=project(x+.5+j*.8,y+.6+k*.15,22);
-line(p,project(x+.5+j*.8,y+.6+k*.15,13),"#bdc8c9",2);
+
+function hasService(type,x,y){
+ return serviceMatch(type,x,y)
+  .some(a=>a.dist<=8);
 }
-}
-for(let j=0;j<3;j++)
-line(project(x+.3+j*.6,y+1.7,3),project(x+.3+j*.6,y+1.7,24),"#bec9c9",2);
-}else if(a.type==="Gas"){
-block(x+.1,y+.1,1.7,1.6,3,"#969e95");
-for(let j=0;j<3;j++)
-line(project(x+.3,y+.35+j*.45,7),project(x+1.7,y+.35+j*.45,7),"#d4b05f",6);
-block(x+.45,y+.5,.7,.7,10,"#b6a477");
-}else{
-block(x+.1,y+.1,1.7,1.7,16,"#a6bac2");
-block(x+.25,y+.3,1.4,.3,19,"#647e90");
-block(x+.25,y+1.15,1.4,.3,19,"#647e90");
-}
-ctx.globalAlpha=1;
-if(building){
-const p=project(x+1,y+1,42);
-ctx.fillStyle="#ffe0a0";
-ctx.font="bold 12px system-ui";
-ctx.textAlign="center";
-ctx.fillText("🏗 "+Math.round(a.progress*100)+"%",p.x,p.y);
-ctx.textAlign="left";
-}
-if(a.id===selectedId){
-const p=project(x+1,y+1,56);
-ctx.fillStyle="#ffe082";
-ctx.beginPath();
-ctx.arc(p.x,p.y,6,0,Math.PI*2);
-ctx.fill();
-}
+
+function drawServiceOverlays(){
+ if(!mode||mode==="Road")return;
+
+ const t=TYPES[mode];
+ if(!t.requires.length)return;
+
+ for(const req of t.requires){
+  const facilities=serviceMatch(
+   req,
+   preview?preview.x:8,
+   preview?preview.y:8
+  );
+
+  for(const a of facilities){
+   const p=project(a.x+1,a.y+1,4);
+   const radius=8*TW*.43*camera.zoom;
+   const good=preview&&hasService(
+    req,preview.x,preview.y
+   );
+
+   ctx.beginPath();
+   ctx.ellipse(
+    p.x,p.y,
+    radius,radius*.52,
+    -Math.PI/4,
+    0,Math.PI*2
+   );
+
+   ctx.fillStyle=good
+    ?"#52f7a01a"
+    :"#ff67671c";
+   ctx.fill();
+
+   ctx.strokeStyle=good
+    ?"#53f7a0"
+    :"#ff7474";
+   ctx.lineWidth=2;
+   ctx.setLineDash([7,5]);
+   ctx.stroke();
+   ctx.setLineDash([]);
+
+   ctx.fillStyle="#ffffff";
+   ctx.font="bold 11px system-ui";
+   ctx.fillText(req,p.x+7,p.y-8);
+  }
+ }
 }
 
 function draw(){
-ctx.clearRect(0,0,width,height);
-const tiles=[];
-for(let x=0;x<N;x++)for(let y=0;y<N;y++){
-const p=rotate(x+.5,y+.5);
-tiles.push({x,y,depth:p.x+p.y});
+ ctx.clearRect(0,0,width,height);
+
+ const ts=[];
+ for(let x=0;x<N;x++){
+  for(let y=0;y<N;y++){
+   const p=rotate(x+.5,y+.5);
+   ts.push({x,y,depth:p.x+p.y});
+  }
+ }
+
+ ts.sort((a,b)=>a.depth-b.depth);
+
+ const roads=new Set(state.roads);
+
+ for(const t of ts){
+  tile(
+   t.x,t.y,
+   roads.has(key(t.x,t.y))
+    ?"#747d7a"
+    :(t.x+t.y)%2
+     ?"#729679"
+     :"#7c9d80"
+  );
+ }
+
+ const fence=[
+  project(0,0),
+  project(N,0),
+  project(N,N),
+  project(0,N)
+ ];
+
+ for(let i=0;i<4;i++)
+  line(
+   fence[i],
+   fence[(i+1)%4],
+   "#d5d6c7",2.5
+  );
+
+ [...state.assets]
+  .sort((a,b)=>{
+   const p=rotate(a.x+1,a.y+1);
+   const q=rotate(b.x+1,b.y+1);
+   return p.x+p.y-q.x-q.y;
+  })
+  .forEach(drawAsset);
+
+ if(mode)drawServiceOverlays();
+
+ if(mode&&preview){
+  const valid=canPlace(
+   mode,preview.x,preview.y
+  );
+  const s=TYPES[mode].size;
+
+  poly([
+   project(preview.x,preview.y,2),
+   project(preview.x+s,preview.y,2),
+   project(preview.x+s,preview.y+s,2),
+   project(preview.x,preview.y+s,2)
+  ],
+  valid?"#7bf0aa80":"#ff6c6c88",
+  valid?"#a7ffba":"#ff9696",2);
+ }
+
+ requestAnimationFrame(draw);
 }
-tiles.sort((a,b)=>a.depth-b.depth);
-for(const t of tiles){
-const road=t.x===2||t.y===9||(t.x===10&&t.y>3&&t.y<12);
-tile(t.x,t.y,road?"#747d7a":(t.x+t.y)%2?"#729679":"#7c9d80");
-}
-const fence=[project(0,0),project(N,0),project(N,N),project(0,N)];
-for(let i=0;i<4;i++)
-line(fence[i],fence[(i+1)%4],"#d5d6c7",2.5);
-for(let y=0;y<N;y+=2)
-line(project(2.5,y+.2,1),project(2.5,y+.8,1),"#c4c8b1",1.5);
-[...state.assets].sort((a,b)=>{
-const p=rotate(a.x+1,a.y+1),q=rotate(b.x+1,b.y+1);
-return p.x+p.y-q.x-q.y;
-}).forEach(drawAsset);
-if(buildType&&preview){
-const valid=canPlace(buildType,preview.x,preview.y);
-const s=TYPES[buildType].size;
-poly([
-project(preview.x,preview.y,2),
-project(preview.x+s,preview.y,2),
-project(preview.x+s,preview.y+s,2),
-project(preview.x,preview.y+s,2)
-],valid?"#7bf0aa80":"#ff6c6c88",valid?"#a7ffba":"#ff9696",2);
-}
-requestAnimationFrame(draw);
-}
+
+// INFRASTRUCTURE LOGIC
 
 function overlap(x,y,size,a){
-const s=TYPES[a.type].size;
-return x<a.x+s&&x+size>a.x&&y<a.y+s&&y+size>a.y;
+ const s=TYPES[a.type].size;
+ return x<a.x+s&&
+  x+size>a.x&&
+  y<a.y+s&&
+  y+size>a.y;
 }
+
 function canPlace(type,x,y){
-const s=TYPES[type].size;
-if(x<0||y<0||x+s>N||y+s>N||state.assets.some(a=>overlap(x,y,s,a)))return false;
-for(let i=x;i<x+s;i++)
-for(let j=y;j<y+s;j++)
-if(i===2||j===9||(i===10&&j>3&&j<12))return false;
-return true;
+ const s=TYPES[type].size;
+
+ if(
+  x<0||y<0||
+  x+s>N||y+s>N||
+  state.assets.some(a=>overlap(x,y,s,a))
+ )return false;
+
+ const roads=new Set(state.roads);
+
+ for(let i=x;i<x+s;i++)
+  for(let j=y;j<y+s;j++)
+   if(roads.has(key(i,j)))return false;
+
+ return true;
 }
-function distance(a,b){
-return Math.abs(a.x-b.x)+Math.abs(a.y-b.y);
+
+function connected(a,type){
+ return state.assets.some(b=>
+  b.id!==a.id&&
+  b.type===type&&
+  b.status==="operational"&&
+  Math.abs(a.x-b.x)+
+  Math.abs(a.y-b.y)<=8
+ );
 }
-function connected(a,type,range=8){
-return state.assets.some(b=>b.id!==a.id&&b.type===type&&b.status==="operational"&&distance(a,b)<=range);
+
+function status(a){
+ if(a.status==="building")
+  return "Under construction";
+
+ if(a.type==="OCGT"&&!connected(a,"Gas"))
+  return "No gas supply";
+
+ if(
+  (a.type==="OCGT"||a.type==="Battery")&&
+  !connected(a,"Grid")
+ )return "No grid connection";
+
+ return "Operational";
 }
-function getStatus(a){
-if(a.status==="building")return "Under construction";
-if(a.type==="OCGT"){
-if(!connected(a,"Gas"))return "Disconnected: gas supply";
-if(!connected(a,"Grid"))return "Disconnected: grid";
-}
-if(a.type==="Battery"&&!connected(a,"Grid"))return "Disconnected: grid";
-return "Operational";
-}
+
 function available(a){
-return a.status==="operational"&&(a.type==="OCGT"||a.type==="Battery")&&getStatus(a)==="Operational";
+ return a.status==="operational"&&
+  status(a)==="Operational";
 }
+
 function gasMW(){
-return state.assets.filter(a=>a.type==="OCGT"&&available(a)).reduce((n,a)=>n+(a.mw||20),0);
+ return state.assets
+  .filter(a=>a.type==="OCGT"&&available(a))
+  .reduce((n,a)=>n+(a.mw||20),0);
 }
+
 function batteryMW(){
-return state.assets.filter(a=>a.type==="Battery"&&available(a)).reduce((n,a)=>n+(a.mw||10),0);
+ return state.assets
+  .filter(a=>a.type==="Battery"&&available(a))
+  .reduce((n,a)=>n+(a.mw||10),0);
 }
+
 function gridMW(){
-return state.assets.filter(a=>a.type==="Grid"&&a.status==="operational").length*80;
+ return state.assets.filter(a=>
+  a.type==="Grid"&&
+  a.status==="operational"
+ ).length*80;
 }
+
 function money(n){
-return (n<0?"−":"")+"£"+Math.abs(n).toFixed(3)+"m";
+ return (n<0?"−":"")+
+  "£"+Math.abs(n).toFixed(3)+"m";
 }
-function notify(message){
-$("notice").textContent=message;
-clearTimeout(noticeTimer);
-noticeTimer=setTimeout(()=>{
-$("notice").textContent="Drag to pan · Pinch to zoom · Twist to rotate";
-},3800);
+
+function notify(s){
+ $("toast").textContent=s;
+ $("toast").style.display="block";
+ clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>{
+  $("toast").style.display="none";
+ },3200);
 }
-function closePanel(){
-selectedId=null;
-buildType=null;
-preview=null;
-$("panel").style.display="none";
+
+// BUILDING DETAILS
+
+function hidePanel(){
+ selectedId=null;
+ $("panel").style.display="none";
 }
-$("panelClose").onclick=closePanel;
-$("deselect").onclick=closePanel;
+
+function cancelPlacement(){
+ mode=null;
+ preview=null;
+ hidePanel();
+}
+
+$("panelClose").onclick=()=>{
+ if(mode)cancelPlacement();
+ else hidePanel();
+};
+
+function safe(s){
+ return String(s).replace(
+  /[&<>"']/g,
+  c=>({
+   "&":"&amp;",
+   "<":"&lt;",
+   ">":"&gt;",
+   '"':"&quot;",
+   "'":"&#39;"
+  }[c])
+ );
+}
+
+function panel(title,body,actions=[]){
+ $("panel").style.display="block";
+ $("panelTitle").textContent=title;
+ $("panelBody").innerHTML=body;
+
+ const box=$("panelActions");
+ box.replaceChildren();
+
+ for(const a of actions){
+  const b=document.createElement("button");
+  b.textContent=a.label;
+  b.onclick=a.action;
+  box.appendChild(b);
+ }
+}
+
+function decommissionValue(a){
+ const c=TYPES[a.type].cost;
+ return a.status==="building"
+  ?-c*.08
+  :c*.12-c*.06;
+}
 
 function refreshPanel(){
-const a=state.assets.find(x=>x.id===selectedId);
-if(!a&&!buildType){
-$("panel").style.display="none";
-return;
-}
-$("panel").style.display="block";
-if(buildType){
-const t=TYPES[buildType];
-$("panelTitle").textContent="🏗 Place "+t.name;
-$("panelContent").textContent="Tap an empty location twice to confirm. Cost £"+t.cost.toFixed(1)+"m. Build time "+t.days+" days.";
-return;
-}
-$("panelTitle").textContent=a.name;
-let detail="";
-if(a.type==="OCGT")
-detail="Capacity: "+(a.mw||20)+" MW. Dispatches when prices exceed £86/MWh.";
-else if(a.type==="Battery")
-detail="Capacity: 10 MW / 20 MWh. State of charge: "+(a.soc||0).toFixed(1)+" MWh.";
-else if(a.type==="Grid")
-detail="Transformer capacity: 80 MW. Site grid limit: "+gridMW()+" MW.";
-else if(a.type==="Gas")
-detail="Gas infrastructure for nearby generators.";
-else detail="Operations and site administration.";
-$("panelContent").textContent="Status: "+getStatus(a)+(a.status==="building"?" ("+Math.round(a.progress*100)+"%)":"")+". "+detail;
+ if(mode){
+  const t=TYPES[mode];
+
+  let text=
+   "<p>"+safe(t.description)+"</p>"+
+   "<p>Cost: <b>"+money(t.cost)+
+   "</b> · Build: "+t.days+" days</p>";
+
+  if(preview){
+   const ok=canPlace(
+    mode,preview.x,preview.y
+   );
+
+   text+=
+    "<p>Plot "+(preview.x+1)+
+    ", "+(preview.y+1)+
+    ' · <b class="'+
+    (ok?"ok":"bad")+'">'+
+    (ok?"Land available":"Land unavailable")+
+    "</b></p>";
+
+   for(const req of t.requires){
+    const active=hasService(
+     req,preview.x,preview.y
+    );
+
+    text+=
+     '<p class="'+
+     (active?"ok":"bad")+'">● '+
+     req+": "+
+     (active
+      ?"Connected"
+      :"Outside service range — will not operate")+
+     "</p>";
+   }
+  }else{
+   text+="<p>Tap a free plot to review placement.</p>";
+  }
+
+  panel(
+   "🏗 "+t.name,
+   text,
+   [{label:"Cancel",action:cancelPlacement}]
+  );
+  return;
+ }
+
+ const a=state.assets.find(
+  a=>a.id===selectedId
+ );
+
+ if(!a){
+  hidePanel();
+  return;
+ }
+
+ const t=TYPES[a.type];
+
+ let text=
+  "<p>Status: <b>"+safe(status(a))+
+  "</b></p><p>"+safe(t.description)+"</p>";
+
+ if(a.mw)
+  text+="<p>Capacity: "+a.mw+" MW</p>";
+
+ if(a.type==="Battery")
+  text+="<p>Charge: "+
+   (a.soc||0).toFixed(1)+
+   " / 20 MWh</p>";
+
+ if(a.status==="building")
+  text+="<p>Construction: "+
+   Math.round(a.progress*100)+"%</p>";
+
+ const settlement=decommissionValue(a);
+
+ text+="<p>Decommissioning "+
+  (settlement>=0
+   ?"scrap proceeds: "
+   :"net cost: ")+
+  money(Math.abs(settlement))+"</p>";
+
+ panel(a.name,text,[
+  {label:"Close",action:hidePanel},
+  {
+   label:"Decommission",
+   action:()=>decommission(a)
+  }
+ ]);
 }
 
-function row(label,value){
-return '<div class="statRow"><span>'+label+'</span><strong>'+value+'</strong></div>';
+// DEMOLITION
+
+function decommission(a){
+ const value=decommissionValue(a);
+ const label=value>=0
+  ?"Scrap proceeds "+money(value)
+  :"Cost "+money(-value);
+
+ if(!confirm(
+  "Decommission "+a.name+"?\n"+
+  label+
+  "\nThis cannot be undone."
+ ))return;
+
+ if(value<0&&state.cash< -value){
+  notify("Insufficient cash to decommission");
+  return;
+ }
+
+ state.cash+=value;
+ state.assets=state.assets.filter(
+  x=>x.id!==a.id
+ );
+
+ hidePanel();
+ refresh();
+ save(false);
+ notify("Asset decommissioned");
 }
 
-function refreshReport(){
-if(!showReport)return;
-$("tabOperations").classList.toggle("active",reportTab==="Operations");
-$("tabFinance").classList.toggle("active",reportTab==="Finances");
-$("tabAssets").classList.toggle("active",reportTab==="Assets");
-let html="";
-if(reportTab==="Operations"){
-html+=row("Day / time",state.day+" / "+String(Math.floor(state.hour)).padStart(2,"0")+":"+(state.hour%1?"30":"00"));
-html+=row("Electricity price","£"+state.price.toFixed(0)+"/MWh");
-html+=row("Available gas capacity",gasMW()+" MW");
-html+=row("Available battery power",batteryMW()+" MW");
-html+=row("Grid export limit",gridMW()+" MW");
-html+=row("Lifetime exports",state.exportMWh.toFixed(1)+" MWh");
-html+=row("Battery discharge",state.batteryMWh.toFixed(1)+" MWh");
-if(state.lastDay)html+=row("Previous day profit",money(state.lastDay.profit));
-}else if(reportTab==="Finances"){
-html+=row("Cash",money(state.cash));
-html+=row("Cumulative revenue",money(state.revenue));
-html+=row("Fuel costs",money(state.fuel));
-html+=row("Carbon costs",money(state.carbon));
-html+=row("Operating costs",money(state.opex));
-html+=row("Operating profit",money(state.profit));
-html+='<p class="hint">Daily operating results exclude construction capital expenditure. Financial values are cumulative since the start of the game.</p>';
-if(state.daily){
-html+=row("Current day revenue",money(state.daily.revenue));
-html+=row("Current day operating profit",money(state.daily.profit));
-html+=row("Current day exports",state.daily.export.toFixed(1)+" MWh");
-}
-}else{
-const operational=state.assets.filter(a=>a.status==="operational").length;
-const building=state.assets.filter(a=>a.status==="building").length;
-html+=row("Total assets",state.assets.length);
-html+=row("Operational",operational);
-html+=row("Under construction",building);
-for(const type of Object.keys(TYPES)){
-const list=state.assets.filter(a=>a.type===type);
-if(list.length)html+=row(TYPES[type].name,list.length);
-}
-html+='<p class="hint">Tap an asset on the site for individual status and capacity.</p>';
-}
-$("reportContent").innerHTML=html;
+function removeRoad(x,y){
+ const k=key(x,y);
+
+ if(!state.roads.includes(k))return;
+
+ if(!confirm(
+  "Remove this road tile?\n"+
+  "Demolition cost £10,000."
+ ))return;
+
+ if(state.cash<.01){
+  notify("Insufficient cash");
+  return;
+ }
+
+ state.cash-=.01;
+ state.roads=state.roads.filter(v=>v!==k);
+
+ refresh();
+ save(false);
+ notify("Road removed");
 }
 
-function refresh(){
-const gas=state.assets.filter(a=>a.type==="OCGT").reduce((n,a)=>n+(a.mw||20),0);
-const bat=state.assets.filter(a=>a.type==="Battery").length*10;
-$("topStats").innerHTML="<strong>"+money(state.cash)+"</strong><br>"+gas+"MW gas · "+bat+"MW BESS";
-$("clock").textContent="Day "+state.day+" · "+String(Math.floor(state.hour)).padStart(2,"0")+":"+(state.hour%1?"30":"00")+" · Power £"+state.price.toFixed(0)+"/MWh · Grid "+gridMW()+"MW";
-$("pauseBtn").textContent=state.paused?"▶ Resume":"⏸ Pause";
-$("speedBtn").textContent="⏩ "+speeds[state.speed]+"×";
-if(showReport)refreshReport();
-if(selectedId!==null||buildType)refreshPanel();
-}
+// PLACEMENT
 
-function buildOptions(){
-$("buildOptions").innerHTML=Object.entries(TYPES).map(([key,t])=>
-'<div class="buildOption"><div><strong>'+t.name+'</strong><small>£'+t.cost.toFixed(1)+'m · '+t.days+' days'+(t.mw?' · '+t.mw+'MW':'')+'</small></div><button data-type="'+key+'">Select</button></div>'
-).join("");
-document.querySelectorAll("[data-type]").forEach(b=>{
-b.onclick=()=>{
-const type=b.dataset.type;
-if(state.cash<TYPES[type].cost){
-notify("Insufficient cash");
-return;
-}
-selectedId=null;
-buildType=type;
-preview=null;
-showBuild=false;
-$("buildMenu").style.display="none";
-refreshPanel();
-notify("Tap a clear area to place "+TYPES[type].name);
-};
-});
+function chooseTile(sx,sy){
+ const p=screenToTile(sx,sy);
+
+ if(
+  p.x<0||p.y<0||
+  p.x>=N||p.y>=N
+ )return;
+
+ const a=[...state.assets].reverse().find(a=>
+  p.x>=a.x&&
+  p.x<a.x+TYPES[a.type].size&&
+  p.y>=a.y&&
+  p.y<a.y+TYPES[a.type].size
+ );
+
+ if(removeMode){
+  if(a)decommission(a);
+  else if(state.roads.includes(key(p.x,p.y)))
+   removeRoad(p.x,p.y);
+  else notify("Nothing to remove here");
+  return;
+ }
+
+ if(mode){
+  preview=p;
+  refreshPanel();
+
+  if(!canPlace(mode,p.x,p.y))return;
+
+  const t=TYPES[mode];
+
+  const missing=t.requires.filter(
+   r=>!hasService(r,p.x,p.y)
+  );
+
+  let message=
+   "Build "+t.name+
+   " at plot "+(p.x+1)+","+(p.y+1)+"?\n"+
+   "Cost: "+money(t.cost)+"\n"+
+   "Construction: "+t.days+" days";
+
+  if(missing.length)
+   message+=
+    "\n⚠ Missing "+missing.join(" and ")+
+    " — asset will be inactive until connected.";
+  else if(t.requires.length)
+   message+="\n✓ Required services connected.";
+
+  if(confirm(message))
+   construct(mode,p.x,p.y);
+
+  return;
+ }
+
+ if(!a||a.id===selectedId){
+  hidePanel();
+ }else{
+  selectedId=a.id;
+  refreshPanel();
+ }
 }
 
 function construct(type,x,y){
-if(!canPlace(type,x,y)){
-notify("Location unavailable");
-return;
-}
-const t=TYPES[type];
-if(state.cash<t.cost){
-notify("Insufficient cash");
-return;
-}
-if(!confirm("Build "+t.name+" for £"+t.cost.toFixed(1)+"m? Construction takes "+t.days+" days."))return;
-state.cash-=t.cost;
-const id=state.nextId++;
-state.assets.push({
-id,type,x,y,name:t.name+" "+id,mw:t.mw||0,
-status:"building",progress:0,daysRequired:t.days,soc:0
-});
-selectedId=id;
-buildType=null;
-preview=null;
-refresh();
-save(false);
-notify("Construction started");
+ const t=TYPES[type];
+
+ if(
+  !canPlace(type,x,y)||
+  state.cash<t.cost
+ ){
+  notify("Cannot afford or place this project");
+  return;
+ }
+
+ state.cash-=t.cost;
+
+ if(type==="Road"){
+  state.roads.push(key(x,y));
+  notify("Road built");
+ }else{
+  const id=state.nextId++;
+
+  state.assets.push({
+   id,type,x,y,
+   name:t.name+" "+id,
+   mw:t.mw||0,
+   status:"building",
+   progress:0,
+   daysRequired:t.days,
+   soc:0
+  });
+
+  selectedId=id;
+  notify("Construction started");
+ }
+
+ mode=null;
+ preview=null;
+ refresh();
+ refreshPanel();
+ save(false);
 }
 
-function chooseTile(sx,sy){
-const t=screenToTile(sx,sy);
-if(buildType){
-if(preview&&preview.x===t.x&&preview.y===t.y)
-construct(buildType,t.x,t.y);
-else{
-preview=t;
-notify(canPlace(buildType,t.x,t.y)?"Tap highlighted area again to confirm":"Location unavailable");
+function buildOptions(){
+ $("buildOptions").innerHTML=
+  Object.entries(TYPES).map(([k,t])=>
+   '<div class="buildOption">'+
+   "<div><b>"+safe(t.name)+"</b>"+
+   "<small>"+safe(t.description)+"</small>"+
+   "<small>Cost "+money(t.cost)+
+   " · "+t.days+" days"+
+   (t.mw?" · "+t.mw+"MW":"")+
+   "</small></div>"+
+   '<button data-type="'+k+'">Build</button>'+
+   "</div>"
+  ).join("");
+
+ document.querySelectorAll("[data-type]")
+  .forEach(b=>b.onclick=()=>{
+   const t=b.dataset.type;
+
+   if(state.cash<TYPES[t].cost){
+    notify("Insufficient cash");
+    return;
+   }
+
+   mode=t;
+   removeMode=false;
+   preview=null;
+   selectedId=null;
+
+   $("removeBtn").classList.remove("active");
+   $("buildMenu").style.display="none";
+
+   refreshPanel();
+   notify("Tap a plot to review cost and services");
+  });
 }
-return;
+
+// ANALYTICS
+
+function row(k,v){
+ return '<div class="statRow"><span>'+
+  k+"</span><strong>"+v+
+  "</strong></div>";
 }
-const a=[...state.assets].reverse().find(a=>
-t.x>=a.x&&t.x<a.x+TYPES[a.type].size&&
-t.y>=a.y&&t.y<a.y+TYPES[a.type].size
-);
-if(!a||a.id===selectedId)closePanel();
-else{
-selectedId=a.id;
-refreshPanel();
+
+function chartData(){
+ return (state.history||[]).slice(-120);
 }
+
+function drawChart(el,data,field,color){
+ const w=el.clientWidth||320;
+ const h=154;
+ const ratio=Math.min(devicePixelRatio||1,2);
+ const c=el.getContext("2d");
+
+ el.width=Math.round(w*ratio);
+ el.height=Math.round(h*ratio);
+ c.setTransform(ratio,0,0,ratio,0,0);
+ c.clearRect(0,0,w,h);
+
+ c.strokeStyle="#294a56";
+ c.lineWidth=1;
+
+ for(let i=1;i<4;i++){
+  const y=12+i*(h-29)/4;
+  c.beginPath();
+  c.moveTo(35,y);
+  c.lineTo(w-10,y);
+  c.stroke();
+ }
+
+ const vals=data.map(
+  x=>Number(x[field])||0
+ );
+
+ if(vals.length<2){
+  c.fillStyle="#9bb8c1";
+  c.font="11px system-ui";
+  c.fillText(
+   "History builds as the simulation runs",
+   15,h/2
+  );
+  return;
+ }
+
+ let min=Math.min(...vals);
+ let max=Math.max(...vals);
+
+ if(min===max){
+  min-=1;
+  max+=1;
+ }
+
+ const px=i=>
+  35+i/(vals.length-1)*(w-46);
+
+ const py=v=>
+  h-18-(v-min)/(max-min)*(h-34);
+
+ c.fillStyle="#b3c8cd";
+ c.font="10px system-ui";
+
+ c.fillText(
+  max.toFixed(Math.abs(max)<10?2:0),
+  3,14
+ );
+
+ c.fillText(
+  min.toFixed(Math.abs(min)<10?2:0),
+  3,h-17
+ );
+
+ c.strokeStyle=color;
+ c.lineWidth=2;
+ c.beginPath();
+
+ vals.forEach((v,i)=>{
+  if(i===0)c.moveTo(px(i),py(v));
+  else c.lineTo(px(i),py(v));
+ });
+
+ c.stroke();
 }
+
+function refreshReport(){
+ if(!showReport)return;
+
+ document.querySelectorAll("[data-tab]")
+  .forEach(b=>b.classList.toggle(
+   "active",
+   b.dataset.tab===reportTab
+  ));
+
+ let html="";
+ const h=chartData();
+
+ if(reportTab==="Operations"){
+  html+=row(
+   "Wholesale price",
+   "£"+state.price.toFixed(0)+"/MWh"
+  );
+  html+=row("Available gas",gasMW()+" MW");
+  html+=row("Available battery",batteryMW()+" MW");
+  html+=row("Grid export limit",gridMW()+" MW");
+  html+=row(
+   "Lifetime exports",
+   state.exportMWh.toFixed(1)+" MWh"
+  );
+
+  html+=
+   '<div class="chartTitle">'+
+   "Electricity price (£/MWh)</div>"+
+   '<canvas class="chart" data-field="price"></canvas>'+
+   '<div class="chartTitle">'+
+   "Generation / exports (MWh per interval)</div>"+
+   '<canvas class="chart" data-field="export"></canvas>';
+
+ }else if(reportTab==="Finances"){
+  html+=row("Cash",money(state.cash));
+  html+=row(
+   "Cumulative revenue",
+   money(state.revenue)
+  );
+  html+=row(
+   "Operating profit",
+   money(state.profit)
+  );
+  html+=row("Fuel costs",money(state.fuel));
+  html+=row("Carbon costs",money(state.carbon));
+  html+=row(
+   "Other operating costs",
+   money(state.opex)
+  );
+
+  html+=
+   '<div class="chartTitle">Cash balance (£m)</div>'+
+   '<canvas class="chart" data-field="cash"></canvas>'+
+   '<div class="chartTitle">Cumulative operating profit (£m)</div>'+
+   '<canvas class="chart" data-field="profit"></canvas>'+
+   '<div class="chartTitle">Interval revenue (£m)</div>'+
+   '<canvas class="chart" data-field="revenue"></canvas>';
+
+ }else{
+  html+=row("Assets",state.assets.length);
+  html+=row(
+   "Operational",
+   state.assets.filter(
+    a=>a.status==="operational"
+   ).length
+  );
+  html+=row(
+   "Under construction",
+   state.assets.filter(
+    a=>a.status==="building"
+   ).length
+  );
+
+  for(const [k,t] of Object.entries(TYPES)){
+   if(k==="Road")continue;
+
+   const count=state.assets.filter(
+    a=>a.type===k
+   ).length;
+
+   if(count)html+=row(t.name,count);
+  }
+
+  html+=row("Road tiles",state.roads.length);
+
+  html+=
+   '<p class="hint">'+
+   "Tap buildings on the site to inspect and "+
+   "decommission them. Use Remove to delete roads."+
+   "</p>";
+ }
+
+ $("reportContent").innerHTML=html;
+
+ const colors={
+  price:"#eac57e",
+  export:"#7ed9af",
+  cash:"#7ab8f0",
+  profit:"#e6ab73",
+  revenue:"#a8d6ed"
+ };
+
+ for(const c of $("reportContent")
+  .querySelectorAll("canvas")){
+  drawChart(
+   c,h,
+   c.dataset.field,
+   colors[c.dataset.field]
+  );
+ }
+}
+
+function refresh(){
+ const gas=state.assets
+  .filter(a=>a.type==="OCGT")
+  .reduce((n,a)=>n+(a.mw||20),0);
+
+ const bat=state.assets.filter(
+  a=>a.type==="Battery"
+ ).length*10;
+
+ $("topStats").innerHTML=
+  "<strong>"+money(state.cash)+"</strong><br>"+
+  gas+"MW gas · "+bat+"MW BESS";
+
+ $("clock").textContent=
+  "Day "+state.day+" · "+
+  String(Math.floor(state.hour)).padStart(2,"0")+
+  ":"+(state.hour%1?"30":"00")+
+  " · £"+state.price.toFixed(0)+"/MWh"+
+  " · Grid "+gridMW()+"MW";
+
+ $("pauseBtn").textContent=
+  state.paused?"▶ Resume":"⏸ Pause";
+
+ $("speedBtn").textContent=
+  "⏩ "+speeds[state.speed]+"×";
+
+ if(showReport)refreshReport();
+
+ if(selectedId!==null||mode)refreshPanel();
+}
+
+// ELECTRICITY MARKET
 
 function marketPrice(){
-return Math.max(-25,Math.min(270,
-100+
-45*Math.sin((state.hour-8)/24*Math.PI*2)+
-19*Math.cos(state.day*.12)-
-30*Math.sin(state.day*.39+state.hour*.08)+
-14*Math.sin(state.day*.87+state.hour*.53)
-));
+ return Math.max(
+  -25,
+  Math.min(
+   270,
+   100+
+   45*Math.sin(
+    (state.hour-8)/24*Math.PI*2
+   )+
+   19*Math.cos(state.day*.12)-
+   30*Math.sin(
+    state.day*.39+state.hour*.08
+   )+
+   14*Math.sin(
+    state.day*.87+state.hour*.53
+   )
+  )
+ );
 }
 
 function simulateHalfHour(){
-state.hour+=.5;
-if(state.hour>=24){
-state.hour=0;
-state.lastDay=state.daily?{...state.daily}:null;
-state.day++;
-state.daily={day:state.day,revenue:0,cost:0,profit:0,export:0};
+ state.hour+=.5;
+
+ if(state.hour>=24){
+  state.hour=0;
+  state.lastDay=state.daily
+   ?{...state.daily}
+   :null;
+
+  state.day++;
+
+  state.daily={
+   day:state.day,
+   revenue:0,cost:0,
+   profit:0,export:0
+  };
+ }
+
+ if(!state.daily){
+  state.daily={
+   day:state.day,
+   revenue:0,cost:0,
+   profit:0,export:0
+  };
+ }
+
+ state.price=marketPrice();
+
+ const grid=gridMW();
+ const gasCap=gasMW();
+
+ const batteries=state.assets.filter(
+  a=>a.type==="Battery"&&available(a)
+ );
+
+ const gas=state.price>86
+  ?Math.min(gasCap,grid)
+  :0;
+
+ let remaining=Math.max(0,grid-gas);
+ let charge=0;
+ let discharge=0;
+
+ for(const a of batteries){
+  const soc=a.soc||0;
+
+  if(state.price<65){
+   const purchased=Math.max(
+    0,
+    Math.min(5,(20-soc)/.9)
+   );
+
+   a.soc=Math.min(
+    20,
+    soc+purchased*.9
+   );
+
+   charge+=purchased;
+
+  }else if(
+   state.price>125&&
+   remaining>0
+  ){
+   const delivered=Math.max(
+    0,
+    Math.min(
+     5,
+     remaining*.5,
+     soc*.9
+    )
+   );
+
+   a.soc=Math.max(
+    0,
+    soc-delivered/.9
+   );
+
+   discharge+=delivered;
+   remaining-=delivered/.5;
+  }
+ }
+
+ const gasEnergy=gas*.5;
+ const exported=gasEnergy+discharge;
+
+ const rev=exported*state.price/1e6;
+ const fuel=gasEnergy*55/1e6;
+ const carbon=gasEnergy*23/1e6;
+
+ const operating=
+  gasEnergy*8/1e6+
+  state.assets.filter(
+   a=>a.status==="operational"
+  ).length*120/1e6+
+  charge*state.price/1e6;
+
+ const profit=rev-fuel-carbon-operating;
+
+ state.revenue+=rev;
+ state.fuel+=fuel;
+ state.carbon+=carbon;
+ state.opex+=operating;
+ state.profit+=profit;
+ state.cash+=profit;
+
+ state.gasMWh+=gasEnergy;
+ state.batteryMWh+=discharge;
+ state.exportMWh+=exported;
+
+ state.daily.revenue+=rev;
+ state.daily.cost+=fuel+carbon+operating;
+ state.daily.profit+=profit;
+ state.daily.export+=exported;
+
+ for(const a of state.assets){
+  if(a.status==="building"){
+   a.progress+=.5/(
+    (a.daysRequired||TYPES[a.type].days)*24
+   );
+
+   if(a.progress>=1){
+    a.progress=1;
+    a.status="operational";
+    notify(a.name+" completed");
+   }
+  }
+ }
+
+ state.history.push({
+  day:state.day,
+  hour:state.hour,
+  price:state.price,
+  export:exported,
+  cash:state.cash,
+  profit:state.profit,
+  revenue:rev
+ });
+
+ if(state.history.length>240){
+  state.history.splice(
+   0,
+   state.history.length-240
+  );
+ }
+
+ if(
+  state.cash<0&&
+  !state.bankruptWarned
+ ){
+  state.bankruptWarned=true;
+  notify("Warning: cash is negative");
+ }
 }
-if(!state.daily)
-state.daily={day:state.day,revenue:0,cost:0,profit:0,export:0};
-state.price=marketPrice();
-const grid=gridMW(),gasCap=gasMW();
-const batteries=state.assets.filter(a=>a.type==="Battery"&&available(a));
-const gasFuel=55,gasCarbon=23,gasVariable=8;
-const gasMW=state.price>86?Math.min(gasCap,grid):0;
-let remainingGrid=Math.max(0,grid-gasMW);
-let charge=0,discharge=0;
-for(const a of batteries){
-const soc=a.soc||0;
-if(state.price<65){
-const purchased=Math.max(0,Math.min(5,(20-soc)/.9));
-a.soc=Math.min(20,soc+purchased*.9);
-charge+=purchased;
-}else if(state.price>125&&remainingGrid>0){
-const delivered=Math.max(0,Math.min(5,remainingGrid*.5,soc*.9));
-a.soc=Math.max(0,soc-delivered/.9);
-discharge+=delivered;
-remainingGrid-=delivered/.5;
-}
-}
-const gasEnergy=gasMW*.5;
-const exported=gasEnergy+discharge;
-const rev=exported*state.price/1e6;
-const fuel=gasEnergy*gasFuel/1e6;
-const carbon=gasEnergy*gasCarbon/1e6;
-const operating=gasEnergy*gasVariable/1e6+
-state.assets.filter(a=>a.status==="operational").length*120/1e6+
-charge*state.price/1e6;
-const profit=rev-fuel-carbon-operating;
-state.revenue+=rev;
-state.fuel+=fuel;
-state.carbon+=carbon;
-state.opex+=operating;
-state.profit+=profit;
-state.cash+=profit;
-state.gasMWh+=gasEnergy;
-state.batteryMWh+=discharge;
-state.exportMWh+=exported;
-state.daily.revenue+=rev;
-state.daily.cost+=fuel+carbon+operating;
-state.daily.profit+=profit;
-state.daily.export+=exported;
-for(const a of state.assets){
-if(a.status==="building"){
-a.progress+=.5/((a.daysRequired||TYPES[a.type].days)*24);
-if(a.progress>=1){
-a.progress=1;
-a.status="operational";
-notify(a.name+" construction completed");
-}
-}
-}
-if(state.cash<0&&!state.bankruptWarned){
-state.bankruptWarned=true;
-notify("Warning: cash balance is negative");
-}
-}
+
+// Faster clock:
+// 1× = 30 simulated minutes per real second.
 
 function loop(now){
-const elapsed=Math.min((now-last)/1000,2);
-last=now;
-if(!state.paused){
-accumulator+=elapsed*speeds[state.speed];
-let steps=0;
-while(accumulator>=3&&steps<80){
-simulateHalfHour();
-accumulator-=3;
-steps++;
-}
-if(steps)refresh();
-}
-requestAnimationFrame(loop);
+ const elapsed=Math.min(
+  (now-last)/1000,2
+ );
+
+ last=now;
+
+ if(!state.paused){
+  accumulator+=elapsed*speeds[state.speed];
+
+  let steps=0;
+
+  while(accumulator>=1&&steps<100){
+   simulateHalfHour();
+   accumulator-=1;
+   steps++;
+  }
+
+  if(steps)refresh();
+ }
+
+ requestAnimationFrame(loop);
 }
 
-// Touch and camera controls
+// GESTURE NAVIGATION
+
 const pointers=new Map();
-let gestureMoved=false,gestureMulti=false;
-let oldDistance=0,oldCentre=null,oldAngle=null,touchStart=null;
-function localPoint(e){
-const r=canvas.getBoundingClientRect();
-return {x:e.clientX-r.left,y:e.clientY-r.top};
-}
-function resetGesture(){
-oldDistance=0;
-oldCentre=null;
-oldAngle=null;
-}
-canvas.addEventListener("pointerdown",e=>{
-canvas.setPointerCapture(e.pointerId);
-const p=localPoint(e);
-pointers.set(e.pointerId,p);
-if(pointers.size===1){
-gestureMoved=false;
-gestureMulti=false;
-touchStart=p;
-resetGesture();
-}
-if(pointers.size>1){
-gestureMulti=true;
-resetGesture();
-}
-});
-canvas.addEventListener("pointermove",e=>{
-if(!pointers.has(e.pointerId))return;
-const p=localPoint(e),old=pointers.get(e.pointerId);
-pointers.set(e.pointerId,p);
-if(pointers.size===1){
-if(touchStart&&Math.hypot(p.x-touchStart.x,p.y-touchStart.y)>6)
-gestureMoved=true;
-camera.x+=p.x-old.x;
-camera.y+=p.y-old.y;
-}else if(pointers.size===2){
-gestureMulti=true;
-gestureMoved=true;
-const v=[...pointers.values()];
-const dist=Math.hypot(v[1].x-v[0].x,v[1].y-v[0].y);
-const centre={
-x:(v[0].x+v[1].x)/2,
-y:(v[0].y+v[1].y)/2
-};
-const angle=Math.atan2(v[1].y-v[0].y,v[1].x-v[0].x);
-if(oldDistance>0)
-camera.zoom=Math.max(.45,Math.min(2.2,camera.zoom*dist/oldDistance));
-if(oldCentre){
-camera.x+=centre.x-oldCentre.x;
-camera.y+=centre.y-oldCentre.y;
-}
-if(oldAngle!==null){
-const delta=angle-oldAngle;
-camera.rot+=Math.atan2(Math.sin(delta),Math.cos(delta));
-}
-oldDistance=dist;
-oldCentre=centre;
-oldAngle=angle;
-}
-});
-function pointerEnd(e){
-if(pointers.has(e.pointerId)&&pointers.size===1&&!gestureMoved&&!gestureMulti&&e.type==="pointerup"){
-const p=localPoint(e);
-chooseTile(p.x,p.y);
-}
-pointers.delete(e.pointerId);
-resetGesture();
-if(!pointers.size){
-touchStart=null;
-gestureMoved=false;
-gestureMulti=false;
-}
-}
-canvas.addEventListener("pointerup",pointerEnd);
-canvas.addEventListener("pointercancel",pointerEnd);
 
-$("left").onclick=()=>camera.rot-=Math.PI/4;
-$("right").onclick=()=>camera.rot+=Math.PI/4;
-$("zin").onclick=()=>camera.zoom=Math.min(2.2,camera.zoom*1.2);
-$("zout").onclick=()=>camera.zoom=Math.max(.45,camera.zoom/1.2);
-$("home").onclick=()=>{
-camera=newCamera();
-notify("Camera centred");
-};
+let gestureMoved=false;
+let gestureMulti=false;
+let oldDistance=0;
+let oldCentre=null;
+let oldAngle=null;
+let touchStart=null;
+
+function localPoint(e){
+ const r=canvas.getBoundingClientRect();
+
+ return {
+  x:e.clientX-r.left,
+  y:e.clientY-r.top
+ };
+}
+
+function resetGesture(){
+ oldDistance=0;
+ oldCentre=null;
+ oldAngle=null;
+}
+
+canvas.addEventListener("pointerdown",e=>{
+ canvas.setPointerCapture(e.pointerId);
+
+ const p=localPoint(e);
+ pointers.set(e.pointerId,p);
+
+ if(pointers.size===1){
+  gestureMoved=false;
+  gestureMulti=false;
+  touchStart=p;
+  resetGesture();
+ }
+
+ if(pointers.size>1){
+  gestureMulti=true;
+  resetGesture();
+ }
+});
+
+canvas.addEventListener("pointermove",e=>{
+ if(!pointers.has(e.pointerId))return;
+
+ const p=localPoint(e);
+ const old=pointers.get(e.pointerId);
+
+ pointers.set(e.pointerId,p);
+
+ if(pointers.size===1){
+  if(
+   touchStart&&
+   Math.hypot(
+    p.x-touchStart.x,
+    p.y-touchStart.y
+   )>6
+  )gestureMoved=true;
+
+  camera.x+=p.x-old.x;
+  camera.y+=p.y-old.y;
+
+ }else if(pointers.size===2){
+  gestureMulti=true;
+  gestureMoved=true;
+
+  const v=[...pointers.values()];
+
+  const dist=Math.hypot(
+   v[1].x-v[0].x,
+   v[1].y-v[0].y
+  );
+
+  const centre={
+   x:(v[0].x+v[1].x)/2,
+   y:(v[0].y+v[1].y)/2
+  };
+
+  const angle=Math.atan2(
+   v[1].y-v[0].y,
+   v[1].x-v[0].x
+  );
+
+  if(oldDistance>0){
+   camera.zoom=Math.max(
+    .45,
+    Math.min(
+     2.2,
+     camera.zoom*dist/oldDistance
+    )
+   );
+  }
+
+  if(oldCentre){
+   camera.x+=centre.x-oldCentre.x;
+   camera.y+=centre.y-oldCentre.y;
+  }
+
+  if(oldAngle!==null){
+   const delta=angle-oldAngle;
+
+   camera.rot+=Math.atan2(
+    Math.sin(delta),
+    Math.cos(delta)
+   );
+  }
+
+  oldDistance=dist;
+  oldCentre=centre;
+  oldAngle=angle;
+ }
+});
+
+function pointerEnd(e){
+ if(
+  pointers.has(e.pointerId)&&
+  pointers.size===1&&
+  !gestureMoved&&
+  !gestureMulti&&
+  e.type==="pointerup"
+ ){
+  const p=localPoint(e);
+  chooseTile(p.x,p.y);
+ }
+
+ pointers.delete(e.pointerId);
+ resetGesture();
+
+ if(!pointers.size){
+  touchStart=null;
+  gestureMoved=false;
+  gestureMulti=false;
+ }
+}
+
+canvas.addEventListener(
+ "pointerup",pointerEnd
+);
+
+canvas.addEventListener(
+ "pointercancel",pointerEnd
+);
+
+// UI BUTTONS
 
 $("buildBtn").onclick=()=>{
-showBuild=!showBuild;
-$("buildMenu").style.display=showBuild?"block":"none";
-if(showBuild){
-showReport=false;
-$("report").style.display="none";
-buildOptions();
-}
+ const open=$("buildMenu").style.display!=="block";
+
+ $("buildMenu").style.display=
+  open?"block":"none";
+
+ if(open){
+  $("report").style.display="none";
+  showReport=false;
+  buildOptions();
+ }
 };
+
 $("cancelBuild").onclick=()=>{
-showBuild=false;
-buildType=null;
-preview=null;
-$("buildMenu").style.display="none";
-refreshPanel();
+ $("buildMenu").style.display="none";
 };
+
 $("reportBtn").onclick=()=>{
-showReport=!showReport;
-$("report").style.display=showReport?"block":"none";
-if(showReport){
-showBuild=false;
-$("buildMenu").style.display="none";
-refreshReport();
-}
+ showReport=!showReport;
+
+ $("report").style.display=
+  showReport?"block":"none";
+
+ if(showReport){
+  $("buildMenu").style.display="none";
+  refreshReport();
+ }
 };
+
 $("reportClose").onclick=()=>{
-showReport=false;
-$("report").style.display="none";
+ showReport=false;
+ $("report").style.display="none";
 };
-for(const tab of ["Operations","Finance","Assets"]){
-$("tab"+tab).onclick=()=>{
-reportTab=tab==="Finance"?"Finances":tab;
-refreshReport();
+
+document.querySelectorAll("[data-tab]")
+ .forEach(b=>b.onclick=()=>{
+  reportTab=b.dataset.tab;
+  refreshReport();
+ });
+
+$("removeBtn").onclick=()=>{
+ removeMode=!removeMode;
+ mode=null;
+ preview=null;
+ hidePanel();
+
+ $("removeBtn").classList.toggle(
+  "active",removeMode
+ );
+
+ notify(
+  removeMode
+   ?"Tap a building or road to remove it"
+   :"Removal mode off"
+ );
 };
-}
+
 $("pauseBtn").onclick=()=>{
-state.paused=!state.paused;
-refresh();
+ state.paused=!state.paused;
+ refresh();
 };
+
 $("speedBtn").onclick=()=>{
-state.speed=(state.speed+1)%speeds.length;
-refresh();
+ state.speed=(state.speed+1)%speeds.length;
+ refresh();
 };
+
+// SAVE / RESET
 
 function save(message=true){
-try{
-localStorage.setItem(SAVE_KEY,JSON.stringify({
-state,camera,smoothRotation:true
-}));
-if(message)notify("Game saved on this device");
-}catch(e){
-notify("Save failed — check browser storage");
+ try{
+  localStorage.setItem(
+   SAVE_KEY,
+   JSON.stringify({
+    state,
+    camera,
+    smoothRotation:true
+   })
+  );
+
+  if(message)notify("Game saved");
+ }catch(e){
+  notify(
+   "Save failed — check browser storage"
+  );
+ }
 }
-}
+
 $("saveBtn").onclick=()=>save(true);
 
-function resetGame(){
-if(!confirm("Start a completely new game? This permanently erases your current progress."))return;
-pointers.clear();
-resetGesture();
-gestureMoved=false;
-gestureMulti=false;
-touchStart=null;
-state=newGame();
-camera=newCamera();
-selectedId=null;
-buildType=null;
-preview=null;
-showBuild=false;
-showReport=false;
-reportTab="Operations";
-$("buildMenu").style.display="none";
-$("report").style.display="none";
-$("panel").style.display="none";
-accumulator=0;
-last=performance.now();
-save(false);
-refresh();
-notify("New game started — £20m cash and 50MW turbine");
-}
-$("resetBtn").onclick=resetGame;
+$("resetBtn").onclick=()=>{
+ if(!confirm(
+  "Start a new game and erase existing progress?"
+ ))return;
+
+ pointers.clear();
+ resetGesture();
+
+ state=newGame();
+ camera=newCamera();
+
+ selectedId=null;
+ mode=null;
+ preview=null;
+ removeMode=false;
+ showReport=false;
+ reportTab="Operations";
+
+ $("removeBtn").classList.remove("active");
+ $("panel").style.display="none";
+ $("report").style.display="none";
+ $("buildMenu").style.display="none";
+
+ accumulator=0;
+ last=performance.now();
+
+ save(false);
+ refresh();
+ notify("New game started");
+};
+
+// LOAD EXISTING SAVES
 
 try{
-const saved=JSON.parse(localStorage.getItem(SAVE_KEY));
-if(saved&&saved.state&&Array.isArray(saved.state.assets)){
-state={...newGame(),...saved.state};
-camera={...newCamera(),...(saved.camera||{})};
-if(!saved.smoothRotation)
-camera.rot=(camera.rot||0)*Math.PI/2;
-state.nextId=Math.max(state.nextId||0,...state.assets.map(a=>a.id+1),5);
-if(!state.daily)
-state.daily={day:state.day,revenue:0,cost:0,profit:0,export:0};
-}
+ const saved=JSON.parse(
+  localStorage.getItem(SAVE_KEY)
+ );
+
+ if(
+  saved&&
+  saved.state&&
+  Array.isArray(saved.state.assets)
+ ){
+  state={
+   ...newGame(),
+   ...saved.state
+  };
+
+  camera={
+   ...newCamera(),
+   ...(saved.camera||{})
+  };
+
+  if(!saved.smoothRotation){
+   camera.rot=(camera.rot||0)*Math.PI/2;
+  }
+
+  state.nextId=Math.max(
+   state.nextId||0,
+   ...state.assets.map(a=>a.id+1),
+   5
+  );
+
+  if(!Array.isArray(state.roads)){
+   state.roads=[
+    ...new Set(
+     BASE_ROADS.map(
+      ([x,y])=>key(x,y)
+     )
+    )
+   ];
+  }
+
+  if(!Array.isArray(state.history)){
+   state.history=[];
+  }
+
+  if(!state.daily){
+   state.daily={
+    day:state.day,
+    revenue:0,
+    cost:0,
+    profit:0,
+    export:0
+   };
+  }
+ }
 }catch(e){
-console.warn("Could not load saved game",e);
+ console.warn(
+  "Could not load saved game",e
+ );
 }
+
 setInterval(()=>save(false),30000);
-document.addEventListener("visibilitychange",()=>{
-if(document.hidden)save(false);
-});
+
+document.addEventListener(
+ "visibilitychange",
+ ()=>{
+  if(document.hidden)save(false);
+ }
+);
+
 refresh();
 requestAnimationFrame(draw);
 requestAnimationFrame(loop);
