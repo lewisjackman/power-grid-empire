@@ -1,7 +1,7 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v0.5.4</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v0.5.5</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v0.5.4</div></div><div id="stats"></div></header><div id="toast"></div>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v0.5.5</div></div><div id="stats"></div></header><div id="toast"></div>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="panelBody"></div><div id="panelActions"></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="reportClose" class="wide">Close</button></section>
@@ -25,20 +25,107 @@ function project(x,y,z=0){const p=rotate(x,y);return {x:w/2+camera.x+(p.x-p.y)*T
 function screenTile(x,y){const u=(x-w/2-camera.x)/(TW*.5*camera.zoom),v=(y-h*.42-camera.y)/(TH*.5*camera.zoom),p=unrotate((u+v)/2,(v-u)/2);return {x:Math.floor(p.x),y:Math.floor(p.y)};}
 function poly(points,fill,stroke=null,lw=1){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let i=1;i<points.length;i++)ctx.lineTo(points[i].x,points[i].y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke();}}
 function line(a,b,color,lw=2){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=color;ctx.lineWidth=lw*camera.zoom;ctx.stroke();}
-// Every face from every structure is placed in one shared render queue.
-// Depth is calculated from the camera-transformed world coordinates.
 let renderQueue=[];
-// Orthographic view: depth depends on ground position, not height.
-// Faces and line details are sorted together so distant details cannot bleed through roofs.
 function depthAt(x,y){const q=rotate(x,y);return q.x+q.y;}
+function structurePoint([x,y,z]){
+ return {...project(x,y,z),depth:depthAt(x,y)};
+}
 function face(vertices,color,stroke='#344e58'){
- const points=vertices.map(v=>project(...v));
- const d=vertices.reduce((n,v)=>n+depthAt(v[0],v[1]),0)/vertices.length;
- renderQueue.push({kind:'face',points,color,stroke,depth:d});
+ const points=vertices.map(structurePoint);
+ renderQueue.push({kind:'face',points,color,stroke,
+  depth:points.reduce((sum,p)=>sum+p.depth,0)/points.length});
 }
 function edge(a,b,color,lw=2){
- renderQueue.push({kind:'line',a:project(...a),b:project(...b),color,lw,depth:depthAt((a[0]+b[0])/2,(a[1]+b[1])/2)});
+ const start=structurePoint(a),end=structurePoint(b);
+ renderQueue.push({kind:'line',a:start,b:end,color,lw,depth:(start.depth+end.depth)/2});
 }
+function createStructureRenderer(){
+ const surface=document.createElement('canvas');
+ const gl=surface.getContext('webgl',{alpha:true,depth:true,antialias:true});
+ if(!gl)return null;
+ function compile(type,source){
+  const shader=gl.createShader(type);
+  gl.shaderSource(shader,source);
+  gl.compileShader(shader);
+  return gl.getShaderParameter(shader,gl.COMPILE_STATUS)?shader:null;
+ }
+ const vertex=compile(gl.VERTEX_SHADER,`
+  attribute vec3 position;
+  attribute vec3 color;
+  varying vec3 tint;
+  void main(){gl_Position=vec4(position,1.0);tint=color;}
+ `);
+ const fragment=compile(gl.FRAGMENT_SHADER,`
+  precision mediump float;
+  varying vec3 tint;
+  void main(){gl_FragColor=vec4(tint,1.0);}
+ `);
+ if(!vertex||!fragment)return null;
+ const program=gl.createProgram();
+ gl.attachShader(program,vertex);
+ gl.attachShader(program,fragment);
+ gl.linkProgram(program);
+ if(!gl.getProgramParameter(program,gl.LINK_STATUS))return null;
+ const buffer=gl.createBuffer();
+ const position=gl.getAttribLocation(program,'position');
+ const color=gl.getAttribLocation(program,'color');
+ const colors=new Map();
+ function rgb(hex){
+  if(!colors.has(hex)){
+   const value=parseInt(hex.slice(1),16);
+   colors.set(hex,[(value>>16)/255,((value>>8)&255)/255,(value&255)/255]);
+  }
+  return colors.get(hex);
+ }
+ return function render(){
+  if(gl.isContextLost()||!w||!h)return false;
+  if(surface.width!==canvas.width)surface.width=canvas.width;
+  if(surface.height!==canvas.height)surface.height=canvas.height;
+  const vertices=[];
+  // At a given screen position, increasing rotated ground depth moves toward the camera.
+  function vertexAt(p,tint,bias){
+   vertices.push(2*p.x/w-1,1-2*p.y/h,-(p.depth+bias)/(4*N),...tint);
+  }
+  function stroke(a,b,width,tint,bias){
+   const dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy);
+   if(!length)return;
+   const x=-dy*width/(2*length),y=dx*width/(2*length);
+   const p={...a,x:a.x+x,y:a.y+y},q={...a,x:a.x-x,y:a.y-y};
+   const r={...b,x:b.x+x,y:b.y+y},t={...b,x:b.x-x,y:b.y-y};
+   for(const point of [p,q,r,q,t,r])vertexAt(point,tint,bias);
+  }
+  for(const item of renderQueue){
+   const tint=rgb(item.color);
+   if(item.kind==='line'){
+    stroke(item.a,item.b,item.lw*camera.zoom,tint,.003);
+    continue;
+   }
+   const points=item.points;
+   for(let i=1;i<points.length-1;i++){
+    for(const p of [points[0],points[i],points[i+1]])vertexAt(p,tint,0);
+   }
+   if(item.stroke){
+    const outline=rgb(item.stroke);
+    points.forEach((p,i)=>stroke(p,points[(i+1)%points.length],.7,outline,.003));
+   }
+  }
+  gl.viewport(0,0,surface.width,surface.height);
+  gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  gl.enable(gl.DEPTH_TEST);
+  gl.depthFunc(gl.LEQUAL);
+  gl.useProgram(program);
+  gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(vertices),gl.STREAM_DRAW);
+  gl.enableVertexAttribArray(position);
+  gl.enableVertexAttribArray(color);
+  gl.vertexAttribPointer(position,3,gl.FLOAT,false,24,0);
+  gl.vertexAttribPointer(color,3,gl.FLOAT,false,24,12);
+  gl.drawArrays(gl.TRIANGLES,0,vertices.length/6);
+  ctx.drawImage(surface,0,0,w,h);
+  return true;
+ };
+}
+const renderStructures=createStructureRenderer();
 function box3(x,y,sx,sy,z,height,roof,wall='#597480'){
  const b=[[x,y,z],[x+sx,y,z],[x+sx,y+sy,z],[x,y+sy,z]],t=b.map(p=>[p[0],p[1],z+height]);
  const cd=depthAt(x+sx/2,y+sy/2);
@@ -132,18 +219,19 @@ function drawFence(){
   if(!owned(x,y+1))add(x,y+1,x+1,y+1);
   if(!owned(x-1,y))add(x,y,x,y+1);
  }
- for(const [x1,y1,x2,y2] of segments.values())line(project(x1,y1,3),project(x2,y2,3),'#e3e8db',2);
- for(const [x,y] of posts.values())line(project(x,y,0),project(x,y,9),'#dbe5dd',2);
+ for(const [x1,y1,x2,y2] of segments.values())edge([x1,y1,3],[x2,y2,3],'#e3e8db',2);
+ for(const [x,y] of posts.values())edge([x,y,0],[x,y,9],'#dbe5dd',2);
 }
 function draw(){ctx.clearRect(0,0,w,h);const tiles=[],roads=new Set(state.roads);for(let x=0;x<N;x++)for(let y=0;y<N;y++){const p=rotate(x+.5,y+.5);tiles.push({x,y,d:p.x+p.y});}tiles.sort((a,b)=>a.d-b.d);for(const t of tiles){const color=!owned(t.x,t.y)?'#8da998':roads.has(key(t.x,t.y))?'#79817d':(t.x+t.y)%2?'#739779':'#7e9f82';poly([project(t.x,t.y),project(t.x+1,t.y),project(t.x+1,t.y+1),project(t.x,t.y+1)],color,'#5a7867',.5);}
  renderQueue=[];for(const a of state.assets)addBuilding(a);
- // Render lines and surfaces in one depth-sorted queue, not separate passes.
- renderQueue.sort((a,b)=>a.depth-b.depth || (a.kind==='face'?-1:1));
- for(const item of renderQueue){
-  if(item.kind==='face')poly(item.points,item.color,item.stroke,.7);
-  else line(item.a,item.b,item.color,item.lw);
- }
  drawFence();
+ if(!renderStructures||!renderStructures()){
+  renderQueue.sort((a,b)=>a.depth-b.depth || Number(a.kind==='line')-Number(b.kind==='line'));
+  for(const item of renderQueue){
+   if(item.kind==='face')poly(item.points,item.color,item.stroke,.7);
+   else line(item.a,item.b,item.color,item.lw);
+  }
+ }
  for(const a of state.assets){if(a.status==='building'){const p=project(a.x+1,a.y+1,65);ctx.fillStyle='#ffe5a0';ctx.font='bold 12px system-ui';ctx.textAlign='center';ctx.fillText(Math.round((a.progress||0)*100)+'%',p.x,p.y);ctx.textAlign='left';}}
  if(mode&&preview){const s=TYPES[mode].size,valid=canPlace(mode,preview.x,preview.y);poly([project(preview.x,preview.y,3),project(preview.x+s,preview.y,3),project(preview.x+s,preview.y+s,3),project(preview.x,preview.y+s,3)],valid?'#65ef9f75':'#ff69697c',valid?'#9affbd':'#ff9090',2);
  for(const req of TYPES[mode].requires){const good=hasService(req,preview.x,preview.y);for(const a of state.assets.filter(a=>a.type===req&&a.status==='operational')){const p=project(a.x+1,a.y+1,2);ctx.beginPath();ctx.ellipse(p.x,p.y,8*TW*.43*camera.zoom,8*TW*.22*camera.zoom,-Math.PI/4,0,Math.PI*2);ctx.strokeStyle=good?'#6bffad':'#ff8989';ctx.lineWidth=2;ctx.setLineDash([6,5]);ctx.stroke();ctx.setLineDash([]);}}}
