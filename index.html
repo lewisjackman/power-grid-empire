@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.2.3</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.2.4</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -234,7 +234,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #businessDesk #deskMessageAlert{color:#ffda9d;font-size:12px;margin:0;padding:6px 0;overflow-wrap:anywhere}
 #businessDesk button.demolish-action{background:#723a3e;border-color:#ff9998;color:#ffe6e5} .demolish-action svg{vertical-align:middle;margin-right:4px}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.2.3</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.2.4</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -1401,9 +1401,22 @@ function showInvestment(){
  '<div class="investment-details"><b>'+money(landCost)+'</b><p>Immediate</p></div>'+
  (developmentHas('land')?btn('Choose plot','site-land','primary'):
  '<p class="bad">Unlock Estate planning in Development to buy land.</p>'+btn('Open research tree','tab-development','primary'))+'</article>'+
- '<article><h3>Gas receiving capacity</h3><p>'+gasCapacity()+' MW of fuel across the site. Add 100 MW of fuel capacity to a selected station in two days for £1.5m.</p>'+
- gasStations().map(a=>'<p>'+a.name+' · '+gasStationLimit(a)+' MW fuel</p>'+ (a.gasUpgradeDay?'<p>Upgrade due day '+a.gasUpgradeDay+'</p>':btn('Upgrade '+a.name,'gas-upgrade-'+a.id,'primary'))).join('')+
+ '<article><h3>Gas receiving</h3><p>'+gasCapacity()+' MW of site fuel capacity. Upgrade each station in two tiers.</p>'+
+ gasStations().map(gasUpgradeOptions).join('')+
  '</article>'+planningOfficeUpgrade()+'</div>';
+}
+function canInstallStandardGas(station){
+ return gasStations().includes(station)&&!station.gasUpgradeDay&&!station.repowerDue&&!station.repower&&(station.extraGas||0)<100&&state.cash>=1.5;
+}
+function gasUpgradeOptions(station){
+ const capacity='<h4>'+station.name+' · '+gasStationLimit(station)+' MW fuel</h4>';
+ if(station.gasUpgradeDay||station.repowerDue)return capacity+'<p>Upgrade due day '+(station.gasUpgradeDay||station.repowerDue.day)+'</p>';
+ if(station.repower==='gas-hub')return capacity+'<p class="good">High-flow tier installed</p>';
+ if((station.extraGas||0)<100)return capacity+'<p>Standard tier · +100 MW · £1.5m · 2 days</p>'+btn('Install standard upgrade','gas-upgrade-'+station.id,'primary');
+ const project=expansionProjects['gas-hub'];
+ return capacity+'<p>High-flow tier · +175 MW · '+money(project.cost)+' · '+project.days+' days</p>'+
+ (developmentHas('gas-hub')?btn('Install high-flow upgrade','expansion-repower-gas-hub:'+station.id,'primary'):
+ '<p class="bad">Requires High-flow gas receiving research</p>'+btn('Open high-flow research','research-open-gas-hub'));
 }
 function showProjectCommitments(){
  const remaining=committedCapital(),projects=state.assets.filter(a=>a.status==='building');
@@ -2172,9 +2185,9 @@ function doDesk(action){
  if(action.startsWith('gas-upgrade-')){
   if(!tutorialFinished())return 'Finish or skip Winter Peak first.';
   const station=gasStations().find(a=>a.id===Number(action.slice(12)));
-  if(!station||station.gasUpgradeDay||state.cash<1.5)return 'An operating station and £1.5m cash are required.';
+  if(!canInstallStandardGas(station))return 'The standard tier requires an unupgraded operating station and £1.5m cash.';
   dialog('Upgrade gas receiving station?','<p>Pay £1.5m now for 100 MW of extra fuel import capacity in two days.</p>',()=>{
-   if(state.cash<1.5||station.gasUpgradeDay||!gasStations().includes(station))return;
+   if(!canInstallStandardGas(station))return;
    state.cash-=1.5;recordCapital('Gas receiving upgrade',1.5);station.gasUpgradeDay=state.day+2;reviewBoard();uiDirty=true;save(false);renderDesk();
   },'Approve upgrade');return;
  }
@@ -2429,7 +2442,7 @@ const developmentNodes=[
  ['land','Estate planning',1,2,'Unlock purchases of adjoining land.','office'],
  ['fast','Large OCGT',1,2,'Repower a turbine to 75 MW.','generation'],
  ['combined-cycle','Combined cycle',1,3,'Repower a separate turbine to 85 MW, with lower fuel burn and a longer minimum run.','fast'],
- ['gas-hub','High-flow gas receiving',1,2,'Add 175 MW of fuel capacity at an existing station.','grid'],
+ ['gas-hub','High-flow gas receiving',1,2,'Add 175 MW of fuel capacity after installing the standard gas receiving upgrade.','grid'],
  ['long-storage','Long-duration storage',1,2,'Upgrade a battery to 25 MW / 100 MWh.','storage'],
  ['wind','Onshore wind',1,2,'Build wind generation that responds to seasonal and daily weather.','grid'],
  ['solar','Solar generation',1,2,'Build daylight-sensitive solar generation.','wind'],
@@ -2511,7 +2524,7 @@ function settlePrivateWire(records,day,hour){
 }
 function showExpansion(){
  const f=finance(),c=career();
- const upgrades=Object.entries(expansionProjects).filter(([id])=>developmentHas(id)).map(([id,p])=>
+ const upgrades=Object.entries(expansionProjects).filter(([id])=>id!=='gas-hub'&&developmentHas(id)).map(([id,p])=>
   '<article class="notice"><h3>'+p.name+'</h3><p>'+money(p.cost)+' · '+p.days+' days'+(p.mw?' · '+p.mw+' MW':' · +175 MW fuel')+'</p>'+
   state.assets.filter(a=>a.type===p.type&&operating(a)&&!a.repower&&(!p.mw||power(a)<p.mw)).map(a=>
    a.repowerDue?'<p>'+a.name+' · due day '+a.repowerDue.day+'</p>':btn('Upgrade '+a.name,'expansion-repower-'+id+':'+a.id)).join('')+'</article>').join('');
@@ -2537,9 +2550,10 @@ function expansionAction(action){
  const project=expansionProjects[id],offer=wireOffers[id];
  if(project){
   const a=state.assets.find(a=>a.id===Number(asset)&&a.type===project.type&&operating(a));
+  if(id==='gas-hub'&&(!a||(a.extraGas||0)<100||a.gasUpgradeDay))return 'Install the standard gas receiving upgrade first.';
   if(!developmentHas(id)||!a||a.repower||a.repowerDue||(project.mw&&power(a)>=project.mw)||state.cash<project.cost)return 'An eligible asset, the technology unlock and enough cash are required.';
   dialog('Approve '+project.name+'?', '<p>'+money(project.cost)+' paid today. Commissioning in '+project.days+' days.</p>',()=>{
-   if(state.cash<project.cost||a.repower||a.repowerDue)return;
+   if(state.cash<project.cost||!state.assets.includes(a)||!operating(a)||a.repower||a.repowerDue)return;
    state.cash-=project.cost;recordCapital(project.name,project.cost);
    a.repowerDue={id,day:state.day+project.days};save(false);renderDesk();
   },'Approve upgrade');return;
@@ -2696,7 +2710,7 @@ function storyChapters(story){
   grid:['tab-capital','Review transformer upgrades'],
   contract:['tab-capacity','Open capacity auction'],
   expansion:['tab-capital','Review land options']
- }[id]||(id==='tech-service-lab'?['tab-plant','Book maintenance']:id==='tech-national'?['tab-financing','Review debt']:['tab-expansion','Open Expansion']);
+ }[id]||(id==='tech-service-lab'?['tab-plant','Book maintenance']:id==='tech-gas-hub'?['tab-capital','Open gas receiving upgrades']:id==='tech-national'?['tab-financing','Review debt']:['tab-expansion','Open Expansion']);
  return [
   ['Board briefing',advisor,brief,'Accept the board’s brief.'],
   ['Check the books','CFO','We need a clear view of what is already committed before taking on more.','Review Debt under Finance.',a=>a.visited?.financing,'tab-financing','Review debt'],
