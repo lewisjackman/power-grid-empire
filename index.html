@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v8.0.5</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v8.1</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -195,7 +195,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #businessDesk #deskMessageAlert{color:#ffda9d;font-size:12px;margin:0;padding:6px 0;overflow-wrap:anywhere}
 #businessDesk button.demolish-action{background:#723a3e;border-color:#ff9998;color:#ffe6e5} .demolish-action svg{vertical-align:middle;margin-right:4px}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v8.0.5</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v8.1</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -435,9 +435,31 @@ function drawServiceAreas(){
   if(linked)poly(serviceTile(x,y),linked===needs.length?'#bff39947':'#efc47e32');
  }
 }
+const gasImportRatio=2.5;
+const gasStationLimit=a=>175+(a.extraGas||0);
+const gasStations=()=>state.assets.filter(a=>a.type==='Gas'&&a.status==='operational');
+const gasCapacity=()=>gasStations().reduce((total,a)=>total+gasStationLimit(a),0);
+const gasSources=a=>gasStations().filter(g=>Math.abs(g.x-a.x)+Math.abs(g.y-a.y)<=8);
 function drawUtilities(){
  const grid=state.assets.filter(a=>a.type==='Grid'&&a.status==='operational');
  const financeFlow=finance().lastFlow;
+ for(const a of assetsForDispatch()){
+  if(a.type!=='OCGT')continue;
+  for(const id of a.activity?.gasStations||[]){
+   const g=state.assets.find(asset=>asset.id===id);if(!g)continue;
+   const from=[g.x+1,g.y+1,2],turn=[a.x+1,g.y+1,2],to=[a.x+1,a.y+1,2];
+   const colour=a.activity.gasShort>0?'#ff7566':'#ffbb60';
+   edge(from,turn,'#263442',5);edge(turn,to,'#263442',5);
+   edge(from,turn,colour,2);edge(turn,to,colour,2);
+   if(a.activity.out>0){
+    const distanceX=Math.abs(turn[0]-from[0]),distanceY=Math.abs(to[1]-turn[1]);
+    const travel=(performance.now()/1200%1)*(distanceX+distanceY);
+    const x=from[0]+Math.sign(turn[0]-from[0])*Math.min(travel,distanceX);
+    const y=from[1]+Math.sign(to[1]-from[1])*Math.max(0,travel-distanceX);
+    box3(x-.06,y-.06,.12,.12,2,1.5,'#ffdf9a',colour);
+   }
+  }
+ }
  for(const a of assetsForDispatch()){
   const r=a.activity;if(!r)continue;
   const g=grid.filter(g=>Math.abs(g.x-a.x)+Math.abs(g.y-a.y)<=8).sort((g,k)=>Math.abs(g.x-a.x)+Math.abs(g.y-a.y)-Math.abs(k.x-a.x)-Math.abs(k.y-a.y))[0];
@@ -533,7 +555,8 @@ function toast(s){$('toast').textContent=s;$('toast').style.display='block';clea
 function dialog(title,html,action,label='Confirm'){modalAction=action;$('dialogTitle').textContent=title;$('dialogBody').innerHTML=html;$('ok').textContent=label;(desk?.open?desk:document.body).appendChild($('shade'));$('shade').style.display='flex';}function closeDialog(){$('shade').style.display='none';document.body.appendChild($('shade'));modalAction=null;}$('cancel').onclick=closeDialog;$('ok').onclick=()=>{const fn=modalAction;closeDialog();if(fn)fn();};
 function closePanel(){selected=null;panelMin=false;$('panel').style.display='none';}function cancelPlacement(){mode=null;preview=null;closePanel();}$('panelClose').onclick=()=>mode?cancelPlacement():closePanel();
 function setPanel(title,html,actions=[]){$('panel').style.display='block';$('panelTitle').textContent=title;$('panelBody').innerHTML=html;const area=$('panelActions');area.replaceChildren();for(const a of actions){const b=document.createElement('button');b.textContent=a.text;b.onclick=a.fn;area.appendChild(b);}}
-function assetPanel(){const a=state.assets.find(a=>a.id===selected);if(!a){closePanel();return;}const t=TYPES[a.type];if(panelMin){setPanel(a.name,'<p class="muted">'+(a.status==='building'?'Construction '+Math.round(a.progress*100)+'%':status(a))+'</p>',[{text:'Show details',fn:()=>{panelMin=false;assetPanel();}}]);return;}let html='<p>'+t.desc+'</p><p>Status: <b>'+status(a)+'</b></p>';if(['OCGT','Battery'].includes(a.type))html+='<p>Condition: <b>'+condition(a)+'%</b></p>';if(a.type==='Grid'){markTutorial('grid');const f=finance().lastFlow||{};html+='<p>Requested '+((f.out||0)+(f.curtailed||0)).toFixed(1)+' MW · delivered '+(f.out||0).toFixed(1)+' MW · connection '+gridMW()+' MW</p>';}if(a.dispatchReason)html+='<p>Dispatch: '+a.dispatchReason+'</p>';if(a.fundingHold)html+='<p>Funding hold · '+money(Math.max(0,(a.contract?.stages[a.contract.stage]?.cost||0)-state.cash))+' needed</p>';if(a.mw)html+='<p>Capacity: '+a.mw+' MW</p>';if(a.type==='Battery')html+='<p>Stored: '+(a.soc||0).toFixed(1)+' / 20 MWh</p>';if(a.status==='building')html+='<p id="assetBuildProgress">Construction: '+Math.round(a.progress*100)+'%</p>';setPanel(a.name,html,[...(['OCGT','Battery'].includes(a.type)&&a.status==='operational'?[{text:'Review maintenance',fn:()=>{preferredServiceAsset=a.id;openDesk('plant');}}]:a.type==='Grid'?[{text:'Grid upgrades',fn:()=>openDesk('capital')}]:[]),...(a.status==='building'?[{text:a.constructionPaused?'Resume construction':'Pause construction',fn:()=>toggleConstruction(a)}]:[]),{text:'Minimise',fn:()=>{panelMin=true;assetPanel();}},{text:'Decommission',fn:()=>demolish(a)}]);}
+function assetPanel(){const a=state.assets.find(a=>a.id===selected);if(!a){closePanel();return;}const t=TYPES[a.type];if(panelMin){setPanel(a.name,'<p class="muted">'+(a.status==='building'?'Construction '+Math.round(a.progress*100)+'%':status(a))+'</p>',[{text:'Show details',fn:()=>{panelMin=false;assetPanel();}}]);return;}let html='<p>'+t.desc+'</p><p>Status: <b>'+status(a)+'</b></p>';if(['OCGT','Battery'].includes(a.type))html+='<p>Condition: <b>'+condition(a)+'%</b></p>';if(a.type==='Gas')html+='<p>Gas import capacity: '+gasStationLimit(a)+' MW of fuel.</p><p>Equivalent to '+(gasStationLimit(a)/gasImportRatio)+' MW of generation. Shared by nearby turbines.</p>';
+ if(a.type==='Grid'){markTutorial('grid');const f=finance().lastFlow||{};html+='<p>Requested '+((f.out||0)+(f.curtailed||0)).toFixed(1)+' MW · delivered '+(f.out||0).toFixed(1)+' MW · connection '+gridMW()+' MW</p>';}if(a.dispatchReason)html+='<p>Dispatch: '+a.dispatchReason+'</p>';if(a.fundingHold)html+='<p>Funding hold · '+money(Math.max(0,(a.contract?.stages[a.contract.stage]?.cost||0)-state.cash))+' needed</p>';if(a.mw)html+='<p>Capacity: '+a.mw+' MW</p>';if(a.type==='Battery')html+='<p>Stored: '+(a.soc||0).toFixed(1)+' / 20 MWh</p>';if(a.status==='building')html+='<p id="assetBuildProgress">Construction: '+Math.round(a.progress*100)+'%</p>';setPanel(a.name,html,[...(['OCGT','Battery'].includes(a.type)&&a.status==='operational'?[{text:'Review maintenance',fn:()=>{preferredServiceAsset=a.id;openDesk('plant');}}]:a.type==='Gas'?[{text:'Gas upgrades',fn:()=>openDesk('capital')}]:a.type==='Grid'?[{text:'Grid upgrades',fn:()=>openDesk('capital')}]:[]),...(a.status==='building'?[{text:a.constructionPaused?'Resume construction':'Pause construction',fn:()=>toggleConstruction(a)}]:[]),{text:'Minimise',fn:()=>{panelMin=true;assetPanel();}},{text:'Decommission',fn:()=>demolish(a)}]);}
 function placementPanel(){if(!mode)return;const t=TYPES[mode];let html='<p><b>Due today:</b> '+money(mode==='Road'?t.cost:t.cost*.2)+' · <b>Total:</b> '+money(t.cost)+' · '+t.days+' days</p>',valid=false;if(preview){valid=canPlace(mode,preview.x,preview.y);html+='<p><b>Plot:</b> '+(preview.x+1)+', '+(preview.y+1)+' · <span class="'+(valid?'good':'bad')+'">'+(valid?'Available':'Unavailable · check space and road access')+'</span></p>';for(const req of t.requires){const ok=hasService(req,preview.x,preview.y);html+='<span class="'+(ok?'good':'bad')+'">● '+req+': '+(ok?'Connected':'Missing')+'</span> ';}if(!t.requires.length)html+='<p class="good">No services required</p>';}else html+='<p class="muted">Tap a plot; tap elsewhere to change your selection.</p>';const actions=[];if(valid&&mode!=='Road'){const {x,y}=preview;actions.push({text:'Check investment',fn:()=>{appraisal={type:mode,x,y,debt:0};openDesk('appraisal');}});}if(valid&&state.cash>=t.cost*(mode==='Road'?1:.2)){const x=preview.x,y=preview.y;actions.push({text:'Build · '+money(mode==='Road'?t.cost:t.cost*.2)+' today',fn:()=>askBuild(x,y)});}if(mode==='Road')actions.push({text:'Done',fn:cancelPlacement});setPanel('🏗 '+t.name,html,actions);}
 function askBuild(x,y,debt=0){if(!mode)return;const type=mode,t=TYPES[type],deposit=type==='Road'?t.cost:t.cost*.2,borrow=t.cost*debt/100,missing=t.requires.filter(req=>!hasService(req,x,y));if(borrow+(finance().loans||[]).reduce((n,l)=>n+l.balance,0)>10){toast('The bank limit is £10m total borrowing. Reduce the loan share.');return;}dialog('Confirm construction','<p><b>'+t.name+'</b> at '+(x+1)+', '+(y+1)+'</p><p>Cost: '+money(t.cost)+' · Due today: '+money(deposit)+(borrow?' · Borrow '+money(borrow)+' at '+rateText()+' APR':'')+' · '+t.days+' days</p><p class="'+(missing.length?'bad':'good')+'">'+(missing.length?'Missing: '+missing.join(', '):'Services satisfied')+'</p>',()=>{if(!canPlace(type,x,y)||state.cash+borrow<deposit){toast('Cannot build here');return;}if(borrow){(finance().loans??=[]).push({amount:borrow,balance:borrow,rate:difficulty().apr,remaining:12,term:12,next:state.day+30,project:state.nextId,label:t.name+' project'});}state.cash+=borrow-deposit;recordCapital(t.name,deposit);if(type==='Road'){state.roads.push(key(x,y));mode='Road';preview=null;placementPanel();toast('Road built — choose another tile');}else{const id=state.nextId++;state.assets.push({id,type,x,y,name:t.name+' '+id,mw:t.mw||0,status:'building',progress:0,daysRequired:t.days,soc:0,contract:{stage:0,stages:[{at:.4,cost:t.cost*.45},{at:1,cost:t.cost*.35}]}});selected=id;mode=null;preview=null;panelMin=true;assetPanel();toast('Construction started');}uiDirty=true;chartDirty=true;reviewBoard();save(false);},'Build');}
 function demolish(a){const value=a.status==='building'?-TYPES[a.type].cost*.08:TYPES[a.type].cost*.06;dialog('Decommission asset','<p>'+a.name+'</p><p>'+(value>=0?'Net scrap proceeds: ':'Cost: ')+money(Math.abs(value))+'</p><p>Connected assets may lose service. Existing market or capacity obligations continue to settle.</p>',()=>{if(state.cash+value<0){toast('Insufficient funds');return;}state.cash+=value;recordCapital(a.name+' decommissioning',-value);state.assets=state.assets.filter(b=>b.id!==a.id);closePanel();uiDirty=true;save(false);toast('Asset decommissioned');},'Decommission');}
@@ -593,6 +616,7 @@ function recordCapital(label,cost){
 }
 function advanceProjects(){
  const f=finance();
+ for(const station of gasStations())if(station.gasUpgradeDay&&state.day>=station.gasUpgradeDay){station.extraGas=(station.extraGas||0)+100;delete station.gasUpgradeDay;toast(station.name+' upgrade complete');}
  if(f.upgrade&&state.day>=f.upgrade.day){
   const a=state.assets.find(a=>a.id===f.upgrade.asset&&a.status==='operational');
   if(a){a.extraGrid=(a.extraGrid||0)+40;toast('Transformer upgrade commissioned');}
@@ -643,6 +667,8 @@ function tradeInterval(){
   const agreement=stress?f.capacity.awards.find(o=>o.asset===a.id):null;
   return {a,order,agreement,priority:agreement?0:order?.market==='sell'?1:order?.market==='balance'?2:3};
  }).sort((a,b)=>a.priority-b.priority);
+ const gasRemaining=new Map(gasStations().map(a=>[a.id,gasStationLimit(a)*.5]));
+ let gasShortTotal=0,gasUsed=0;
  const bmPrice=Math.round(115+58*Math.sin(day*1.61+Math.floor(hour)*.86+(state.marketSeed||0)*1.7)+38*(hour>=17&&hour<21));
  const imbalancePrice=Math.max(110,state.price+45);
  for(const {a,order,agreement} of candidates){
@@ -668,7 +694,19 @@ function tradeInterval(){
   const emergencyCharge=reserve&&a.stressChargeDay===day;
   const chargingAuto=!gas&&!stress&&(emergencyCharge||!manual&&!order&&(state.price<66||reserve&&hour>=14));
   const wanted=emergencyCharge&&!stress?0:Math.max(target,locked||runningAuto&&!reserve?mw*.5:0);
-  const out=online?Math.max(0,Math.min(wanted,exportLeft,mw*.5,gas?Infinity:soc*efficiency)):0;
+  const sources=gas&&online?gasSources(a):[];
+  const potential=online?Math.max(0,Math.min(wanted,exportLeft,mw*.5,gas?Infinity:soc*efficiency)):0;
+  const gasAvailable=sources.reduce((total,g)=>total+gasRemaining.get(g.id),0);
+  const out=gas?Math.min(potential,gasAvailable/gasImportRatio):potential;
+  const gasShort=gas?(potential-out)*gasImportRatio:0;
+  let fuelNeeded=gas?out*gasImportRatio:0;
+  gasUsed+=fuelNeeded;gasShortTotal+=gasShort;
+  const supplying=[];
+  for(const station of sources){
+   const used=Math.min(fuelNeeded,gasRemaining.get(station.id));
+   if(used>0||gasShort>0)supplying.push(station.id);
+   gasRemaining.set(station.id,gasRemaining.get(station.id)-used);fuelNeeded-=used;
+  }
   const requestedImport=online&&!gas&&!out&&(buy||chargingAuto)?Math.max(0,Math.min(mw*.5,(20-soc)/efficiency,buy||Infinity)):0;
  const charge=Math.min(importLeft,requestedImport);
   const previous=a.running,start=gas&&out>0&&!previous;
@@ -682,7 +720,7 @@ function tradeInterval(){
   exportLeft-=out;importLeft-=charge;
   const serviceCost=(service&&absoluteWindow(service).start===t?(service.cost??3000):0)+(a.emergencyCost||0);
   a.emergencyCost=0;
-  a.activity={out,charge,curtailed};
+  a.activity={out,charge,curtailed,gasStations:supplying,gasShort};
   const confirmedBalance=Math.min(balancing,Math.max(0,out-sell));
   const da=sell*(order?.price?.[Math.floor(hour)]??state.price);
   const spot=Math.max(0,out-sell-confirmedBalance)*state.price;
@@ -693,7 +731,7 @@ function tradeInterval(){
   const capacityShort=Math.max(0,(agreement?.mw||0)*.5-out);
   const penalty=capacityShort*700;
   const fuel=gas?out*difficulty().fuel:0,carbon=gas?out*23:0,operatingCost=gas?out*8:0;
-  const reason=mt?'In maintenance':outage?'Forced outage':!online?status(a):out?(agreement?'Capacity stress delivery':confirmedBalance?'Balancing accepted':sell?'Day-ahead delivery':locked?'Minimum run':'Exporting'):charge?'Charging':wanted&&exportLeft<=0?'Export limit':wanted&&!gas&&soc<=0?'Battery empty':manual?'Awaiting instruction':'Holding';
+  const reason=gasShort>.001?'Gas import limit':mt?'In maintenance':outage?'Forced outage':!online?status(a):out?(agreement?'Capacity stress delivery':confirmedBalance?'Balancing accepted':sell?'Day-ahead delivery':locked?'Minimum run':'Exporting'):charge?'Charging':wanted&&exportLeft<=0?'Export limit':wanted&&!gas&&soc<=0?'Battery empty':manual?'Awaiting instruction':'Holding';
   a.dispatchReason=reason;
   records.push({asset:a.id,gas,out,charge,curtailed,importCurtailed:requestedImport-charge,undelivered:Math.max(0,wanted-out),offline:!online,balanced:confirmedBalance,da,spot,bm,short:short+buyShort,importCost,penalty,capacityShort,fuel,carbon,serviceCost,operatingCost,start:start?startup:0});
  }
@@ -706,6 +744,7 @@ function tradeInterval(){
   records.push({asset:award.asset,gas:false,out:0,charge:0,da:0,spot:0,bm:0,short:0,importCost:0,penalty:award.mw*.5*700,capacityShort:award.mw*.5,fuel:0,carbon:0,operatingCost:0,serviceCost:0,start:0});
  }
  const capacityPay=f.capacity&&day>=f.capacity.deliveryDay&&day<capacityReopenDay(f.capacity)&&hour===0?f.capacity.income/360:0;
+ f.lastGasFlow={used:gasUsed*2,short:gasShortTotal*2,limit:gasCapacity()};
  f.lastFlow={limit:grid*2,importCurtailed:2*records.reduce((n,r)=>n+(r.importCurtailed||0),0),out:2*records.reduce((n,r)=>n+r.out,0),charge:2*records.reduce((n,r)=>n+r.charge,0),curtailed:2*records.reduce((n,r)=>n+(r.curtailed||0),0)};
  return {records,capacityPay};
 }
@@ -746,6 +785,7 @@ function step(){
  if(state.hour===0)tickInboxStories();
  remindCapacityAuction();
  warnGridLimit();
+ warnGasLimit();
  warnStress();
  f.journal.push({day:state.day,hour:state.hour,da,spot,balancing,shortfalls,penalty,starts,service,imports,fuel,carbon,opex,capacityPay,revenue,profit,exp,records});
  reviewBoard();
@@ -1258,7 +1298,10 @@ function showInvestment(){
  (upgrade?'':btn('Approve upgrade','upgrade','primary'))+'</article>'+
  '<article><h3>Adjoining land</h3><p>Expand the site by buying a neighbouring parcel.</p>'+
  '<div class="investment-details"><b>'+money(landCost)+'</b><p>Immediate</p></div>'+
- btn('Choose plot','site-land','primary')+'</article></div>';
+ btn('Choose plot','site-land','primary')+'</article>'+
+ '<article><h3>Gas receiving capacity</h3><p>'+gasCapacity()+' MW of fuel across the site. Add 100 MW of fuel capacity to a selected station in two days for £1.5m.</p>'+
+ gasStations().map(a=>'<p>'+a.name+' · '+gasStationLimit(a)+' MW fuel</p>'+ (a.gasUpgradeDay?'<p>Upgrade due day '+a.gasUpgradeDay+'</p>':btn('Upgrade '+a.name,'gas-upgrade-'+a.id,'primary'))).join('')+
+ '</article></div>';
 }
 function showProjectCommitments(){
  const remaining=committedCapital(),projects=state.assets.filter(a=>a.status==='building');
@@ -1421,7 +1464,7 @@ function advisorNotes(){
   {title:'Operations Director',target:'plant',message:due?due.name+' is at '+condition(due)+'% condition. Compare a service window with the cost of an outage.':'Plant condition is healthy. Review your maintenance windows before committing delivery.'},
   {title:'Trading Director',target:'dispatch',message:'The representative evening peak is '+cashGBP(representative(19))+'/MWh. Use the seasonal estimate to compare a scheduled run with a balancing offer.'},
   {title:'Business Development Director',target:'capital',message:battery?'Your battery can turn cheap hours into peak exports. Check connection headroom before approving the next expansion.':'Appraise a battery to see what peak-price exports might earn and what it costs to connect.'},
-  {title:'Grid and Engineering Director',target:'plant',message:gridLimitText(latest)||(f.gridWarning?'Last warning · Day '+f.gridWarning.day+'. '+f.gridWarning.text:'The site has '+gridMW()+' MW of grid capacity. Look for overlapping gas and storage exports before you extend it.')},
+  {title:'Grid and Engineering Director',target:'plant',message:(f.lastGasFlow?.short>.001?gasAdvice():gridLimitText(latest))||(f.gridWarning?'Last warning · Day '+f.gridWarning.day+'. '+f.gridWarning.text:'The site has '+gridMW()+' MW of grid capacity. Look for overlapping gas and storage exports before you extend it.')},
   {title:'CFO',target:'financing',message:cash<17?'Cash after planned building payments and 90 days of loan repayments is '+money(cash)+', below the £17m reserve target. Review running costs, defer new projects, or compare a bank loan. Borrowing must be repaid and does not fix ongoing losses. '+cashRecoveryAdvice():'Your reserve is '+money(cash)+'. Review running costs and project funding before expanding.'},
   {title:'Commercial Director',target:event?'messages':'capacity',message:risk?risk+' MW of awarded capacity overlaps maintenance at the next known stress event. Review your response options.':'Bid only the power your plant and grid can reliably deliver. Winning means you must supply it during a shortage, or pay a penalty.'}
  ];
@@ -1489,7 +1532,7 @@ function quickAdvice(i){
 }
 function showAdvisors(){
  const people=advisorNotes();
- const ranking=people.map((a,i)=>({a,i,score:(i===4&&reserveCash()<17?20:0)+(quickAdvice(i)?1:0)+(i===5&&nextStress()?5:0)+(i===3&&finance().lastFlow?.curtailed?3:0)})).sort((a,b)=>b.score-a.score);
+ const ranking=people.map((a,i)=>({a,i,score:(i===4&&reserveCash()<17?20:0)+(quickAdvice(i)?1:0)+(i===5&&nextStress()?5:0)+(i===3&&(finance().lastFlow?.curtailed||finance().lastGasFlow?.short)?3:0)})).sort((a,b)=>b.score-a.score);
  const rows=items=>items.map(({a,i})=>{
   const recommendation=quickAdvice(i);
   return '<article>'+portrait(a.title,i,3,2)+'<div><h3>'+a.title+'</h3><p>'+a.message+'</p><div class="desk-actions">'+
@@ -1625,6 +1668,17 @@ function gridLimitText(flow){
   flow.importCurtailed>.001?description('Import',flow.charge,flow.importCurtailed):''
  ].filter(Boolean).join(' ');
 }
+function gasAdvice(){
+ const flow=finance().lastGasFlow;
+ if(flow?.short>.001)return 'Gas demand exceeded local supply by '+flow.short.toFixed(1)+' MW of fuel. Build a receiving station near the affected turbines or upgrade one already serving them.';
+ return 'Gas turbines need 2.5 MW of fuel for each MW of electricity. Receiving stations supply nearby turbines within eight tiles.';
+}
+function warnGasLimit(){
+ const f=finance();
+ if((f.lastGasFlow?.short||0)<.001||f.gasWarningDay===state.day)return;
+ f.gasWarningDay=state.day;
+ postMessage('Grid Director · gas import limit exceeded',gasAdvice(),'capital','gas-limit');
+}
 function warnGridLimit(){
  const f=finance(),description=gridLimitText(f.lastFlow);
  if(!description)return;
@@ -1669,14 +1723,14 @@ function showMessages(){
  return '<div class="desk-heading"><h2>Messages Centre</h2><p>Capacity alerts, service events and board notices.</p></div>'+(notice.length?'<div class="desk-actions">'+btn('Delete all messages','delete-all-messages')+'</div>':'')+
  (notice.length?notice.map(m=>{
   const active=e&&m.key==='stress-'+e.day;
-  const priority=/^(Capacity stress warning|Forced outage|Board decision|CFO · (urgent|critical|emergency)|Grid Director · connection limit exceeded)/.test(m.title);
+  const priority=/^(Capacity stress warning|Forced outage|Grid Director · gas import limit exceeded|Board decision|CFO · (urgent|critical|emergency)|Grid Director · connection limit exceeded)/.test(m.title);
   return '<article class="notice"><small>'+(priority?'<span style="color:#ff9f9f">⚠ Priority</span> · ':'')+'DAY '+m.day+' · '+hours(Math.floor(m.hour))+'</small><h3>'+m.title+'</h3><p>'+m.message+'</p>'+
   (m.key==='career-event'&&f.career?.event?'<div class="desk-actions">'+btn(inboxStories[f.career.event.index][3],'career-accept')+btn('Decline','career-decline')+'</div>':'')+
   (active?'<div class="desk-metrics">'+card('Time remaining',Math.max(0,(start-absoluteNow())/2).toFixed(1)+' h')+card('Contracted',allocatedCapacity()+' MW')+card('At risk',Math.max(0,allocatedCapacity()-ready).toFixed(1)+' MW')+'</div>'+
    risk.map(m=>'<p>'+(state.assets.find(a=>a.id===m.asset)?.name??'Asset')+' is in service. Rush for £12,000. Around 40% failure risk, with a possible £38,000 repair.</p>'+btn('Rush maintenance','rush-'+m.id)).join('')+
    batteries.map(b=>'<p>'+b.name+' has '+(b.soc||0).toFixed(1)+' MWh stored.</p>'+btn(b.stressChargeDay===e.day?'Reserve charge active':'Reserve and charge battery','reserve-'+b.id)).join('')+
    '<div class="desk-actions">'+btn('Ask advisors','tab-advisors')+btn('Advance 30 minutes','advance-tick')+'</div>':'')+
-   '<div class="desk-actions">'+(m.title.startsWith('Grid Director · connection limit exceeded')?btn('Build grid connection','build-Grid')+btn('Review grid upgrades','tab-capital')+btn('Adjust trading plan','tab-dispatch'):btn(active?'Review plant':'Open','tab-'+m.target))+btn('Delete','delete-message-'+m.id)+'</div></article>';
+   '<div class="desk-actions">'+(m.key==='gas-limit'?btn('Build gas station','build-Gas')+btn('Review gas upgrades','tab-capital'):m.title.startsWith('Grid Director · connection limit exceeded')?btn('Build grid connection','build-Grid')+btn('Review grid upgrades','tab-capital')+btn('Adjust trading plan','tab-dispatch'):btn(active?'Review plant':'Open','tab-'+m.target))+btn('Delete','delete-message-'+m.id)+'</div></article>';
  }).join(''):'<p>No messages yet.</p>');
 }
 function auctionSupply(){
@@ -1898,6 +1952,7 @@ function showSettings(){
 const views={scenarios:showScenarios,development:showDevelopment,heavy:showMajorProjects,financing:showFinancing,costs:showCosts,help:showHelp,dismissed:showDismissed,winter:showWinter,build:showBuildHome,settings:showSettings,overview:showOverview,campaign:showCampaign,dispatch:seasonalDesk,capital:showInvestment,plant:showMaintenance,capacity:showAuction,report:()=>showQuarter(),variance:()=>showQuarter(true),advisors:showAdvisors,messages:showMessages,appraisal:plotAppraisal};
 let renderedDeskPage;
 function renderDesk(){
+ if(finance().career?.active)(finance().career.active.visited??={})[deskTab]=true;
  if(deskTab==='messages'){finance().readMessageSeq=finance().messageSeq||0;uiDirty=true;}
  const picking=!hasChosenCEO(),choosingDifficulty=needsDifficulty(),onboarding=picking||choosingDifficulty;
  if(picking)deskTab='campaign';else if(choosingDifficulty)deskTab='settings';
@@ -1971,6 +2026,15 @@ function doDesk(action){
   f.delegateMaintenance=!f.delegateMaintenance;
   if(f.delegateMaintenance)scheduleDelegatedMaintenance();
   return;
+ }
+ if(action.startsWith('gas-upgrade-')){
+  if(!tutorialFinished())return 'Finish or skip Winter Peak first.';
+  const station=gasStations().find(a=>a.id===Number(action.slice(12)));
+  if(!station||station.gasUpgradeDay||state.cash<1.5)return 'An operating station and £1.5m cash are required.';
+  dialog('Upgrade gas receiving station?','<p>Pay £1.5m now for 100 MW of extra fuel import capacity in two days.</p>',()=>{
+   if(state.cash<1.5||station.gasUpgradeDay||!gasStations().includes(station))return;
+   state.cash-=1.5;recordCapital('Gas receiving upgrade',1.5);station.gasUpgradeDay=state.day+2;reviewBoard();uiDirty=true;save(false);renderDesk();
+  },'Approve upgrade');return;
  }
  if(action==='bank-borrow')return requestBankLoan();
  if(action.startsWith('overhead-')){
@@ -2218,13 +2282,33 @@ function showDevelopment(){
   (unlocked?'<p>Unlocked</p>':available?btn('Unlock','develop-'+id):'<p>Requirements still to meet</p>')+'</article>';
  }).join('');
 }
+function storyChapters(story){
+ const [,title,advisor,brief,goal,check,advice]=story;
+ return [
+  ['Board briefing',advisor,brief,'Accept the board’s brief.'],
+  ['Check the books','CFO','We need a clear view of what is already committed before taking on more.','Review the Financing page.',a=>a.visited?.financing,'tab-financing'],
+  ['Inspect the site','Grid Director','Power sales depend on both the electrical connection and enough fuel reaching the turbines.','Review Plant operations.',a=>a.visited?.plant,'tab-plant'],
+  ['Review the trading plan','Trading Director','The next decision is when to run. Check prices and see which hours your current plan uses.','Open the trading plan.',a=>a.visited?.dispatch,'tab-dispatch'],
+  ['Choose your approach',advisor,advice,'Confirm your approach before taking action.'],
+  ['Deliver the assignment',advisor,'Put your plan into practice and report back once the target is met.',goal,check],
+  ['Check the outcome','CFO','The target tells us what you achieved. The quarterly results show what it cost and how the wider business performed.','Review the quarterly results.',a=>a.visited?.report,'tab-report'],
+  ['Board debrief','Board Chair','Bring us the outcome and what you learned. We’ll record the assignment and fund your next development decision.','Report to the board.']
+ ];
+}
+function currentStoryChapter(story,active){return storyChapters(story)[active.chapter??5]||storyChapters(story)[0];}
+function storyProgress(story,active){
+ const [title,advisor,brief,goal,check,route]=currentStoryChapter(story,active);
+ const chapter=active.chapter??5;
+ return '<h4>Step '+(chapter+1)+' of 8 · '+title+'</h4><p><b>'+advisor+'</b> · “'+brief+'”</p><p>'+goal+'</p>'+
+ '<div class="desk-actions">'+(route?btn('Open page',route):'')+(!check||check(active)?btn(chapter===7?'Report to the board':'Continue','story-claim','primary'):'<span>In progress</span>')+btn('Leave assignment','story-leave')+'</div>';
+}
 function showScenarios(){
  const c=career();
  return '<h2>Story assignments</h2><p>Choose one assignment at a time. Report back to the board to earn a development token.</p>'+careerSummary()+
  stories.map(([id,title,advisor,brief,goal,check,advice])=>{
   const active=c.active?.id===id,done=c.completed.includes(id);
   return '<article class="notice"><h3>'+title+'</h3><p><b>'+advisor+'</b> · “'+brief+'”</p><p>'+goal+'</p>'+
-  (done?'<p>Completed</p>':active?'<p>Advisor advice · '+advice+'</p><div class="desk-actions">'+(check(c.active)?btn('Report to the board','story-claim'): '<span>In progress</span>')+btn('Leave assignment','story-leave')+'</div>':!c.active?btn('Start assignment','story-start-'+id):'')+'</article>';
+  (done?'<p>Completed</p>':active?storyProgress(stories.find(story=>story[0]===id),c.active):!c.active?btn('Start assignment','story-start-'+id):'')+'</article>';
  }).join('');
 }
 const inboxStories=[
@@ -2235,13 +2319,47 @@ const inboxStories=[
  ['Training grant','Business Development Director','A local training programme can reimburse £20,000 of site costs.','Accept grant',.020],
  ['Community open day','CEO office','The council wants a site visit. Hosting costs £5,000 and improves the board’s view of our local relationships.','Host visit',-.005]
 ];
+const regionalEventTemplates=[
+ ['Flexible demand trial','Trading Director','A local customer will pay for a trial of flexible electricity use.', 'Accept trial',.016],
+ ['Metering correction','CFO','The metering supplier has offered a credit after reviewing past invoices.','Accept credit',.011],
+ ['Skills partnership','Operations Director','A college will contribute to the cost of hosting site training.', 'Accept contribution',.012],
+ ['Grid data study','Grid Director','The network operator will pay for anonymised operating data in a planning study.', 'Join study',.014],
+ ['Supplier recycling scheme','Business Development Director','A recycler will pay for eligible spare materials from the site.', 'Accept offer',.009],
+ ['Shared storage study','Commercial Director','A partner will fund a study of shared battery access.', 'Accept funding',.018],
+ ['Local innovation grant','Business Development Director','A regional fund is offering a small grant toward site improvements.', 'Accept grant',.020],
+ ['Insurance adjustment','CFO','The insurer has offered a credit following a review.', 'Accept credit',.010],
+ ['Operator workshop','Operations Director','A neighbouring operator will pay Meridian to host a workshop.', 'Host workshop',.013],
+ ['Power market study','Trading Director','A university can pay for access to anonymised trading data.', 'Join study',.008],
+ ['Storm inspection','Operations Director','Heavy winds are forecast. A precautionary inspection could avoid a larger call-out bill.', 'Book inspection',-.009,.5,.018],
+ ['Drainage blockage','Operations Director','A drainage check found a blockage. Early clearance is cheaper than an emergency call-out.', 'Clear drains',-.010,.55,.021],
+ ['Supplier delay','Operations Director','A supplier reports a delivery delay. Reserve alternate transport to limit rush fees.', 'Reserve transport',-.007,.5,.016],
+ ['Survey dispute','Business Development Director','A boundary query could require urgent survey work. Booking early reduces the cost.', 'Book survey',-.006,.5,.015],
+ ['Grid telemetry fault','Grid Director','A communications link is intermittent. A planned repair may avoid a larger call-out.', 'Arrange repair',-.008,.55,.020],
+ ['Short-notice audit','CFO','Records need checking. A scheduled review may avoid expensive last-minute support.', 'Book review',-.007,.5,.016],
+ ['Security lighting fault','Operations Director','A lighting circuit has failed. Repair now or risk an emergency visit.', 'Repair lighting',-.006,.5,.014],
+ ['Plant wash-water leak','Operations Director','A minor leak can be repaired now to reduce the risk of a cleanup bill.', 'Repair leak',-.008,.5,.019],
+ ['Access road washout','Business Development Director','Rain may damage the approach road. A planned repair is cheaper than emergency work.', 'Prepare repairs',-.009,.5,.022]
+];
+const eventDistricts=['Trent Valley','Derbyshire','Nottinghamshire','Leicestershire','Lincolnshire'];
+for(let index=0;inboxStories.length<100;index++){
+ const [title,advisor,brief,label,value,risk,loss]=regionalEventTemplates[index%regionalEventTemplates.length];
+ const district=Math.floor(index/regionalEventTemplates.length),scale=1+district*.15;
+ const amount=Math.round(value*scale*1000)/1000;
+ const downside=loss?Math.round(loss*scale*1000)/1000:0;
+ inboxStories.push([title+' · '+eventDistricts[district],advisor,brief+' '+(amount>=0?'Payment '+money(amount)+'.':
+  'Cost '+money(-amount)+'. Declining has a '+Math.round(risk*100)+'% chance of costing '+money(downside)+'.'),label,amount,risk,downside]);
+}
 function tickInboxStories(){
  if(!hasChosenCEO()||needsDifficulty()||!tutorialFinished()||finance().dismissed)return;
  const c=career(),interval={often:8,normal:20,rare:45}[c.frequency];
  if(c.event&&state.day>=c.event.expires){delete c.event;finance().messages=inbox().filter(m=>m.key!=='career-event');}
  if(!interval||c.event||state.day<c.lastEvent+interval)return;
- const choices=reserveCash()<17||state.cash<5?[0,1,4]:inboxStories.map((_,i)=>i);
- const index=choices[Math.floor(Math.random()*choices.length)];
+ const struggling=reserveCash()<17||state.cash<5;
+ const choices=inboxStories.flatMap((event,i)=>struggling&&event[4]<=0?[]:[i]);
+ const fresh=choices.filter(i=>!(c.recentEvents||[]).includes(i));
+ const pool=fresh.length?fresh:choices;
+ const index=pool[Math.floor(Math.random()*pool.length)];
+ c.recentEvents=[...(c.recentEvents||[]),index].slice(-10);
  const [title,advisor,brief]=inboxStories[index];
  c.lastEvent=state.day;c.event={index,expires:state.day+5};
  postMessage(title,advisor+' · '+brief+' Respond before day '+c.event.expires+'.','messages','career-event');
@@ -2260,7 +2378,7 @@ function careerAction(action){
  if(action==='career-accept'||action==='career-decline'){
   if(!c.event)return 'This decision has expired.';
   const index=c.event.index,event=inboxStories[index];
-  const amount=action==='career-accept'?event[4]:[2,3].includes(index)&&Math.random()<.5?(index===2?-.025:-.018):0;
+  const amount=action==='career-accept'?event[4]:Math.random()<(event[5]||([2,3].includes(index)?.5:0))?-(event[6]||(index===2?.025:.018)):0;
   if(amount<0&&state.cash+amount<1.05&&action==='career-accept')return 'Keep your cash for essential payments. You can decline this offer.';
   const change=amount<0?Math.max(amount,-Math.max(0,state.cash-1.05)):amount;
   state.cash+=change;
@@ -2273,13 +2391,17 @@ function careerAction(action){
  if(action==='story-leave'){delete c.active;return;}
  if(action==='story-claim'){
   const story=stories.find(s=>s[0]===c.active?.id);
-  if(!story||!story[5](c.active))return 'Complete the assignment first.';
+  if(!story)return 'Start an assignment first.';
+  const check=currentStoryChapter(story,c.active)[4];
+  if(check&&!check(c.active))return 'Complete this step first.';
+  const chapter=c.active.chapter??5;
+  if(chapter<7){c.active.chapter=chapter+1;c.active.visited={};return;}
   c.completed.push(story[0]);c.tokens++;delete c.active;
   postMessage('Board · assignment complete','You completed '+story[1]+' and earned one development token.','development');return;
  }
  if(action.startsWith('story-start-')){
   const id=action.slice(12);
-  if(!c.active&&!c.completed.includes(id)&&stories.some(s=>s[0]===id))c.active={id,profit:state.profit,land:state.owned.length};
+  if(!c.active&&!c.completed.includes(id)&&stories.some(s=>s[0]===id))c.active={id,chapter:0,visited:{},profit:state.profit,land:state.owned.length};
   return;
  }
  const node=developmentNodes.find(n=>n[0]===action.slice(8));
