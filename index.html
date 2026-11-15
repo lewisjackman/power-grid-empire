@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v8.0.3</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v8.0.4</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -193,8 +193,9 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #siteNotices #mapMessageAlert{pointer-events:auto;border-color:#efc37d;max-width:100%}
 #siteNotices #mapMessageAlert[hidden],#deskMessageAlert[hidden]{display:none}
 #businessDesk #deskMessageAlert{color:#ffda9d;font-size:12px;margin:0;padding:6px 0;overflow-wrap:anywhere}
+#businessDesk button.demolish-action{background:#723a3e;border-color:#ff9998;color:#ffe6e5} .demolish-action svg{vertical-align:middle;margin-right:4px}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v8.0.3</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v8.0.4</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -980,8 +981,8 @@ function tutorialAction(action){
 
 function showBuildHome(){
  return '<div class="desk-heading"><h2>Build on this site</h2><p>Choose an asset, then select a plot beside a road on the map.</p></div>'+
- '<div class="investment-grid">'+Object.entries(TYPES).filter(([id])=>['OCGT','Battery'].includes(id)===false).map(([id,t])=>'<article><h3>'+t.name+'</h3><p>'+t.desc+'</p><div class="investment-details"><b>'+money(t.cost)+'</b><p>'+ (t.days?t.days+' days to build':'Immediate')+'</p></div>'+btn('Choose plot','build-'+id,'primary')+'</article>').join('')+'</div>'+
- '<div class="desk-actions">'+btn('Demolish infrastructure','site-remove')+'</div>';
+ '<div class="desk-actions">'+btn('<svg aria-hidden="true" width="20" height="16" viewBox="0 0 24 18" fill="currentColor"><path d="M7 1h8l3 8H4V5h3zm2 2v4h6l-2-4zM5 10h10a3.5 3.5 0 0 1 0 7H5a3.5 3.5 0 0 1 0-7zM19 11h2V6h2v10h-4z"/></svg> Demolish infrastructure','site-remove','demolish-action')+'</div>'+
+ '<div class="investment-grid">'+Object.entries(TYPES).filter(([id])=>['OCGT','Battery'].includes(id)===false).map(([id,t])=>'<article><h3>'+t.name+'</h3><p>'+t.desc+'</p><div class="investment-details"><b>'+money(t.cost)+'</b><p>'+ (t.days?t.days+' days to build':'Immediate')+'</p></div>'+btn('Choose plot','build-'+id,'primary')+'</article>').join('')+'</div>';
 }
 function defaultSiteAction(){
  if(mode)cancelPlacement();
@@ -1244,7 +1245,7 @@ function cashOutlook(projects){
 }
 function showMajorProjects(){
  return '<h2>Major projects</h2><p>Choose a plot beside a road, then check the investment and financing before building.</p>'+
- '<div class="investment-grid">'+Object.entries(investment).map(([type,x])=>{
+ '<div class="investment-grid">'+Object.entries(investment).filter(([type])=>type!=='Grid').map(([type,x])=>{
   const t=TYPES[type];return '<article><small>'+x.headline+'</small><h3>'+x.name+'</h3><div class="investment-details"><b>'+money(t.cost)+'</b><p>Estimated yearly earnings before shared costs '+money(x.base)+'<br>Downside '+money(x.down)+'<br>Simple payback '+(t.cost/x.base).toFixed(1)+' years</p></div>'+btn('Choose plot','build-'+type,'primary')+'</article>';
  }).join('')+'</div>';
 }
@@ -1252,13 +1253,14 @@ function showInvestment(){
  const f=finance(),remaining=committedCapital(),projects=state.assets.filter(a=>a.status==='building');
  const upgrade=f.upgrade;
  return '<div class="desk-heading"><h2>Upgrades & land</h2><p>Manage construction, expand the grid or buy adjoining land.</p></div>'+
+ '<h3>Transformer upgrade</h3><p>'+gridMW()+' MW existing · upgrade adds 40 MW in two days for £2m.</p>'+
+ (upgrade?row('Due','Day '+upgrade.day):'')+
+ '<div class="desk-actions">'+(upgrade?'':btn('Approve transformer upgrade','upgrade'))+btn('Buy adjoining land','site-land')+'</div>'+
  '<div class="desk-metrics">'+card('Available cash',money(state.cash))+card('Unpaid milestones',money(remaining))+card('Cash after planned payments',money(state.cash-remaining))+'</div>'+
  '<p class="desk-note">Illustrative appraisals. Pay 20% at placement, 45% at foundations and 35% at commissioning. Projects wait if cash is insufficient.</p>'+
  '<h3>Projects in flight</h3>'+
  (projects.length?table(['Project','Progress','Next payment'],projects.map(a=>[a.name,Math.floor(a.progress*100)+'%'+(a.constructionPaused?' · paused':a.fundingHold?' · funding hold':''),money(a.contract?.stages[a.contract.stage]?.cost||0)+' '+btn(a.constructionPaused?'Resume construction':'Pause construction','construction-'+a.id)])):'<p>No projects under construction.</p>')+
- '<h3>Cash outlook</h3><p>Construction payments over six days, before new operating cash flow.</p>'+cashOutlook(projects)+
- '<h3>Connection reinforcement</h3><p>'+gridMW()+' MW existing · upgrade adds 40 MW in two days for £2m.</p>'+
- (upgrade?row('Due','Day '+upgrade.day):'')+'<div class="desk-actions">'+(upgrade?'':btn('Approve transformer upgrade','upgrade'))+btn('Advance one day','advance-day')+'</div>';
+ '<h3>Cash outlook</h3><p>Construction payments over six days, before new operating cash flow.</p>'+cashOutlook(projects);
 }
 function capacityLimit(a){return Math.floor(power(a)*(a.type==='Battery'?.5:.9)*2)/2;}
 const sections=['price','wholesale','balance','availability','cost','settlement','export','charge','capital','downtime'];
@@ -1887,7 +1889,7 @@ function showSettings(){
  '<p>Easy offers wider peak margins, lower fixed costs and cheaper borrowing. Hard tightens margins and raises outage risk. Existing loan rates stay fixed.</p><div class="desk-actions">'+Object.keys(difficultyProfiles).map(d=>btn(d,'difficulty-'+d,(f.nextDifficulty||current)===d?'selected':'')).join('')+'</div>'+
  '<p class="desk-note">Choose immediately at the start of a company. Later changes take effect next quarter.</p>'+btn('Back to overview','tab-overview')+'<h3>Inbox events</h3><div class="desk-actions">'+[['off','Off'],['rare','Rare'],['normal','Normal'],['often','Often']].map(([id,label])=>btn(label,'event-frequency-'+id,career().frequency===id?'selected':'')).join('')+'</div>';
 }
-const views={scenarios:showScenarios,development:showDevelopment,heavy:showMajorProjects,financing:showFinancing,costs:showCosts,help:showHelp,dismissed:showDismissed,winter:showWinter,build:showBuildHome,settings:showSettings,overview:showOverview,campaign:showCampaign,dispatch:seasonalDesk,capital:()=>showInvestment()+'<div class="desk-actions">'+btn('Buy adjoining land','site-land')+'</div>',plant:showMaintenance,capacity:showAuction,report:()=>showQuarter(),variance:()=>showQuarter(true),advisors:showAdvisors,messages:showMessages,appraisal:plotAppraisal};
+const views={scenarios:showScenarios,development:showDevelopment,heavy:showMajorProjects,financing:showFinancing,costs:showCosts,help:showHelp,dismissed:showDismissed,winter:showWinter,build:showBuildHome,settings:showSettings,overview:showOverview,campaign:showCampaign,dispatch:seasonalDesk,capital:showInvestment,plant:showMaintenance,capacity:showAuction,report:()=>showQuarter(),variance:()=>showQuarter(true),advisors:showAdvisors,messages:showMessages,appraisal:plotAppraisal};
 let renderedDeskPage;
 function renderDesk(){
  if(deskTab==='messages'){finance().readMessageSeq=finance().messageSeq||0;uiDirty=true;}
