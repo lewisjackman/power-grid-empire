@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.2.0</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.2.1</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -233,7 +233,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #businessDesk #deskMessageAlert{color:#ffda9d;font-size:12px;margin:0;padding:6px 0;overflow-wrap:anywhere}
 #businessDesk button.demolish-action{background:#723a3e;border-color:#ff9998;color:#ffe6e5} .demolish-action svg{vertical-align:middle;margin-right:4px}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.2.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.2.1</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -976,7 +976,7 @@ function showWinter(){
   '<div class="desk-metrics">'+card('Operating profit',cashGBP(q.profit))+card('Electricity exported',q.export.toFixed(1)+' MWh')+card('Cash reserve',q.cash>=q.reserve?'Met':'Below target')+'</div>'+
   '<p>'+ (q.choice==='service'?'The service took the unit offline during the peak. It restores condition when the turbine returns to service.':'The board has recorded the trading result. The Operations Director can help you decide when to service the turbine next.')+'</p>'+
   '<p>This result includes fuel, carbon charges, turbine starts and shared site costs. Electricity sales are income; what remains after these costs is profit. A battery or a larger grid connection may improve future earnings.</p>'+
-  '<div class="desk-actions">'+btn('Continue tutorial','winter-complete','primary')+btn('See quarterly results','tab-report')+'</div>';
+  '<div class="desk-actions">'+btn('Continue tutorial','winter-complete','primary')+'</div>';
 }
 function winterAction(action){
  const f=finance(),q=f.winter;
@@ -1021,7 +1021,7 @@ const winterLessons=[
  {title:'Read the site',director:3,brief:'The board wants to understand what limits Meridian’s next investment. On the map, tap the transformer and compare the site’s export with the connection limit. The gas receiving station feeds the turbine. The transformer connects the site to the grid.',target:'Inspect the transformer'},
  {title:'Check the battery investment',director:2,brief:'A battery can buy electricity in cheaper hours and sell during the peak. Choose a plot near the transformer and tap Check investment. Compare the payoff, what you pay today, and the cash left after commitments. Build it, or defer if the reserve is too tight.',target:'Choose a battery plot'},
  {title:'Operate the battery',director:1,brief:'Charging uses the grid connection and some energy is lost before you can sell it back. Try the Charge and Discharge tools or leave the battery on Auto. The map shows arrows as the battery imports or exports.',target:'Open battery dispatch'},
- {title:'Protect the plant',director:0,brief:'Check the turbine’s condition and compare a routine service with a major overhaul. A service costs money and temporarily reduces available capacity. Book a window or leave the turbine available and accept the outage risk.',target:'Review maintenance'},
+ {title:'Protect the plant',director:0,brief:'Check the turbine’s condition and compare a routine service with a major overhaul. A service costs money and temporarily reduces available capacity. Book a window yourself, delegate scheduling to the Operations Director, or leave the turbine available and accept the outage risk.',target:'Review maintenance'},
  {title:'Bid for capacity',director:5,brief:'Capacity payments reward being available when the grid needs you. Choose MW and a minimum price. Higher prices can miss the auction. If you win, a stress alert will reach Messages before delivery, with a penalty if you fall short.',target:'Review the auction'},
  {title:'Respond to the grid',director:5,brief:'Open Messages and check the notice from the auction. A capacity award can trigger a stress warning. At a warning, compare the time remaining and the MW at risk, then decide whether to reserve battery charge or rush maintenance. After delivery, the same notice shows the result.',target:'Open Messages'},
  {title:'Report back to the board',director:4,brief:'Compare actual profit with the seasonal forecast. Select a waterfall bar to understand the difference. Check cash after commitments against the board’s £17m minimum before deciding what Meridian should build next.',target:'Open quarterly results'}
@@ -1043,7 +1043,7 @@ function winterLessonReady(q){
   case 1:return !!done.grid;
   case 2:return !!done.appraisal&&(state.assets.some(a=>a.type==='Battery'&&a.status==='operational')||q.deferred);
   case 3:return !!done.battery||q.deferred;
-  case 4:return !!done.maintenance||q.maintenanceDeferred;
+  case 4:return !!done.maintenance||q.maintenanceDeferred||!!finance().delegateMaintenance;
   case 5:return !!done.auction||q.auctionDeferred;
   case 6:{const events=finance().capacity?.events||[];return !!done.messages&&(!events.length||events.some(e=>e.finished)||q.stressDeferred);}
   case 7:return !!done.report;
@@ -2046,6 +2046,21 @@ function handleBusiness(action){
 }
 
 function needsDifficulty(){const f=finance();return hasChosenCEO()&&!f.difficultyChosen&&!f.difficulty&&state.day===1&&!state.history.length&&!f.winter;}
+function developerAction(action){
+ const f=finance();
+ if(action==='developer-toggle'){f.developerTools=!f.developerTools;return;}
+ if(!f.developerTools)return 'Enable developer tools first.';
+ if(action==='developer-tokens'){career().tokens+=10;return;}
+ if(action==='developer-cash'){state.cash+=25;uiDirty=true;return;}
+ if(action==='developer-requirements'){f.developerResearch=!f.developerResearch;return;}
+}
+function developerControls(){
+ const f=finance();
+ return '<details'+(f.developerTools?' open':'')+'><summary>Developer tools</summary><p>Changes apply to this save. Grants and purchased unlocks remain when tools are turned off.</p>'+
+ btn(f.developerTools?'Disable developer tools':'Enable developer tools','developer-toggle')+
+ (f.developerTools?'<div class="desk-actions">'+btn('Grant 10 development tokens','developer-tokens')+btn('Grant £25m cash','developer-cash')+
+ btn(f.developerResearch?'Restore research prerequisites':'Bypass research prerequisites','developer-requirements')+'</div><p>Research prerequisite bypass '+(f.developerResearch?'on':'off')+'. Tokens still pay for unlocks. Finish or skip Winter Peak to open Development.</p>':'')+'</details>';
+}
 function showSettings(){
  const f=finance(),current=f.difficulty||'Medium';
  if(needsDifficulty())return '<div class="desk-heading"><h2>Choose difficulty</h2><p>Pick a setting to start the Winter Peak tutorial.</p></div>'+
@@ -2053,7 +2068,7 @@ function showSettings(){
  '<p>Easy gives you wider trading margins. Medium gives you a tighter budget. Hard raises costs and outage risk.</p>';
  return '<div class="desk-heading"><h2>Difficulty</h2><p>Current: '+current+(f.nextDifficulty?' · next quarter: '+f.nextDifficulty:'')+'</p></div>'+
  '<p>Easy offers wider peak margins, lower fixed costs and cheaper borrowing. Hard tightens margins and raises outage risk. Existing loan rates stay fixed.</p><div class="desk-actions">'+Object.keys(difficultyProfiles).map(d=>btn(d,'difficulty-'+d,(f.nextDifficulty||current)===d?'selected':'')).join('')+'</div>'+
- '<p class="desk-note">Choose immediately at the start of a company. Later changes take effect next quarter.</p>'+btn('Back to overview','tab-overview')+'<h3>Inbox events</h3><div class="desk-actions">'+[['off','Off'],['rare','Rare'],['normal','Normal'],['often','Often']].map(([id,label])=>btn(label,'event-frequency-'+id,career().frequency===id?'selected':'')).join('')+'</div>';
+ '<p class="desk-note">Choose immediately at the start of a company. Later changes take effect next quarter.</p>'+btn('Back to overview','tab-overview')+'<h3>Inbox events</h3><div class="desk-actions">'+[['off','Off'],['rare','Rare'],['normal','Normal'],['often','Often']].map(([id,label])=>btn(label,'event-frequency-'+id,career().frequency===id?'selected':'')).join('')+'</div>'+developerControls();
 }
 const views={expansion:showProjectPage,scenarios:showCareerPage,story:showActiveStory,development:showCareerPage,heavy:showProjectPage,financing:showFinancing,costs:showCosts,help:showHelp,dismissed:showDismissed,winter:showWinter,build:showInfrastructure,settings:showSettings,overview:showOverview,campaign:showCampaign,dispatch:seasonalDesk,capital:showInfrastructure,plant:showMaintenance,capacity:showAuction,report:()=>showQuarter(),variance:()=>showQuarter(true),advisors:showAdvisors,messages:showMessages,appraisal:plotAppraisal};
 let renderedDeskPage;
@@ -2146,6 +2161,7 @@ function doDesk(action){
  const locked=tutorialGate(action);if(locked)return locked;
  if(action==='restart-company'){$('reset').click();return;}
  if(action.startsWith('construction-')){const project=state.assets.find(a=>a.id===Number(action.slice(13)));if(project?.status==='building')toggleConstruction(project);return;}
+ if(action.startsWith('developer-'))return developerAction(action);
  if(action==='delegate-maintenance'){
   if(tutorialGate('tab-plant'))return tutorialGate('tab-plant');
   f.delegateMaintenance=!f.delegateMaintenance;
@@ -2589,6 +2605,11 @@ function careerSummary(){
 }
 function developmentRequirements([id,,cost,assignments,,parent]){
  const c=career();
+ if(finance().developerTools&&finance().developerResearch)return [
+  ['Finish or skip Winter Peak',tutorialFinished()],
+  ['Development tokens ('+c.tokens+' of '+cost+' required)',c.tokens>=cost],
+  ['Other prerequisites bypassed by developer tools',true]
+ ];
  const national=id==='national'?[
   ['Complete one generation expansion assignment',['fast','combined-cycle'].some(key=>c.completed.includes('tech-'+key))],
   ['Complete Carry the peak',c.completed.includes('tech-long-storage')],
