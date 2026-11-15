@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v7.2.11</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v7.2.12</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -194,7 +194,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #siteNotices #mapMessageAlert[hidden],#deskMessageAlert[hidden]{display:none}
 #businessDesk #deskMessageAlert{color:#ffda9d;font-size:12px;margin:0;padding:6px 0;overflow-wrap:anywhere}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v7.2.11</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v7.2.12</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -1110,7 +1110,7 @@ function updateEstimate(){
  const d=dispatchDraft,g=scopeAssets(), slider=$('bmSlider');
  if(slider)d.offer=Number(slider.value);
  const label=$('bmOfferLabel');if(label)label.textContent=cashGBP(d.offer)+'/MWh';
- const overrides=d.staggered||new Map(g.map(a=>[a.id,d.editing?projectedPlan(a,d):seasonPlan(a)]));
+ const overrides=new Map(g.map(a=>[a.id,d.editing?projectedPlan(a,d):seasonPlan(a)]));
  if($('priceProfile'))$('priceProfile').innerHTML=priceProfile(overrides);
  const forecast=forecastPortfolio(overrides);
  const daily=g.reduce((n,a)=>n+currencyTotal(forecast[a.id]),0);
@@ -1128,7 +1128,7 @@ function updateEstimate(){
 function seasonalAction(action){
  const d=dispatchDraft??=newDraft(),g=scopeAssets(),f=finance();
  if(!g.length)return 'Choose a group with operating assets.';
- if(action!=='season-apply'&&action!=='season-stagger'){delete d.staggered;d.acknowledged=false;}
+ if(action!=='season-apply'){d.acknowledged=false;}
  if(action==='season-manual')d.editing=true;
  else if(action==='season-auto'){
   markTutorial('trade');if(g.some(a=>a.type==='Battery'))markTutorial('battery');
@@ -1150,33 +1150,14 @@ function seasonalAction(action){
     if(profit>best){best=profit;d.offer=offer;}
    }
   }
- }else if(action==='season-stagger'){
-  const grid=gridMW(),limit=slot(),imports=slot(),group=new Set(g.map(a=>a.id));
-  for(const a of assetsForDispatch().filter(operating)){
-   if(group.has(a.id))continue;
-   const plan=seasonPlan(a)?.hours||autoHours(a);
-   for(let h=0;h<24;h++){limit[h]+=Math.max(plan[h],0);imports[h]+=Math.max(0,-plan[h]);}
-  }
-  const plans=[];
-  for(const a of g){
-   const plan=projectedPlan(a,d);
-   let soc=0;
-   plan.hours=plan.hours.map((v,h)=>{
-    if(v<0){const buy=Math.max(0,Math.min(-v,grid-imports[h],(20-soc)/efficiency));imports[h]+=buy;soc+=buy*efficiency;return -buy;}
-    const out=Math.max(0,Math.min(v,grid-limit[h],a.type==='Battery'?soc*efficiency:Infinity));
-    limit[h]+=out;if(a.type==='Battery')soc-=out/efficiency;return out;
-   });
-   plans.push([a.id,plan]);
-  }
-  d.staggered=new Map(plans);d.acknowledged=false;deskStatus='Adjusted the proposed MW to fit the connection. Apply to use this plan.';
  }else if(action==='season-clear'){d.gas=slot();d.battery=slot();}
  else if(action==='season-apply'){
   if(!d.editing)return;
   if(g.some(a=>a.type==='OCGT')&&(!d.gas.some(Boolean)||d.offer<40))return 'Select gas dispatch hours and set a balancing offer. Switch to Auto to exit without a manual plan.';
   if(g.some(a=>a.type==='Battery')&&(!d.battery.includes(-1)||!d.battery.includes(1)))return 'Set both battery charge and discharge hours.';
-  const proposed=d.staggered||new Map(g.map(a=>[a.id,projectedPlan(a,d)]));
+  const proposed=new Map(g.map(a=>[a.id,projectedPlan(a,d)]));
   const warning=gridPlanWarning(proposed);
-  if(warning&&!d.acknowledged){d.acknowledged=true;return warning+' Stagger dispatch or tap Apply again to accept likely curtailment.';}
+  if(warning&&!d.acknowledged){d.acknowledged=true;return warning+' Adjust your selected hours or tap Apply again to accept likely curtailment.';}
   const ids=new Set(g.map(a=>a.id));
   f.orders=f.orders.filter(o=>!ids.has(o.asset));
   for(const a of g){a.dispatchMode='Manual';a.plan=proposed.get(a.id);}
@@ -1548,7 +1529,7 @@ function gridLimitText(flow){
 function warnGridLimit(){
  const f=finance(),description=gridLimitText(f.lastFlow);
  if(!description)return;
- const text=description+' Stagger dispatch, build a new grid connection or expand an existing one.';
+ const text=description+' Adjust your trading hours, build a new grid connection or expand an existing one.';
  const prior=f.gridWarning;
  f.gridWarning={day:state.day,text};
  if(prior?.day!==state.day)postMessage('Grid Director · connection limit exceeded',text,'plant');
@@ -1792,7 +1773,7 @@ function renderDesk(){
  const scrollTop=page===renderedDeskPage?scroll.scrollTop:0;
  $('deskBody').innerHTML=views[deskTab]();
  $('deskFooter').innerHTML=deskTab==='dispatch'&&dispatchDraft?.editing?
- '<p id="seasonGridWarning" class="desk-note"></p><div class="desk-actions">'+btn('Apply plan','season-apply','primary')+btn('Stagger','season-stagger')+'</div>':'';
+ '<p id="seasonGridWarning" class="desk-note"></p><div class="desk-actions">'+btn('Apply plan','season-apply','primary')+'</div>':'';
 
  scroll.scrollTop=scrollTop;
  renderedDeskPage=page;
@@ -1800,7 +1781,7 @@ function renderDesk(){
  $('deskStatus').textContent=deskStatus;
  if(deskTab==='dispatch'){
   $('seasonScope').onchange=e=>{dispatchGroup=e.target.value;dispatchDraft=null;renderDesk();};
-  if($('bmSlider'))$('bmSlider').oninput=()=>{delete dispatchDraft.staggered;dispatchDraft.acknowledged=false;updateEstimate();};updateEstimate();
+  if($('bmSlider'))$('bmSlider').oninput=()=>{dispatchDraft.acknowledged=false;updateEstimate();};updateEstimate();
  }
  if(deskTab==='plant'&&preferredServiceAsset!==null&&$('maintenanceAsset')){
   const asset=state.assets.find(a=>a.id===preferredServiceAsset);
