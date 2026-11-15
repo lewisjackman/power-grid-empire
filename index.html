@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.0.0</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.1.0</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -148,8 +148,21 @@ header .sub{font-size:10px}
  #stats span{margin-left:8px}
  #inboxOpen{grid-column:2;grid-row:1 / span 2}
 }
-.research-tree,.research-branch{border-left:2px solid #58847c;padding-left:10px;margin:8px 0}
-.research-branch>article{margin:0 0 8px}
+.tech-board{overflow-x:auto;overscroll-behavior-inline:contain;touch-action:pan-x pan-y;padding:10px 8px;background:#112930;border:1px solid #456569;border-radius:12px}
+.tech-root{display:flex;margin-bottom:8px}
+.tech-lane,.tech-path,.tech-edge{display:flex;align-items:center;min-width:max-content}
+.tech-lane+.tech-lane{margin-top:8px}
+.tech-forks{display:grid;gap:8px;border-left:1px solid #5d8486}
+.tech-connector{display:block;width:12px;height:1px;background:#5d8486}
+#businessDesk .tech-tile{width:112px;min-height:60px;margin:0;padding:7px;display:grid;gap:3px;text-align:left;font-size:12px;border:1px solid #557078}
+.tech-tile small{color:#c1d0ce}
+#businessDesk .tech-tile.unlocked{border-color:#76c49c}
+.tech-tile.unlocked small{color:#8af1b3}
+#businessDesk .tech-tile.ready{border-color:#efc37d}
+.tech-tile.ready small{color:#ffdc92}
+#businessDesk .tech-tile[aria-pressed=true]{box-shadow:inset 0 0 0 2px #ffdc92}
+.tech-detail{margin-top:10px}
+#businessDesk .desk-secondary button{padding-inline:4px;overflow-wrap:normal}
 #stats{text-align:right;font-size:11px;white-space:nowrap}
 #stats b{font-size:clamp(14px,4vw,19px)}
 #inboxOpen{min-height:44px;min-width:44px;padding:4px;margin:0}
@@ -172,7 +185,7 @@ header .sub{font-size:10px}
 #businessDesk[open]{pointer-events:auto}
 #deskNav{display:block}
 .desk-primary,.desk-secondary{display:grid;gap:5px;grid-template-columns:repeat(4,minmax(0,1fr))}
-.desk-secondary{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:6px}
+.desk-secondary{grid-template-columns:repeat(var(--tabs,3),minmax(0,1fr));margin-top:6px}
 #businessDesk .desk-primary button,#businessDesk .desk-secondary button{min-height:44px}
 #deskFooter{border-top:1px solid #47646a;padding:8px 12px;background:#183a41}
 #deskFooter:empty{display:none}
@@ -208,7 +221,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #businessDesk #deskMessageAlert{color:#ffda9d;font-size:12px;margin:0;padding:6px 0;overflow-wrap:anywhere}
 #businessDesk button.demolish-action{background:#723a3e;border-color:#ff9998;color:#ffe6e5} .demolish-action svg{vertical-align:middle;margin-right:4px}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.0.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.1.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -906,15 +919,17 @@ try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved&&saved.state&&Arr
 setInterval(()=>save(false),30000);document.addEventListener('visibilitychange',()=>{if(document.hidden){pointers.clear();gestureReset();save(false);}});
 const desk=$('businessDesk');
 const deskGroups=[
- {tab:'build',label:'Build',pages:[['build','Infrastructure'],['capital','Upgrades & land'],['heavy','Major projects'],['expansion','Expansion']]},
+ {tab:'overview',label:'Info',pages:[['overview','Overview'],['advisors','Advisors'],['help','Help']]},
+ {tab:'build',label:'Build',pages:[['build','Infrastructure & upgrades'],['heavy','Major projects'],['scenarios','Scenarios & research']]},
  {tab:'dispatch',label:'Trade',pages:[['dispatch','Trading plan'],['capacity','Capacity Market']]},
- {tab:'overview',label:'Company',pages:[['overview','Overview'],['report','Results'],['advisors','Advisors'],['financing','Financing'],['costs','Costs'],['help','Help'],['scenarios','Scenarios'],['development','Development']]}
+ {tab:'report',label:'Finance',pages:[['report','Results'],['financing','Debt'],['costs','Costs']]}
 ];
-const selectNav=(items)=>items.map(([key,label])=>btn(label,'tab-'+key,key===deskTab?'selected':'')).join('');
+const deskSection=()=>({capital:'build',expansion:'heavy',appraisal:'heavy',development:'scenarios',story:'scenarios',variance:'report'})[deskTab]||deskTab;
 function deskNavigation(){
- const group=deskGroups.find(g=>g.pages.some(([key])=>key===deskTab)||deskTab==='variance'&&g.tab==='overview');
- return '<div class="desk-primary">'+btn('Site','close')+deskGroups.map(g=>btn(g.label,'tab-'+g.tab,g===group?'selected':'')).join('')+'</div>'+
-  (group&&group.pages.length>1?'<div class="desk-secondary">'+selectNav(group.pages)+'</div>':'');
+ const section=deskSection();
+ const group=deskGroups.find(g=>g.pages.some(([key])=>key===section));
+ return '<div class="desk-primary">'+deskGroups.map(g=>btn(g.label,'tab-'+g.tab,g===group?'selected':'')).join('')+'</div>'+
+ (group?'<div class="desk-secondary" style="--tabs:'+group.pages.length+'">'+group.pages.map(([key,label])=>btn(label,'tab-'+key,key===section?'selected':'')).join('')+'</div>':'');
 }
 function winterStart(){
  const f=finance();
@@ -1114,7 +1129,7 @@ function showOverview(){
  const message=inbox()[0];
  return '<div class="campaign-lead">'+portrait('Your CEO',f.ceo,3,3)+'<div><h2>Company overview</h2><p>'+seasonName()+(f.career?.national?' · National operator':' · East Midlands site')+'</p></div></div>'+
  '<div class="desk-metrics">'+card('Cash today',money(state.cash))+card('After commitments',money(available))+card('Grid connection',gridMW()+' MW')+'</div>'+
- careerSummary()+'<h3>Commitments</h3>'+row('Unpaid construction',money(committedCapital()))+row('Loan payments next 90 days',money(loanDue(90)))+btn('View financing','tab-financing')+'<h3>Site status</h3>'+row('Grid flow',(flow.out||0).toFixed(1)+' MW out · '+(flow.charge||0).toFixed(1)+' MW in')+
+ careerSummary()+'<h3>Commitments</h3>'+row('Unpaid construction',money(committedCapital()))+row('Loan payments next 90 days',money(loanDue(90)))+btn('View debt','tab-financing')+'<h3>Site status</h3>'+row('Grid flow',(flow.out||0).toFixed(1)+' MW out · '+(flow.charge||0).toFixed(1)+' MW in')+
  row('Today’s operating profit',cashGBP(state.daily.profit*1e6))+row('Player-controlled assets',manual+' of '+assetsForDispatch().length+' assets')+
  row('Projects under construction',projects.length+(holds.length?' · '+holds.length+' on funding hold':''))+
  '<div class="desk-actions">'+btn('Trading plan','tab-dispatch')+btn('Plant','tab-plant')+btn('Business results','tab-report')+'</div>'+
@@ -1345,6 +1360,15 @@ function cashOutlook(projects){
   'Day '+(state.day+i),money(due),money(cash-=due)
  ]));
 }
+function showInfrastructure(){
+ return showBuildHome()+'<section id="upgradeSection">'+showInvestment()+'</section>';
+}
+function showProjectPage(){
+ return showMajorProjects()+'<section id="expansionSection">'+showExpansion()+'</section>';
+}
+function showCareerPage(){
+ return '<div class="desk-actions">'+btn('Scenarios','tab-scenarios',deskTab==='scenarios'?'selected':'')+btn('Research tree','tab-development',deskTab==='development'?'selected':'')+'</div>'+showScenarios()+'<section id="researchSection">'+showDevelopment()+'</section>';
+}
 function showMajorProjects(){
  return '<h2>Major projects</h2><p>Choose a plot beside a road, then check the investment and financing before building.</p>'+
  '<div class="investment-grid">'+Object.entries(investment).filter(([type])=>type!=='Grid').map(([type,x])=>{
@@ -1361,7 +1385,7 @@ function showInvestment(){
  '<article><h3>Adjoining land</h3><p>Expand the site by buying a neighbouring parcel.</p>'+
  '<div class="investment-details"><b>'+money(landCost)+'</b><p>Immediate</p></div>'+
  (developmentHas('land')?btn('Choose plot','site-land','primary'):
- '<p class="bad">Unlock Estate planning in Development to buy land.</p>'+btn('Open Development','tab-development','primary'))+'</article>'+
+ '<p class="bad">Unlock Estate planning in Development to buy land.</p>'+btn('Open research tree','tab-development','primary'))+'</article>'+
  '<article><h3>Gas receiving capacity</h3><p>'+gasCapacity()+' MW of fuel across the site. Add 100 MW of fuel capacity to a selected station in two days for £1.5m.</p>'+
  gasStations().map(a=>'<p>'+a.name+' · '+gasStationLimit(a)+' MW fuel</p>'+ (a.gasUpgradeDay?'<p>Upgrade due day '+a.gasUpgradeDay+'</p>':btn('Upgrade '+a.name,'gas-upgrade-'+a.id,'primary'))).join('')+
  '</article>'+planningOfficeUpgrade()+'</div>';
@@ -2017,7 +2041,7 @@ function showSettings(){
  '<p>Easy offers wider peak margins, lower fixed costs and cheaper borrowing. Hard tightens margins and raises outage risk. Existing loan rates stay fixed.</p><div class="desk-actions">'+Object.keys(difficultyProfiles).map(d=>btn(d,'difficulty-'+d,(f.nextDifficulty||current)===d?'selected':'')).join('')+'</div>'+
  '<p class="desk-note">Choose immediately at the start of a company. Later changes take effect next quarter.</p>'+btn('Back to overview','tab-overview')+'<h3>Inbox events</h3><div class="desk-actions">'+[['off','Off'],['rare','Rare'],['normal','Normal'],['often','Often']].map(([id,label])=>btn(label,'event-frequency-'+id,career().frequency===id?'selected':'')).join('')+'</div>';
 }
-const views={expansion:showExpansion,scenarios:showScenarios,story:showActiveStory,development:showDevelopment,heavy:showMajorProjects,financing:showFinancing,costs:showCosts,help:showHelp,dismissed:showDismissed,winter:showWinter,build:showBuildHome,settings:showSettings,overview:showOverview,campaign:showCampaign,dispatch:seasonalDesk,capital:showInvestment,plant:showMaintenance,capacity:showAuction,report:()=>showQuarter(),variance:()=>showQuarter(true),advisors:showAdvisors,messages:showMessages,appraisal:plotAppraisal};
+const views={expansion:showProjectPage,scenarios:showCareerPage,story:showActiveStory,development:showCareerPage,heavy:showProjectPage,financing:showFinancing,costs:showCosts,help:showHelp,dismissed:showDismissed,winter:showWinter,build:showInfrastructure,settings:showSettings,overview:showOverview,campaign:showCampaign,dispatch:seasonalDesk,capital:showInfrastructure,plant:showMaintenance,capacity:showAuction,report:()=>showQuarter(),variance:()=>showQuarter(true),advisors:showAdvisors,messages:showMessages,appraisal:plotAppraisal};
 let renderedDeskPage;
 function renderDesk(){
  if(finance().career?.active)(finance().career.active.visited??={})[deskTab]=true;
@@ -2038,7 +2062,9 @@ function renderDesk(){
  $('deskFooter').innerHTML=deskTab==='dispatch'&&dispatchDraft?.editing?
  '<p id="seasonGridWarning" class="desk-note"></p><div class="desk-actions">'+btn('Apply plan','season-apply','primary')+'</div>':'';
 
- scroll.scrollTop=scrollTop;
+ const sectionId={capital:'upgradeSection',expansion:'expansionSection',development:'researchSection'}[deskTab];
+ const target=sectionId&&page!==renderedDeskPage?$(sectionId):null;
+ scroll.scrollTop=target?target.getBoundingClientRect().top-scroll.getBoundingClientRect().top+scroll.scrollTop:scrollTop;
  renderedDeskPage=page;
  $('deskClock').textContent='Day '+state.day+' · '+String(Math.floor(state.hour)).padStart(2,'0')+':'+(state.hour%1?'30':'00');
  $('deskStatus').textContent=deskStatus;
@@ -2079,6 +2105,7 @@ function openDesk(tab='overview'){
  if(!desk.open){
   deskWasPaused=state.paused;state.paused=true;uiDirty=true;renderedDeskPage=undefined;renderDesk();desk.showModal();
   desk.focus({preventScroll:true});
+  if(['capital','expansion','development'].includes(deskTab)){renderedDeskPage=undefined;renderDesk();}
  }else renderDesk();
 }
 function advance(ticks){for(let i=0;i<ticks;i++){step();if(showcaseStop){showcaseStop=false;break;}}}
@@ -2115,10 +2142,15 @@ function doDesk(action){
  if(action.startsWith('repay-loan-'))return repayLoan(Number(action.slice(11)));
  if(!hasChosenCEO()&&!/^ceo-[0-8]$/.test(action))return 'Pick your CEO avatar to continue.';
  if(needsDifficulty()&&!action.startsWith('difficulty-'))return 'Choose a difficulty to continue.';
+ if(action.startsWith('research-select-')){
+  const id=action.slice('research-select-'.length);
+  if(developmentNodes.some(node=>node[0]===id))selectedResearch=id;
+  return;
+ }
  if(action.startsWith('expansion-'))return expansionAction(action);
  if(action==='skip-winter'||/^(story-|develop-|career-|event-frequency-)/.test(action))return careerAction(action);
  const research={'build-Wind':'wind','build-Solar':'solar','build-Battery':'storage','build-OCGT':'generation','upgrade':'grid','site-land':'land'}[action];
- if(research&&tutorialFinished()&&!developmentHas(research)&&!(action==='build-Battery'&&finance().tutorialSkipped))return 'Unlock this option in Company → Development.';
+ if(research&&tutorialFinished()&&!developmentHas(research)&&!(action==='build-Battery'&&finance().tutorialSkipped))return 'Unlock this option in Build → Scenarios & research.';
  if(action.startsWith('tutorial-'))return tutorialAction(action);
  if(action.startsWith('winter-'))return winterAction(action);
  if(action.startsWith('brush-')){paintedHour=action.slice(6);return;}
@@ -2191,7 +2223,14 @@ desk.addEventListener('click',event=>{
  if(action==='auction-optimise'){optimiseCapacityBid();return;}
  const error=doDesk(action);
  if(error){const warning=action==='bank-borrow'&&$('bankWarning');if(warning){warning.textContent=error;warning.scrollIntoView({block:'nearest'});}else $('deskStatus').textContent=error;return;}
- reviewBoard();save(false);if(desk.open)renderDesk();
+ reviewBoard();save(false);
+ if(desk.open){
+  const board=document.querySelector('.tech-board'),left=board?.scrollLeft||0;
+  renderDesk();
+  const current=document.querySelector('.tech-board');
+  if(current)current.scrollLeft=left;
+  if(action.startsWith('research-select-'))document.querySelector('.tech-detail')?.scrollIntoView({block:'nearest'});
+ }
 });
 
 function reserveCash(){return state.cash-committedCapital()-loanDue(90);}
@@ -2252,7 +2291,7 @@ function bankQuote(amount,term){
 function showFinancing(){
  const f=finance(),loans=f.loans||[],outstanding=loans.reduce((n,l)=>n+l.balance,0);
  const projects=state.assets.filter(a=>a.status==='building');
- return '<div class="desk-heading"><h2>Loans & project funding</h2><p>Borrowing adds cash today. You repay the loan plus interest every 30 game days. Loan money is not profit.</p></div>'+
+ return '<div class="desk-heading"><h2>Debt</h2><p>Borrowing adds cash today. You repay the loan plus interest every 30 game days. Loan money is not profit.</p></div>'+
  '<div class="desk-metrics">'+card('Cash today',money(state.cash))+card('After planned payments',money(reserveCash()))+card('Loan balance',money(outstanding))+'</div>'+
  '<p>Planned payments include all unpaid construction and the next 90 days of loan repayments. Future trading income is not included. Board reserve target: £17m. Below £1m actual cash, you have two game days to recover before dismissal.</p>'+
  (reserveCash()<17?'<p class="finance-warning">CFO: protect your cash. Review costs and delay optional expansion before borrowing. A loan buys time; it cannot make an unprofitable business profitable.</p>':'')+
@@ -2292,7 +2331,7 @@ function showCosts(){
  '<div class="desk-actions">'+Object.entries(overheadPlans).map(([key,plan])=>btn(plan.label,'overhead-'+key,plan===overheadPlan()?'selected':'')).join('')+'</div>'+btn('Open help','tab-help');
 }
 function showHelp(){
- return '<div class="desk-heading"><h2>Help</h2></div><h3>Energy in plain English</h3><p><b>MW</b> measures how much power can flow at once. <b>MWh</b> measures energy: running at 10 MW for two hours produces 20 MWh. <b>£/MWh</b> is the price per unit of energy.</p><p><b>Dispatch</b> means deciding when a plant runs. <b>Day-ahead</b> means agreeing tomorrow’s electricity sales. <b>Balancing</b> means offering extra power when the grid needs help. <b>Capacity contracts</b> pay you to be available during shortages.</p><p><b>Contribution</b> is income after an asset’s direct costs. <b>Company profit</b> also deducts shared site costs and interest. <b>Cash after planned payments</b> subtracts future commitments from today’s bank balance.</p>'+btn('Review financing','tab-financing');
+ return '<div class="desk-heading"><h2>Help</h2></div><h3>Energy in plain English</h3><p><b>MW</b> measures how much power can flow at once. <b>MWh</b> measures energy: running at 10 MW for two hours produces 20 MWh. <b>£/MWh</b> is the price per unit of energy.</p><p><b>Dispatch</b> means deciding when a plant runs. <b>Day-ahead</b> means agreeing tomorrow’s electricity sales. <b>Balancing</b> means offering extra power when the grid needs help. <b>Capacity contracts</b> pay you to be available during shortages.</p><p><b>Contribution</b> is income after an asset’s direct costs. <b>Company profit</b> also deducts shared site costs and interest. <b>Cash after planned payments</b> subtracts future commitments from today’s bank balance.</p>'+btn('Review debt','tab-financing');
 }
 function priceProfile(overrides){
  const prices=Array.from({length:24},(_,h)=>representative(h)),lo=Math.min(...prices,runCost())-10,hi=Math.max(...prices)+10;
@@ -2520,37 +2559,52 @@ function developmentRequirements([id,,cost,assignments,,parent]){
 function showRequirement([label,ready]){
  return '<p class="'+(ready?'good':'bad')+'">'+(ready?'Met · ':'Unmet · ')+label+'</p>';
 }
+let selectedResearch='office';
 function showDevelopment(){
- return '<h2>Development tree</h2><p>Complete story assignments to earn tokens. An operating control building houses your development team.</p>'+careerSummary()+
- '<div class="research-tree">'+renderResearchBranch('')+'</div>';
+ const c=career(),node=developmentNodes.find(n=>n[0]===selectedResearch)||developmentNodes[0];
+ const [id,name,cost,,description,parent]=node;
+ const requirements=developmentRequirements(node),unlocked=developmentHas(id);
+ const [root]=developmentNodes;
+ const branches=developmentNodes.filter(n=>n[5]===root[0]);
+ const canUnlock=requirements.every(([,ready])=>ready);
+ return '<div class="desk-heading"><h2>Research tree</h2><p>Choose a technology to inspect its prerequisites. Follow each branch from left to right.</p></div>'+
+ row('Development tokens',c.tokens)+
+ '<div class="tech-board" role="group" aria-label="Research branches">'+
+ '<div class="tech-root">'+techTile(root)+'</div>'+
+ branches.map(branch=>'<div class="tech-lane"><span class="tech-connector" aria-hidden="true"></span>'+renderTechnologyPath(branch)+'</div>').join('')+'</div>'+
+ '<article class="notice tech-detail"><h3>'+name+'</h3><p>'+description+'</p>'+
+ (parent?row('Previous technology',developmentNodes.find(n=>n[0]===parent)[1]):'')+
+ (unlocked?'<p class="good">Unlocked</p>':'<p>'+cost+' development '+(cost===1?'token':'tokens')+'</p>'+requirements.map(showRequirement).join('')+
+ (canUnlock?btn('Unlock '+name,'develop-'+id,'primary'):''))+
+ (id==='office'&&unlocked&&!c.planningOffice?btn('Install Planning Office','tab-capital'):'')+
+ (unlocked&&advancedLessons.some(([key])=>key===id)?btn('View training scenarios','tab-scenarios'):'')+'</article>';
 }
-function renderResearchBranch(parent){
- const c=career();
- return developmentNodes.filter(node=>node[5]===parent).map(node=>{
-  const [id,name,,,description]=node;
-  const unlocked=developmentHas(id),requirements=developmentRequirements(node);
-  return '<div class="research-branch"><article class="notice"><h3>'+name+'</h3><p>'+description+'</p>'+
-  (unlocked?'<p class="good">Unlocked</p>':requirements.map(showRequirement).join('')+
-  (requirements.every(([,ready])=>ready)?btn('Unlock','develop-'+id):''))+
-  (id==='office'&&unlocked&&!c.planningOffice?btn('Open Upgrades & land','tab-capital'):'')+
-  (unlocked&&advancedLessons.some(([key])=>key===id)?btn('View training scenarios','tab-scenarios'):'')+'</article>'+renderResearchBranch(id)+'</div>';
- }).join('');
+function techTile(node){
+ const [id,name]=node;
+ const unlocked=developmentHas(id),ready=developmentRequirements(node).every(([,met])=>met);
+ const status=unlocked?'Unlocked':ready?'Ready':'Locked';
+ return '<button type="button" class="tech-tile '+status.toLowerCase()+'" data-action="research-select-'+id+'" aria-pressed="'+(id===selectedResearch)+'"><b>'+name+'</b><small>'+status+'</small></button>';
+}
+function renderTechnologyPath(node){
+ const children=developmentNodes.filter(n=>n[5]===node[0]);
+ return '<div class="tech-path">'+techTile(node)+(children.length?
+ '<div class="tech-forks">'+children.map(child=>'<div class="tech-edge"><span class="tech-connector" aria-hidden="true"></span>'+renderTechnologyPath(child)+'</div>').join('')+'</div>':'')+'</div>';
 }
 function storyChapters(story){
  const [id,,advisor,brief,goal,check,advice]=story;
  const delivery={
   'first-profit':['tab-dispatch','Open trading plan'],
   'healthy-plant':['tab-plant','Review maintenance'],
-  reserve:['tab-financing','Review financing'],
+  reserve:['tab-financing','Review debt'],
   team:['tab-build','Open Build'],
   battery:['tab-capital','Review battery investment'],
   grid:['tab-capital','Review transformer upgrades'],
   contract:['tab-capacity','Open capacity auction'],
   expansion:['tab-capital','Review land options']
- }[id]||(id==='tech-service-lab'?['tab-plant','Book maintenance']:id==='tech-national'?['tab-financing','Review financing']:['tab-expansion','Open Expansion']);
+ }[id]||(id==='tech-service-lab'?['tab-plant','Book maintenance']:id==='tech-national'?['tab-financing','Review debt']:['tab-expansion','Open Expansion']);
  return [
   ['Board briefing',advisor,brief,'Accept the board’s brief.'],
-  ['Check the books','CFO','We need a clear view of what is already committed before taking on more.','Review the Financing page.',a=>a.visited?.financing,'tab-financing','Review financing'],
+  ['Check the books','CFO','We need a clear view of what is already committed before taking on more.','Review Debt under Finance.',a=>a.visited?.financing,'tab-financing','Review debt'],
   ['Inspect the site','Grid Director','Power sales depend on both the electrical connection and enough fuel reaching the turbines.','Review Plant operations.',a=>a.visited?.plant,'tab-plant','Review plant operations'],
   ['Review the trading plan','Trading Director','The next decision is when to run. Check prices and see which hours your current plan uses.','Open the trading plan.',a=>a.visited?.dispatch,'tab-dispatch','Open trading plan'],
   ['Choose your approach',advisor,advice,'Confirm your approach before taking action.'],
@@ -2592,7 +2646,7 @@ function showScenarios(){
  const officeReady=developmentHas('office');
  const officeStatus=c.planningOffice?'Upgrade complete':officeReady?'Upgrade unlocked · open Upgrades & land':'Unlock in Development after completing one assignment and earning one token. Requires an operating control building.';
  const office='<article class="notice"><h3>Planning Office</h3><p class="'+(officeReady?'good':'bad')+'">'+officeStatus+'</p>'+
- (c.planningOffice?'':officeReady?btn('Open Upgrades & land','tab-capital'):btn('Open Development','tab-development'))+'</article>';
+ (c.planningOffice?'':officeReady?btn('Open upgrades','tab-capital'):btn('Open research tree','tab-development'))+'</article>';
  return '<h2>Scenarios</h2><p>Choose an assignment, then open its briefing from the site map.</p>'+tutorial+office+
  stories.map(([id,title,,,goal])=>{
   const active=c.active?.id===id,done=c.completed.includes(id);
