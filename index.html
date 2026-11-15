@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v10.0.0</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v10.1.0</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -189,7 +189,7 @@ header .sub{font-size:10px}
 #siteOptions{position:relative}
 #siteOptions summary{display:grid;place-items:center;cursor:pointer;font-size:18px;list-style:none}
 #siteOptions summary::-webkit-details-marker{display:none}
-.site-more{position:absolute;right:0;bottom:100%;width:148px;display:grid;gap:4px;background:#17363d;border:1px solid #6e8e83;border-radius:10px;padding:7px}
+.site-more{max-height:70dvh;overflow-y:auto;position:absolute;right:0;bottom:100%;width:148px;display:grid;gap:4px;background:#17363d;border:1px solid #6e8e83;border-radius:10px;padding:7px}
 [hidden]{display:none!important}
 #siteObjective{position:fixed;z-index:3;left:10px;top:calc(env(safe-area-inset-top,0px) + 55px);min-height:44px;max-width:calc(100vw - 20px);font-size:12px;border-color:#b38e5b;color:#f7d7a0;background:#263e43ee;padding:5px 9px}
 #panel{bottom:calc(105px + env(safe-area-inset-bottom,0px));max-height:45dvh;overflow:auto}
@@ -252,13 +252,13 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 .uk-site-pin:focus-visible .uk-pin-target{stroke:#fff0cb;stroke-width:2}
 .uk-site-list{gap:5px}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div id="siteSubtitle" class="sub">Meridian Power · East Midlands · v10.0.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div id="siteSubtitle" class="sub">Meridian Power · East Midlands · v10.1.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
 
 <footer id="bar">
-<div class="site-controls"><div id="clock"></div><button id="businessOpen">Manage</button><button id="pause">Pause</button><button id="speed">1×</button><details id="siteOptions"><summary aria-label="More controls">⋯</summary><div class="site-more"><button id="siteAdvanceDay">Advance one day</button><button id="siteAdvanceWeek">Advance one week</button><button id="siteNational" hidden>UK map</button><button id="siteSettings">Settings</button><button id="cameraReset">Reset camera</button><button id="save">Save game</button><button id="reset">Reset game</button></div></details></div>
+<div class="site-controls"><div id="clock"></div><button id="businessOpen">Manage</button><button id="pause">Pause</button><button id="speed">1×</button><details id="siteOptions"><summary aria-label="More controls">⋯</summary><div class="site-more"><button id="siteAdvanceDay">Advance one day</button><button id="siteAdvanceWeek">Advance one week</button><button id="siteNational" hidden>UK map</button><button id="siteSettings">Settings</button><button id="musicToggle" aria-pressed="false">Music: off</button><button id="effectsToggle" aria-pressed="false">Sound effects: off</button><button id="cameraReset">Reset camera</button><button id="save">Save game</button><button id="reset">Reset game</button></div></details></div>
 
 <button id="build" hidden>Build</button><button id="analytics" hidden>Analytics</button><button id="remove" hidden>Remove</button><button id="land" hidden>Land</button>
 </footer>
@@ -489,7 +489,12 @@ function addBuilding(a){
   }else if(a.type==='FuelYard'){
    box3(x+.1,y+.1,1.8,1.8,0,2,'#9e9378');
    for(let i=0;i<3;i++)box3(x+.24,y+.25+i*.49,1.5,.32,2,z*.55,'#b08050');
-  }else if(a.type==='Boiler'||a.type==='Capture'||a.type==='Marine'){
+  }else if(a.type==='Marine'){
+   for(const dx of [.25,1.65])for(const dy of [.25,1.65])post(x+dx,y+dy,0,8,'#c7b35a',.13);
+   box3(x+.05,y+.05,1.9,1.9,8,2,'#e5be58');
+   box3(x+.27,y+.25,1.45,1.45,10,z*.6,'#c6ccbe');
+   post(x+1.5,y+.4,10+z*.6,8,'#d4dcd5',.1);
+  }else if(a.type==='Boiler'||a.type==='Capture'){
    box3(x+.15,y+.15,1.7,1.7,0,z*.5,t.color);
    for(let i=0;i<3;i++)post(x+.42+i*.52,y+.56,z*.5,z*(i===1?1.3:1),'#d3dcd3',.12);
   }else if(a.type==='Reactor'){
@@ -671,6 +676,7 @@ function draw(){if(isUKWorld()){drawUKWorld();return;}ctx.clearRect(0,0,w,h);con
   if(roads.has(key(x+1,y))&&!roads.has(key(x,y+1)))line(project(x+.28,y+.5,.3),project(x+.72,y+.5,.3),'#c7b893',1.3);
   if(roads.has(key(x,y+1))&&!roads.has(key(x+1,y)))line(project(x+.5,y+.28,.3),project(x+.5,y+.72,.3),'#c7b893',1.3);
  }
+ drawOffshoreCable();
  drawServiceAreas();
  drawSelectedFootprint();
  renderQueue=[];drawUtilities();const directWireBadge=drawDirectWire();for(const a of state.assets)addBuilding(a);
@@ -696,6 +702,20 @@ function hasRoadAccess(x,y,size,exclude){
  }
  return false;
 }
+function repairOffshoreLayout(world){
+ if(world.regionalSite!=='offshore'||world.offshoreLayout101)return;
+ const move=(asset,x,y)=>{if(!asset)return;const free=(x,y)=>!world.assets.some(a=>a!==asset&&x<a.x+2&&x+2>a.x&&y<a.y+2&&y+2>a.y)&&!world.roads.some(k=>{const [rx,ry]=k.split(',').map(Number);return rx>=x&&rx<x+2&&ry>=y&&ry<y+2;});if(!free(x,y)){let found=false;for(let yy=10;yy<14&&!found;yy++)for(let xx=3;xx<14&&!found;xx++)if(free(xx,yy)){x=xx;y=yy;found=true;}if(!found)return;}asset.x=x;asset.y=y;};
+ world.roads=world.roads.filter(k=>{const [x,y]=k.split(',').map(Number);return !(x>=5&&y<9);});
+ move(world.assets.find(a=>a.expansionCore&&a.type==='Grid'&&a.x===11&&a.y===6),11,10);
+ move(world.assets.find(a=>a.expansionCore&&a.type==='Marine'&&a.x===8&&a.y===11),11,4);
+ world.offshoreLayout101=true;
+}
+function drawOffshoreCable(){
+ if(state.regionalSite!=='offshore')return;
+ const sub=state.assets.find(a=>a.type==='Marine'),grid=state.assets.find(a=>a.type==='Grid');if(!sub||!grid)return;
+ for(const a of state.assets.filter(a=>a.expansionCore&&a.type==='Wind'))line(project(a.x+1,a.y+1,.3),project(sub.x+1,sub.y+1,.3),'#f7d078',2);
+ line(project(sub.x+1,sub.y+1,.3),project(grid.x+1,grid.y+1,.3),'#f7d078',3);
+}
 function offshoreWater(x,y){return state.regionalSite==='offshore'&&y<9&&x>=5;}
 function canPlace(type,x,y){const s=TYPES[type].size;if(offshoreWater(x,y)||offshoreWater(x+s-1,y))return false;if(!owned(x,y)||!owned(x+s-1,y+s-1))return false;
  if(type!=='Road'&&!hasRoadAccess(x,y,s))return false;
@@ -704,14 +724,15 @@ function hasService(type,x,y){return state.assets.some(a=>a.type===type&&a.statu
 function status(a){if(a.type==='Reactor'&&homeState?.showcase?.career?.national?.nuclear?.outage)return 'Refuelling outage';if(a.status==='building')return 'Under construction';if(a.type==='OCGT'&&!hasService('Gas',a.x,a.y))return 'No gas supply';if(['OCGT','Battery','Wind','Solar','Reactor','Generator'].includes(a.type)&&!hasService('Grid',a.x,a.y))return 'No grid connection';return 'Operational';}
 function gasMW(){return state.assets.filter(a=>a.type==='OCGT'&&status(a)==='Operational').reduce((n,a)=>n+(a.mw||20),0);}function batteryMW(){return state.assets.filter(a=>a.type==='Battery'&&status(a)==='Operational').reduce((n,a)=>n+(a.mw||10),0);}function gridMW(){return state.assets.filter(a=>a.type==='Grid'&&a.status==='operational').reduce((n,a)=>n+80+(a.extraGrid||0),0);}
 const money=n=>(n<0?'−':'')+'£'+Math.abs(n).toFixed(3)+'m';
-function toast(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.display='none',2600);}
+function toast(s){if(delegatedSimulation)return;gameEffect('notice');$('toast').textContent=s;$('toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.display='none',2600);}
 function dialog(title,html,action,label='Confirm'){modalAction=action;$('dialogTitle').textContent=title;$('dialogBody').innerHTML=html;$('ok').textContent=label;(desk?.open?desk:document.body).appendChild($('shade'));$('shade').style.display='flex';}function closeDialog(){$('shade').style.display='none';document.body.appendChild($('shade'));modalAction=null;}$('cancel').onclick=closeDialog;$('ok').onclick=()=>{const fn=modalAction;closeDialog();if(fn)fn();};
 function closePanel(){selected=null;panelMin=false;$('panel').style.display='none';}function cancelPlacement(){mode=null;preview=null;closePanel();}$('panelClose').onclick=()=>mode?cancelPlacement():closePanel();
 function setPanel(title,html,actions=[]){$('panel').style.display='block';$('panelTitle').textContent=title;$('panelBody').innerHTML=html;const area=$('panelActions');area.replaceChildren();for(const a of actions){const b=document.createElement('button');b.textContent=a.text;b.onclick=a.fn;area.appendChild(b);}}
 function assetPanel(){const a=state.assets.find(a=>a.id===selected);if(!a){closePanel();return;}
  if(homeState&&a.expansionCore){
   const n=homeState.showcase.career.national.sites[state.regionalSite].ops;
-  setPanel(a.name,'<p>'+TYPES[a.type].desc+'</p>'+row('Latest status',n.history[0]?.status||'Ready to operate'),
+  const desc=a.type==='Grid'?'Onshore connection receiving the site export.':state.regionalSite==='offshore'&&a.type==='Wind'?'Offshore turbine array. Output depends on wind and export-cable availability.':state.regionalSite==='carbon'&&a.type==='Generator'?'Combined-cycle generation with optional carbon capture.':TYPES[a.type].desc;
+  setPanel(a.name,'<p>'+desc+'</p>'+row('Latest status',n.history[0]?.status||'Ready to operate')+row('Site export limit',expansionGrid(state)+' MW')+row('Latest generation',(n.history[0]?.energy||0).toFixed(0)+' MWh/day')+(state.regionalSite==='biomass'?row('Fuel stock',n.fuel.toFixed(0)+' tonnes')+row('Delivery',n.delivery?n.delivery+' days':'None scheduled'):state.regionalSite==='hydro'?row('Stored energy',n.storage.toFixed(0)+' / '+(n.complete.cable?3200:1600)+' MWh'):state.regionalSite==='offshore'?row('Export route','Arrays → offshore platform → onshore grid'):row('Capture mode',n.output==='normal'?'Capture enabled':'Merchant bypass')),
    [{text:a.type==='Grid'?'Review trading':'Review operations',fn:()=>openExpansionDesk(a.type==='Grid'?'trade':'operations')}]);
   return;
  }
@@ -725,8 +746,8 @@ function assetPanel(){const a=state.assets.find(a=>a.id===selected);if(!a){close
  }const t=TYPES[a.type];if(panelMin){setPanel(a.name,'<p class="muted">'+(a.status==='building'?'Construction '+Math.round(a.progress*100)+'%':status(a))+'</p>',[{text:'Show details',fn:()=>{panelMin=false;assetPanel();}}]);return;}let html='<p>'+t.desc+'</p><p>Status: <b>'+status(a)+'</b></p>';if(['OCGT','Battery'].includes(a.type))html+='<p>Condition: <b>'+condition(a)+'%</b></p>';if(a.type==='Gas')html+='<p>Gas import capacity: '+gasStationLimit(a)+' MW of fuel.</p><p>Equivalent to '+(gasStationLimit(a)/gasImportRatio)+' MW of generation. Shared by nearby turbines.</p>';
  if(a.type==='Grid'){markTutorial('grid');const f=finance().lastFlow||{};html+='<p>Requested '+((f.out||0)+(f.curtailed||0)).toFixed(1)+' MW · delivered '+(f.out||0).toFixed(1)+' MW · connection '+gridMW()+' MW</p>';}if(a.dispatchReason)html+='<p>Dispatch: '+a.dispatchReason+'</p>';if(a.fundingHold)html+='<p>Funding hold · '+money(Math.max(0,(a.contract?.stages[a.contract.stage]?.cost||0)-state.cash))+' needed</p>';if(a.mw)html+='<p>Capacity: '+a.mw+' MW</p>';if(a.type==='Battery')html+='<p>Stored: '+(a.soc||0).toFixed(1)+' / '+batteryEnergy(a)+' MWh</p>';if(a.status==='building')html+='<p id="assetBuildProgress">Construction: '+Math.round(a.progress*100)+'%</p>';setPanel(a.name,html,[...(['OCGT','Battery'].includes(a.type)&&a.status==='operational'?[{text:'Review maintenance',fn:()=>{preferredServiceAsset=a.id;openDesk('plant');}}]:a.type==='Gas'?[{text:'Gas upgrades',fn:()=>openDesk('capital')}]:a.type==='Grid'?[{text:'Grid upgrades',fn:()=>openDesk('capital')}]:[]),...(a.status==='building'?[{text:a.constructionPaused?'Resume construction':'Pause construction',fn:()=>toggleConstruction(a)}]:[]),{text:'Minimise',fn:()=>{panelMin=true;assetPanel();}},{text:'Decommission',fn:()=>demolish(a)}]);}
 function placementPanel(){if(!mode)return;const t=TYPES[mode];let html='<p><b>Due today:</b> '+money(mode==='Road'?t.cost:t.cost*.2)+' · <b>Total:</b> '+money(t.cost)+' · '+t.days+' days</p>',valid=false;if(preview){valid=canPlace(mode,preview.x,preview.y);html+='<p><b>Plot:</b> '+(preview.x+1)+', '+(preview.y+1)+' · <span class="'+(valid?'good':'bad')+'">'+(valid?(t.requires.some(req=>!hasService(req,preview.x,preview.y))?'Buildable · services required to operate':'Buildable · services connected'):'Unavailable · check space and road access')+'</span></p>';for(const req of t.requires){const ok=hasService(req,preview.x,preview.y);html+='<span class="'+(ok?'good':'bad')+'">● '+req+': '+(ok?'Connected':'Missing')+'</span> ';}if(!t.requires.length)html+='<p class="good">No services required</p>';}else html+='<p class="muted">Tap a plot; tap elsewhere to change your selection.</p>';const actions=[];if(valid&&mode!=='Road'&&!['Wind','Solar'].includes(mode)){const {x,y}=preview;actions.push({text:'Review investment',fn:()=>{appraisal={type:mode,x,y,debt:0};openDesk('appraisal');}});}if(valid&&!['OCGT','Battery'].includes(mode)&&state.cash>=t.cost*(mode==='Road'?1:.2)){const x=preview.x,y=preview.y;actions.push({text:'Build · '+money(mode==='Road'?t.cost:t.cost*.2)+' today',fn:()=>askBuild(x,y)});}if(mode==='Road')actions.push({text:'Done',fn:cancelPlacement});setPanel('🏗 '+t.name,html,actions);}
-function askBuild(x,y,debt=0){if(!mode)return;if(mode==='Battery'&&!batteryBuildAvailable()){toast('Unlock Battery operations to build a battery.');return;}if(mode==='OCGT'&&!developmentHas('generation')){toast('Unlock Flexible generation to build a gas peaking turbine.');return;}const type=mode,t=TYPES[type],deposit=type==='Road'?t.cost:t.cost*.2,borrow=t.cost*debt/100,missing=t.requires.filter(req=>!hasService(req,x,y));if(borrow+(finance().loans||[]).reduce((n,l)=>n+l.balance,0)>10){toast('The bank limit is £10m total borrowing. Reduce the loan share.');return;}dialog('Confirm construction','<p><b>'+t.name+'</b> at '+(x+1)+', '+(y+1)+'</p><p>Cost: '+money(t.cost)+' · Due today: '+money(deposit)+(borrow?' · Borrow '+money(borrow)+' at '+rateText()+' APR':'')+' · '+t.days+' days</p><p class="'+(missing.length?'bad':'good')+'">'+(missing.length?'Missing: '+missing.join(', '):'Services satisfied')+'</p>',()=>{if(!canPlace(type,x,y)||state.cash+borrow<deposit){toast('Cannot build here');return;}if(borrow){(finance().loans??=[]).push({amount:borrow,balance:borrow,rate:difficulty().apr,remaining:12,term:12,next:state.day+30,project:state.nextId,label:t.name+' project'});}state.cash+=borrow-deposit;recordCapital(t.name,deposit);if(type==='Road'){state.roads.push(key(x,y));mode='Road';preview=null;placementPanel();toast('Road built — choose another tile');}else{const id=state.nextId++;state.assets.push({id,type,x,y,name:t.name+' '+id,mw:t.mw||0,status:'building',progress:0,daysRequired:t.days,soc:0,contract:{stage:0,stages:[{at:.4,cost:t.cost*.45},{at:1,cost:t.cost*.35}]}});selected=id;mode=null;preview=null;panelMin=true;assetPanel();toast('Construction started');}uiDirty=true;chartDirty=true;reviewBoard();save(false);},'Build');}
-function demolish(a){if(a.suffolkCore||a.expansionCore){toast('Core station equipment is required for Suffolk operations.');return;}const value=a.status==='building'?-TYPES[a.type].cost*.08:TYPES[a.type].cost*.06;dialog('Decommission asset','<p>'+a.name+'</p><p>'+(value>=0?'Net scrap proceeds: ':'Cost: ')+money(Math.abs(value))+'</p><p>Connected assets may lose service. Existing market or capacity obligations continue to settle.</p>',()=>{if(state.cash+value<0){toast('Insufficient funds');return;}state.cash+=value;recordCapital(a.name+' decommissioning',-value);state.assets=state.assets.filter(b=>b.id!==a.id);closePanel();uiDirty=true;save(false);toast('Asset decommissioned');},'Decommission');}
+function askBuild(x,y,debt=0){if(!mode)return;if(mode==='Battery'&&!batteryBuildAvailable()){toast('Unlock Battery operations to build a battery.');return;}if(mode==='OCGT'&&!developmentHas('generation')){toast('Unlock Flexible generation to build a gas peaking turbine.');return;}const type=mode,t=TYPES[type],deposit=type==='Road'?t.cost:t.cost*.2,borrow=t.cost*debt/100,missing=t.requires.filter(req=>!hasService(req,x,y));if(borrow+(finance().loans||[]).reduce((n,l)=>n+l.balance,0)>10){toast('The bank limit is £10m total borrowing. Reduce the loan share.');return;}dialog('Confirm construction','<p><b>'+t.name+'</b> at '+(x+1)+', '+(y+1)+'</p><p>Cost: '+money(t.cost)+' · Due today: '+money(deposit)+(borrow?' · Borrow '+money(borrow)+' at '+rateText()+' APR':'')+' · '+t.days+' days</p><p class="'+(missing.length?'bad':'good')+'">'+(missing.length?'Missing: '+missing.join(', '):'Services satisfied')+'</p>',()=>{if(!canPlace(type,x,y)||state.cash+borrow<deposit){toast('Cannot build here');return;}if(borrow){(finance().loans??=[]).push({amount:borrow,balance:borrow,rate:difficulty().apr,remaining:12,term:12,next:state.day+30,project:state.nextId,label:t.name+' project'});}state.cash+=borrow-deposit;recordCapital(type==='Road'?t.name:nextAssetName(type),deposit,type==='Road'?null:state.nextId);if(type==='Road'){state.roads.push(key(x,y));mode='Road';preview=null;placementPanel();toast('Road built — choose another tile');}else{const id=state.nextId++;state.assets.push({id,type,x,y,name:nextAssetName(type),mw:t.mw||0,status:'building',progress:0,daysRequired:t.days,soc:0,contract:{stage:0,stages:[{at:.4,cost:t.cost*.45},{at:1,cost:t.cost*.35}]}});selected=id;mode=null;preview=null;panelMin=true;assetPanel();toast('Construction started');}uiDirty=true;chartDirty=true;reviewBoard();save(false);},'Build');}
+function demolish(a){if(a.suffolkCore||a.expansionCore){toast('Core station equipment is required for this site’s operations.');return;}const value=a.status==='building'?-TYPES[a.type].cost*.08:TYPES[a.type].cost*.06;dialog('Decommission asset','<p>'+a.name+'</p><p>'+(value>=0?'Net scrap proceeds: ':'Cost: ')+money(Math.abs(value))+'</p><p>Connected assets may lose service. Existing market or capacity obligations continue to settle.</p>',()=>{if(state.cash+value<0){toast('Insufficient funds');return;}state.cash+=value;recordCapital(a.name+' decommissioning',-value);state.assets=state.assets.filter(b=>b.id!==a.id);closePanel();uiDirty=true;save(false);toast('Asset decommissioned');},'Decommission');}
 function removeRoad(x,y){
  const tile=key(x,y);
  if(state.assets.some(a=>{const size=TYPES[a.type].size;return hasRoadAccess(a.x,a.y,size)&&!hasRoadAccess(a.x,a.y,size,tile);})){
@@ -741,9 +762,9 @@ function historyFor(p){const all=state.history||[],count=p==='day'?48:p==='month
 function chart(title,field,color){return '<div class="chartTitle">'+title+'</div><canvas class="chart" data-field="'+field+'" data-color="'+color+'"></canvas>';}
 function plot(c,data,field,color){const cw=c.clientWidth||320,ch=160,r=Math.min(devicePixelRatio||1,2);c.width=Math.round(cw*r);c.height=Math.round(ch*r);const g=c.getContext('2d');g.setTransform(r,0,0,r,0,0);const L=46,R=cw-10,T=15,B=ch-30;g.strokeStyle='#395762';g.fillStyle='#b8cbd0';g.font='10px system-ui';for(let i=0;i<4;i++){const y=T+(B-T)*i/3;g.beginPath();g.moveTo(L,y);g.lineTo(R,y);g.stroke();}if(data.length<2){g.fillText('History builds as the game runs',L+5,80);return;}const vals=data.map(d=>Number(d[field])||0);let min=Math.min(...vals),max=Math.max(...vals);if(max===min){min--;max++;}const px=i=>L+i*(R-L)/(vals.length-1),py=v=>B-(v-min)/(max-min)*(B-T);g.fillText(max.toFixed(2),2,T+4);g.fillText(min.toFixed(2),2,B);g.strokeStyle=color;g.lineWidth=2;g.beginPath();vals.forEach((v,i)=>i?g.lineTo(px(i),py(v)):g.moveTo(px(i),py(v)));g.stroke();for(const i of [0,Math.floor((data.length-1)/2),data.length-1]){const d=data[i],label=period==='day'?'D'+d.day+' '+String(Math.floor(d.hour)).padStart(2,'0')+':'+(d.hour%1?'30':'00'):period==='month'?'Day '+d.day:'Month '+(Math.floor((d.day-1)/30)+1);g.textAlign=i===0?'left':i===data.length-1?'right':'center';g.fillStyle='#bfd2d5';g.fillText(label,px(i),B+17);}g.textAlign='left';}
 function renderReport(){if(!reportOpen)return;document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));let html='';if(tab!=='Assets')html+='<div class="periods"><button data-period="day">Day</button><button data-period="month">Month</button><button data-period="year">Year</button></div>';if(tab==='Operations'){html+=row('Wholesale price','£'+state.price.toFixed(0)+'/MWh')+row('Gas capacity',gasMW()+' MW')+row('Battery power',batteryMW()+' MW')+row('Grid export',gridMW()+' MW')+row('Lifetime exports',state.exportMWh.toFixed(1)+' MWh');html+=chart('Electricity price (£/MWh)','price','#edca80')+chart('Export energy (MWh)','export','#7be5b2');}else if(tab==='Finances'){html+=row('Cash',money(state.cash))+row('Revenue',money(state.revenue))+row('Fuel',money(state.fuel))+row('Carbon',money(state.carbon))+row('Operating profit',money(state.profit));html+=chart('Cash (£m)','cash','#84bff5')+chart('Cumulative profit (£m)','profit','#f1b38a')+chart('Revenue (£m)','revenue','#b6e6f0');}else{html+=row('Land parcels',state.owned.length)+row('Road tiles',state.roads.length)+row('Assets',state.assets.length)+row('Under construction',state.assets.filter(a=>a.status==='building').length);for(const [k,t] of Object.entries(TYPES)){const n=state.assets.filter(a=>a.type===k).length;if(n)html+=row(t.name,n);}}$('reportBody').innerHTML=html;document.querySelectorAll('[data-period]').forEach(b=>{b.classList.toggle('active',b.dataset.period===period);b.onclick=()=>{period=b.dataset.period;renderReport();};});const data=historyFor(period);for(const c of $('reportBody').querySelectorAll('canvas'))plot(c,data,c.dataset.field,c.dataset.color);chartDirty=false;}
-function refresh(){
+function refresh(){migrateBatteryNames();
  if(isUKWorld()){refreshUKWorld();return;}
- $('siteNational').hidden=!homeState&&!managingMidlands;$('siteSubtitle').textContent='Meridian Power · '+(state.regionalSite?expansionCampaigns[state.regionalSite].label:homeState?'Suffolk':'East Midlands')+(managingMidlands?' · Under your control':'')+' · v10.0.0';const gas=state.assets.filter(a=>a.type==='OCGT').reduce((n,a)=>n+(a.mw||20),0),bat=state.assets.filter(a=>a.type==='Battery').reduce((n,a)=>n+power(a),0);$('stats').innerHTML='<b>'+money(state.cash)+'</b><br><span>After commitments '+money(reserveCash())+'</span><br>'+gas+'MW gas · '+bat+'MW batteries';$('clock').textContent='Day '+state.day+' · '+String(Math.floor(state.hour)).padStart(2,'0')+':'+(state.hour%1?'30':'00')+' · Power £'+state.price.toFixed(0)+'/MWh · Grid '+gridMW()+'MW';$('pause').textContent=state.paused?'▶ Resume':'⏸ Pause';$('speed').textContent='⏩ '+SPEEDS[state.speed]+'×';const regional=state.regionalSite&&homeState?.showcase.career.national.sites[state.regionalSite].ops;
+ $('siteNational').hidden=!homeState&&!managingMidlands;$('siteSubtitle').textContent='Meridian Power · '+(state.regionalSite?expansionCampaigns[state.regionalSite].label:homeState?'Suffolk':'East Midlands')+(managingMidlands?' · Under your control':'')+' · v10.1.0';const gas=state.assets.filter(a=>a.type==='OCGT').reduce((n,a)=>n+(a.mw||20),0),bat=state.assets.filter(a=>a.type==='Battery').reduce((n,a)=>n+power(a),0);$('stats').innerHTML='<b>'+money(state.cash)+'</b><br><span>After commitments '+money(reserveCash())+'</span><br>'+gas+'MW gas · '+bat+'MW batteries';$('clock').textContent='Day '+state.day+' · '+String(Math.floor(state.hour)).padStart(2,'0')+':'+(state.hour%1?'30':'00')+' · Power £'+state.price.toFixed(0)+'/MWh · Grid '+gridMW()+'MW';$('pause').textContent=state.paused?'▶ Resume':'⏸ Pause';$('speed').textContent='⏩ '+SPEEDS[state.speed]+'×';const regional=state.regionalSite&&homeState?.showcase.career.national.sites[state.regionalSite].ops;
  const n=!regional&&homeState?.showcase.career.national.nuclear;
  const objective=regional?expansionCampaigns[state.regionalSite].goals[regional.stage]?.[0]:n?nuclearObjectives[n.stage]?.[0]:activeStoryObjective();
  if(regional)$('stats').innerHTML='<b>'+money(state.cash)+'</b><br>'+expansionCampaigns[state.regionalSite].mw+' MW installed';
@@ -799,8 +820,18 @@ function allocatedCapacity(){
  return (finance().capacity?.awards||[]).reduce((n,o)=>n+o.mw,0);
 }
 function stressPeriod(){const a=finance().capacity;return a?.events?.find(e=>state.day===e.day&&state.hour>=e.start&&state.hour<e.start+2);}
-function recordCapital(label,cost){
- finance().capital.push({day:state.day,label,cost});
+function nextAssetName(type){const prefix=type==='Battery'?'Battery':TYPES[type].name;return prefix+' '+(Math.max(0,...state.assets.filter(a=>a.type===type).map(a=>Number(a.name.match(/ (\d+)$/)?.[1])||0))+1);}
+function recordCapital(label,cost,project=null){
+ finance().capital.push({day:state.day,label,cost,project});
+}
+function migrateBatteryNames(){
+ const f=finance();if(f.batteryNames101)return;
+ const batteries=state.assets.filter(a=>a.type==='Battery');
+ batteries.forEach((a,i)=>{const old=a.name;if(/^Battery(?: storage)?(?: \d+)?$/.test(old)){a.name='Battery '+(i+1);for(const q of [f.quarter,...(f.archives||[])]){if(q?.assets?.[a.id])q.assets[a.id].name=a.name;}for(const e of f.capital)if(e.label===old){e.label=a.name;e.project=a.id;}}});
+ // Legacy deposits lacked a project ID. Match each deposit to the next battery's staged payments in order.
+ const deposits=f.capital.filter(e=>['Battery','Battery storage'].includes(e.label)&&e.project==null);
+ if(deposits.length===batteries.length)deposits.forEach((e,i)=>{e.label=batteries[i].name;e.project=batteries[i].id;});
+ f.batteryNames101=true;
 }
 function advanceProjects(){
  const f=finance();
@@ -824,7 +855,7 @@ function advanceProjects(){
   const milestone=a.contract?.stages[a.contract.stage];
   if(milestone&&next>=milestone.at-1e-9){
    if(state.cash+1e-9<milestone.cost){a.fundingHold=true;continue;}
-   a.fundingHold=false;state.cash-=milestone.cost;recordCapital(a.name,milestone.cost);a.contract.stage++;
+   a.fundingHold=false;state.cash-=milestone.cost;recordCapital(a.name,milestone.cost,a.id);a.contract.stage++;
   }
   a.progress=next;
   if(next>=1-1e-9){a.progress=1;a.status='operational';a.commissionedDay=state.day;if(['OCGT','Battery'].includes(a.type))finance().expanded=true;toast(a.name+' commissioned');}
@@ -958,9 +989,9 @@ function tradeInterval(){
 function step(){
  const f=finance();
  
- if(f.dismissed){state.paused=true;showcaseStop=true;return;}
+ if(f.dismissed&&!delegatedSimulation){state.paused=true;showcaseStop=true;return;}
  activeQuarter();
- if(f.pendingMidnight){if(openRenewal()){showcaseStop=true;return;}delete f.pendingMidnight;}else state.hour+=.5;
+ if(f.pendingMidnight){if(!delegatedSimulation&&openRenewal()){showcaseStop=true;return;}delete f.pendingMidnight;}else state.hour+=.5;
  if(state.hour>=24){
   state.hour=0;state.day++;state.daily={revenue:0,profit:0,export:0};
   f.orders=f.orders.filter(o=>o.day>=state.day);
@@ -968,7 +999,7 @@ function step(){
   if(seasonIndex()!==f.quarter.index){
    if(f.nextDifficulty){f.difficulty=f.nextDifficulty;delete f.nextDifficulty;postMessage('Difficulty updated','This quarter starts on '+f.difficulty+'. Existing loan rates are unchanged.','report');}
    closeQuarter();
-   if(openRenewal()){f.pendingMidnight=true;showcaseStop=true;save(false);return;}
+   if(!delegatedSimulation&&openRenewal()){f.pendingMidnight=true;showcaseStop=true;save(false);return;}
   }
   f.journal=f.journal.filter(o=>o.day>=state.day-3);
  }
@@ -978,20 +1009,20 @@ function step(){
  if(state.hour===8)scheduleDelegatedMaintenance();
  const interest=serviceDebt();
  let nuclearRecord;
- if(homeState&&state.hour===0){
-  const national=homeState.showcase.career.national,n=national.nuclear;
-  if(state.regionalSite){
-   const id=state.regionalSite,result=settleExpansionSite(national.sites[id],id);
-   advanceDelegatedSites(national,id);
-   nuclearRecord={asset:1,renewable:id==='offshore',out:result.energy,charge:result.imports,spot:result.revenue,da:0,bm:0,short:0,penalty:0,capacityShort:0,fuel:0,carbon:0,serviceCost:0,operatingCost:result.cost,importCost:0,start:0};
-   state.assets.find(a=>a.id===1).activity={out:result.energy/48,charge:result.imports/48};
-  }else{
-  const result=advanceNuclearDay(n,gridMW(),false);
-  advanceDelegatedSites(national,'suffolk');
-  nuclearRecord={asset:1,out:result.energy,charge:0,spot:result.revenue,da:0,bm:0,short:result.replacement,penalty:0,capacityShort:0,fuel:0,carbon:0,serviceCost:0,operatingCost:result.cost-result.replacement,importCost:0,start:0};
-  const reactor=state.assets.find(a=>a.type==='Reactor');
-  if(reactor)reactor.activity={out:result.output*.5,charge:0};
+ if(homeState){
+  const national=homeState.showcase.career.national,id=state.regionalSite;
+  const owner=id?national.sites[id].ops:national.nuclear;
+  if(!owner.intervalSettlement||owner.intervalSettlement.remaining<=0){
+   if(delegatedSimulation&&!id&&!owner.outage&&owner.fuel<=2&&state.cash>=nuclearReserve+1.2){state.cash-=1.2;owner.capex+=1.2;recordCapital('Delegated refuelling',1.2);owner.outage={kind:'delegated',remaining:owner.completed.planning?2:3};}
+   const result=id?settleExpansionSite(national.sites[id],id,delegatedSimulation):advanceNuclearDay(owner,gridMW(),false);
+   if(id)owner.profit-=result.profit;else owner.operatingProfit-=result.profit;
+   owner.intervalSettlement={result,remaining:48};
   }
+  const result=owner.intervalSettlement.result;owner.intervalSettlement.remaining--;
+  if(id)owner.profit+=result.profit/48;else owner.operatingProfit+=result.profit/48;
+  nuclearRecord={asset:1,core:true,renewable:id==='offshore',out:result.energy/48,charge:(result.imports||0)/48,spot:result.revenue/48,da:0,bm:0,short:(result.replacement||0)/48,penalty:0,capacityShort:0,fuel:0,carbon:0,serviceCost:0,operatingCost:(result.cost-(result.replacement||0))/48,importCost:0,start:0};
+  state.assets.find(a=>a.id===1).activity={out:nuclearRecord.out,charge:nuclearRecord.charge};
+  if(state.hour===0)advanceDelegatedSites(national,id||'suffolk');
  }
  if(managingMidlands&&state.hour===0)advanceDelegatedSites(f.career.national,'midlands');
  const {records,capacityPay}=tradeInterval();
@@ -1008,14 +1039,9 @@ function step(){
  state.profit+=profit/1e6;state.cash+=(profit+incidental)/1e6;state.gasMWh+=gen;state.batteryMWh+=records.reduce((n,r)=>n+(r===nuclearRecord||r.gas||r.renewable||r.regional?0:r.out),0);state.exportMWh+=exp;
  state.daily.revenue+=revenue/1e6;state.daily.profit+=profit/1e6;state.daily.export+=exp;
  recordQuarter(records,capacityPay,owners,interest+incidental);
- if(state.hour===0)tickInboxStories();
- remindCapacityAuction();
- warnGridLimit();
- warnGasLimit();
- warnStress();
+ if(!delegatedSimulation){if(state.hour===0)tickInboxStories();remindCapacityAuction();warnGridLimit();warnGasLimit();warnStress();}
  f.journal.push({day:state.day,hour:state.hour,da,spot,balancing,shortfalls,penalty,starts,service,imports,fuel,carbon,opex,capacityPay,revenue,profit,exp,records});
- reviewBoard();
- if(!f.dismissed)finishWinter();
+ if(!delegatedSimulation){reviewBoard();if(!f.dismissed)finishWinter();}
  state.history.push({day:state.day,hour:state.hour,price:state.price,export:exp,cash:state.cash,profit:state.profit,revenue:revenue/1e6});
  if(state.history.length>8640)state.history.splice(0,state.history.length-8640);
  uiDirty=true;chartDirty=true;
@@ -1298,12 +1324,10 @@ function showOverview(){
  const message=inbox()[0];
  return '<div class="campaign-lead">'+portrait('Your CEO',f.ceo,3,3)+'<div><h2>Company overview</h2><p>'+seasonName()+(f.career?.national?' · National operator':' · East Midlands site')+'</p></div></div>'+
  '<div class="desk-metrics">'+card('Cash today',money(state.cash))+card('After commitments',money(available))+card('Grid connection',gridMW()+' MW')+'</div>'+
- careerSummary()+'<h3>Commitments</h3>'+row('Unpaid construction',money(committedCapital()))+row('Loan payments next 90 days',money(loanDue(90)))+btn('View debt','tab-financing')+'<h3>Site status</h3>'+row('Grid flow',(flow.out||0).toFixed(1)+' MW out · '+(flow.charge||0).toFixed(1)+' MW in')+
+ careerSummary()+'<h3>Commitments</h3>'+row('Unpaid construction',money(committedCapital()))+row('Loan payments next 90 days',money(loanDue(90)))+'<h3>Site status</h3>'+row('Grid flow',(flow.out||0).toFixed(1)+' MW out · '+(flow.charge||0).toFixed(1)+' MW in')+
  row('Today’s operating profit',cashGBP(state.daily.profit*1e6))+row('Player-controlled assets',manual+' of '+assetsForDispatch().length+' assets')+
  row('Projects under construction',projects.length+(holds.length?' · '+holds.length+' on funding hold':''))+
- '<div class="desk-actions">'+btn('Trading plan','tab-dispatch')+btn('Plant','tab-plant')+btn('Business results','tab-report')+'</div>'+
- (message?'<article class="notice"><h3>'+message.title+'</h3><p>'+message.message+'</p></article>':'')+btn('Open Messages','tab-messages')+
- '<div class="desk-actions">'+btn('Difficulty settings','tab-settings')+'</div>';
+ (message?'<article class="notice"><h3>'+message.title+'</h3><p>'+message.message+'</p></article>':'');
 }
 const seasonLength=90;
 const seasonIndex=(day=state.day)=>Math.floor((day-1)/seasonLength);
@@ -1597,6 +1621,11 @@ function addTotals(target,source,scale=1){
 function forecastQuarter(){
  const forecast=forecastPortfolio();
  const assets=Object.fromEntries([...assetsForDispatch(),...state.assets.filter(renewable)].filter(a=>a.status==='operational').map(a=>[a.id,{name:a.name,type:a.type,expected:forecast[a.id]}]));
+ if(homeState){
+  const national=homeState.showcase.career.national,id=state.regionalSite;
+  const result=id?settleExpansionSite(JSON.parse(JSON.stringify(national.sites[id])),id,delegatedSimulation):advanceNuclearDay(JSON.parse(JSON.stringify(national.nuclear)),gridMW(),false);
+  assets[1]={name:state.assets.find(a=>a.id===1).name,type:state.assets.find(a=>a.id===1).type,expected:{...emptyTotals(),wholesale:result.revenue,cost:-result.cost,export:result.energy,charge:result.imports||0}};
+ }
  return {index:seasonIndex(),assets,days:{},intervals:0,openingCash:state.cash,overhead:siteOverhead(),
   capacity:finance().capacity?.income/360||0,projects:quarterProjects(),capitalPlan:quarterCapitalPlan()};
 }
@@ -1686,7 +1715,7 @@ function comparePlot(rows,forecast,actual,moneySeries=false){
  return '<svg class="trend" viewBox="0 0 350 107" role="img" aria-label="Plan and actual trend"><path d="M12 17V94H338" fill="none" stroke="#48606b"/><polyline points="'+points(planned)+'" fill="none" stroke="#f1bc70" stroke-width="3" stroke-dasharray="5 4"/><polyline points="'+points(done)+'" fill="none" stroke="#80dbb4" stroke-width="3"/><circle cx="'+(rows.length>1?338:12)+'" cy="'+(94-(done.at(-1)-lo)*77/(hi-lo))+'" r="3" fill="#80dbb4"/></svg><p class="chart-legend">🟠 Plan · 🟢 Actual · day '+rows[0].day+'–'+rows.at(-1).day+'</p>';
 }
 function recordExpansionResult(quarter,record,asset){
- const name=record.regional?record.name:asset&&(asset.repower||asset.commissionedDay||record.renewable)?asset.name:null;
+ const name=record.regional?record.name:asset&&(asset.repower||asset.commissionedDay||asset.expansionCore||asset.suffolkCore||record.renewable)?asset.name:null;
  if(name){
   const operating=(quarter.expansion??={}).operating??={};
   const result=operating[name]??={energy:0,revenue:0,contribution:0};
@@ -1706,6 +1735,7 @@ function recordExpansionResult(quarter,record,asset){
  }
 }
 function showExpansionResults(q){
+ migrateBatteryNames();
  const data=q.expansion||{};
  const capital=new Map();
  const first=q.index*90+1;
@@ -1715,7 +1745,7 @@ function showExpansionResults(q){
  }
  const operating=Object.entries(data.operating||{});
  const wires=Object.entries(data.wires||{});
- return '<h3>Expansion results</h3><p class="desk-note">Whole company · selected quarter. Investment is a cash outflow. Operating contribution excludes shared costs, financing and capacity income.</p>'+
+ return '<h3>Expansion results</h3><p class="desk-note">'+(homeState?'Core station output uses a daily operating model, recognised evenly across 48 half-hour intervals. ':'')+'Current site · selected quarter. Investment is a cash outflow; staged payments are grouped by project. Operating contribution excludes shared costs, financing and capacity income.</p>'+
  (capital.size?'<h4>Capital cash flows</h4>'+table(['Project','Cash outflow'],[...capital].map(([name,cost])=>[name,cashGBP(cost)])):'<p>No recorded capital cash flows this quarter.</p>')+
  (operating.length?'<h4>Operating assets</h4>'+table(['Asset','MWh sold','Revenue','Contribution'],operating.map(([name,r])=>[name,r.energy.toFixed(1),cashGBP(r.revenue),cashGBP(r.contribution)])):'')+
  (wires.length?'<h4>Direct-wire sales</h4>'+table(['Customer','MWh','Revenue','Versus spot'],wires.map(([name,r])=>[name,r.energy.toFixed(1),cashGBP(r.revenue),cashGBP(r.uplift)]))+'<p class="desk-note">Direct-wire revenue is already included in asset revenue above where that asset is shown.</p>':'')+
@@ -1782,8 +1812,10 @@ function advisorNotes(){
   {title:'Commercial Director',target:event?'messages':'capacity',message:risk?risk+' MW of awarded capacity overlaps maintenance at the next known stress event. Review your response options.':'Bid only the power your plant and grid can reliably deliver. Winning means you must supply it during a shortage, or pay a penalty.'}
  ];
 }
+function capacityTutorialReady(){const q=tutorialState();return !q||q.status==='complete'||q.status==='tutorial'&&q.lesson>=5;}
 function remindCapacityAuction(){
  const f=finance();
+ if(!capacityTutorialReady())return;
  if(!hasChosenCEO()||needsDifficulty()||f.dismissed)return;
  if(f.capacity&&state.day<capacityReopenDay(f.capacity))return;
  const quarter=seasonIndex();
@@ -1947,6 +1979,7 @@ function inbox(){
  const keys=new Set();
  f.messages=list.filter(m=>{
   if(!m.key&&/^Capacity stress (warning|settlement)$/.test(m.title))m.key='stress-'+m.day;
+  if(m.key==='capacity-auction-open'&&!capacityTutorialReady()){delete f.auctionReminderQuarter;return false;}
   if(m.key&&keys.has(m.key))return false;
   if(m.key)keys.add(m.key);
   return true;
@@ -2611,7 +2644,7 @@ function showFinancing(){
  '<div class="desk-metrics">'+card('Cash today',money(state.cash))+card('After planned payments',money(reserveCash()))+card('Loan balance',money(outstanding))+'</div>'+
  '<p>Planned payments include all unpaid construction and the next 90 days of loan repayments. Future trading income is not included. Board reserve target: £17m. Below £1m actual cash, you have two game days to recover before dismissal.</p>'+
  (reserveCash()<17?'<p class="finance-warning">CFO: protect your cash. Review costs and delay optional expansion before borrowing. A loan buys time; it cannot make an unprofitable business profitable.</p>':'')+
- '<div class="desk-actions">'+btn('Review operating costs','tab-costs')+btn('Review projects','tab-capital')+'</div><h3>Your loans</h3>'+
+ '<h3>Your loans</h3>'+
  (loans.length?loans.map((l,i)=>'<article class="notice"><h3>'+(l.label||'Existing project loan')+'</h3>'+row('Outstanding',money(l.balance))+row('Annual interest',(l.rate*100).toFixed(1)+'%')+row('Next payment',l.remaining?'Day '+l.next+' · '+money(Math.min(l.balance,l.amount/(l.term||12))+l.balance*l.rate/12):'Fully repaid')+row('Payments left',l.remaining)+row('Remaining interest',money(loanSchedule(l).interest))+(l.balance>0?'<div class="desk-actions">'+btn('Repay balance','repay-loan-'+i)+'</div>':'')+'</article>').join(''):'<p>No bank loans. New project loans appear here when you approve a debt-funded build.</p>')+
  '<h3>Construction funding</h3>'+(projects.length?table(['Project','Still to pay','Status'],projects.map(a=>[a.name,money((a.contract?.stages||[]).slice(a.contract?.stage||0).reduce((n,x)=>n+x.cost,0)),a.constructionPaused?'Paused by you':a.fundingHold?'On hold — insufficient cash':'Building'])):'<p>No projects under construction.</p>')+
  '<h3>Apply for a bank loan</h3><p>The bank allows up to £10m total outstanding borrowing. Project loans use the same limit. The rate is fixed when you borrow.</p><div class="desk-fields">'+field('bankAmount','Amount (£m)',1,.1,10,.1)+'<label>Repayment period<select id="bankTerm"><option value="12">12 months</option><option value="24">24 months</option><option value="36">36 months</option></select></label></div><p id="bankQuote"></p><p id="bankWarning" role="alert"></p>'+btn('Review loan offer','bank-borrow','primary');
@@ -2647,7 +2680,7 @@ function showCosts(){
  '<div class="desk-actions">'+Object.entries(overheadPlans).map(([key,plan])=>btn(plan.label,'overhead-'+key,plan===overheadPlan()?'selected':'')).join('')+'</div>'+btn('Open help','tab-help');
 }
 function showHelp(){
- return '<div class="desk-heading"><h2>Help</h2></div><h3>Energy in plain English</h3><p><b>MW</b> measures how much power can flow at once. <b>MWh</b> measures energy: running at 10 MW for two hours produces 20 MWh. <b>£/MWh</b> is the price per unit of energy.</p><p><b>Dispatch</b> means deciding when a plant runs. <b>Day-ahead</b> means agreeing tomorrow’s electricity sales. <b>Balancing</b> means offering extra power when the grid needs help. <b>Capacity contracts</b> pay you to be available during shortages.</p><p><b>Contribution</b> is income after an asset’s direct costs. <b>Company profit</b> also deducts shared site costs and interest. <b>Cash after planned payments</b> subtracts future commitments from today’s bank balance.</p>'+btn('Review debt','tab-financing');
+ return '<div class="desk-heading"><h2>Help</h2></div><h3>Energy in plain English</h3><p><b>MW</b> measures how much power can flow at once. <b>MWh</b> measures energy: running at 10 MW for two hours produces 20 MWh. <b>£/MWh</b> is the price per unit of energy.</p><p><b>Dispatch</b> means deciding when a plant runs. <b>Day-ahead</b> means agreeing tomorrow’s electricity sales. <b>Balancing</b> means offering extra power when the grid needs help. <b>Capacity contracts</b> pay you to be available during shortages.</p><p><b>Contribution</b> is income after an asset’s direct costs. <b>Company profit</b> also deducts shared site costs and interest. <b>Cash after planned payments</b> subtracts future commitments from today’s bank balance.</p>';
 }
 function priceProfile(overrides){
  const prices=Array.from({length:24},(_,h)=>representative(h)),lo=Math.min(...prices,runCost())-10,hi=Math.max(...prices)+10;
@@ -2867,7 +2900,7 @@ function selectUKLocation(x,y){
 }
 function refreshUKWorld(){
  const national=finance().career.national;
- $('siteSubtitle').textContent='Meridian Power · UK portfolio · v10.0.0';
+ $('siteSubtitle').textContent='Meridian Power · UK portfolio · v10.1.0';
  $('stats').innerHTML='<b>'+money(state.cash)+'</b><br> Portfolio cash';
  $('clock').textContent='National day '+((national.elapsedDays||0)+1);
  $('pause').textContent=state.paused?'▶ Resume':'⏸ Pause';
@@ -2899,10 +2932,10 @@ const nuclearReserve=17;
 const expansionCampaigns={
  offshore:{
   label:'North Sea Offshore Wind',mw:320,grid:280,fixed:170000,variable:8,
-  assets:[['Wind','West turbine array',5,7],['Wind','East turbine array',8,7],['Marine','Offshore substation',8,11]],
+  assets:[['Wind','West turbine array',5,7],['Wind','East turbine array',8,7],['Marine','Offshore substation',11,4]],
   choices:{output:[['normal','Normal export'],['protect','Storm protection']],trade:[['spot','Spot sales'],['forecast','Forecast nomination']]},
   upgrades:[['forecasting','Forecasting and vessel access',3,2,'Improves nominated volumes and shortens storm repairs.'],['cable','Second export cable',8,4,'Adds 80 MW of grid capacity.']],
-  goals:[['Earn a positive operating margin',s=>s.profitable>0],['Complete a cable repair after a storm',s=>s.repairs>0],['Commission the second export cable and sell above 280 MW',s=>s.expanded>0]]
+  goals:[['Earn a positive operating margin',s=>s.profitable>0],['Protect exports through a storm or complete a cable repair',s=>s.repairs>0||s.stormsProtected>0],['Commission the second export cable and sell above 280 MW',s=>s.expanded>0]]
  },
  biomass:{
   label:'Humber Biomass',mw:180,grid:180,fixed:95000,variable:18,
@@ -2916,7 +2949,7 @@ const expansionCampaigns={
   assets:[['Reservoir','Upper reservoir',5,7],['Generator','Reversible turbine hall',8,7],['Reservoir','Lower reservoir',8,11]],
   choices:{output:[['normal','Generate at the peak'],['protect','Pump to refill']],trade:[['spot','Sell at peak prices'],['forecast','Reserve for capacity']]},
   upgrades:[['forecasting','Efficient pumps',3,2,'Increases pumping efficiency and stored energy for the same import.'],['cable','Reservoir extension',6,4,'Adds 1,600 MWh of usable reservoir storage.']],
-  goals:[['Earn a positive operating margin',s=>s.profitable>0],['Pump water and deliver on a capacity day',s=>s.pumps>0&&s.stressDays>0],['Extend the reservoir and operate above the old storage limit',s=>s.expanded>0]]
+  goals:[['Earn a positive operating margin',s=>s.profitable>0],['Pump water and deliver on a capacity day',s=>s.pumps>0&&s.stressDays>0],['Extend the reservoir and generate using water stored above 1,600 MWh',s=>s.expanded>0]]
  },
  carbon:{
   label:'Teesside Carbon Capture',mw:310,grid:310,fixed:115000,variable:32,
@@ -2931,9 +2964,11 @@ function createExpansionSite(id,root){
  world.regionalSite=id;
  world.assets=[
   ...config.assets.map(([type,name,x,y],i)=>({id:i+1,type,name,x,y,status:'operational',expansionCore:true})),
-  {id:4,type:'Grid',name:'Site grid connection',x:11,y:6,extraGrid:config.grid-80,status:'operational',expansionCore:true},
+  {id:4,type:'Grid',name:'Site grid connection',x:11,y:id==='offshore'?10:6,extraGrid:config.grid-80,status:'operational',expansionCore:true},
   {id:5,type:'Office',name:'Control building',x:3,y:7,status:'operational'}
  ];
+ if(id==='offshore')world.roads=world.roads.filter(k=>{const [x,y]=k.split(',').map(Number);return !(x>=5&&y<9);});
+ world.offshoreLayout101=true;
  return {world,ops:{day:0,output:'normal',trade:'spot',fuel:2200,storage:1000,projects:{},complete:{},history:[],profit:0,stage:0,profitable:0,repairs:0,deliveries:0,stressDays:0,pumps:0,expanded:0,invested:0}};
 }
 function expansionGrid(world){
@@ -2947,6 +2982,7 @@ function settleExpansionSite(site,id,delegated=false){
  const outputMode=delegated&&id==='hydro'?(n.storage<1000?'protect':'normal'):n.output;
  if(id==='offshore'){
   const wind=.63+.34*Math.sin(day*1.4);
+  if(event&&outputMode==='protect')n.stormsProtected=(n.stormsProtected||0)+1;
   if(event&&outputMode==='normal'&&!n.repair){n.repair=n.complete.forecasting?1:2;}
   if(n.repair){
    output=0;status='Export cable repair';if(--n.repair===0)n.repairs++;
@@ -2982,7 +3018,7 @@ function settleExpansionSite(site,id,delegated=false){
    revenue=energy*(spot+31)+(event&&n.trade==='forecast'?Math.min(energy,650)*50:0);
    status=energy?'Peak generation':'Reservoir depleted';
   }
-  if(n.storage>1600&&n.complete.cable)n.expanded++;
+  if(outputMode!=='protect'&&n.complete.cable&&energy>0&&n.storage+energy>1600)n.expanded++;
  }else{
   const capture=outputMode==='normal'&&(!event||n.complete.forecasting);
   const captureRate=capture?(event?.55:.9):0;
@@ -3051,7 +3087,7 @@ function showExpansionSite(){
   overview:'<article class="notice objective-card">'+(goal?'<h3>Board objective '+(n.stage+1)+' of '+c.goals.length+'</h3><p>'+goal[0]+'</p>'+
    (goal[1](n)?btn('Report to the board','regional-report:'+n.stage,'primary'):'<p>In progress</p>'):'<h3>Board approval · campaign complete</h3><p>The board has approved this site for ongoing operation.</p>')+'</article>'+
    row('Rated capacity',c.mw+' MW')+row('Grid connection',gridMW()+' MW')+row('Latest operating status',last?.status||'Ready to operate')+row('Portfolio cash',money(state.cash)),
-  operations:'<h3>Operations</h3><p>'+nationalSites[id].operation+'</p>'+choices('output')+
+  operations:'<h3>Operations</h3><p>'+nationalSites[id].operation+'</p><p class="desk-note">Core station decisions apply to the next daily operating cycle. Daily generation and costs accrue evenly through that cycle in Finance.</p>'+choices('output')+
    (id==='biomass'?row('Fuel inventory',n.fuel.toFixed(0)+' tonnes')+(n.delivery?row('Delivery',n.delivery+' days'):btn('Order 2,400 tonnes · £95,000','regional-fuel')):'')+
    (id==='hydro'?row('Stored energy',n.storage.toFixed(0)+' / '+(n.complete.cable?3200:1600)+' MWh'):'')+
    (id==='offshore'&&n.repair?row('Cable repair',n.repair+' days')+btn('Mobilise extra vessel · £300,000','regional-repair'):''),
@@ -3129,7 +3165,7 @@ function nuclearCanSpend(cost){return reserveCash()-cost>=nuclearReserve;}
 function nuclearAction(national,action){
  if(action==='nuclear-open'){
   if(national.selectedSite!=='nuclear'&&!national.nuclear)return 'Select the Suffolk nuclear site first.';
-  startNuclear(national);
+  if(!national.nuclear){reviewSiteMandate('nuclear',()=>{enterSuffolk(true);save(false);});return;}
   national.nuclearOpen=true;national.showSiteBrief=false;
   return;
  }
@@ -3248,11 +3284,13 @@ function openExpansionDesk(tab){
  homeState.showcase.career.national.sites[state.regionalSite].ops.tab=tab;
  openDesk('regional');
 }
-function enterExpansionSite(id){
+function enterExpansionSite(id,approved=false){
  if(!Object.hasOwn(expansionCampaigns,id))return;
  const national=finance().career.national;
  const sites=national.sites??={};
+ if(!sites[id]&&!approved){reviewSiteMandate(id,()=>enterExpansionSite(id,true));return;}
  const site=sites[id]??=createExpansionSite(id,state);
+ repairOffshoreLayout(site.world);
  national.ukCamera=camera;homeState=state;state=site.world;
  state.cash=homeState.cash;state.paused=true;camera=site.camera||freshCamera();
  national.regionalOpen=id;national.midlandsOpen=false;national.nuclearOpen=false;national.showSiteBrief=false;
@@ -3280,8 +3318,9 @@ function leaveMidlands(){
  national.homeCamera=camera;national.midlandsOpen=false;managingMidlands=false;
  openUKWorld();save(false);
 }
-function enterSuffolk(){
+function enterSuffolk(approved=false){
  const national=state.showcase.career.national;
+ if(!national.nuclear&&!approved){reviewSiteMandate('nuclear',()=>{enterSuffolk(true);save(false);});return;}
  startNuclear(national);
  national.ukCamera=camera;
  homeState=state;
@@ -3299,34 +3338,30 @@ function leaveSuffolk(){
  state=root;homeState=null;
  openUKWorld();save(false);
 }
+let delegatedSimulation=false;
 function advanceDelegatedSites(national,activeSite){
- national.midlandsDelegatedDays??=national.elapsedDays||0;
+ if(delegatedSimulation)return;
+ const active=state,root=homeState||state,previousHome=homeState,previousMidlands=managingMidlands;
+ let cash=state.cash;
  national.elapsedDays=(national.elapsedDays||0)+1;
- if(activeSite!=='midlands'){
-  state.cash+=homeManagementDailyGBP/1e6;
-  national.midlandsDelegatedDays=(national.midlandsDelegatedDays||0)+1;
- }
- for(const [id,site] of Object.entries(national.sites||{})){
-  if(id===activeSite)continue;
-  const result=settleExpansionSite(site,id,true);
-  state.cash+=result.profit/1e6;
- }
- if(activeSite==='suffolk'||!national.nuclear)return;
- const n=national.nuclear;
- if(!n.outage&&n.fuel<=2&&(!n.contract||n.fuel<1)&&state.cash>=nuclearReserve+1.2){
-  state.cash-=1.2;n.capex+=1.2;
-  national.suffolkDelegatedProfit=(national.suffolkDelegatedProfit||0)-1200000;
-  n.outage={kind:'delegated',remaining:n.completed.planning?2:3};
- }
- const world=national.suffolkWorld;
- const limit=world?world.assets.filter(a=>a.type==='Grid'&&a.status==='operational').reduce((mw,a)=>mw+80+(a.extraGrid||0),0):750;
- const result=advanceNuclearDay(n,limit);
- national.suffolkDelegatedProfit=(national.suffolkDelegatedProfit||0)+result.profit;
- if(world){
-  world.cash=state.cash;
-  const reactor=world.assets.find(a=>a.type==='Reactor');
-  if(reactor)reactor.activity={out:result.output*.5,charge:0};
- }
+ const worlds=[['midlands',root],...Object.entries(national.sites||{}).map(([id,site])=>[id,site.world]),...(national.nuclear?[['suffolk',national.suffolkWorld??=createSuffolkWorld(root)]]:[])];
+ delegatedSimulation=true;
+ try{
+  for(const [id,world] of worlds){
+   if(id===activeSite)continue;
+   repairOffshoreLayout(world);state=world;homeState=id==='midlands'?null:root;managingMidlands=id==='midlands';state.cash=cash;
+   const before=state.profit;
+   for(let i=0;i<48;i++)step();
+   if(id==='midlands'){
+    const guarantee=Math.max(0,homeManagementDailyGBP/1e6-(state.profit-before));
+    state.cash+=guarantee;state.profit+=guarantee;state.revenue+=guarantee;
+    state.daily.profit+=guarantee;state.daily.revenue+=guarantee;
+    const q=activeQuarter(),d=q.days[state.day];if(d)d.corporate.settlement+=guarantee*1e6;
+    national.midlandsDelegatedDays=(national.midlandsDelegatedDays||0)+1;
+   }
+   cash=state.cash;
+  }
+ }finally{state=active;homeState=previousHome;managingMidlands=previousMidlands;state.cash=cash;delegatedSimulation=false;}
 }
 function nationalAction(action){
  const national=finance().career.national;
@@ -3347,6 +3382,11 @@ function nationalAction(action){
   if(!Object.hasOwn(nationalSites,id))return 'Select an available site.';
   national.selectedSite=id;national.showSiteBrief=true;
  }
+}
+function reviewSiteMandate(id,accept){
+ const site=nationalSites[id],reserve=reserveCash();
+ const risk={nuclear:'Refuelling outages, cooling limits and contract replacement costs.',offshore:'Storm damage, export constraints and nominated-volume shortfalls.',biomass:'Fuel deliveries, wet fuel and heat-offtake obligations.',hydro:'Pumping costs, round-trip losses and limited stored water.',carbon:'Carbon exposure, capture energy use and transport outages.'}[id];
+ dialog('Approve '+site.location+' operating mandate','<p>'+site.pitch+'</p>'+row('Acquisition payment','£0 · board-funded operating mandate')+row('Cash after existing commitments',money(reserve))+row('Cash after approval',money(reserve))+'<p>This campaign grants operating responsibility for an existing plant. It is not a purchase of the whole facility. Future upgrades, operating losses and financing are paid from portfolio cash.</p><p><b>Principal risks:</b> '+risk+'</p><p>The site begins operating immediately and delegates automatically when you leave. Your existing sites remain intact.</p>',()=>{const n=finance().career.national;n.approvedMandates??={};if(n.approvedMandates[id])return;n.approvedMandates[id]=true;accept();},'Approve and enter site');
 }
 function showNationalSite(site){
  return '<div class="desk-heading"><h2>'+site.name+'</h2><p>'+site.location+' · Selected site</p></div>'+
@@ -3829,6 +3869,45 @@ function careerAction(action){
  c.tokens-=cost;c.unlocked.push(id);
  if(id==='national'){previewStory=null;c.active={id:'tech-national',chapter:0,day:state.day,visited:{},profit:state.profit,land:state.owned.length};deskTab='story';}
 }
+
+
+// Original procedural score and effects: synthesized locally, no recordings or licensed samples.
+const gameAudio={context:null,music:false,effects:false,timer:null,bar:0};
+try{const a=JSON.parse(localStorage.getItem('pge-audio')||'{}');gameAudio.music=!!a.music;gameAudio.effects=!!a.effects;}catch(_){}
+function audioTone(hz,time,length,gain=.04,type='sine'){
+ const c=gameAudio.context;if(!c||c.state!=='running')return;
+ const oscillator=c.createOscillator(),volume=c.createGain();oscillator.type=type;oscillator.frequency.value=hz;
+ volume.gain.setValueAtTime(0,time);volume.gain.linearRampToValueAtTime(gain,time+.025);volume.gain.exponentialRampToValueAtTime(.0001,time+length);
+ oscillator.connect(volume);volume.connect(c.destination);oscillator.start(time);oscillator.stop(time+length+.03);
+}
+function musicBar(){
+ const c=gameAudio.context;if(!gameAudio.music||document.hidden||!c||c.state!=='running')return;
+ const chords=[[48,55,60,64],[45,52,57,60],[41,48,53,57],[43,50,55,62]],notes=chords[gameAudio.bar++%4],t=c.currentTime+.05;
+ notes.forEach(n=>audioTone(440*2**((n-69)/12),t,3.8,.012));
+ [0,2,1,3,2,1].forEach((n,i)=>audioTone(440*2**((notes[n]+12-69)/12),t+i*.6,.8,.018,'triangle'));
+}
+async function resumeGameAudio(){
+ if(!gameAudio.music&&!gameAudio.effects)return;
+ try{gameAudio.context??=new (window.AudioContext||window.webkitAudioContext)();await gameAudio.context.resume();
+ if(gameAudio.music&&!gameAudio.timer){musicBar();gameAudio.timer=setInterval(musicBar,4000);}
+ }catch(_){/* Audio may be unavailable; gameplay remains usable. */}
+}
+function audioLabels(){for(const [id,key,label] of [['musicToggle','music','Music'],['effectsToggle','effects','Sound effects']]){$(id).textContent=label+': '+(gameAudio[key]?'on':'off');$(id).setAttribute('aria-pressed',String(gameAudio[key]));}}
+async function toggleGameAudio(key){
+ gameAudio[key]=!gameAudio[key];
+ if(key==='music'&&!gameAudio.music){clearInterval(gameAudio.timer);gameAudio.timer=null;gameAudio.context?.close();gameAudio.context=null;}
+ try{localStorage.setItem('pge-audio',JSON.stringify({music:gameAudio.music,effects:gameAudio.effects}));}catch(_){}
+ audioLabels();await resumeGameAudio();
+}
+function gameEffect(kind='click'){
+ if(!gameAudio.effects||document.hidden)return;
+ const c=gameAudio.context;if(!c||c.state!=='running')return;
+ const notes=kind==='notice'?[523,659,784]:[392];notes.forEach((hz,i)=>audioTone(hz,c.currentTime+i*.09,.14,.025,'triangle'));
+}
+$('musicToggle').onclick=()=>toggleGameAudio('music');$('effectsToggle').onclick=()=>toggleGameAudio('effects');audioLabels();
+document.addEventListener('pointerdown',()=>{resumeGameAudio();},{passive:true});
+document.addEventListener('click',e=>{if(e.target.closest('button'))gameEffect();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInterval(gameAudio.timer);gameAudio.timer=null;gameAudio.context?.suspend();}else resumeGameAudio();});
 
 refresh();requestAnimationFrame(loop);
 if(finance().career?.national){state.paused=true;if(finance().career.national.regionalOpen)enterExpansionSite(finance().career.national.regionalOpen);else if(finance().career.national.nuclearOpen)enterSuffolk();else if(finance().career.national.midlandsOpen){managingMidlands=true;state.paused=true;refresh();}else openUKWorld();}else if(finance().dismissed){state.paused=true;openDesk('dismissed');}else if(!hasChosenCEO()||needsDifficulty()){openDesk('campaign');save(false);}
