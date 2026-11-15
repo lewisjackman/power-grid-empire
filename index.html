@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.8.0</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.9.0</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -233,9 +233,6 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #siteNotices #mapMessageAlert[hidden],#deskMessageAlert[hidden]{display:none}
 #businessDesk #deskMessageAlert{color:#ffda9d;font-size:12px;margin:0;padding:6px 0;overflow-wrap:anywhere}
 #businessDesk button.demolish-action{background:#723a3e;border-color:#ff9998;color:#ffe6e5} .demolish-action svg{vertical-align:middle;margin-right:4px}
-#businessDesk[data-national]{inset:0;margin:0;width:100%;max-width:none;height:100dvh;max-height:none;border:0;border-radius:0}
-#businessDesk[data-national] #deskHeader,#businessDesk[data-national] #deskFooter{display:none}
-#businessDesk[data-national] #deskBody{width:min(100%,760px);margin:auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom))}
 .nuclear-map-scene{position:relative;aspect-ratio:600/320;min-height:220px;overflow:hidden;border-radius:12px;border:1px solid #52786f}
 .nuclear-map-scene svg{display:block;width:100%;height:100%;position:absolute;inset:0}
 #businessDesk .nuclear-map-scene button{position:absolute;min-height:44px;max-width:43%;font-size:12px;line-height:1.15;margin:0;padding:4px 7px;background:#142f37f2;border-color:#8eb7af}
@@ -245,27 +242,23 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 .nuclear-map-scene .map-cooling{right:5%;bottom:13%}
 .nuclear-view{margin-top:12px;overflow-x:auto}
 .nuclear-time{margin-top:12px}
- .uk-map-stage{position:relative;height:clamp(255px,48dvh,470px);overflow:hidden;border:1px solid #52786f;border-radius:14px;background:#112d35;touch-action:none}
-#ukExploreMap{display:block;width:100%;height:100%;touch-action:none}
-.uk-map-controls{position:absolute;right:9px;bottom:9px;display:grid;gap:4px}
-#businessDesk .uk-map-controls button{min-width:44px;min-height:44px;margin:0;background:#17353cf5;border-color:#80a59a}
 .uk-site-list{display:flex;flex-wrap:nowrap;overflow-x:auto;padding-bottom:5px}
 .uk-site-list button{flex:0 0 auto;min-height:44px}
 .uk-explorer #ukLocation{margin-top:8px}
 #ukExploreMap[data-pannable]{cursor:grab}
 #ukExploreMap{touch-action:none}
-#siteMapBack[hidden]{display:none}
+
 .uk-site-pin{cursor:pointer;outline:none}
 .uk-site-pin:focus-visible .uk-pin-target{stroke:#fff0cb;stroke-width:2}
 .uk-site-list{gap:5px}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div id="siteSubtitle" class="sub">Meridian Power · East Midlands · v9.8.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div id="siteSubtitle" class="sub">Meridian Power · East Midlands · v9.9.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
 
 <footer id="bar">
-<div class="site-controls"><div id="clock"></div><button id="siteMapBack" type="button" hidden>UK map</button><button id="businessOpen">Manage</button><button id="pause">Pause</button><button id="speed">1×</button><details id="siteOptions"><summary aria-label="More controls">⋯</summary><div class="site-more"><button id="siteAdvanceDay">Advance one day</button><button id="siteAdvanceWeek">Advance one week</button><button id="siteNational" hidden>UK map</button><button id="siteSettings">Settings</button><button id="cameraReset">Reset camera</button><button id="save">Save game</button><button id="reset">Reset game</button></div></details></div>
+<div class="site-controls"><div id="clock"></div><button id="businessOpen">Manage</button><button id="pause">Pause</button><button id="speed">1×</button><details id="siteOptions"><summary aria-label="More controls">⋯</summary><div class="site-more"><button id="siteAdvanceDay">Advance one day</button><button id="siteAdvanceWeek">Advance one week</button><button id="siteNational" hidden>UK map</button><button id="siteSettings">Settings</button><button id="cameraReset">Reset camera</button><button id="save">Save game</button><button id="reset">Reset game</button></div></details></div>
 
 <button id="build" hidden>Build</button><button id="analytics" hidden>Analytics</button><button id="remove" hidden>Remove</button><button id="land" hidden>Land</button>
 </footer>
@@ -658,7 +651,7 @@ function drawActivity(){
  }
 }
 
-function draw(){ctx.clearRect(0,0,w,h);const tiles=[],roads=new Set(state.roads);for(let x=0;x<N;x++)for(let y=0;y<N;y++){const p=rotate(x+.5,y+.5);tiles.push({x,y,d:p.x+p.y});}tiles.sort((a,b)=>a.d-b.d);for(const t of tiles){const color=!owned(t.x,t.y)?'#91a284':roads.has(key(t.x,t.y))?'#8a8071':(t.x+t.y)%2?'#78925a':'#869f61';poly([project(t.x,t.y),project(t.x+1,t.y),project(t.x+1,t.y+1),project(t.x,t.y+1)],color,'#647b52',.5);}
+function draw(){if(isUKWorld()){drawUKWorld();return;}ctx.clearRect(0,0,w,h);const tiles=[],roads=new Set(state.roads);for(let x=0;x<N;x++)for(let y=0;y<N;y++){const p=rotate(x+.5,y+.5);tiles.push({x,y,d:p.x+p.y});}tiles.sort((a,b)=>a.d-b.d);for(const t of tiles){const color=!owned(t.x,t.y)?'#91a284':roads.has(key(t.x,t.y))?'#8a8071':(t.x+t.y)%2?'#78925a':'#869f61';poly([project(t.x,t.y),project(t.x+1,t.y),project(t.x+1,t.y+1),project(t.x,t.y+1)],color,'#647b52',.5);}
  for(const road of roads){
   const [x,y]=road.split(',').map(Number);
   if(roads.has(key(x+1,y))&&!roads.has(key(x,y+1)))line(project(x+.28,y+.5,.3),project(x+.72,y+.5,.3),'#c7b893',1.3);
@@ -719,7 +712,7 @@ function removeRoad(x,y){
   toast('Build alternate road access before removing this tile.');return;
  }
  dialog('Remove road','<p>Remove tile '+(x+1)+', '+(y+1)+' for £0.010m?</p>',()=>{if(state.cash<.01){toast('Insufficient funds');return;}state.cash-=.01;recordCapital('Road removal',.01);state.roads=state.roads.filter(k=>k!==key(x,y));uiDirty=true;save(false);},'Remove');}
-function selectTile(sx,sy){const {x,y}=screenTile(sx,sy);
+function selectTile(sx,sy){if(isUKWorld()){selectUKLocation(sx,sy);return;}const {x,y}=screenTile(sx,sy);
 if(x<0||y<0||x>=N||y>=N)return;if(landMode){const bx=Math.floor(x/8),by=Math.floor(y/8),k=key(bx,by);if(state.owned.includes(k)){toast('Already owned');return;}if(!adjacent(bx,by)){toast('Buy adjacent land first');return;}const cost=2.5+state.owned.length*.75;dialog('Acquire land','<p>Purchase an 8 × 8 parcel for '+money(cost)+'?</p>',()=>{if(state.cash<cost){toast('Insufficient cash');return;}state.cash-=cost;recordCapital('Land acquisition',cost);state.owned.push(k);landMode=false;$('land').classList.remove('active');uiDirty=true;save(false);toast('Land acquired');},'Buy land');return;}const a=[...state.assets].reverse().find(a=>x>=a.x&&x<a.x+2&&y>=a.y&&y<a.y+2);if(removing){if(a)demolish(a);else if(state.roads.includes(key(x,y)))removeRoad(x,y);else toast('Nothing to remove');return;}if(mode){preview={x,y};placementPanel();return;}if(a){if(selected===a.id)closePanel();else{selected=a.id;panelMin=false;assetPanel();}}else closePanel();}
 function buildMenu(){$('options').replaceChildren();for(const [id,t] of Object.entries(TYPES)){if(['Reactor','Cooling','Generator'].includes(id)||id==='OCGT'&&!developmentHas('generation')||id==='Battery'&&!batteryBuildAvailable())continue;if(['Wind','Solar'].includes(id)&&!developmentHas(id.toLowerCase()))continue;const line=document.createElement('div');line.className='option';const info=document.createElement('div'),heading=document.createElement('b'),desc=document.createElement('small'),meta=document.createElement('small');heading.textContent=t.name;desc.textContent=t.desc;meta.textContent=money(t.cost)+' · '+t.days+' days'+(t.mw?' · '+t.mw+' MW':'');info.append(heading,desc,meta);const btn=document.createElement('button');btn.textContent='Build';btn.onclick=()=>{if(state.cash<t.cost*(id==='Road'?1:.2)){toast('Insufficient cash for deposit');return;}mode=id;preview=null;selected=null;removing=false;landMode=false;$('remove').classList.remove('active');$('land').classList.remove('active');$('menu').style.display='none';placementPanel();};line.append(info,btn);$('options').append(line);}}
 function row(k,v){return '<div class="row"><span>'+k+'</span><b>'+v+'</b></div>';}
@@ -727,7 +720,9 @@ function historyFor(p){const all=state.history||[],count=p==='day'?48:p==='month
 function chart(title,field,color){return '<div class="chartTitle">'+title+'</div><canvas class="chart" data-field="'+field+'" data-color="'+color+'"></canvas>';}
 function plot(c,data,field,color){const cw=c.clientWidth||320,ch=160,r=Math.min(devicePixelRatio||1,2);c.width=Math.round(cw*r);c.height=Math.round(ch*r);const g=c.getContext('2d');g.setTransform(r,0,0,r,0,0);const L=46,R=cw-10,T=15,B=ch-30;g.strokeStyle='#395762';g.fillStyle='#b8cbd0';g.font='10px system-ui';for(let i=0;i<4;i++){const y=T+(B-T)*i/3;g.beginPath();g.moveTo(L,y);g.lineTo(R,y);g.stroke();}if(data.length<2){g.fillText('History builds as the game runs',L+5,80);return;}const vals=data.map(d=>Number(d[field])||0);let min=Math.min(...vals),max=Math.max(...vals);if(max===min){min--;max++;}const px=i=>L+i*(R-L)/(vals.length-1),py=v=>B-(v-min)/(max-min)*(B-T);g.fillText(max.toFixed(2),2,T+4);g.fillText(min.toFixed(2),2,B);g.strokeStyle=color;g.lineWidth=2;g.beginPath();vals.forEach((v,i)=>i?g.lineTo(px(i),py(v)):g.moveTo(px(i),py(v)));g.stroke();for(const i of [0,Math.floor((data.length-1)/2),data.length-1]){const d=data[i],label=period==='day'?'D'+d.day+' '+String(Math.floor(d.hour)).padStart(2,'0')+':'+(d.hour%1?'30':'00'):period==='month'?'Day '+d.day:'Month '+(Math.floor((d.day-1)/30)+1);g.textAlign=i===0?'left':i===data.length-1?'right':'center';g.fillStyle='#bfd2d5';g.fillText(label,px(i),B+17);}g.textAlign='left';}
 function renderReport(){if(!reportOpen)return;document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));let html='';if(tab!=='Assets')html+='<div class="periods"><button data-period="day">Day</button><button data-period="month">Month</button><button data-period="year">Year</button></div>';if(tab==='Operations'){html+=row('Wholesale price','£'+state.price.toFixed(0)+'/MWh')+row('Gas capacity',gasMW()+' MW')+row('Battery power',batteryMW()+' MW')+row('Grid export',gridMW()+' MW')+row('Lifetime exports',state.exportMWh.toFixed(1)+' MWh');html+=chart('Electricity price (£/MWh)','price','#edca80')+chart('Export energy (MWh)','export','#7be5b2');}else if(tab==='Finances'){html+=row('Cash',money(state.cash))+row('Revenue',money(state.revenue))+row('Fuel',money(state.fuel))+row('Carbon',money(state.carbon))+row('Operating profit',money(state.profit));html+=chart('Cash (£m)','cash','#84bff5')+chart('Cumulative profit (£m)','profit','#f1b38a')+chart('Revenue (£m)','revenue','#b6e6f0');}else{html+=row('Land parcels',state.owned.length)+row('Road tiles',state.roads.length)+row('Assets',state.assets.length)+row('Under construction',state.assets.filter(a=>a.status==='building').length);for(const [k,t] of Object.entries(TYPES)){const n=state.assets.filter(a=>a.type===k).length;if(n)html+=row(t.name,n);}}$('reportBody').innerHTML=html;document.querySelectorAll('[data-period]').forEach(b=>{b.classList.toggle('active',b.dataset.period===period);b.onclick=()=>{period=b.dataset.period;renderReport();};});const data=historyFor(period);for(const c of $('reportBody').querySelectorAll('canvas'))plot(c,data,c.dataset.field,c.dataset.color);chartDirty=false;}
-function refresh(){$('siteMapBack').hidden=!homeState&&!managingMidlands;$('siteNational').hidden=!homeState&&!finance().career?.national;$('siteSubtitle').textContent='Meridian Power · '+(homeState?'Suffolk':'East Midlands')+(managingMidlands?' · Under your control':'')+' · v9.8.0';const gas=state.assets.filter(a=>a.type==='OCGT').reduce((n,a)=>n+(a.mw||20),0),bat=state.assets.filter(a=>a.type==='Battery').reduce((n,a)=>n+power(a),0);$('stats').innerHTML='<b>'+money(state.cash)+'</b><br><span>After commitments '+money(reserveCash())+'</span><br>'+gas+'MW gas · '+bat+'MW batteries';$('clock').textContent='Day '+state.day+' · '+String(Math.floor(state.hour)).padStart(2,'0')+':'+(state.hour%1?'30':'00')+' · Power £'+state.price.toFixed(0)+'/MWh · Grid '+gridMW()+'MW';$('pause').textContent=state.paused?'▶ Resume':'⏸ Pause';$('speed').textContent='⏩ '+SPEEDS[state.speed]+'×';const n=homeState?.showcase.career.national.nuclear,objective=n?nuclearObjectives[n.stage]?.[0]:activeStoryObjective();
+function refresh(){
+ if(isUKWorld()){refreshUKWorld();return;}
+ $('siteNational').hidden=!homeState&&!managingMidlands;$('siteSubtitle').textContent='Meridian Power · '+(homeState?'Suffolk':'East Midlands')+(managingMidlands?' · Under your control':'')+' · v9.9.0';const gas=state.assets.filter(a=>a.type==='OCGT').reduce((n,a)=>n+(a.mw||20),0),bat=state.assets.filter(a=>a.type==='Battery').reduce((n,a)=>n+power(a),0);$('stats').innerHTML='<b>'+money(state.cash)+'</b><br><span>After commitments '+money(reserveCash())+'</span><br>'+gas+'MW gas · '+bat+'MW batteries';$('clock').textContent='Day '+state.day+' · '+String(Math.floor(state.hour)).padStart(2,'0')+':'+(state.hour%1?'30':'00')+' · Power £'+state.price.toFixed(0)+'/MWh · Grid '+gridMW()+'MW';$('pause').textContent=state.paused?'▶ Resume':'⏸ Pause';$('speed').textContent='⏩ '+SPEEDS[state.speed]+'×';const n=homeState?.showcase.career.national.nuclear,objective=n?nuclearObjectives[n.stage]?.[0]:activeStoryObjective();
  if(n)$('stats').innerHTML='<b>'+money(state.cash)+'</b><br>'+nuclearCapacity(n)+' MW nuclear · '+bat+' MW batteries';
  $('siteObjective').textContent=objective||winterObjective();
  $('siteObjective').hidden=(n?!objective:!hasChosenCEO()||(!objective&&finance().winter?.status==='complete'));$('inboxOpen').textContent=inbox().some(m=>m.id>(finance().readMessageSeq||0))?'🔔 !':'🔔';if(selected!==null&&!panelMin){const progress=$('assetBuildProgress');if(progress){const asset=state.assets.find(a=>a.id===selected);if(!asset||asset.status!=='building'){assetPanel();}else{progress.textContent='Construction: '+Math.round(asset.progress*100)+'%';}}}if(selected!==null&&panelMin){const a=state.assets.find(a=>a.id===selected);if(a){const p=$('panelBody').querySelector('.muted');if(p)p.textContent=a.status==='building'?'Construction '+Math.round(a.progress*100)+'%':status(a);}}uiDirty=false;}
@@ -997,7 +992,7 @@ function step(){
 
 // Separate clocks: 30 FPS graphics, 4 FPS UI, 1 FPS chart rebuild.
 let nextFrame=0,nextUI=0,nextChart=0;
-function loop(now){if(finance().career?.national&&!managingMidlands){state.paused=true;requestAnimationFrame(loop);return;}const dt=Math.min((now-last)/1000,1);last=now;if(!state.paused){acc+=dt*SPEEDS[state.speed];let count=0;while(acc>=1&&count<100){step();acc--;count++;if(showcaseStop){showcaseStop=false;acc=0;break;}}}if(now>=nextFrame){try{draw();}catch(e){console.error('Render error',e);}nextFrame=now+33;}if(now>=nextUI){if(uiDirty)try{refresh();}catch(e){console.error('UI error',e);}nextUI=now+250;}if(reportOpen&&chartDirty&&now>=nextChart){try{renderReport();}catch(e){console.error('Chart error',e);}nextChart=now+4000;}requestAnimationFrame(loop);}
+function loop(now){if(isUKWorld()){tickUKWorld(now);requestAnimationFrame(loop);return;}const dt=Math.min((now-last)/1000,1);last=now;if(!state.paused){acc+=dt*SPEEDS[state.speed];let count=0;while(acc>=1&&count<100){step();acc--;count++;if(showcaseStop){showcaseStop=false;acc=0;break;}}}if(now>=nextFrame){try{draw();}catch(e){console.error('Render error',e);}nextFrame=now+33;}if(now>=nextUI){if(uiDirty)try{refresh();}catch(e){console.error('UI error',e);}nextUI=now+250;}if(reportOpen&&chartDirty&&now>=nextChart){try{renderReport();}catch(e){console.error('Chart error',e);}nextChart=now+4000;}requestAnimationFrame(loop);}
 // Canvas alone handles map gestures. All UI elements are separate DOM layers.
 const pointers=new Map();let moved=false,multi=false,start=null,oldDist=0,oldCentre=null,oldAngle=null;
 function point(e){const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};}
@@ -1010,7 +1005,7 @@ $('build').onclick=()=>{const open=$('menu').style.display!=='block';$('menu').s
 $('analytics').onclick=()=>{reportOpen=!reportOpen;$('report').style.display=reportOpen?'block':'none';$('menu').style.display='none';if(reportOpen)renderReport();};$('reportClose').onclick=()=>{reportOpen=false;$('report').style.display='none';};document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;renderReport();});
 $('remove').onclick=()=>{removing=!removing;mode=null;preview=null;landMode=false;$('land').classList.remove('active');$('remove').classList.toggle('active',removing);closePanel();toast(removing?'Tap a building or road to remove':'Removal mode off');};
 $('land').onclick=()=>{landMode=!landMode;removing=false;mode=null;preview=null;closePanel();$('remove').classList.remove('active');$('land').classList.toggle('active',landMode);toast(landMode?'Tap highlighted land to purchase':'Land mode off');};
-$('pause').onclick=()=>{if(finance().dismissed){openDesk('dismissed');return;}if(state.paused&&openRenewal())return;state.paused=!state.paused;uiDirty=true;};$('speed').onclick=()=>{state.speed=(state.speed+1)%SPEEDS.length;uiDirty=true;};$('cameraReset').onclick=()=>{camera=freshCamera();pointers.clear();gestureReset();toast('Camera reset — progress preserved');};
+$('pause').onclick=()=>{if(isUKWorld()){state.paused=!state.paused;uiDirty=true;return;}if(finance().dismissed){openDesk('dismissed');return;}if(state.paused&&openRenewal())return;state.paused=!state.paused;uiDirty=true;};$('speed').onclick=()=>{state.speed=(state.speed+1)%SPEEDS.length;uiDirty=true;};$('cameraReset').onclick=()=>{camera=isUKWorld()?freshUKCamera():freshCamera();pointers.clear();gestureReset();toast('Camera reset — progress preserved');};
 let saveFailureReported=false;
 function compactPortfolioSave(root,historyLimit,archiveLimit){
  const trim=world=>({...world,history:world.history.slice(-historyLimit),showcase:{...world.showcase,archives:archiveLimit?(world.showcase?.archives||[]).slice(-archiveLimit):[]}});
@@ -1021,6 +1016,7 @@ function compactPortfolioSave(root,historyLimit,archiveLimit){
 function save(message=true){
  try{
   const root=homeState||state;
+  if(isUKWorld())root.showcase.career.national.ukCamera=camera;
   if(homeState){
    root.cash=state.cash;
    const national=root.showcase.career.national;
@@ -2273,11 +2269,11 @@ function renderDesk(){
  const picking=!hasChosenCEO(),choosingDifficulty=needsDifficulty(),onboarding=picking||choosingDifficulty;
  if(picking)deskTab='campaign';else if(choosingDifficulty)deskTab='settings';
  desk.toggleAttribute('data-picker',onboarding);
- desk.toggleAttribute('data-national',deskTab==='national'&&Boolean(finance().career?.national)&&!managingMidlands);
- $('deskNav').hidden=onboarding||deskTab==='nuclear';
+
+ $('deskNav').hidden=onboarding||deskTab==='nuclear'||isUKWorld();
  $('deskClose').hidden=onboarding;
  $('deskClock').hidden=onboarding;
- $('deskNav').innerHTML=onboarding||deskTab==='nuclear'?'':deskNavigation();
+ $('deskNav').innerHTML=onboarding||deskTab==='nuclear'||isUKWorld()?'':deskNavigation();
  const page=deskTab==='nuclear'?'nuclear-'+homeState.showcase.career.national.nuclear.menuTab:picking?'avatar-picker':choosingDifficulty?'difficulty-picker':deskTab==='national'&&finance().career?.national?.nuclearOpen?'national-nuclear-'+(finance().career.national.nuclear?.menuTab||'map'):deskTab==='national'&&finance().career?.national?.showSiteBrief?'national-site':deskTab+(deskTab==='winter'?'|'+(finance().winter?.status||'')+'|'+(finance().winter?.lesson??''):deskTab==='story'?'|'+activeStoryObjective():'');
  const scroll=$('deskScroll');
  if(Object.hasOwn(progressionScroll,renderedDeskPage))progressionScroll[renderedDeskPage]=scroll.scrollTop;
@@ -2285,7 +2281,6 @@ function renderDesk(){
  const locked=tutorialGate('tab-'+deskTab);
  $('deskBody').innerHTML=(locked?'<p>'+locked+'</p>':views[deskTab]())+
  (!onboarding&&!tutorialFinished()?'<div class="desk-actions">'+btn('Skip tutorial','skip-winter')+'</div>':'');
- if(deskTab==='national')connectUKMap();
  $('deskFooter').innerHTML=deskTab==='dispatch'&&dispatchDraft?.editing?
  '<p id="seasonGridWarning" class="desk-note"></p><div class="desk-actions">'+btn('Apply plan','season-apply','primary')+'</div>':(!onboarding&&!locked?objectiveFooter():'');
 
@@ -2338,7 +2333,8 @@ function openDesk(tab='overview'){
 function advance(ticks){for(let i=0;i<ticks;i++){step();if(showcaseStop){showcaseStop=false;break;}}}
 function doDesk(action){
  const f=finance();
- if(f.career?.national&&!managingMidlands){
+ if(isUKWorld()){
+  if(action==='close'){desk.close();return;}
   if(action==='nuclear-open'){enterSuffolk();return;}
   if(action==='midlands-open'){enterMidlands();return;}
   return nationalAction(action);
@@ -2455,12 +2451,12 @@ function doDesk(action){
 
 }
 $('businessOpen').onclick=()=>homeState?openSuffolkDesk('overview'):openDesk();
-$('siteMapBack').onclick=()=>homeState?leaveSuffolk():leaveMidlands();
 $('siteNational').onclick=()=>{$('siteOptions').open=false;if(homeState)leaveSuffolk();else if(managingMidlands)leaveMidlands();else openDesk('national');};
 $('inboxOpen').onclick=()=>openDesk('messages');
 $('siteObjective').onclick=()=>{if(homeState){openSuffolkDesk('overview');return;}previewStory=null;openDesk(activeStoryObjective()?'story':finance().winter?.status==='complete'?'campaign':finance().winter?'winter':'campaign');};
 for(const [id,intervals] of [['siteAdvanceDay',48],['siteAdvanceWeek',336]])$(id).onclick=()=>{
  $('siteOptions').open=false;
+ if(isUKWorld()){nationalAction(intervals===48?'national-advance-day':'national-advance-week');refresh();save(false);return;}
  if(!tutorialFinished()){toast('Use the tutorial to advance time.');return;}
  if(dispatchPending()){openDesk('dispatch');return;}
  advance(intervals);save(false);
@@ -2469,10 +2465,10 @@ $('siteSettings').onclick=()=>{$('siteOptions').open=false;openDesk('settings');
 for(const id of ['cameraReset','save','reset'])$('siteOptions').addEventListener('click',e=>{if(e.target.id===id)$('siteOptions').open=false;});
 $('waterfallOpen').onclick=()=>{reportOpen=false;$('report').style.display='none';openDesk('variance');};
 $('deskClose').onclick=()=>{const message=doDesk('close');if(message)$('deskStatus').textContent=message;};
-desk.addEventListener('close',()=>{state.paused=Boolean(finance().career?.national&&!managingMidlands)||finance().dismissed||Boolean(nextStress())||dispatchPending()?true:deskWasPaused;uiDirty=true;save(false);});
+desk.addEventListener('close',()=>{state.paused=finance().dismissed||Boolean(nextStress())||dispatchPending()?true:deskWasPaused;uiDirty=true;save(false);});
 document.addEventListener('pointerdown',e=>{if(!$('siteOptions').contains(e.target))$('siteOptions').open=false;});
 desk.addEventListener('cancel',event=>{
- if(finance().career?.national&&!managingMidlands){event.preventDefault();return;}
+ if(isUKWorld())return;
  if(!hasChosenCEO()||needsDifficulty()||deskTab==='dispatch'&&dispatchPending()){
   event.preventDefault();
   $('deskStatus').textContent=hasChosenCEO()?'Apply the manual plan or switch to Auto.':'Pick your CEO avatar to continue.';
@@ -2485,6 +2481,7 @@ desk.addEventListener('click',event=>{
  desk.querySelector('.desk-action-warning')?.remove();
  $('deskStatus').textContent='';
  if(action==='auction-optimise'){optimiseCapacityBid();return;}
+ const previousTab=deskTab;
  const error=doDesk(action);
  if(error){
   const bankWarning=action==='bank-borrow'&&$('bankWarning');
@@ -2498,12 +2495,13 @@ desk.addEventListener('click',event=>{
   warning.scrollIntoView({block:'nearest'});
   return;
  }
- reviewBoard();save(false);
+ if(previousTab==='story'&&isUKWorld()){finance().career.national.homeCamera=camera;openUKWorld();toast('Board approval · Meridian goes national');save(false);return;}
+ if(!isUKWorld())reviewBoard();save(false);
  if(desk.open){
   const board=document.querySelector('.tech-board'),left=board?.scrollLeft||0;
   renderDesk();
   if(action.startsWith('national-location-')){
-   document.querySelector('.uk-site-list [data-action="'+action+'"]')?.focus({preventScroll:true});
+   $('ukLocation')?.scrollIntoView({block:'nearest'});
 
   }
   const current=document.querySelector('.tech-board');
@@ -2706,73 +2704,84 @@ const ukLocations={
  midlands:{name:'East Midlands',location:'England · Original site',point:[183,195],pitch:'Meridian’s original site continues to operate under delegated management.'},
  ...nationalSites
 };
-const ukMapView={x:0,y:0,scale:1};
 let inspectedUKSite='midlands';
-function ukMapBox(){
- const width=380/ukMapView.scale,height=300/ukMapView.scale;
- ukMapView.x=Math.max(0,Math.min(380-width,ukMapView.x));
- ukMapView.y=Math.max(0,Math.min(300-height,ukMapView.y));
- return [ukMapView.x,ukMapView.y,width,height].join(' ');
+const ukCoastlines=[
+ [[150,19],[162,32],[150,48],[176,45],[172,59],[159,77],[176,87],[177,111],[193,122],[201,148],[205,165],[224,179],[228,193],[214,218],[229,232],[213,249],[182,248],[167,261],[142,257],[116,272],[95,273],[111,255],[132,238],[157,228],[149,216],[126,228],[109,217],[128,204],[127,188],[140,184],[152,195],[158,175],[156,156],[143,142],[137,126],[118,123],[107,108],[121,91],[115,76],[133,66],[124,54],[136,43],[127,34]],
+ [[82,115],[101,124],[103,146],[88,151],[81,161],[64,152],[66,135]],
+ [[112,63],[117,57],[119,64],[114,71]],
+ [[149,262],[155,261],[157,265],[150,267]]
+].map(coast=>coast.map(([x,y])=>[ukWorldX(x),ukWorldY(y)]));
+function ukWorldX(x){return (x-152)/11+12;}
+function ukWorldY(y){return (y-150)/12+12;}
+function isUKWorld(){return !homeState&&!managingMidlands&&Boolean(finance().career?.national);}
+function freshUKCamera(){
+ const zoom=Math.max(.4,Math.min(.95,w/580));
+ return {x:0,y:-TH*12*zoom,zoom,rot:0};
 }
-function zoomUKMap(factor,x=.5,y=.5){
- const original=ukMapView.scale,next=Math.max(1,Math.min(5,original*factor));
- ukMapView.x+=380*x*(1/original-1/next);
- ukMapView.y+=300*y*(1/original-1/next);
- ukMapView.scale=next;
+function openUKWorld(){
+ const national=finance().career.national;
+ national.showSiteBrief=false;state.paused=true;
+ camera=national.ukCamera||freshUKCamera();national.ukCamera=camera;
+ clearSiteSelection();
+ if(desk.open){deskWasPaused=true;desk.close();}
+ refresh();
 }
-function changeUKZoom(action){
- if(action==='reset'){Object.assign(ukMapView,{x:0,y:0,scale:1});return;}
- zoomUKMap(action==='in'?1.35:1/1.35);
+function ukLandAt(x,y,coast){
+ let inside=false;
+ for(let i=0,j=coast.length-1;i<coast.length;j=i++){
+  const [ax,ay]=coast[i],[bx,by]=coast[j];
+  if((ay>y)!==(by>y)&&x<(bx-ax)*(y-ay)/(by-ay)+ax)inside=!inside;
+ }
+ return inside;
 }
-function connectUKMap(){
- const map=$('ukExploreMap');
- if(!map)return;
- const pointers=new Map();
- let ignoreClick=false;
- const apply=()=>{
-  map.toggleAttribute('data-pannable',ukMapView.scale>1);
-  map.setAttribute('viewBox',ukMapBox());
- };
- const viewport=(x,y)=>{
-  const bounds=map.getBoundingClientRect(),unit=Math.min(bounds.width/380,bounds.height/300);
-  return {x:Math.max(0,Math.min(1,(x-bounds.left-(bounds.width-380*unit)/2)/(380*unit))),
-   y:Math.max(0,Math.min(1,(y-bounds.top-(bounds.height-300*unit)/2)/(300*unit))),unit};
- };
- map.addEventListener('pointerdown',event=>{
-  if(!pointers.size)ignoreClick=false;
-  pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
- });
- map.addEventListener('pointermove',event=>{
-  const prev=pointers.get(event.pointerId);
-  if(!prev)return;
-  const x=event.clientX,y=event.clientY,dx=x-prev.x,dy=y-prev.y;
-  if(!ignoreClick&&pointers.size===1&&Math.hypot(dx,dy)<8)return;
-  const other=[...pointers].find(([id])=>id!==event.pointerId)?.[1];
-  const centre=viewport(other?(x+other.x)/2:x,other?(y+other.y)/2:y);
-  if(other){
-   const before=Math.hypot(prev.x-other.x,prev.y-other.y);
-   if(before>0)zoomUKMap(Math.hypot(x-other.x,y-other.y)/before,centre.x,centre.y);
-  }
-  if(centre.unit&&ukMapView.scale>1){
-   ukMapView.x-=dx/(centre.unit*ukMapView.scale*(other?2:1));
-   ukMapView.y-=dy/(centre.unit*ukMapView.scale*(other?2:1));
-  }
-  if(!ignoreClick){ignoreClick=true;map.setPointerCapture(event.pointerId);}
-  pointers.set(event.pointerId,{x,y});apply();
- });
- for(const name of ['pointerup','pointercancel','lostpointercapture'])map.addEventListener(name,event=>pointers.delete(event.pointerId));
- map.addEventListener('click',event=>{if(ignoreClick){event.stopPropagation();ignoreClick=false;}},true);
- map.addEventListener('wheel',event=>{
-  if(!event.ctrlKey&&!event.metaKey)return;
-  event.preventDefault();
-  const anchor=viewport(event.clientX,event.clientY);
-  zoomUKMap(Math.exp(-event.deltaY*.006),anchor.x,anchor.y);apply();
- },{passive:false});
- map.addEventListener('keydown',event=>{
-  const pin=event.target.closest('[data-action]');
-  if(pin&&(event.key==='Enter'||event.key===' ')){event.preventDefault();ignoreClick=false;pin.dispatchEvent(new MouseEvent('click',{bubbles:true}));}
- });
- apply();
+function drawUKWorld(){
+ ctx.clearRect(0,0,w,h);ctx.fillStyle='#315665';ctx.fillRect(0,0,w,h);
+ for(const coast of ukCoastlines){
+  poly(coast.map(([x,y])=>project(x,y,0)),'#39584a','#26454c',1);
+  poly(coast.map(([x,y])=>project(x,y,3)),'#82a06d','#bbc797',1.4);
+ }
+ for(let x=2;x<24;x++)for(let y=0;y<25;y++){
+  const tile=[[x,y],[x+1,y],[x+1,y+1],[x,y+1]];
+  if(ukCoastlines.some(coast=>tile.every(([a,b])=>ukLandAt(a,b,coast))))poly(tile.map(([a,b])=>project(a,b,3)),(x+y)%2?'#78925f':'#869f6a','#6c855a',.55);
+ }
+ const national=finance().career.national;
+ for(const [id,site] of Object.entries(ukLocations)){
+  const [x,y]=site.point,p=project(ukWorldX(x),ukWorldY(y),7);
+  const color=id==='midlands'||id==='nuclear'&&national.nuclear?'#ffd084':'#8bdbff';
+  ctx.beginPath();ctx.arc(p.x,p.y,id===inspectedUKSite?8:6,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();ctx.strokeStyle='#233c40';ctx.lineWidth=2;ctx.stroke();
+  if(id==='midlands'||id==='nuclear'||id===inspectedUKSite)mapBadge({x:p.x,y:p.y-18},id==='nuclear'?'Suffolk':id==='midlands'?'East Midlands':site.location,color);
+ }
+}
+function selectUKLocation(x,y){
+ const choices=Object.entries(ukLocations).map(([id,site])=>{
+  const p=project(ukWorldX(site.point[0]),ukWorldY(site.point[1]),7);
+  return [id,Math.min(Math.hypot(x-p.x,y-p.y),Math.hypot(x-p.x,y-(p.y-16)))];
+ }).sort((a,b)=>a[1]-b[1]);
+ if(!choices[0]||choices[0][1]>25){closePanel();return;}
+ inspectedUKSite=choices[0][0];
+ const id=inspectedUKSite,site=ukLocations[id],national=finance().career.national;
+ const action=id==='midlands'?()=>enterMidlands():id==='nuclear'&&national.nuclear?()=>{enterSuffolk();save(false);}:()=>{national.selectedSite=id;national.showSiteBrief=true;openDesk('national');};
+ setPanel(id==='nuclear'?'Suffolk nuclear station':site.name,'<p>'+site.location+'</p><p>'+site.pitch+'</p>',
+  [{text:id==='midlands'?'Take over East Midlands':id==='nuclear'&&national.nuclear?'Take over Suffolk':'Review site brief',fn:action}]);
+}
+function refreshUKWorld(){
+ const national=finance().career.national;
+ $('siteSubtitle').textContent='Meridian Power · UK portfolio · v9.9.0';
+ $('stats').innerHTML='<b>'+money(state.cash)+'</b><br>Portfolio cash';
+ $('clock').textContent='National day '+((national.elapsedDays||0)+1);
+ $('pause').textContent=state.paused?'▶ Resume':'⏸ Pause';
+ $('speed').textContent='⏩ '+SPEEDS[state.speed]+'×';
+ $('siteObjective').hidden=true;$('siteNational').hidden=true;$('mapMessageAlert').hidden=true;
+ uiDirty=false;
+}
+function tickUKWorld(now){
+ const dt=Math.min((now-last)/1000,1);last=now;
+ if(!state.paused){
+  acc+=dt*SPEEDS[state.speed];
+  while(acc>=48){advanceDelegatedSites(finance().career.national,null);acc-=48;uiDirty=true;}
+ }
+ if(now>=nextFrame){drawUKWorld();nextFrame=now+33;}
+ if(uiDirty)refreshUKWorld();
 }
 function ukLocationPanel(national){
  const id=inspectedUKSite,site=ukLocations[id];
@@ -2965,6 +2974,7 @@ function clearSiteSelection(){
 }
 function enterMidlands(){
  const national=finance().career.national;
+ national.ukCamera=camera;camera=national.homeCamera||freshCamera();
  national.midlandsOpen=true;national.nuclearOpen=false;national.showSiteBrief=false;
  managingMidlands=true;state.paused=true;
  inspectedUKSite='midlands';
@@ -2974,13 +2984,13 @@ function enterMidlands(){
 }
 function leaveMidlands(){
  const national=finance().career.national;
- national.midlandsOpen=false;managingMidlands=false;
- clearSiteSelection();openDesk('national');save(false);
+ national.homeCamera=camera;national.midlandsOpen=false;managingMidlands=false;
+ openUKWorld();save(false);
 }
 function enterSuffolk(){
  const national=state.showcase.career.national;
  startNuclear(national);
- national.homeCamera=camera;
+ national.ukCamera=camera;
  homeState=state;
  state=national.suffolkWorld??=createSuffolkWorld(homeState);
  state.cash=homeState.cash;state.paused=true;
@@ -2993,8 +3003,8 @@ function enterSuffolk(){
 function leaveSuffolk(){
  const root=homeState,national=root.showcase.career.national;
  root.cash=state.cash;national.suffolkWorld=state;national.suffolkCamera=camera;national.nuclearOpen=false;
- state=root;homeState=null;camera=national.homeCamera||freshCamera();state.paused=true;
- clearSiteSelection();openDesk('national');save(false);
+ state=root;homeState=null;
+ openUKWorld();save(false);
 }
 function advanceDelegatedSites(national,activeSite){
  national.midlandsDelegatedDays??=national.elapsedDays||0;
@@ -3027,7 +3037,6 @@ function nationalAction(action){
   if(Object.hasOwn(ukLocations,id))inspectedUKSite=id;
   return;
  }
- if(action.startsWith('national-zoom-')){changeUKZoom(action.slice('national-zoom-'.length));return;}
  if(action.startsWith('nuclear-'))return nuclearAction(national,action);
  if(action==='national-review-map'){national.showSiteBrief=false;return;}
  if(action==='national-advance-day'||action==='national-advance-week'){
@@ -3053,22 +3062,11 @@ function showNationalMap(){
  const national=career().national;
  if(!national)return '<h2>UK expansion</h2><p>Complete Go national to open the UK map.</p>'+btn('Open Development','tab-development');
  const selected=nationalSites[national.selectedSite],days=national.elapsedDays||0;
- if(national.nuclearOpen&&national.nuclear&&!national.suffolkWorld)return showNuclear(national,national.nuclear);
  if(selected&&national.showSiteBrief)return showNationalSite(selected);
  return '<div class="desk-heading"><h2>UK expansion</h2><p>National day '+(days+1)+' · Mandate awarded on local day '+national.day+'</p></div>'+
- '<section class="uk-explorer" aria-label="UK site explorer"><div class="uk-map-stage">'+
- '<svg id="ukExploreMap" viewBox="'+ukMapBox()+'" role="group" aria-label="Interactive UK energy sites"><rect width="380" height="300" fill="#112d35"/><g fill="#3e6259" stroke="#85a49a" stroke-width="2">'+
- '<path d="M150 19 162 32 150 48 176 45 172 59 159 77 176 87 177 111 193 122 201 148 205 165 224 179 228 193 214 218 229 232 213 249 182 248 167 261 142 257 116 272 95 273 111 255 132 238 157 228 149 216 126 228 109 217 128 204 127 188 140 184 152 195 158 175 156 156 143 142 137 126 118 123 107 108 121 91 115 76 133 66 124 54 136 43 127 34Z"/>'+
- '<path d="M82 115 101 124 103 146 88 151 81 161 64 152 66 135Z"/></g>'+
- Object.entries(ukLocations).map(([id,site])=>{
-  const [x,y]=site.point,active=id===inspectedUKSite,live=id==='midlands'||id==='nuclear'&&national.nuclear;
-  return '<g class="uk-site-pin" role="button" tabindex="0" aria-pressed="'+active+'" aria-label="'+site.name+' · '+site.location+'" data-action="national-location-'+id+'" transform="translate('+x+' '+y+')">'+
-   '<circle class="uk-pin-target" r="14" fill="transparent"/><circle r="'+(active?8:6)+'" fill="'+(live?'#ffd084':'#88e6ff')+'" stroke="'+(active?'#fff5d3':'#18353e')+'" stroke-width="2"/><title>'+site.name+'</title></g>';
- }).join('')+'</svg>'+
- '<div class="uk-map-controls" aria-label="Map zoom">'+btn('+','national-zoom-in')+btn('−','national-zoom-out')+btn('Reset','national-zoom-reset')+'</div></div>'+
- '<p class="desk-note">Drag or pinch the map. Tap a site pin or choose a site below.</p>'+
- '<div class="desk-actions uk-site-list" aria-label="UK sites">'+Object.entries(ukLocations).map(([id,site])=>btn(id==='midlands'?'East Midlands':site.location,'national-location-'+id,id===inspectedUKSite?'selected':'')).join('')+'</div>'+
- ukLocationPanel(national)+'</section>'+
+ '<h3>Sites</h3><div class="desk-actions uk-site-list" aria-label="UK sites">'+
+ Object.entries(ukLocations).map(([id,site])=>btn(id==='midlands'?'East Midlands':site.location,'national-location-'+id,id===inspectedUKSite?'selected':'')).join('')+'</div>'+
+ ukLocationPanel(national)+
  '<details><summary>Board approval · Meridian goes national</summary><p>Congratulations. You built a diversified operating portfolio and protected the company’s cash reserve. The board has approved UK expansion.</p></details>'+
  '<article class="notice"><h3>Portfolio operations</h3><p>Sites run under delegated management whenever you leave their site map.</p>'+
  row('Grid export capacity',gridMW()+' MW')+row('Operating assets',state.assets.filter(operating).length)+
@@ -3535,5 +3533,5 @@ function careerAction(action){
 }
 
 refresh();requestAnimationFrame(loop);
-if(finance().career?.national){state.paused=true;if(finance().career.national.nuclearOpen)enterSuffolk();else if(finance().career.national.midlandsOpen)enterMidlands();else openDesk('national');}else if(finance().dismissed){state.paused=true;openDesk('dismissed');}else if(!hasChosenCEO()||needsDifficulty()){openDesk('campaign');save(false);}
+if(finance().career?.national){state.paused=true;if(finance().career.national.nuclearOpen)enterSuffolk();else if(finance().career.national.midlandsOpen){managingMidlands=true;state.paused=true;refresh();}else openUKWorld();}else if(finance().dismissed){state.paused=true;openDesk('dismissed');}else if(!hasChosenCEO()||needsDifficulty()){openDesk('campaign');save(false);}
 </script></body></html>
