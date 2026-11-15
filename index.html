@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.5.0</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.5.1</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -236,8 +236,17 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #businessDesk[data-national]{inset:0;margin:0;width:100%;max-width:none;height:100dvh;max-height:none;border:0;border-radius:0}
 #businessDesk[data-national] #deskHeader,#businessDesk[data-national] #deskFooter{display:none}
 #businessDesk[data-national] #deskBody{width:min(100%,760px);margin:auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom))}
+.nuclear-map-scene{position:relative;aspect-ratio:600/320;min-height:220px;overflow:hidden;border-radius:12px;border:1px solid #52786f}
+.nuclear-map-scene svg{display:block;width:100%;height:100%;position:absolute;inset:0}
+#businessDesk .nuclear-map-scene button{position:absolute;min-height:44px;max-width:43%;font-size:12px;line-height:1.15;margin:0;padding:4px 7px;background:#142f37f2;border-color:#8eb7af}
+.nuclear-map-scene .map-reactor{left:5%;top:43%}
+.nuclear-map-scene .map-generator{right:5%;top:34%}
+.nuclear-map-scene .map-grid{right:5%;top:11%}
+.nuclear-map-scene .map-cooling{right:5%;bottom:13%}
+.nuclear-view{margin-top:12px;overflow-x:auto}
+.nuclear-time{margin-top:12px}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.5.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.5.1</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -2185,7 +2194,7 @@ function renderDesk(){
  $('deskClose').hidden=onboarding;
  $('deskClock').hidden=onboarding;
  $('deskNav').innerHTML=onboarding?'':deskNavigation();
- const page=picking?'avatar-picker':choosingDifficulty?'difficulty-picker':deskTab==='national'&&finance().career?.national?.nuclearOpen?'national-nuclear':deskTab==='national'&&finance().career?.national?.showSiteBrief?'national-site':deskTab+(deskTab==='winter'?'|'+(finance().winter?.status||'')+'|'+(finance().winter?.lesson??''):deskTab==='story'?'|'+activeStoryObjective():'');
+ const page=picking?'avatar-picker':choosingDifficulty?'difficulty-picker':deskTab==='national'&&finance().career?.national?.nuclearOpen?'national-nuclear-'+(finance().career.national.nuclear?.menuTab||'map'):deskTab==='national'&&finance().career?.national?.showSiteBrief?'national-site':deskTab+(deskTab==='winter'?'|'+(finance().winter?.status||'')+'|'+(finance().winter?.lesson??''):deskTab==='story'?'|'+activeStoryObjective():'');
  const scroll=$('deskScroll');
  if(Object.hasOwn(progressionScroll,renderedDeskPage))progressionScroll[renderedDeskPage]=scroll.scrollTop;
  const scrollTop=page===renderedDeskPage?scroll.scrollTop:progressionScroll[page]||0;
@@ -2663,6 +2672,11 @@ function nuclearAction(national,action){
  const n=national.nuclear;
  if(!n)return 'Open the Suffolk nuclear site first.';
  if(action==='nuclear-map'){national.nuclearOpen=false;return;}
+ if(action.startsWith('nuclear-tab-')){
+  const tab=action.slice('nuclear-tab-'.length);
+  if(tab==='map'||Object.values(nuclearMenu).some(pages=>Object.hasOwn(pages,tab)))n.menuTab=tab;
+  return;
+ }
  if(action==='nuclear-refuel'){
   if(n.outage)return 'An outage is already in progress.';
   if(!nuclearCanSpend(1.2))return 'Refuelling requires £1.2m while retaining the £17m reserve.';
@@ -2694,30 +2708,67 @@ function nuclearAction(national,action){
   n.stage++;
  }
 }
-function showNuclear(national,n){
- const forecast=nuclearForecast(n.age),last=n.history[0];
- const objective=nuclearObjectives[n.stage],hotLimit=Math.round(nuclearCapacity(n)*nuclearLimit(n,forecast.hot));
- const status=n.outage?'Outage · '+n.outage.remaining+' days remaining':n.projects.uprate?.remaining===1?'Uprate commissioning shutdown':'Available · '+hotLimit+' MW '+(forecast.hot?'hot-weather limit':'weather limit');
- return '<div class="desk-heading"><h2>Suffolk nuclear station</h2><p>National day '+((national.elapsedDays||0)+1)+' · '+status+'</p></div>'+
- '<div class="desk-metrics">'+card('Portfolio cash',money(state.cash))+card('Station capacity',nuclearCapacity(n)+' MW')+card('Cumulative operating profit',cashGBP(n.operatingProfit))+'</div>'+
- '<article class="notice objective-card">'+(objective?'<h3>'+objective[0]+' · '+(n.stage+1)+' of '+nuclearObjectives.length+'</h3><p>'+objective[1]+' · '+objective[2]+'</p><p>'+objective[3]+'</p>'+
+const nuclearMenu={
+ Info:{overview:'Overview',operations:'Operations'},
+ Build:{development:'Development'},
+ Trade:{dispatch:'Dispatch',contracts:'Contracts'},
+ Finance:{results:'Results',costs:'Costs'}
+};
+function nuclearBoard(n){
+ const objective=nuclearObjectives[n.stage];
+ return '<article class="notice objective-card">'+(objective?'<h3>'+objective[0]+' · '+(n.stage+1)+' of '+nuclearObjectives.length+'</h3><p>'+objective[1]+' · '+objective[2]+'</p><p>'+objective[3]+'</p>'+
  (objective[4](n)?btn('Report to the board','nuclear-report-'+n.stage,'primary'):'<p>In progress</p>'):
- '<h3>Board approval · Suffolk campaign complete</h3><p>Congratulations. You managed a refuelling outage, prepared for hotter weather and proved the uprated station can earn a profit. The station remains open for trading.</p>')+'</article>'+
- '<section><h3>Operations</h3>'+row('Fuel at full-power equivalent',n.fuel.toFixed(1)+' days')+row('Plant condition',n.condition+'%')+
- '<p>Set the output ceiling. Fuel remaining, weather and equipment condition may reduce actual generation.</p>'+
- '<div class="desk-actions">'+[60,80,100].map(v=>btn(v+'% output','nuclear-output-'+v,n.output===v?'selected':'')).join('')+'</div>'+
- (n.outage?'':'<p>Refuelling restores fuel and condition. Allow '+(n.completed.planning?2:3)+' offline days and £1.2m.</p>'+btn('Start planned refuelling','nuclear-refuel'))+'</section>'+
- '<section><h3>Trading</h3>'+row('Next day spot forecast','£'+forecast.price+'/MWh')+
- (n.contract?row('Power contract',n.contract.mw+' MW at £'+n.contract.price+'/MWh · '+n.contract.remaining+' days left'):
- '<p>Sell all generated power at spot, or fix 350 MW at £75/MWh for seven days. Buy any contracted shortfall at spot plus £12/MWh.</p>'+btn('Sign seven-day contract','nuclear-contract'))+'</section>'+
- '<section><h3>Advance and settle</h3><p>East Midlands contributes '+cashGBP(homeManagementDailyGBP)+' per day alongside Suffolk’s performance.</p>'+
- '<div class="desk-actions">'+btn('Run one day','national-advance-day','primary')+btn('Run seven days','national-advance-week')+'</div>'+
- (last?table(['Day','Status','Output','Revenue','Replacement power','Operating profit'],n.history.slice(0,7).map(r=>[r.day,r.reason,r.output+' MW',cashGBP(r.revenue),cashGBP(r.replacement),cashGBP(r.profit)])):'<p>Run a day to see settlement.</p>')+'</section>'+
- '<section><h3>Development</h3>'+row('Investment paid',money(n.capex))+
- Object.entries(nuclearResearch).map(([id,p])=>'<article class="notice"><h4>'+p.name+'</h4><p>'+p.benefit+' '+money(p.cost)+' · '+p.days+' days.</p>'+
- (n.completed[id]?'<p class="good">Commissioned</p>':n.projects[id]?'<p>Commissioning in '+n.projects[id].remaining+' days</p>':
- p.requires&&!n.completed[p.requires]?'<p class="bad">Requires '+nuclearResearch[p.requires].name+'</p>':btn('Approve '+p.name,'nuclear-research-'+id))+'</article>').join('')+'</section>'+
- '<div class="desk-actions">'+btn('Return to UK map','nuclear-map')+'</div>';
+ '<h3>Board approval · Suffolk campaign complete</h3><p>Congratulations. You managed a refuelling outage, prepared for hotter weather and proved the uprated station can earn a profit. The station remains open for trading.</p>')+'</article>';
+}
+function nuclearSiteMap(n,forecast){
+ return '<div class="nuclear-map-scene">'+
+ '<svg viewBox="0 0 600 320" aria-hidden="true" preserveAspectRatio="none">'+
+ '<path fill="#365d50" d="M0 0h600v320H0z"/><path fill="#224858" d="M440 0h160v320H365l61-102 72-40-51-67z"/>'+
+ '<path fill="#28443f" stroke="#688178" stroke-width="2" d="m28 181 245-121 180 92-246 133z"/>'+
+ '<path fill="none" stroke="#a49b7e" stroke-width="9" d="m7 246 107-57 131 67 106-57"/>'+
+ '<path fill="none" stroke="#8bc4e2" stroke-width="3" d="m195 121 110-48 102 39m-101 42 101-42 106-49"/>'+
+ '<path fill="#b3c5bd" stroke="#22383d" stroke-width="2" d="m143 141 60-31 61 31-60 31z M143 141v35l61 32v-36z M204 172v36l60-32v-35z"/>'+
+ '<path fill="#d3ddd1" stroke="#22383d" stroke-width="2" d="M172 139a31 31 0 0 1 62 0l-30 16z"/>'+
+ '<path fill="#939e9d" stroke="#22383d" stroke-width="2" d="m251 126 54-28 74 37-54 28z M251 126v27l74 38v-28z M325 163v28l54-29v-27z"/>'+
+ '<path fill="#92a7a0" stroke="#22383d" stroke-width="2" d="m361 87 46-23 49 25-47 24z M361 87v22l48 25v-21z M409 113v21l47-24V89z"/>'+
+ '<path fill="#6498a4" stroke="#9fd0d0" stroke-width="2" d="m391 201 51-26 42 22-51 28zm-26 35 51-26 42 22-51 28z"/></svg>'+
+ btn('Reactor · '+(n.outage?'offline':'available'),'nuclear-tab-operations','map-reactor')+
+ btn('Generator · '+nuclearCapacity(n)+' MW','nuclear-tab-dispatch','map-generator')+
+ btn('Cooling · '+(forecast.hot?'hot day':'normal'),'nuclear-tab-development','map-cooling')+
+ btn('Grid connection','nuclear-tab-contracts','map-grid')+'</div>';
+}
+function showNuclear(national,n){
+ const forecast=nuclearForecast(n.age),last=n.history[0],tab=n.menuTab||'map';
+ const hotLimit=Math.round(nuclearCapacity(n)*nuclearLimit(n,forecast.hot));
+ const status=n.outage?'Outage · '+n.outage.remaining+' days remaining':n.projects.uprate?.remaining===1?'Uprate commissioning shutdown':'Available · '+hotLimit+' MW '+(forecast.hot?'hot-weather limit':'weather limit');
+ const groups=Object.entries(nuclearMenu);
+ const group=groups.find(([,pages])=>Object.hasOwn(pages,tab));
+ const overview='<div class="desk-metrics">'+card('Portfolio cash',money(state.cash))+card('Station capacity',nuclearCapacity(n)+' MW')+card('Cumulative operating profit',cashGBP(n.operatingProfit))+'</div>'+nuclearBoard(n);
+ const views={
+  map:nuclearSiteMap(n,forecast)+overview,
+  overview,
+  operations:'<h3>Operations</h3>'+row('Fuel at full-power equivalent',n.fuel.toFixed(1)+' days')+row('Plant condition',n.condition+'%')+
+   (n.outage?'<p>'+status+'</p>':'<p>Refuelling restores fuel and condition. Allow '+(n.completed.planning?2:3)+' offline days and £1.2m.</p>'+btn('Start planned refuelling','nuclear-refuel','primary')),
+  dispatch:'<h3>Dispatch</h3>'+row('Next day spot forecast','£'+forecast.price+'/MWh')+
+   '<p>Set the output ceiling. Fuel remaining, weather and equipment condition may reduce actual generation.</p>'+
+   '<div class="desk-actions">'+[60,80,100].map(v=>btn(v+'% output','nuclear-output-'+v,n.output===v?'selected':'')).join('')+'</div>',
+  contracts:'<h3>Power contracts</h3>'+row('Next day spot forecast','£'+forecast.price+'/MWh')+
+   (n.contract?row('Power contract',n.contract.mw+' MW at £'+n.contract.price+'/MWh · '+n.contract.remaining+' days left'):
+   '<p>Sell all generated power at spot, or fix 350 MW at £75/MWh for seven days. Buy any contracted shortfall at spot plus £12/MWh.</p>'+btn('Sign seven-day contract','nuclear-contract','primary')),
+  results:'<h3>Operating results</h3>'+row('Cumulative operating profit',cashGBP(n.operatingProfit))+row('Portfolio cash',money(state.cash))+
+   (last?table(['Day','Status','Output','Revenue','Replacement power','Operating profit'],n.history.slice(0,7).map(r=>[r.day,r.reason,r.output+' MW',cashGBP(r.revenue),cashGBP(r.replacement),cashGBP(r.profit)])):'<p>Run a day to see settlement.</p>'),
+  costs:'<h3>Costs and investment</h3>'+row('Investment paid',money(n.capex))+row('Daily fixed cost','£310,000')+row('Variable generation cost','£19/MWh')+
+   row('East Midlands daily contribution',cashGBP(homeManagementDailyGBP))+(last?row('Last day operating costs',cashGBP(last.cost)):''),
+  development:'<h3>Development</h3>'+Object.entries(nuclearResearch).map(([id,p])=>'<article class="notice"><h4>'+p.name+'</h4><p>'+p.benefit+' '+money(p.cost)+' · '+p.days+' days.</p>'+
+   (n.completed[id]?'<p class="good">Commissioned</p>':n.projects[id]?'<p>Commissioning in '+n.projects[id].remaining+' days</p>':
+   p.requires&&!n.completed[p.requires]?'<p class="bad">Requires '+nuclearResearch[p.requires].name+'</p>':btn('Approve '+p.name,'nuclear-research-'+id))+'</article>').join('')
+ };
+ return '<div class="desk-heading"><h2>Suffolk nuclear station</h2><p>National day '+((national.elapsedDays||0)+1)+' · '+status+'</p></div>'+
+ '<div class="desk-actions">'+(group?btn('Site map','nuclear-tab-map'):btn('Manage','nuclear-tab-overview','primary'))+btn('UK map','nuclear-map')+'</div>'+
+ (group?'<nav aria-label="Suffolk management"><div class="desk-primary">'+groups.map(([label,pages])=>btn(label,'nuclear-tab-'+Object.keys(pages)[0],label===group[0]?'selected':'')).join('')+'</div>'+
+ '<div class="desk-secondary" style="--tabs:'+Object.keys(group[1]).length+'">'+Object.entries(group[1]).map(([key,label])=>btn(label,'nuclear-tab-'+key,key===tab?'selected':'')).join('')+'</div></nav>':'')+
+ '<section class="nuclear-view">'+views[tab]+'</section>'+
+ '<div class="desk-actions nuclear-time">'+btn('Run one day','national-advance-day','primary')+btn('Run seven days','national-advance-week')+'</div>';
 }
 
 function nationalAction(action){
