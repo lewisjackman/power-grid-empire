@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v7.2.2</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v7.2.3</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -182,12 +182,16 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 @media(max-width:360px){#bar .site-controls button{padding-inline:5px}#bar .site-controls{gap:3px}}
 
 #panel{overflow:hidden;padding:0}#panelHead{padding:12px;background:#173941}#assetScroll{overflow:auto;max-height:calc(45dvh - 70px);padding:0 12px 12px;overscroll-behavior:contain}#siteOptions{align-self:center;position:relative}#siteOptions>summary{display:flex;align-items:center;justify-content:center;min-height:44px;list-style:none}#siteOptions .site-more{bottom:calc(100% + 10px);right:0;top:auto} .price-profile{width:100%;display:block;background:#102e36;border-radius:12px;margin:12px 0}.cost-help{line-height:1.6}.finance-warning{border-left:4px solid #ffd385;padding:12px;background:#27474b}.desk-fields select{width:100%}
+#siteNotices{position:absolute;top:100%;left:10px;right:10px;display:grid;justify-items:start;gap:6px;padding-top:3px;pointer-events:none}
+#siteNotices #siteObjective,#siteNotices #toast{position:static;max-width:100%}
+#siteNotices #siteObjective{pointer-events:auto}
+#siteNotices #siteObjective[hidden]{display:none}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v7.2.2</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button></header><div id="toast"></div>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v7.2.3</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
-<button id="siteObjective" hidden>Your First Season</button>
+
 <footer id="bar">
 <div class="site-controls"><div id="clock"></div><button id="businessOpen">Manage</button><button id="pause">Pause</button><button id="speed">1×</button><details id="siteOptions"><summary aria-label="More controls">⋯</summary><div class="site-more"><button id="siteSettings">Settings</button><button id="cameraReset">Reset camera</button><button id="save">Save game</button><button id="reset">Reset game</button></div></details></div>
 
@@ -765,7 +769,7 @@ function winterObjective(){
  if(q?.status==='tutorial')return 'Winter Peak tutorial · '+winterLessons[q.lesson].title;
  if(!q)return finance().complete?'Free play · Meridian Power':'Your First Season · Campaign';
  return q.status==='decision'?'Winter Peak · Make your first call':
-  q.status==='live'?'Winter Peak · Watch the decision play out':
+  q.status==='live'?'Winter Peak · View or skip to result':
   q.status==='result'?'Winter Peak · Review the outcome':'Your First Season · Campaign';
 }
 function showWinter(){
@@ -815,7 +819,7 @@ function winterAction(action){
  }
  if(!f.quarter?.intervals)f.quarter=forecastQuarter();
  deskWasPaused=false;desk.close();state.paused=false;uiDirty=true;
- toast('Winter Peak decision applied. Tap the objective to skip to the result.');
+
 }
 function finishWinter(){
  const f=finance(),q=f.winter;
