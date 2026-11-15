@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.4.0</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.5.0</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -237,7 +237,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #businessDesk[data-national] #deskHeader,#businessDesk[data-national] #deskFooter{display:none}
 #businessDesk[data-national] #deskBody{width:min(100%,760px);margin:auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom))}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.4.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.5.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -2185,7 +2185,7 @@ function renderDesk(){
  $('deskClose').hidden=onboarding;
  $('deskClock').hidden=onboarding;
  $('deskNav').innerHTML=onboarding?'':deskNavigation();
- const page=picking?'avatar-picker':choosingDifficulty?'difficulty-picker':deskTab==='national'&&finance().career?.national?.showSiteBrief?'national-site':deskTab+(deskTab==='winter'?'|'+(finance().winter?.status||'')+'|'+(finance().winter?.lesson??''):deskTab==='story'?'|'+activeStoryObjective():'');
+ const page=picking?'avatar-picker':choosingDifficulty?'difficulty-picker':deskTab==='national'&&finance().career?.national?.nuclearOpen?'national-nuclear':deskTab==='national'&&finance().career?.national?.showSiteBrief?'national-site':deskTab+(deskTab==='winter'?'|'+(finance().winter?.status||'')+'|'+(finance().winter?.lesson??''):deskTab==='story'?'|'+activeStoryObjective():'');
  const scroll=$('deskScroll');
  if(Object.hasOwn(progressionScroll,renderedDeskPage))progressionScroll[renderedDeskPage]=scroll.scrollTop;
  const scrollTop=page===renderedDeskPage?scroll.scrollTop:progressionScroll[page]||0;
@@ -2593,13 +2593,142 @@ const nationalSites={
  }
 };
 const homeManagementDailyGBP=28000;
+const nuclearReserve=17;
+const nuclearResearch={
+ planning:{name:'Outage planning',cost:2,days:2,requires:null,benefit:'Shortens future refuelling outages from 3 days to 2.'},
+ cooling:{name:'Cooling resilience',cost:5,days:3,requires:'planning',benefit:'Raises hot-day output limit from 70% to 90% of rated capacity.'},
+ uprate:{name:'Generator uprate',cost:9,days:4,requires:'cooling',benefit:'Raises rated output from 600 MW to 680 MW after commissioning.'}
+};
+const nuclearObjectives=[
+ ['Prove the operating margin','Trading Director','You’ve inherited an operating station. Choose an output setting and decide whether to sell at spot or lock in part of your output.','Record a profitable operating day.',n=>n.profitableDays>0],
+ ['Refuel without losing control','Operations Director','Fuel endurance is limited. Choose when to take a planned outage. If you’ve signed a contract, compare the cost of buying replacement power with the cost of waiting for the contract to expire.','Finish a refuelling outage that you scheduled.',n=>n.plannedOutages>0],
+ ['Keep the station available','Grid and Engineering Director','Heat limits the site’s output on some days. Install Cooling resilience, then trade through a hot day and review the resulting output constraint.','Commission Cooling resilience and generate on a hot day with it installed.',n=>n.hotDaysWithCooling>0],
+ ['Make the case for more power','Board Chair','A larger generator needs capital and a commissioning outage. Protect the portfolio reserve, complete the uprate and show an operating profit at the new rating.','Commission the uprate and record a profitable day after it enters service.',n=>n.profitableUpratedDay]
+];
+function nuclearForecast(age,offset=0){
+ const day=age+offset;
+ return {price:Math.round(69+14*Math.sin(day*1.17)+9*Math.cos(day*.53)),hot:[3,4,5].includes(day%10)};
+}
+function nuclearCapacity(n){return n.completed.uprate?680:600;}
+function nuclearFuelUse(n){return n.output/100;}
+function nuclearLimit(n,hot){return hot?(n.completed.cooling?.9:.7):1;}
+function startNuclear(national){
+ if(national.nuclear)return;
+ national.nuclear={age:0,output:100,fuel:8,condition:86,stage:0,completed:{},projects:{},profitableDays:0,plannedOutages:0,hotDaysWithCooling:0,operatingProfit:0,capex:0,history:[]};
+}
+function advanceNuclearDay(n){
+ const forecast=nuclearForecast(n.age);
+ if(n.fuel<=0&&!n.outage)n.outage={remaining:4,kind:'emergency'};
+ const offlineReason=n.outage?n.outage.kind==='planned'?'Planned refuelling':'Emergency refuelling':n.projects.uprate?.remaining===1?'Uprate commissioning':'';
+ const blocked=Boolean(offlineReason);
+ const rating=nuclearCapacity(n);
+ const output=blocked?0:Math.round(rating*Math.min(nuclearFuelUse(n),nuclearLimit(n,forecast.hot),n.condition<55?.8:1,n.fuel));
+ const energy=output*24,contract=n.contract;
+ const contractEnergy=contract?contract.mw*24:0;
+ const spotEnergy=Math.max(0,energy-contractEnergy);
+ const shortfall=Math.max(0,contractEnergy-energy);
+ const revenue=spotEnergy*forecast.price+contractEnergy*(contract?.price||0);
+ const replacement=shortfall*(forecast.price+12);
+ const cost=310000+energy*19+replacement+(n.outage?.kind==='emergency'?220000:0);
+ const profit=revenue-cost;
+ state.cash+=profit/1e6;
+ n.operatingProfit+=profit;
+ if(output>0){
+  n.fuel=Math.max(0,n.fuel-output/rating);
+  n.condition=Math.max(0,n.condition-1);
+  if(profit>0)n.profitableDays++;
+  if(forecast.hot&&n.completed.cooling)n.hotDaysWithCooling++;
+  if(profit>0&&n.completed.uprate)n.profitableUpratedDay=true;
+ }
+ if(n.outage&&--n.outage.remaining===0){
+  if(n.outage.kind==='planned')n.plannedOutages++;
+  n.fuel=18;n.condition=Math.min(96,n.condition+22);delete n.outage;
+ }
+ if(contract&&--contract.remaining===0)delete n.contract;
+ for(const [id,project] of Object.entries(n.projects)){
+  if(--project.remaining===0){n.completed[id]=true;delete n.projects[id];}
+ }
+ n.age++;
+ n.history.unshift({day:n.age,price:forecast.price,output,energy,revenue,replacement,cost,profit,reason:offlineReason||(forecast.hot?'Hot weather':'Operating')});
+ if(n.history.length>30)n.history.length=30;
+}
+function nuclearCanSpend(cost){return reserveCash()-cost>=nuclearReserve;}
+function nuclearAction(national,action){
+ if(action==='nuclear-open'){
+  if(national.selectedSite!=='nuclear'&&!national.nuclear)return 'Select the Suffolk nuclear site first.';
+  startNuclear(national);
+  national.nuclearOpen=true;national.showSiteBrief=false;
+  return;
+ }
+ const n=national.nuclear;
+ if(!n)return 'Open the Suffolk nuclear site first.';
+ if(action==='nuclear-map'){national.nuclearOpen=false;return;}
+ if(action==='nuclear-refuel'){
+  if(n.outage)return 'An outage is already in progress.';
+  if(!nuclearCanSpend(1.2))return 'Refuelling requires £1.2m while retaining the £17m reserve.';
+  state.cash-=1.2;n.capex+=1.2;
+  n.outage={remaining:n.completed.planning?2:3,kind:'planned'};
+  return;
+ }
+ if(action==='nuclear-contract'){
+  if(n.contract)return 'The current contract must expire before you can sign another.';
+  n.contract={mw:350,price:75,remaining:7};
+  return;
+ }
+ if(action.startsWith('nuclear-output-')){
+  const output=Number(action.slice('nuclear-output-'.length));
+  if([60,80,100].includes(output))n.output=output;
+  return;
+ }
+ if(action.startsWith('nuclear-research-')){
+  const id=action.slice('nuclear-research-'.length),project=nuclearResearch[id];
+  if(!project||n.completed[id]||n.projects[id])return 'This project is already approved or unavailable.';
+  if(project.requires&&!n.completed[project.requires])return 'Commission '+nuclearResearch[project.requires].name+' first.';
+  if(!nuclearCanSpend(project.cost))return 'This investment must leave £17m after commitments.';
+  state.cash-=project.cost;n.capex+=project.cost;n.projects[id]={remaining:project.days};
+  return;
+ }
+ if(action.startsWith('nuclear-report-')){
+  if(action!=='nuclear-report-'+n.stage)return;
+  if(n.stage>=nuclearObjectives.length||!nuclearObjectives[n.stage][4](n))return 'Meet the board’s objective first.';
+  n.stage++;
+ }
+}
+function showNuclear(national,n){
+ const forecast=nuclearForecast(n.age),last=n.history[0];
+ const objective=nuclearObjectives[n.stage],hotLimit=Math.round(nuclearCapacity(n)*nuclearLimit(n,forecast.hot));
+ const status=n.outage?'Outage · '+n.outage.remaining+' days remaining':n.projects.uprate?.remaining===1?'Uprate commissioning shutdown':'Available · '+hotLimit+' MW '+(forecast.hot?'hot-weather limit':'weather limit');
+ return '<div class="desk-heading"><h2>Suffolk nuclear station</h2><p>National day '+((national.elapsedDays||0)+1)+' · '+status+'</p></div>'+
+ '<div class="desk-metrics">'+card('Portfolio cash',money(state.cash))+card('Station capacity',nuclearCapacity(n)+' MW')+card('Cumulative operating profit',cashGBP(n.operatingProfit))+'</div>'+
+ '<article class="notice objective-card">'+(objective?'<h3>'+objective[0]+' · '+(n.stage+1)+' of '+nuclearObjectives.length+'</h3><p>'+objective[1]+' · '+objective[2]+'</p><p>'+objective[3]+'</p>'+
+ (objective[4](n)?btn('Report to the board','nuclear-report-'+n.stage,'primary'):'<p>In progress</p>'):
+ '<h3>Board approval · Suffolk campaign complete</h3><p>Congratulations. You managed a refuelling outage, prepared for hotter weather and proved the uprated station can earn a profit. The station remains open for trading.</p>')+'</article>'+
+ '<section><h3>Operations</h3>'+row('Fuel at full-power equivalent',n.fuel.toFixed(1)+' days')+row('Plant condition',n.condition+'%')+
+ '<p>Set the output ceiling. Fuel remaining, weather and equipment condition may reduce actual generation.</p>'+
+ '<div class="desk-actions">'+[60,80,100].map(v=>btn(v+'% output','nuclear-output-'+v,n.output===v?'selected':'')).join('')+'</div>'+
+ (n.outage?'':'<p>Refuelling restores fuel and condition. Allow '+(n.completed.planning?2:3)+' offline days and £1.2m.</p>'+btn('Start planned refuelling','nuclear-refuel'))+'</section>'+
+ '<section><h3>Trading</h3>'+row('Next day spot forecast','£'+forecast.price+'/MWh')+
+ (n.contract?row('Power contract',n.contract.mw+' MW at £'+n.contract.price+'/MWh · '+n.contract.remaining+' days left'):
+ '<p>Sell all generated power at spot, or fix 350 MW at £75/MWh for seven days. Buy any contracted shortfall at spot plus £12/MWh.</p>'+btn('Sign seven-day contract','nuclear-contract'))+'</section>'+
+ '<section><h3>Advance and settle</h3><p>East Midlands contributes '+cashGBP(homeManagementDailyGBP)+' per day alongside Suffolk’s performance.</p>'+
+ '<div class="desk-actions">'+btn('Run one day','national-advance-day','primary')+btn('Run seven days','national-advance-week')+'</div>'+
+ (last?table(['Day','Status','Output','Revenue','Replacement power','Operating profit'],n.history.slice(0,7).map(r=>[r.day,r.reason,r.output+' MW',cashGBP(r.revenue),cashGBP(r.replacement),cashGBP(r.profit)])):'<p>Run a day to see settlement.</p>')+'</section>'+
+ '<section><h3>Development</h3>'+row('Investment paid',money(n.capex))+
+ Object.entries(nuclearResearch).map(([id,p])=>'<article class="notice"><h4>'+p.name+'</h4><p>'+p.benefit+' '+money(p.cost)+' · '+p.days+' days.</p>'+
+ (n.completed[id]?'<p class="good">Commissioned</p>':n.projects[id]?'<p>Commissioning in '+n.projects[id].remaining+' days</p>':
+ p.requires&&!n.completed[p.requires]?'<p class="bad">Requires '+nuclearResearch[p.requires].name+'</p>':btn('Approve '+p.name,'nuclear-research-'+id))+'</article>').join('')+'</section>'+
+ '<div class="desk-actions">'+btn('Return to UK map','nuclear-map')+'</div>';
+}
+
 function nationalAction(action){
  const national=finance().career.national;
+ if(action.startsWith('nuclear-'))return nuclearAction(national,action);
  if(action==='national-review-map'){national.showSiteBrief=false;return;}
  if(action==='national-advance-day'||action==='national-advance-week'){
   const days=action==='national-advance-day'?1:7;
   national.elapsedDays=(national.elapsedDays||0)+days;
   state.cash+=days*homeManagementDailyGBP/1e6;
+  if(national.nuclear)for(let day=0;day<days;day++)advanceNuclearDay(national.nuclear);
   return;
  }
  if(action.startsWith('national-select-')){
@@ -2610,7 +2739,8 @@ function nationalAction(action){
 }
 function showNationalSite(site){
  return '<div class="desk-heading"><h2>'+site.name+'</h2><p>'+site.location+' · Selected site</p></div>'+
- '<p>'+site.pitch+'</p><p class="desk-note">Site brief · the next development pass will implement the playable site. Selection commits no capital.</p>'+
+ '<p>'+site.pitch+'</p>'+
+ (site===nationalSites.nuclear?btn('Enter Suffolk nuclear station','nuclear-open','primary'):'<p class="desk-note">Site brief · the next development pass will implement the playable site. Selection commits no capital.</p>')+
  [['Starting site',site.setup],['Operations',site.operation],['Trading',site.trading],['Development tree',site.development],['Scenario sequence',site.scenarios]].map(([title,detail])=>
  '<article class="notice"><h3>'+title+'</h3><p>'+detail+'</p></article>').join('')+
  '<div class="desk-actions">'+btn('Return to UK map','national-review-map','primary')+'</div>';
@@ -2619,6 +2749,7 @@ function showNationalMap(){
  const national=career().national;
  if(!national)return '<h2>UK expansion</h2><p>Complete Go national to open the UK map.</p>'+btn('Open Development','tab-development');
  const selected=nationalSites[national.selectedSite],days=national.elapsedDays||0;
+ if(national.nuclearOpen&&national.nuclear)return showNuclear(national,national.nuclear);
  if(selected&&national.showSiteBrief)return showNationalSite(selected);
  return '<div class="desk-heading"><h2>UK expansion</h2><p>National day '+(days+1)+' · Mandate awarded on local day '+national.day+'</p></div>'+
  '<article class="notice objective-card"><h3>Board approval · Meridian goes national</h3><p>Congratulations. You built a diversified operating portfolio and protected the company’s cash reserve. The board has approved the move to national operations. The East Midlands site is the starting point for your UK portfolio.</p></article>'+
@@ -2633,6 +2764,7 @@ function showNationalMap(){
  row('Net contribution per national day',cashGBP(homeManagementDailyGBP))+row('Contribution credited',cashGBP(days*homeManagementDailyGBP))+
  row('Portfolio cash',money(state.cash))+'<p class="desk-note">The management agreement pays a fixed daily net contribution while you plan national expansion.</p>'+
  '<div class="desk-actions">'+btn('Advance one day','national-advance-day')+btn('Advance one week','national-advance-week')+'</div></article>'+
+ (national.nuclear?'<article class="notice"><h3>Suffolk nuclear station</h3>'+row('Operating profit',cashGBP(national.nuclear.operatingProfit))+btn('Manage Suffolk site','nuclear-open','primary')+'</article>':'')+
  '<h3>Choose your next site</h3><p>Review the operating brief for each option. You can change your selection before site development begins.</p>'+
  Object.entries(nationalSites).map(([id,site])=>'<article class="notice"><h3>'+site.name+'</h3><p>'+site.location+' · '+site.pitch+'</p>'+
  btn(national.selectedSite===id?'Reopen selected site':'Select site','national-select-'+id,national.selectedSite===id?'primary':'')+'</article>').join('');
