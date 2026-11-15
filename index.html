@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v7.2.12</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v7.2.13</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -194,7 +194,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #siteNotices #mapMessageAlert[hidden],#deskMessageAlert[hidden]{display:none}
 #businessDesk #deskMessageAlert{color:#ffda9d;font-size:12px;margin:0;padding:6px 0;overflow-wrap:anywhere}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v7.2.12</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v7.2.13</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -1607,6 +1607,31 @@ function auctionInputs(){
  const a=assetsForDispatch().filter(operating),price=Number($('auctionPrice')?.value??28);
  return {price,player:a.map(x=>({asset:x.id,name:x.name,mw:value('cap-'+x.id),price}))};
 }
+function optimiseCapacityBid(){
+ if(!$('auctionChart'))return;
+ const assets=assetsForDispatch().filter(operating).sort((a,b)=>condition(b)-condition(a));
+ let best=null;
+ for(const share of [.6,.7,.8,.9,1]){
+  let remaining=gridMW();
+  const portfolio=assets.map(a=>{
+   const mw=Math.floor(2*Math.min(remaining,capacityLimit(a)*share*condition(a)/100))/2;
+   remaining-=mw;
+   return {asset:a.id,name:a.name,mw};
+  });
+  if(!portfolio.some(a=>a.mw>0))continue;
+  for(let price=10;price<=75;price++){
+   const player=portfolio.map(a=>({...a,price}));
+   const forecasts=Array.from({length:5},(_,i)=>simulateAuction(player,auctionDemand(i),(i-2)*3));
+   if(forecasts.filter(result=>result.awards.length).length<4)continue;
+   const score=forecasts.reduce((total,result)=>total+result.income,0);
+   if(!best||score>best.score)best={player,price,score};
+  }
+ }
+ if(!best){$('auctionQuote').textContent='No eligible bid found for the current plant and grid connection.';return;}
+ $('auctionPrice').value=best.price;
+ for(const bid of best.player)$('cap-'+bid.asset).value=bid.mw;
+ updateAuction();
+}
 function updateAuction(){
  const {price,player}=auctionInputs(), empty=player.every(a=>!a.mw);
  const forecasts=Array.from({length:5},(_,i)=>simulateAuction(player,auctionDemand(i),(i-2)*3));
@@ -1620,7 +1645,7 @@ function showAuction(){
  return '<div class="desk-heading"><h2>Capacity Market</h2><p>One auction per 90-day quarter. New awards run through the end of the quarter. Earn extra income by promising to supply power during electricity shortages. Choose how much power to offer and the lowest yearly payment you will accept. A high price may lose the auction; promising more power increases both income and the risk of penalties.</p></div>'+
  (active?'<p>Next auction opens on day '+capacityReopenDay(a)+'.</p><article role="status" class="notice '+(a.awards.length?'result-success':'result-failure')+'"><h3>'+(a.awards.length?'Bid successful':'Bid unsuccessful')+'</h3><p>'+(a.awards.length?allocatedCapacity()+' MW awarded.':'No capacity agreement was awarded.')+'</p></article><div class="desk-metrics">'+card('Clearing price',cashGBP(a.price),'per kW per year')+card('Award',allocatedCapacity()+' MW')+card('Annual income',cashGBP(a.income))+'</div>'+
  (a.awards.length?table(['Asset','Contracted capacity'],a.awards.map(o=>[o.name,o.mw+' MW']))+'<p>Delivery from day '+a.deliveryDay+'. Stress warnings arrive four hours before each call.</p>'+btn('Open Messages','tab-messages'):'<p>No capacity awarded.</p>'):
- '<div id="auctionChart"></div><label>Minimum bid price<input id="auctionPrice" type="range" min="10" max="75" value="28"></label><div class="desk-fields">'+operable.map(x=>field('cap-'+x.id,x.name+' · eligible '+capacityLimit(x)+' MW',0,0,capacityLimit(x),.5)).join('')+'</div><p class="estimate" id="auctionQuote"></p>'+btn('Submit bid','auction-65','primary')+' '+btn('Skip auction','tab-overview'))+
+ '<div id="auctionChart"></div><label>Minimum bid price<input id="auctionPrice" type="range" min="10" max="75" value="28"></label><div class="desk-fields">'+operable.map(x=>field('cap-'+x.id,x.name+' · eligible '+capacityLimit(x)+' MW',0,0,capacityLimit(x),.5)).join('')+'</div><p class="estimate" id="auctionQuote" aria-live="polite"></p><p class="desk-note">Optimise suggests a bid using plant condition, grid capacity and at least four successful forecast scenarios out of five. You can change the suggestion before submitting.</p>'+btn('Optimise','auction-optimise')+' '+btn('Submit bid','auction-65','primary')+' '+btn('Skip auction','tab-overview'))+
  '<p class="desk-note">Illustrative auction and penalty rules. The realised supply and demand can differ from the forecast.</p>';
 }
 function loanSchedule(l,days=Infinity){
@@ -1905,6 +1930,7 @@ desk.addEventListener('cancel',event=>{
 desk.addEventListener('click',event=>{
  const action=event.target.closest('[data-action]')?.dataset.action;
  if(!action)return;
+ if(action==='auction-optimise'){optimiseCapacityBid();return;}
  const error=doDesk(action);
  if(error){const warning=action==='bank-borrow'&&$('bankWarning');if(warning){warning.textContent=error;warning.scrollIntoView({block:'nearest'});}else $('deskStatus').textContent=error;return;}
  reviewBoard();save(false);if(desk.open)renderDesk();
