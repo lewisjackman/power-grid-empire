@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v8.0</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v8.0.1</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -194,7 +194,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #siteNotices #mapMessageAlert[hidden],#deskMessageAlert[hidden]{display:none}
 #businessDesk #deskMessageAlert{color:#ffda9d;font-size:12px;margin:0;padding:6px 0;overflow-wrap:anywhere}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v8.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v8.0.1</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -728,6 +728,7 @@ function step(){
  state.price=powerPrice(state.day,state.hour);
  if(state.hour===tradingGate)scheduleAutoDayAhead();
  advanceProjects();applyServiceReturns();
+ if(state.hour===8)scheduleDelegatedMaintenance();
  const interest=serviceDebt();
  const {records,capacityPay}=tradeInterval();
  const sum=(name)=>records.reduce((n,r)=>n+r[name],0);
@@ -1457,7 +1458,7 @@ function showAdvisors(){
   const recommendation=quickAdvice(i);
   return '<article>'+portrait(a.title,i,3,2)+'<div><h3>'+a.title+'</h3><p>'+a.message+'</p><div class="desk-actions">'+
   (recommendation?btn('Take advice · '+recommendation.label,'advice-'+i,'primary'):'')+
-  btn('Decide yourself','manual-advice-'+i)+'</div></div></article>';
+  btn('Decide yourself','manual-advice-'+i)+'</div>'+(i===0?maintenanceDelegation():'')+'</div></article>';
  }).join('');
 
  return '<div class="desk-heading"><h2>Ask your directors</h2><p>Guided decisions aim for a good result quickly. Review the details to fine-tune the decision.</p></div><div class="advisor-list">'+rows(ranking.slice(0,3))+'</div><details><summary>All other directors</summary><div class="advisor-list">'+rows(ranking.slice(3))+'</div></details>';
@@ -1466,6 +1467,45 @@ const condition=a=>Math.round(100*(1-Math.min(1,Math.max(0,a.wear||0))));
 const absoluteNow=()=>state.day*48+state.hour*2;
 function absoluteWindow(m){return {start:m.day*48+m.start*2,end:m.until??m.day*48+m.end*2};}
 const serviceProfiles={routine:{label:'Routine service',ticks:24,cost:7000,restore:.24},major:{label:'Major overhaul',ticks:96,cost:24000,restore:.85}};
+function scheduleDelegatedMaintenance(){
+ const f=finance();
+ if(!f.delegateMaintenance||f.dismissed)return;
+ const scheduled=f.maintenance.filter(m=>!m.completed);
+ if(scheduled.some(m=>m.delegated))return;
+ const asset=assetsForDispatch().filter(a=>operating(a)&&condition(a)<70&&
+  (a.failureUntil||0)<=absoluteNow()&&!scheduled.some(m=>m.asset===a.id))
+  .sort((a,b)=>condition(a)-condition(b))[0];
+ if(!asset)return;
+ const profile=condition(asset)<40?serviceProfiles.major:serviceProfiles.routine;
+ if(state.cash-profile.cost/1e6<5||reserveCash()<5)return;
+ const events=f.capacity?.awards?.some(a=>a.asset===asset.id)?f.capacity.events||[]:[];
+ let best;
+ for(let day=state.day+1;day<=state.day+3;day++){
+  for(let start=0;start<24;start++){
+   const from=day*48+start*2,end=from+profile.ticks;
+   if(events.some(e=>from<(e.day*48+e.start*2+4)&&end>e.day*48+e.start*2))continue;
+   if(scheduled.some(m=>overlapping({start:from,end},absoluteWindow(m))))continue;
+   const plan=seasonPlan(asset)?.hours||autoHours(asset);
+   let score=0;
+   for(let t=from;t<end;t++){
+    const hour=Math.floor(t%48/2),price=powerPrice(Math.floor(t/48),hour);
+    if(orderAt(asset.id,Math.floor(t/48),hour)?.market==='sell')score+=1e6;
+    score+=Math.max(0,plan[hour])*Math.max(0,price-(asset.type==='OCGT'?runCost():70))/2;
+   }
+   if(!best||score<best.score)best={day,start,end,score};
+  }
+ }
+ if(!best||best.score>=1e6)return;
+ f.maintenanceSeq=(f.maintenanceSeq||0)+1;
+ f.maintenance.push({id:f.maintenanceSeq,asset:asset.id,day:best.day,start:best.start,until:best.end,cost:profile.cost,restore:profile.restore,label:profile.label,delegated:true});
+ postMessage('Operations Director · maintenance booked',asset.name+' · '+profile.label+' on day '+best.day+' at '+hours(best.start)+'. Cost '+cashGBP(profile.cost)+'. Review or cancel the booking in Plant operations.','plant');
+ save(false);
+}
+function maintenanceDelegation(){
+ const enabled=finance().delegateMaintenance;
+ return '<p>Delegated maintenance '+(enabled?'on':'off')+'. The director looks for quieter windows, avoids known capacity calls and holds off when cash is tight.</p>'+
+ btn(enabled?'Take back scheduling':'Delegate maintenance','delegate-maintenance');
+}
 function serviceFor(a){const t=absoluteNow();return finance().maintenance.find(m=>m.asset===a.id&&absoluteWindow(m).start<=t&&absoluteWindow(m).end>t);}
 function applyServiceReturns(){
  const now=absoluteNow();
@@ -1484,7 +1524,7 @@ function showMaintenance(){
  const f=finance(),assets=assetsForDispatch(),plans=f.maintenance.filter(m=>!m.completed);
  return '<div class="desk-heading"><h2>Plant operations</h2><p>'+gridMW()+' MW grid connection · '+(f.lastFlow?.out||0).toFixed(1)+' MW export · '+(f.lastFlow?.charge||0).toFixed(1)+' MW import</p></div>'+
  table(['Asset','Status','Condition','Storage'],assets.map(a=>[a.name,a.dispatchReason||status(a),condition(a)+'%',a.type==='Battery'?(a.soc||0).toFixed(1)+' / 20 MWh':'—']))+
- '<h3>Schedule maintenance</h3>'+
+ '<h3>Schedule maintenance</h3>'+maintenanceDelegation()+
  (assets.length?'<label>Asset<select id="maintenanceAsset">'+assets.filter(a=>a.status==='operational').map(a=>'<option value="'+a.id+'">'+a.name+'</option>').join('')+'</select></label>'+
  '<div class="desk-fields">'+field('serviceDay','Days from today',1,0,45)+'<label>Start time<select id="serviceHour">'+Array.from({length:24},(_,h)=>'<option value="'+h+'" '+(h===2?'selected':'')+'>'+hours(h)+'</option>').join('')+'</select></label>'+'</div>'+
  '<label>Service<select id="serviceKind"><option value="routine">Routine · 12 hours · £7,000</option><option value="major">Major · 2 days · £24,000</option></select></label><p id="serviceEstimate"></p>'+btn('Book service','book-service','primary'):'<p>No assets available.</p>')+
@@ -1890,6 +1930,12 @@ function doDesk(action){
  const locked=tutorialGate(action);if(locked)return locked;
  if(action==='restart-company'){$('reset').click();return;}
  if(action.startsWith('construction-')){const project=state.assets.find(a=>a.id===Number(action.slice(13)));if(project?.status==='building')toggleConstruction(project);return;}
+ if(action==='delegate-maintenance'){
+  if(tutorialGate('tab-plant'))return tutorialGate('tab-plant');
+  f.delegateMaintenance=!f.delegateMaintenance;
+  if(f.delegateMaintenance)scheduleDelegatedMaintenance();
+  return;
+ }
  if(action==='bank-borrow')return requestBankLoan();
  if(action.startsWith('overhead-')){
   const plan=action.slice(9);
