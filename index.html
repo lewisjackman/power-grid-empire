@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v8.1.5</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v8.1.6</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -197,7 +197,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #businessDesk #deskMessageAlert{color:#ffda9d;font-size:12px;margin:0;padding:6px 0;overflow-wrap:anywhere}
 #businessDesk button.demolish-action{background:#723a3e;border-color:#ff9998;color:#ffe6e5} .demolish-action svg{vertical-align:middle;margin-right:4px}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v8.1.5</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v8.1.6</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -2294,14 +2294,28 @@ function careerSummary(){
  return row('CEO level',1+Math.floor(c.completed.length/2))+row('Board approval',boardApproval()+'%')+row('Development tokens',c.tokens)+
  '<details><summary>How to earn tokens and improve approval</summary><p>Finish all eight steps of a story assignment and select Report to the board at the debrief to earn one token. Each assignment pays once. Spend tokens in Development. Your CEO level rises after every two completed assignments.</p><p>Board approval starts from 65%. Each £1m of cash after commitments above the £17m target adds 3 points, and a shortfall subtracts 3 points per £1m. Each completed assignment adds 4 points. Today’s operating profit adds 5 points if positive or subtracts 5 if negative. Hosting a community open day adds 4 points once.</p></details>';
 }
+function developmentRequirements([,,cost,assignments,,parent]){
+ const c=career();
+ return [
+  ['Finish or skip Winter Peak',tutorialFinished()],
+  ['Operating control building',Boolean(controlBuilding())],
+  ['Development tokens ('+c.tokens+' of '+cost+' required)',c.tokens>=cost],
+  ['Completed assignments ('+c.completed.length+' of '+assignments+' required)',c.completed.length>=assignments],
+  ...(parent?[['Planning Office installed',developmentHas(parent)&&c.planningOffice]]:[])
+ ];
+}
+function showRequirement([label,ready]){
+ return '<p class="'+(ready?'good':'bad')+'">'+(ready?'Met · ':'Unmet · ')+label+'</p>';
+}
 function showDevelopment(){
- const c=career(),office=controlBuilding();
+ const c=career();
  return '<h2>Development tree</h2><p>Complete story assignments to earn tokens. An operating control building houses your development team.</p>'+careerSummary()+
- developmentNodes.map(([id,name,cost,scenarios,description,parent])=>{
-  const unlocked=developmentHas(id);
-  const available=office&&tutorialFinished()&&c.tokens>=cost&&c.completed.length>=scenarios&&(!parent||developmentHas(parent)&&c.planningOffice);
-  return '<article class="notice"><h3>'+name+'</h3><p>'+description+'</p><p>'+cost+' token · '+scenarios+' completed assignment'+(scenarios===1?'':'s')+(parent?' · Planning office':'')+'</p>'+
-  (unlocked?'<p>Unlocked</p>':available?btn('Unlock','develop-'+id):'<p>Requirements still to meet</p>')+
+ developmentNodes.map(node=>{
+  const [id,name,,,description]=node;
+  const unlocked=developmentHas(id),requirements=developmentRequirements(node);
+  return '<article class="notice"><h3>'+name+'</h3><p>'+description+'</p>'+
+  (unlocked?'<p class="good">Unlocked</p>':requirements.map(showRequirement).join('')+
+  (requirements.every(([,ready])=>ready)?btn('Unlock','develop-'+id):''))+
   (id==='office'&&unlocked&&!c.planningOffice?btn('Open Upgrades & land','tab-capital'):'')+'</article>';
  }).join('');
 }
@@ -2370,7 +2384,7 @@ function showScenarios(){
   const available=met&&!c.active&&!done;
   const status=done?'Completed':active?'Active · continue from the site map':available?'Available':met?'Unavailable · another assignment is active':'Unavailable · requirements unmet';
   return '<article class="notice"><h3>'+title+'</h3><p>Objective · '+goal+'</p>'+
-  (requirements.length?requirements.map(([label,ready])=>'<p class="'+(ready?'good':'bad')+'">'+(ready?'Met · ':'Unmet · ')+label+'</p>').join(''):'<p class="good">No additional entry requirements</p>')+
+  (requirements.length?requirements.map(showRequirement).join(''):'<p class="good">No additional entry requirements</p>')+
   '<p class="'+(available||done||active?'good':'bad')+'">'+status+'</p>'+
   (available?btn('Select scenario','story-start-'+id):'')+'</article>';
  }).join('');
@@ -2478,8 +2492,8 @@ function careerAction(action){
  }
  const node=developmentNodes.find(n=>n[0]===action.slice(8));
  if(!node)return;
- const [id,,cost,required,,parent]=node;
- if(developmentHas(id)||c.tokens<cost||c.completed.length<required||(parent&&(!developmentHas(parent)||!c.planningOffice))||!controlBuilding())return 'Meet the development requirements first.';
+ const [id,,cost]=node;
+ if(developmentHas(id)||!developmentRequirements(node).every(([,ready])=>ready))return 'Meet the development requirements first.';
  c.tokens-=cost;c.unlocked.push(id);
 }
 
