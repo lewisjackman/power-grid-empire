@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.3.1</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.4.0</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -237,7 +237,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #businessDesk[data-national] #deskHeader,#businessDesk[data-national] #deskFooter{display:none}
 #businessDesk[data-national] #deskBody{width:min(100%,760px);margin:auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom))}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.3.1</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.4.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -2185,7 +2185,7 @@ function renderDesk(){
  $('deskClose').hidden=onboarding;
  $('deskClock').hidden=onboarding;
  $('deskNav').innerHTML=onboarding?'':deskNavigation();
- const page=picking?'avatar-picker':choosingDifficulty?'difficulty-picker':deskTab+(deskTab==='winter'?'|'+(finance().winter?.status||'')+'|'+(finance().winter?.lesson??''):deskTab==='story'?'|'+activeStoryObjective():'');
+ const page=picking?'avatar-picker':choosingDifficulty?'difficulty-picker':deskTab==='national'&&finance().career?.national?.showSiteBrief?'national-site':deskTab+(deskTab==='winter'?'|'+(finance().winter?.status||'')+'|'+(finance().winter?.lesson??''):deskTab==='story'?'|'+activeStoryObjective():'');
  const scroll=$('deskScroll');
  if(Object.hasOwn(progressionScroll,renderedDeskPage))progressionScroll[renderedDeskPage]=scroll.scrollTop;
  const scrollTop=page===renderedDeskPage?scroll.scrollTop:progressionScroll[page]||0;
@@ -2244,7 +2244,7 @@ function openDesk(tab='overview'){
 function advance(ticks){for(let i=0;i<ticks;i++){step();if(showcaseStop){showcaseStop=false;break;}}}
 function doDesk(action){
  const f=finance();
- if(f.career?.national)return;
+ if(f.career?.national)return nationalAction(action);
  deskStatus='';
  if(f.dismissed&&action!=='close'&&action!=='restart-company')return 'Your term as CEO has ended. Start a new company to play again.';
  const locked=tutorialGate(action);if(locked)return locked;
@@ -2550,17 +2550,92 @@ function settleRegions(){
   return [{asset:project.id,name:project.name,type:project.type,regional:true,out,charge:0,curtailed:available-out,spot,da:0,bm:0,short:0,importCost:0,penalty:0,capacityShort:0,fuel:0,carbon:0,serviceCost:0,operatingCost,start:0}];
  });
 }
+const nationalSites={
+ nuclear:{
+  name:'Nuclear power station',location:'Suffolk coast',point:[222,210],pitch:'Manage a steady-output station around refuelling, outage risk and long-term power sales.',
+  setup:'A brownfield station with one operating reactor, a grid connection and a cooling system. Start with the existing unit and a board-approved outage budget.',
+  operation:'Model thermal limits, planned refuelling and outage readiness. Expose plant availability and lost output. Reactor safety stays outside the player simulation.',
+  trading:'Balance contracted baseload against market prices and outage exposure. Reserve replacement power for a scheduled outage.',
+  development:'Fuel-cycle planning → outage tooling → cooling resilience → uprate appraisal.',
+  scenarios:'Cover the refuelling outage, manage a summer cooling constraint, then justify an uprate against the outage and financing costs.'
+ },
+ offshore:{
+  name:'Large offshore wind farm',location:'North Sea',point:[250,147],pitch:'Trade variable output and manage export cables, vessels and offshore weather windows.',
+  setup:'An operating turbine array, offshore substation and onshore connection. Leave space for a second array.',
+  operation:'Use correlated wind forecasts, cut-out curtailment, cable availability and weather-dependent repair access. Track the cost of mobilising a vessel.',
+  trading:'Nominate expected output, settle forecast error and compare spot sales with a fixed-price offtake agreement.',
+  development:'Wind forecasting → service vessels → redundant export cable → second array.',
+  scenarios:'Plan a storm bid, restore a failed cable and decide whether to expand turbines or grid capacity first.'
+ },
+ biomass:{
+  name:'Biomass power station',location:'Humber',point:[207,176],pitch:'Keep a dispatchable boiler profitable through fuel procurement, stock management and heat sales.',
+  setup:'An operating boiler and turbine, a fuel yard and an established freight connection. Start with a limited stockpile.',
+  operation:'Schedule deliveries and track stock, moisture, handling losses, boiler ramp limits and ash removal.',
+  trading:'Bid against delivered fuel and start costs. Compare electricity sales with a heat contract that requires minimum output.',
+  development:'Covered storage → fuel testing → diversified supply → heat network and turbine improvements.',
+  scenarios:'Weather a delayed shipment, compare fuel quality against margin and qualify for a heat contract.'
+ },
+ hydro:{
+  name:'Pumped-storage hydro',location:'Scottish Highlands',point:[152,76],pitch:'Schedule pumping and dispatch around reservoir levels, losses and peak prices.',
+  setup:'An operating reversible unit and two reservoirs, with a shared import and export connection.',
+  operation:'Track upper-reservoir energy, pump efficiency, switching time, outages and minimum water levels.',
+  trading:'Buy low and sell high across multiple days. Decide whether to reserve stored energy for capacity delivery or use it for the evening peak.',
+  development:'Water monitoring → flexible pumping → faster switching → reservoir expansion.',
+  scenarios:'Survive a low-water week, reserve energy for a capacity call and appraise additional storage.'
+ },
+ carbon:{
+  name:'Gas with carbon capture',location:'Teesside',point:[196,151],pitch:'Run dispatchable generation while managing capture energy use, carbon costs and transport availability.',
+  setup:'An operating combined-cycle unit with retrofit space and a prospective connection to a carbon transport network.',
+  operation:'Model capture as a parasitic load and give transport downtime a measurable effect on cost and output. Track captured and residual emissions.',
+  trading:'Compare net generation margin across capture modes, subject to contract and emissions limits. Allow longer-term low-carbon offtake.',
+  development:'Capture readiness → compression → transport redundancy → performance improvements.',
+  scenarios:'Commission capture, manage a transport interruption and compare a power contract against merchant dispatch.'
+ }
+};
+const homeManagementDailyGBP=28000;
+function nationalAction(action){
+ const national=finance().career.national;
+ if(action==='national-review-map'){national.showSiteBrief=false;return;}
+ if(action==='national-advance-day'||action==='national-advance-week'){
+  const days=action==='national-advance-day'?1:7;
+  national.elapsedDays=(national.elapsedDays||0)+days;
+  state.cash+=days*homeManagementDailyGBP/1e6;
+  return;
+ }
+ if(action.startsWith('national-select-')){
+  const id=action.slice('national-select-'.length);
+  if(!Object.hasOwn(nationalSites,id))return 'Select an available site.';
+  national.selectedSite=id;national.showSiteBrief=true;
+ }
+}
+function showNationalSite(site){
+ return '<div class="desk-heading"><h2>'+site.name+'</h2><p>'+site.location+' · Selected site</p></div>'+
+ '<p>'+site.pitch+'</p><p class="desk-note">Site brief · the next development pass will implement the playable site. Selection commits no capital.</p>'+
+ [['Starting site',site.setup],['Operations',site.operation],['Trading',site.trading],['Development tree',site.development],['Scenario sequence',site.scenarios]].map(([title,detail])=>
+ '<article class="notice"><h3>'+title+'</h3><p>'+detail+'</p></article>').join('')+
+ '<div class="desk-actions">'+btn('Return to UK map','national-review-map','primary')+'</div>';
+}
 function showNationalMap(){
  const national=career().national;
  if(!national)return '<h2>UK expansion</h2><p>Complete Go national to open the UK map.</p>'+btn('Open Development','tab-development');
- return '<div class="desk-heading"><h2>UK expansion</h2><p>National operating mandate · awarded day '+national.day+'</p></div>'+
+ const selected=nationalSites[national.selectedSite],days=national.elapsedDays||0;
+ if(selected&&national.showSiteBrief)return showNationalSite(selected);
+ return '<div class="desk-heading"><h2>UK expansion</h2><p>National day '+(days+1)+' · Mandate awarded on local day '+national.day+'</p></div>'+
  '<article class="notice objective-card"><h3>Board approval · Meridian goes national</h3><p>Congratulations. You built a diversified operating portfolio and protected the company’s cash reserve. The board has approved the move to national operations. The East Midlands site is the starting point for your UK portfolio.</p></article>'+
- '<svg viewBox="0 0 380 300" role="img" aria-label="UK map showing the original East Midlands site" style="display:block;width:100%;max-height:320px;background:#112d35;border-radius:12px"><g fill="#3e6259" stroke="#85a49a" stroke-width="2">'+
+ '<svg viewBox="0 0 380 300" role="img" aria-label="UK map showing the original East Midlands site and the selected expansion site, if any" style="display:block;width:100%;max-height:320px;background:#112d35;border-radius:12px"><g fill="#3e6259" stroke="#85a49a" stroke-width="2">'+
  '<path d="M150 19 162 32 150 48 176 45 172 59 159 77 176 87 177 111 193 122 201 148 205 165 224 179 228 193 214 218 229 232 213 249 182 248 167 261 142 257 116 272 95 273 111 255 132 238 157 228 149 216 126 228 109 217 128 204 127 188 140 184 152 195 158 175 156 156 143 142 137 126 118 123 107 108 121 91 115 76 133 66 124 54 136 43 127 34Z"/>'+
  '<path d="M82 115 101 124 103 146 88 151 81 161 64 152 66 135Z"/></g>'+
- '<g fill="#ffd084" stroke="#18353e" stroke-width="2"><circle cx="183" cy="195" r="6"/></g>'+
+ '<g fill="#ffd084" stroke="#18353e" stroke-width="2"><circle cx="183" cy="195" r="6"/>'+
+ (selected?'<circle cx="'+selected.point[0]+'" cy="'+selected.point[1]+'" r="5" fill="#88e6ff"/>':'')+'</g>'+
  '<g fill="#edf4e9" font-size="12" font-family="system-ui"><text x="195" y="199">East Midlands site</text></g></svg>'+
- '<article class="notice"><h3>East Midlands</h3><p>Original Meridian Power site</p>'+row('Grid export capacity',gridMW()+' MW')+row('Operating assets',state.assets.filter(operating).length)+'</article>';
+ '<article class="notice"><h3>East Midlands</h3><p>Original Meridian Power site · delegated management</p>'+
+ row('Grid export capacity',gridMW()+' MW')+row('Operating assets',state.assets.filter(operating).length)+
+ row('Net contribution per national day',cashGBP(homeManagementDailyGBP))+row('Contribution credited',cashGBP(days*homeManagementDailyGBP))+
+ row('Portfolio cash',money(state.cash))+'<p class="desk-note">The management agreement pays a fixed daily net contribution while you plan national expansion.</p>'+
+ '<div class="desk-actions">'+btn('Advance one day','national-advance-day')+btn('Advance one week','national-advance-week')+'</div></article>'+
+ '<h3>Choose your next site</h3><p>Review the operating brief for each option. You can change your selection before site development begins.</p>'+
+ Object.entries(nationalSites).map(([id,site])=>'<article class="notice"><h3>'+site.name+'</h3><p>'+site.location+' · '+site.pitch+'</p>'+
+ btn(national.selectedSite===id?'Reopen selected site':'Select site','national-select-'+id,national.selectedSite===id?'primary':'')+'</article>').join('');
 }
 function showRegions(){
  const regions=career().national.regions||{};
