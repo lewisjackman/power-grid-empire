@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.3.0</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v9.3.1</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -233,8 +233,11 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #siteNotices #mapMessageAlert[hidden],#deskMessageAlert[hidden]{display:none}
 #businessDesk #deskMessageAlert{color:#ffda9d;font-size:12px;margin:0;padding:6px 0;overflow-wrap:anywhere}
 #businessDesk button.demolish-action{background:#723a3e;border-color:#ff9998;color:#ffe6e5} .demolish-action svg{vertical-align:middle;margin-right:4px}
+#businessDesk[data-national]{inset:0;margin:0;width:100%;max-width:none;height:100dvh;max-height:none;border:0;border-radius:0}
+#businessDesk[data-national] #deskHeader,#businessDesk[data-national] #deskFooter{display:none}
+#businessDesk[data-national] #deskBody{width:min(100%,760px);margin:auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom))}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.3.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v9.3.1</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -642,7 +645,7 @@ function setPanel(title,html,actions=[]){$('panel').style.display='block';$('pan
 function assetPanel(){const a=state.assets.find(a=>a.id===selected);if(!a){closePanel();return;}const t=TYPES[a.type];if(panelMin){setPanel(a.name,'<p class="muted">'+(a.status==='building'?'Construction '+Math.round(a.progress*100)+'%':status(a))+'</p>',[{text:'Show details',fn:()=>{panelMin=false;assetPanel();}}]);return;}let html='<p>'+t.desc+'</p><p>Status: <b>'+status(a)+'</b></p>';if(['OCGT','Battery'].includes(a.type))html+='<p>Condition: <b>'+condition(a)+'%</b></p>';if(a.type==='Gas')html+='<p>Gas import capacity: '+gasStationLimit(a)+' MW of fuel.</p><p>Equivalent to '+(gasStationLimit(a)/gasImportRatio)+' MW of generation. Shared by nearby turbines.</p>';
  if(a.type==='Grid'){markTutorial('grid');const f=finance().lastFlow||{};html+='<p>Requested '+((f.out||0)+(f.curtailed||0)).toFixed(1)+' MW · delivered '+(f.out||0).toFixed(1)+' MW · connection '+gridMW()+' MW</p>';}if(a.dispatchReason)html+='<p>Dispatch: '+a.dispatchReason+'</p>';if(a.fundingHold)html+='<p>Funding hold · '+money(Math.max(0,(a.contract?.stages[a.contract.stage]?.cost||0)-state.cash))+' needed</p>';if(a.mw)html+='<p>Capacity: '+a.mw+' MW</p>';if(a.type==='Battery')html+='<p>Stored: '+(a.soc||0).toFixed(1)+' / '+batteryEnergy(a)+' MWh</p>';if(a.status==='building')html+='<p id="assetBuildProgress">Construction: '+Math.round(a.progress*100)+'%</p>';setPanel(a.name,html,[...(['OCGT','Battery'].includes(a.type)&&a.status==='operational'?[{text:'Review maintenance',fn:()=>{preferredServiceAsset=a.id;openDesk('plant');}}]:a.type==='Gas'?[{text:'Gas upgrades',fn:()=>openDesk('capital')}]:a.type==='Grid'?[{text:'Grid upgrades',fn:()=>openDesk('capital')}]:[]),...(a.status==='building'?[{text:a.constructionPaused?'Resume construction':'Pause construction',fn:()=>toggleConstruction(a)}]:[]),{text:'Minimise',fn:()=>{panelMin=true;assetPanel();}},{text:'Decommission',fn:()=>demolish(a)}]);}
 function placementPanel(){if(!mode)return;const t=TYPES[mode];let html='<p><b>Due today:</b> '+money(mode==='Road'?t.cost:t.cost*.2)+' · <b>Total:</b> '+money(t.cost)+' · '+t.days+' days</p>',valid=false;if(preview){valid=canPlace(mode,preview.x,preview.y);html+='<p><b>Plot:</b> '+(preview.x+1)+', '+(preview.y+1)+' · <span class="'+(valid?'good':'bad')+'">'+(valid?(t.requires.some(req=>!hasService(req,preview.x,preview.y))?'Buildable · services required to operate':'Buildable · services connected'):'Unavailable · check space and road access')+'</span></p>';for(const req of t.requires){const ok=hasService(req,preview.x,preview.y);html+='<span class="'+(ok?'good':'bad')+'">● '+req+': '+(ok?'Connected':'Missing')+'</span> ';}if(!t.requires.length)html+='<p class="good">No services required</p>';}else html+='<p class="muted">Tap a plot; tap elsewhere to change your selection.</p>';const actions=[];if(valid&&mode!=='Road'&&!['Wind','Solar'].includes(mode)){const {x,y}=preview;actions.push({text:'Review investment',fn:()=>{appraisal={type:mode,x,y,debt:0};openDesk('appraisal');}});}if(valid&&!['OCGT','Battery'].includes(mode)&&state.cash>=t.cost*(mode==='Road'?1:.2)){const x=preview.x,y=preview.y;actions.push({text:'Build · '+money(mode==='Road'?t.cost:t.cost*.2)+' today',fn:()=>askBuild(x,y)});}if(mode==='Road')actions.push({text:'Done',fn:cancelPlacement});setPanel('🏗 '+t.name,html,actions);}
-function askBuild(x,y,debt=0){if(!mode)return;if(mode==='OCGT'&&!developmentHas('generation')){toast('Unlock Flexible generation to build a gas peaking turbine.');return;}const type=mode,t=TYPES[type],deposit=type==='Road'?t.cost:t.cost*.2,borrow=t.cost*debt/100,missing=t.requires.filter(req=>!hasService(req,x,y));if(borrow+(finance().loans||[]).reduce((n,l)=>n+l.balance,0)>10){toast('The bank limit is £10m total borrowing. Reduce the loan share.');return;}dialog('Confirm construction','<p><b>'+t.name+'</b> at '+(x+1)+', '+(y+1)+'</p><p>Cost: '+money(t.cost)+' · Due today: '+money(deposit)+(borrow?' · Borrow '+money(borrow)+' at '+rateText()+' APR':'')+' · '+t.days+' days</p><p class="'+(missing.length?'bad':'good')+'">'+(missing.length?'Missing: '+missing.join(', '):'Services satisfied')+'</p>',()=>{if(!canPlace(type,x,y)||state.cash+borrow<deposit){toast('Cannot build here');return;}if(borrow){(finance().loans??=[]).push({amount:borrow,balance:borrow,rate:difficulty().apr,remaining:12,term:12,next:state.day+30,project:state.nextId,label:t.name+' project'});}state.cash+=borrow-deposit;recordCapital(t.name,deposit);if(type==='Road'){state.roads.push(key(x,y));mode='Road';preview=null;placementPanel();toast('Road built — choose another tile');}else{const id=state.nextId++;state.assets.push({id,type,x,y,name:t.name+' '+id,mw:t.mw||0,status:'building',progress:0,daysRequired:t.days,soc:0,contract:{stage:0,stages:[{at:.4,cost:t.cost*.45},{at:1,cost:t.cost*.35}]}});selected=id;mode=null;preview=null;panelMin=true;assetPanel();toast('Construction started');}uiDirty=true;chartDirty=true;reviewBoard();save(false);},'Build');}
+function askBuild(x,y,debt=0){if(!mode)return;if(mode==='Battery'&&!batteryBuildAvailable()){toast('Unlock Battery operations to build a battery.');return;}if(mode==='OCGT'&&!developmentHas('generation')){toast('Unlock Flexible generation to build a gas peaking turbine.');return;}const type=mode,t=TYPES[type],deposit=type==='Road'?t.cost:t.cost*.2,borrow=t.cost*debt/100,missing=t.requires.filter(req=>!hasService(req,x,y));if(borrow+(finance().loans||[]).reduce((n,l)=>n+l.balance,0)>10){toast('The bank limit is £10m total borrowing. Reduce the loan share.');return;}dialog('Confirm construction','<p><b>'+t.name+'</b> at '+(x+1)+', '+(y+1)+'</p><p>Cost: '+money(t.cost)+' · Due today: '+money(deposit)+(borrow?' · Borrow '+money(borrow)+' at '+rateText()+' APR':'')+' · '+t.days+' days</p><p class="'+(missing.length?'bad':'good')+'">'+(missing.length?'Missing: '+missing.join(', '):'Services satisfied')+'</p>',()=>{if(!canPlace(type,x,y)||state.cash+borrow<deposit){toast('Cannot build here');return;}if(borrow){(finance().loans??=[]).push({amount:borrow,balance:borrow,rate:difficulty().apr,remaining:12,term:12,next:state.day+30,project:state.nextId,label:t.name+' project'});}state.cash+=borrow-deposit;recordCapital(t.name,deposit);if(type==='Road'){state.roads.push(key(x,y));mode='Road';preview=null;placementPanel();toast('Road built — choose another tile');}else{const id=state.nextId++;state.assets.push({id,type,x,y,name:t.name+' '+id,mw:t.mw||0,status:'building',progress:0,daysRequired:t.days,soc:0,contract:{stage:0,stages:[{at:.4,cost:t.cost*.45},{at:1,cost:t.cost*.35}]}});selected=id;mode=null;preview=null;panelMin=true;assetPanel();toast('Construction started');}uiDirty=true;chartDirty=true;reviewBoard();save(false);},'Build');}
 function demolish(a){const value=a.status==='building'?-TYPES[a.type].cost*.08:TYPES[a.type].cost*.06;dialog('Decommission asset','<p>'+a.name+'</p><p>'+(value>=0?'Net scrap proceeds: ':'Cost: ')+money(Math.abs(value))+'</p><p>Connected assets may lose service. Existing market or capacity obligations continue to settle.</p>',()=>{if(state.cash+value<0){toast('Insufficient funds');return;}state.cash+=value;recordCapital(a.name+' decommissioning',-value);state.assets=state.assets.filter(b=>b.id!==a.id);closePanel();uiDirty=true;save(false);toast('Asset decommissioned');},'Decommission');}
 function removeRoad(x,y){
  const tile=key(x,y);
@@ -651,7 +654,7 @@ function removeRoad(x,y){
  }
  dialog('Remove road','<p>Remove tile '+(x+1)+', '+(y+1)+' for £0.010m?</p>',()=>{if(state.cash<.01){toast('Insufficient funds');return;}state.cash-=.01;recordCapital('Road removal',.01);state.roads=state.roads.filter(k=>k!==key(x,y));uiDirty=true;save(false);},'Remove');}
 function selectTile(sx,sy){const {x,y}=screenTile(sx,sy);if(x<0||y<0||x>=N||y>=N)return;if(landMode){const bx=Math.floor(x/8),by=Math.floor(y/8),k=key(bx,by);if(state.owned.includes(k)){toast('Already owned');return;}if(!adjacent(bx,by)){toast('Buy adjacent land first');return;}const cost=2.5+state.owned.length*.75;dialog('Acquire land','<p>Purchase an 8 × 8 parcel for '+money(cost)+'?</p>',()=>{if(state.cash<cost){toast('Insufficient cash');return;}state.cash-=cost;recordCapital('Land acquisition',cost);state.owned.push(k);landMode=false;$('land').classList.remove('active');uiDirty=true;save(false);toast('Land acquired');},'Buy land');return;}const a=[...state.assets].reverse().find(a=>x>=a.x&&x<a.x+2&&y>=a.y&&y<a.y+2);if(removing){if(a)demolish(a);else if(state.roads.includes(key(x,y)))removeRoad(x,y);else toast('Nothing to remove');return;}if(mode){preview={x,y};placementPanel();return;}if(a){if(selected===a.id)closePanel();else{selected=a.id;panelMin=false;assetPanel();}}else closePanel();}
-function buildMenu(){$('options').replaceChildren();for(const [id,t] of Object.entries(TYPES)){if(id==='OCGT'&&!developmentHas('generation'))continue;if(['Wind','Solar'].includes(id)&&!developmentHas(id.toLowerCase()))continue;const line=document.createElement('div');line.className='option';const info=document.createElement('div'),heading=document.createElement('b'),desc=document.createElement('small'),meta=document.createElement('small');heading.textContent=t.name;desc.textContent=t.desc;meta.textContent=money(t.cost)+' · '+t.days+' days'+(t.mw?' · '+t.mw+' MW':'');info.append(heading,desc,meta);const btn=document.createElement('button');btn.textContent='Build';btn.onclick=()=>{if(state.cash<t.cost*(id==='Road'?1:.2)){toast('Insufficient cash for deposit');return;}mode=id;preview=null;selected=null;removing=false;landMode=false;$('remove').classList.remove('active');$('land').classList.remove('active');$('menu').style.display='none';placementPanel();};line.append(info,btn);$('options').append(line);}}
+function buildMenu(){$('options').replaceChildren();for(const [id,t] of Object.entries(TYPES)){if(id==='OCGT'&&!developmentHas('generation')||id==='Battery'&&!batteryBuildAvailable())continue;if(['Wind','Solar'].includes(id)&&!developmentHas(id.toLowerCase()))continue;const line=document.createElement('div');line.className='option';const info=document.createElement('div'),heading=document.createElement('b'),desc=document.createElement('small'),meta=document.createElement('small');heading.textContent=t.name;desc.textContent=t.desc;meta.textContent=money(t.cost)+' · '+t.days+' days'+(t.mw?' · '+t.mw+' MW':'');info.append(heading,desc,meta);const btn=document.createElement('button');btn.textContent='Build';btn.onclick=()=>{if(state.cash<t.cost*(id==='Road'?1:.2)){toast('Insufficient cash for deposit');return;}mode=id;preview=null;selected=null;removing=false;landMode=false;$('remove').classList.remove('active');$('land').classList.remove('active');$('menu').style.display='none';placementPanel();};line.append(info,btn);$('options').append(line);}}
 function row(k,v){return '<div class="row"><span>'+k+'</span><b>'+v+'</b></div>';}
 function historyFor(p){const all=state.history||[],count=p==='day'?48:p==='month'?1440:17520,data=all.slice(-count);if(p==='day')return data;const groups=new Map();for(const d of data){const k=p==='month'?d.day:Math.floor((d.day-1)/30);if(!groups.has(k))groups.set(k,{day:d.day,hour:d.hour,price:0,export:0,revenue:0,cash:d.cash,profit:d.profit,count:0});const g=groups.get(k);g.price+=d.price;g.export+=d.export;g.revenue+=d.revenue;g.cash=d.cash;g.profit=d.profit;g.day=d.day;g.hour=d.hour;g.count++;}return [...groups.values()].map(g=>({...g,price:g.price/g.count}));}
 function chart(title,field,color){return '<div class="chartTitle">'+title+'</div><canvas class="chart" data-field="'+field+'" data-color="'+color+'"></canvas>';}
@@ -911,7 +914,7 @@ function step(){
 
 // Separate clocks: 30 FPS graphics, 4 FPS UI, 1 FPS chart rebuild.
 let nextFrame=0,nextUI=0,nextChart=0;
-function loop(now){const dt=Math.min((now-last)/1000,1);last=now;if(!state.paused){acc+=dt*SPEEDS[state.speed];let count=0;while(acc>=1&&count<100){step();acc--;count++;if(showcaseStop){showcaseStop=false;acc=0;break;}}}if(now>=nextFrame){try{draw();}catch(e){console.error('Render error',e);}nextFrame=now+33;}if(now>=nextUI){if(uiDirty)try{refresh();}catch(e){console.error('UI error',e);}nextUI=now+250;}if(reportOpen&&chartDirty&&now>=nextChart){try{renderReport();}catch(e){console.error('Chart error',e);}nextChart=now+4000;}requestAnimationFrame(loop);}
+function loop(now){if(finance().career?.national){state.paused=true;return;}const dt=Math.min((now-last)/1000,1);last=now;if(!state.paused){acc+=dt*SPEEDS[state.speed];let count=0;while(acc>=1&&count<100){step();acc--;count++;if(showcaseStop){showcaseStop=false;acc=0;break;}}}if(now>=nextFrame){try{draw();}catch(e){console.error('Render error',e);}nextFrame=now+33;}if(now>=nextUI){if(uiDirty)try{refresh();}catch(e){console.error('UI error',e);}nextUI=now+250;}if(reportOpen&&chartDirty&&now>=nextChart){try{renderReport();}catch(e){console.error('Chart error',e);}nextChart=now+4000;}requestAnimationFrame(loop);}
 // Canvas alone handles map gestures. All UI elements are separate DOM layers.
 const pointers=new Map();let moved=false,multi=false,start=null,oldDist=0,oldCentre=null,oldAngle=null;
 function point(e){const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};}
@@ -1411,11 +1414,15 @@ function showCareerPage(){
  return '<nav class="desk-actions" aria-label="Progression">'+btn('Scenarios','tab-scenarios',!research?'selected':'')+btn('Development','tab-development',research?'selected':'')+'</nav>'+
  (research?showDevelopment():showScenarios());
 }
+function batteryBuildAvailable(){
+ const winter=tutorialState();
+ return developmentHas('storage')||winter?.status==='tutorial'&&winter.lesson===2;
+}
 function showMajorProjects(){
  return '<h2>Major projects</h2><p>Choose a plot beside a road, then check the investment and financing before building.</p>'+
  (developmentHas('combined-cycle')?repowerCard('combined-cycle'):'')+
  '<div class="investment-grid">'+Object.entries(investment).filter(([type])=>type!=='Grid').map(([type,x])=>{
-  const t=TYPES[type];return '<article><small>'+x.headline+'</small><h3>'+x.name+'</h3><div class="investment-details"><b>'+money(t.cost)+'</b><p>Estimated yearly earnings before shared costs '+money(x.base)+'<br>Downside '+money(x.down)+'<br>Simple payback '+(t.cost/x.base).toFixed(1)+' years</p></div>'+(type==='OCGT'&&!developmentHas('generation')?'<p class="bad">Locked · requires Flexible generation</p>'+btn('Open Flexible generation research','research-open-generation','primary'):btn('Choose plot','build-'+type,'primary'))+'</article>';
+  const t=TYPES[type];return '<article><small>'+x.headline+'</small><h3>'+x.name+'</h3><div class="investment-details"><b>'+money(t.cost)+'</b><p>Estimated yearly earnings before shared costs '+money(x.base)+'<br>Downside '+money(x.down)+'<br>Simple payback '+(t.cost/x.base).toFixed(1)+' years</p></div>'+(type==='OCGT'&&!developmentHas('generation')?'<p class="bad">Locked · requires Flexible generation</p>'+btn('Open Flexible generation research','research-open-generation','primary'):type==='Battery'&&!batteryBuildAvailable()?'<p class="bad">Locked · requires Battery operations</p>'+btn('Open Battery operations research','research-open-storage','primary'):btn('Choose plot','build-'+type,'primary'))+'</article>';
  }).join('')+'</div>'+showProjectCommitments();
 }
 function showInvestment(){
@@ -2173,6 +2180,7 @@ function renderDesk(){
  const picking=!hasChosenCEO(),choosingDifficulty=needsDifficulty(),onboarding=picking||choosingDifficulty;
  if(picking)deskTab='campaign';else if(choosingDifficulty)deskTab='settings';
  desk.toggleAttribute('data-picker',onboarding);
+ desk.toggleAttribute('data-national',deskTab==='national'&&Boolean(finance().career?.national));
  $('deskNav').hidden=onboarding;
  $('deskClose').hidden=onboarding;
  $('deskClock').hidden=onboarding;
@@ -2226,7 +2234,7 @@ function renderDesk(){
 
 let deskWasPaused=true;
 function openDesk(tab='overview'){
- deskTab=finance().dismissed?'dismissed':tab;deskStatus='';
+ deskTab=finance().career?.national?'national':finance().dismissed?'dismissed':tab;deskStatus='';
  if(!desk.open){
   deskWasPaused=state.paused;state.paused=true;uiDirty=true;renderedDeskPage=undefined;renderDesk();desk.showModal();
   desk.focus({preventScroll:true});
@@ -2236,6 +2244,7 @@ function openDesk(tab='overview'){
 function advance(ticks){for(let i=0;i<ticks;i++){step();if(showcaseStop){showcaseStop=false;break;}}}
 function doDesk(action){
  const f=finance();
+ if(f.career?.national)return;
  deskStatus='';
  if(f.dismissed&&action!=='close'&&action!=='restart-company')return 'Your term as CEO has ended. Start a new company to play again.';
  const locked=tutorialGate(action);if(locked)return locked;
@@ -2287,7 +2296,7 @@ function doDesk(action){
  if(action.startsWith('expansion-'))return expansionAction(action);
  if(action==='skip-winter'||/^(story-|develop-|career-|event-frequency-)/.test(action))return careerAction(action);
  const research={'build-Wind':'wind','build-Solar':'solar','build-Battery':'storage','build-OCGT':'generation','upgrade':'grid','site-land':'land'}[action];
- if(research&&tutorialFinished()&&!developmentHas(research)&&!(action==='build-Battery'&&finance().tutorialSkipped))return 'Unlock this option in Build → Progression → Development.';
+ if(action==='build-Battery'?!batteryBuildAvailable():research&&tutorialFinished()&&!developmentHas(research))return 'Unlock this option in Build → Progression → Development.';
  if(action.startsWith('tutorial-'))return tutorialAction(action);
  if(action.startsWith('winter-'))return winterAction(action);
  if(action.startsWith('brush-')){paintedHour=action.slice(6);return;}
@@ -2354,9 +2363,10 @@ $('siteSettings').onclick=()=>{$('siteOptions').open=false;openDesk('settings');
 for(const id of ['cameraReset','save','reset'])$('siteOptions').addEventListener('click',e=>{if(e.target.id===id)$('siteOptions').open=false;});
 $('waterfallOpen').onclick=()=>{reportOpen=false;$('report').style.display='none';openDesk('variance');};
 $('deskClose').onclick=()=>{const message=doDesk('close');if(message)$('deskStatus').textContent=message;};
-desk.addEventListener('close',()=>{state.paused=finance().dismissed||Boolean(nextStress())||dispatchPending()?true:deskWasPaused;uiDirty=true;save(false);});
+desk.addEventListener('close',()=>{state.paused=Boolean(finance().career?.national)||finance().dismissed||Boolean(nextStress())||dispatchPending()?true:deskWasPaused;uiDirty=true;save(false);});
 document.addEventListener('pointerdown',e=>{if(!$('siteOptions').contains(e.target))$('siteOptions').open=false;});
 desk.addEventListener('cancel',event=>{
+ if(finance().career?.national){event.preventDefault();return;}
  if(!hasChosenCEO()||needsDifficulty()||deskTab==='dispatch'&&dispatchPending()){
   event.preventDefault();
   $('deskStatus').textContent=hasChosenCEO()?'Apply the manual plan or switch to Auto.':'Pick your CEO avatar to continue.';
@@ -2544,13 +2554,13 @@ function showNationalMap(){
  const national=career().national;
  if(!national)return '<h2>UK expansion</h2><p>Complete Go national to open the UK map.</p>'+btn('Open Development','tab-development');
  return '<div class="desk-heading"><h2>UK expansion</h2><p>National operating mandate · awarded day '+national.day+'</p></div>'+
- '<article class="notice objective-card"><h3>Board approval · Meridian goes national</h3><p>Congratulations. You built a diversified operating portfolio and protected the company’s cash reserve. The board has approved expansion across the UK. Your next decision is which regional project to back first.</p></article>'+
- '<svg viewBox="0 0 380 300" role="img" aria-label="Schematic UK map showing the East Midlands home site, North East coastal wind and South West solar" style="display:block;width:100%;max-height:320px;background:#112d35;border-radius:12px"><g fill="#3e6259" stroke="#85a49a" stroke-width="2">'+
+ '<article class="notice objective-card"><h3>Board approval · Meridian goes national</h3><p>Congratulations. You built a diversified operating portfolio and protected the company’s cash reserve. The board has approved the move to national operations. The East Midlands site is the starting point for your UK portfolio.</p></article>'+
+ '<svg viewBox="0 0 380 300" role="img" aria-label="UK map showing the original East Midlands site" style="display:block;width:100%;max-height:320px;background:#112d35;border-radius:12px"><g fill="#3e6259" stroke="#85a49a" stroke-width="2">'+
  '<path d="M150 19 162 32 150 48 176 45 172 59 159 77 176 87 177 111 193 122 201 148 205 165 224 179 228 193 214 218 229 232 213 249 182 248 167 261 142 257 116 272 95 273 111 255 132 238 157 228 149 216 126 228 109 217 128 204 127 188 140 184 152 195 158 175 156 156 143 142 137 126 118 123 107 108 121 91 115 76 133 66 124 54 136 43 127 34Z"/>'+
  '<path d="M82 115 101 124 103 146 88 151 81 161 64 152 66 135Z"/></g>'+
- '<g fill="#ffd084" stroke="#18353e" stroke-width="2"><circle cx="194" cy="150" r="6"/><circle cx="183" cy="195" r="6"/><circle cx="134" cy="248" r="6"/></g>'+
- '<g fill="#edf4e9" font-size="12" font-family="system-ui"><text x="205" y="154">North East wind</text><text x="195" y="199">East Midlands site</text><text x="147" y="272">South West solar</text></g></svg>'+
- showRegions()+'<div class="desk-actions">'+btn('Return to East Midlands site','close')+'</div>';
+ '<g fill="#ffd084" stroke="#18353e" stroke-width="2"><circle cx="183" cy="195" r="6"/></g>'+
+ '<g fill="#edf4e9" font-size="12" font-family="system-ui"><text x="195" y="199">East Midlands site</text></g></svg>'+
+ '<article class="notice"><h3>East Midlands</h3><p>Original Meridian Power site</p>'+row('Grid export capacity',gridMW()+' MW')+row('Operating assets',state.assets.filter(operating).length)+'</article>';
 }
 function showRegions(){
  const regions=career().national.regions||{};
@@ -2707,7 +2717,7 @@ function scenarioRequirements(id){
   return [[name+' unlocked',developmentHas(research)]];
  }
  const requirements={
-  battery:()=>[['Battery operations unlocked, or a battery already operating',developmentHas('storage')||finance().tutorialSkipped||state.assets.some(a=>a.type==='Battery'&&operating(a))]],
+  battery:()=>[['Battery operations unlocked, or a battery already operating',developmentHas('storage')||state.assets.some(a=>a.type==='Battery'&&operating(a))]],
   grid:()=>[['Grid engineering unlocked, or a connection of at least 120 MW',developmentHas('grid')||gridMW()>=120]],
   expansion:()=>[['Estate planning unlocked',developmentHas('land')]]
  };
@@ -2980,7 +2990,7 @@ function careerAction(action){
   }
   (c.outcomes??={})[story[0]]={day:state.day,profit:state.profit-c.active.profit};
   c.completed.push(story[0]);c.tokens++;delete c.active;deskTab=story[0]==='tech-national'?'national':'scenarios';
-  if(story[0]==='tech-national'){postMessage('Board · Meridian goes national','Congratulations. The board has approved UK expansion. Open the UK map to review regional investments.','national');return;}
+  if(story[0]==='tech-national'){postMessage('Board · Meridian goes national','Congratulations. The board has approved UK expansion. Your original site is now on the UK portfolio map.','national');return;}
   postMessage('Board · assignment complete','You completed '+story[1]+' and earned one development token.','development');return;
  }
  if(action==='story-resume'){previewStory=null;deskTab='story';return;}
@@ -3009,5 +3019,5 @@ function careerAction(action){
 }
 
 refresh();requestAnimationFrame(loop);
-if(finance().dismissed){state.paused=true;openDesk('dismissed');}else if(!hasChosenCEO()||needsDifficulty()){openDesk('campaign');save(false);}
+if(finance().career?.national){state.paused=true;openDesk('national');}else if(finance().dismissed){state.paused=true;openDesk('dismissed');}else if(!hasChosenCEO()||needsDifficulty()){openDesk('campaign');save(false);}
 </script></body></html>
