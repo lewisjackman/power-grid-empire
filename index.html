@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v7.2.7</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v7.2.8</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -190,7 +190,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 #businessDesk .site-breakdown :is(th,td):not(:first-child){white-space:nowrap;text-align:right;overflow-wrap:normal;word-break:normal}
 #businessDesk .site-breakdown :is(th,td):first-child{min-width:7ch}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v7.2.7</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div class="sub">Meridian Power · East Midlands · v7.2.8</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -543,7 +543,13 @@ const difficultyProfiles={
 };
 const difficulty=()=>difficultyProfiles[finance().difficulty]||difficultyProfiles.Medium;
 const runCost=()=>difficulty().fuel+31;
-const siteOverhead=()=>state.assets.filter(a=>a.status==='operational').length*difficulty().overhead*(finance().costReview?.85:1);
+const overheadPlans={
+ lean:{cost:.85,wear:1.45,outages:1.25,label:'Lean'},
+ standard:{cost:1,wear:1,outages:1,label:'Standard'},
+ protected:{cost:1.15,wear:.72,outages:.80,label:'Extra maintenance cover'}
+};
+const overheadPlan=()=>overheadPlans[finance().overheadPlan]||overheadPlans.standard;
+const siteOverhead=()=>state.assets.filter(a=>a.status==='operational').length*difficulty().overhead*overheadPlan().cost;
 const rateText=()=>Number((difficulty().apr*100).toFixed(1))+'%';
 
 const tradingGate=17;
@@ -624,7 +630,7 @@ function tradeInterval(){
   const gas=a.type==='OCGT',mw=power(a),manual=a.dispatchMode==='Manual',soc=a.soc||0;
   const service=serviceFor(a),mt=Boolean(service),t=absoluteNow();
   if(!mt&&hour===17&&(a.wear||0)>.48&&(a.failureUntil||0)<=t){
-   const chance=(.035+Math.pow(Math.max(0,(a.wear||0)-.48),2)*1.9)*difficulty().outages;
+   const chance=(.035+Math.pow(Math.max(0,(a.wear||0)-.48),2)*1.9)*difficulty().outages*overheadPlan().outages;
    const roll=(Math.sin(day*39.13+a.id*23.9)*43758.5453)%1;
    if(Math.abs(roll)<chance){a.failureUntil=t+72;a.emergencyCost=38000;a.wear=Math.max(0,(a.wear||0)-.18);postMessage('Forced outage',a.name+' is offline for 36 hours. Repair cost £38,000.','plant');}
   }
@@ -651,8 +657,8 @@ function tradeInterval(){
    if(start)a.runTicks=4;
    a.running=out>0;
    a.runTicks=a.running?Math.max(0,(a.runTicks||0)-1):0;
-   if(out)a.wear=Math.min(1,(a.wear||0)+.00048);
-  }else{a.soc=Math.min(20,Math.max(0,soc+charge*efficiency-out/efficiency));if(out||charge)a.wear=Math.min(1,(a.wear||0)+.00024);}
+   if(out)a.wear=Math.min(1,(a.wear||0)+.00048*overheadPlan().wear);
+  }else{a.soc=Math.min(20,Math.max(0,soc+charge*efficiency-out/efficiency));if(out||charge)a.wear=Math.min(1,(a.wear||0)+.00024*overheadPlan().wear);}
   const curtailed=online?Math.max(0,Math.min(wanted,mw*.5,gas?Infinity:soc*efficiency)-exportLeft):0;
   exportLeft-=out;importLeft-=charge;
   const serviceCost=(service&&absoluteWindow(service).start===t?(service.cost??3000):0)+(a.emergencyCost||0);
@@ -751,7 +757,7 @@ const desk=$('businessDesk');
 const deskGroups=[
  {tab:'build',label:'Build',pages:[['build','Assets'],['capital','Projects and upgrades']]},
  {tab:'dispatch',label:'Trade',pages:[['dispatch','Trading plan'],['capacity','Capacity Market']]},
- {tab:'overview',label:'Company',pages:[['overview','Overview'],['report','Results'],['advisors','Advisors'],['financing','Financing'],['costs','Costs & help']]}
+ {tab:'overview',label:'Company',pages:[['overview','Overview'],['report','Results'],['advisors','Advisors'],['financing','Financing'],['costs','Costs'],['help','Help']]}
 ];
 const selectNav=(items)=>items.map(([key,label])=>btn(label,'tab-'+key,key===deskTab?'selected':'')).join('');
 function deskNavigation(){
@@ -1032,7 +1038,7 @@ function forecastPortfolio(overrides=new Map(),index=seasonIndex()){
  try{
   for(const offset of sampleDays){
    state={...live,assets:JSON.parse(JSON.stringify(assets)),day:index*90+offset,hour:17};
-   const f=state.showcase={difficulty:source.difficulty,orders:[],journal:[],capital:[],maintenance:[],capacity:null};
+   const f=state.showcase={difficulty:source.difficulty,overheadPlan:source.overheadPlan,orders:[],journal:[],capital:[],maintenance:[],capacity:null};
    for(const [id,plan] of profile){
     const a=state.assets.find(x=>x.id===id);
     a.dispatchMode=plan?'Manual':'Auto';
@@ -1087,7 +1093,7 @@ function seasonalDesk(){
  '<details><summary>How seasonal dispatch works</summary><p>Gas runs during your selected hours. In other hours it offers to help balance the grid, which means generating extra electricity when asked. Choose Charge, Discharge or Clear, then tap the battery hours to apply it. The estimate uses typical prices and expected calls. Manual plans need renewing every 90 days. Switching to Auto removes the group’s manual orders.</p></details>'+
  (!group.length?'<p>No operational assets in this group.</p>':'')+
  '<div id="priceProfile"></div>'+
- (gas?grid('gas','Hours to generate and sell electricity',locked&&auto?autoHours(group.find(a=>a.type==='OCGT')).map(Boolean):d.gas)+
+ (gas?'<p class="desk-note">Gas turbines run for at least two hours after starting.</p>'+grid('gas','Hours to generate and sell electricity',locked&&auto?autoHours(group.find(a=>a.type==='OCGT')).map(Boolean):d.gas)+
  '<label>Minimum price for extra grid requests <output id="bmOfferLabel"></output><input id="bmSlider" type="range" min="40" max="250" step="1" value="'+d.offer+'" '+(locked?'disabled':'')+'></label><p class="desk-note">Green means the price covers estimated fuel, carbon and running costs. Starting the turbine costs extra. Higher prices reduce the chance of being asked to run.</p>':'')+
  (battery?(d.editing?'<div class="desk-actions">'+['charge','discharge','clear'].map(k=>btn(k[0].toUpperCase()+k.slice(1),'brush-'+k,paintedHour===k?'selected':'')).join('')+'</div>':'')+grid('battery','Battery schedule · ↓ charge · ↑ discharge',locked&&auto?autoHours(group.find(a=>a.type==='Battery')).map(Math.sign):d.battery):'')+
  '<p id="seasonEstimate" class="estimate"></p>'+(!d.editing?'<p id="seasonGridWarning" class="desk-note"></p>':'')+''+
@@ -1104,7 +1110,14 @@ function updateEstimate(){
  const forecast=forecastPortfolio(overrides);
  const daily=g.reduce((n,a)=>n+currencyTotal(forecast[a.id]),0);
  const forecastPortfolioBaseline=d.editing?forecastPortfolio():null;
- const warning=$('seasonGridWarning');if(warning)warning.textContent=gridPlanWarning(overrides);
+ const warning=$('seasonGridWarning');if(warning){
+  const singleHour=g.some(a=>{
+   if(a.type!=='OCGT')return false;
+   const hours=overrides.get(a.id)?.hours;
+   return hours?.some((mw,h)=>mw>0&&!hours[(h+23)%24]&&!hours[(h+1)%24]);
+  });
+  warning.textContent=[singleHour?'A gas run has only one hour selected. The turbine can keep running into the next hour, even if the price falls. Select two adjacent hours to plan for the minimum run.':'',gridPlanWarning(overrides)].filter(Boolean).join(' ');
+ }
  node.textContent=cashGBP(daily)+' asset contribution per day · '+cashGBP(daily*90)+' per quarter, before shared site costs and loan interest'+(d.editing?' · '+cashGBP((daily-g.reduce((n,a)=>n+currencyTotal(forecastPortfolioBaseline[a.id]),0))*90)+' vs current plan':'');
 }
 function seasonalAction(action){
@@ -1733,7 +1746,7 @@ function showSettings(){
  '<p>Easy offers wider peak margins, lower fixed costs and cheaper borrowing. Hard tightens margins and raises outage risk. Existing loan rates stay fixed.</p><div class="desk-actions">'+Object.keys(difficultyProfiles).map(d=>btn(d,'difficulty-'+d,(f.nextDifficulty||current)===d?'selected':'')).join('')+'</div>'+
  '<p class="desk-note">Choose immediately at the start of a company. Later changes take effect next quarter.</p>'+btn('Back to overview','tab-overview');
 }
-const views={financing:showFinancing,costs:showCosts,dismissed:showDismissed,winter:showWinter,build:showBuildHome,settings:showSettings,overview:showOverview,campaign:showCampaign,dispatch:seasonalDesk,capital:showInvestment,plant:showMaintenance,capacity:showAuction,report:()=>showQuarter(),variance:()=>showQuarter(true),advisors:showAdvisors,messages:showMessages,appraisal:plotAppraisal};
+const views={financing:showFinancing,costs:showCosts,help:showHelp,dismissed:showDismissed,winter:showWinter,build:showBuildHome,settings:showSettings,overview:showOverview,campaign:showCampaign,dispatch:seasonalDesk,capital:showInvestment,plant:showMaintenance,capacity:showAuction,report:()=>showQuarter(),variance:()=>showQuarter(true),advisors:showAdvisors,messages:showMessages,appraisal:plotAppraisal};
 let renderedDeskPage;
 function renderDesk(){
  const picking=!hasChosenCEO(),choosingDifficulty=needsDifficulty(),onboarding=picking||choosingDifficulty;
@@ -1800,7 +1813,13 @@ function doDesk(action){
  if(f.dismissed&&action!=='close'&&action!=='restart-company')return 'Your term as CEO has ended. Start a new company to play again.';
  if(action==='restart-company'){$('reset').click();return;}
  if(action==='bank-borrow')return requestBankLoan();
- if(action==='cost-saving'){f.costReview=!f.costReview;deskStatus=f.costReview?'Supplier and administration savings applied. Fixed site costs fall by 15%.':'Standard supplier arrangements restored.';return;}
+ if(action.startsWith('overhead-')){
+  const plan=action.slice(9);
+  if(!Object.hasOwn(overheadPlans,plan))return 'Choose an overhead budget.';
+  f.overheadPlan=plan;
+  if(!f.quarter?.intervals)f.quarter=forecastQuarter();
+  return;
+ }
  if(action.startsWith('repay-loan-'))return repayLoan(Number(action.slice(11)));
  if(!hasChosenCEO()&&!/^ceo-[0-8]$/.test(action))return 'Pick your CEO avatar to continue.';
  if(needsDifficulty()&&!action.startsWith('difficulty-'))return 'Choose a difficulty to continue.';
@@ -1950,8 +1969,12 @@ function repayLoan(index){
 function showCosts(){
  const f=finance(),c=f.costsToday||{},labels={fuel:'Gas fuel',carbon:'Carbon emissions charges',overhead:'Fixed site costs',running:'Generation running costs',starts:'Turbine starts',service:'Maintenance and repairs',imports:'Electricity bought for batteries',shortfalls:'Missed trading commitments',penalty:'Capacity contract penalties',interest:'Loan interest'};
  return '<div class="desk-heading"><h2>Understand your costs</h2><p>Costs recorded today, up to the current game time. A new day starts at zero.</p></div>'+table(['Cost','Today'],Object.entries(labels).map(([k,v])=>[v,cashGBP(f.costsDay===state.day?c[k]||0:0)]))+
- '<h3>What can you control?</h3><div class="cost-help"><p><b>Fixed site costs:</b> staffing, insurance and administration for each operating building. Currently '+cashGBP(siteOverhead()*48)+' a full day, even while turbines are idle. More buildings increase this cost.</p><p><b>Gas generation:</b> fuel, carbon and running costs total '+cashGBP(runCost())+' per MWh. Each turbine start adds £2,200 and commits it to a minimum two-hour run. Choose blocks of profitable hours rather than many short runs.</p><p><b>Batteries:</b> buy low and sell high. Only about 81% of purchased energy can be sold back after charging and discharging losses. A small price gap can lose money.</p><p><b>Maintenance:</b> servicing costs money and stops production, but can reduce the risk of expensive breakdowns. Avoid servicing during promised deliveries.</p><p><b>Missed promises:</b> if your plant or grid cannot deliver agreed electricity, replacement costs or penalties can wipe out earnings.</p><p><b>Loans:</b> interest reduces profit. Repaying the original borrowed amount reduces cash but is not an operating cost.</p></div>'+btn(f.costReview?'Restore standard supplier costs':'Apply CFO supplier savings · 15% fixed-cost reduction','cost-saving','primary')+
- '<p>These are administrative and supplier savings; maintenance and safety standards stay unchanged. Savings apply from the next simulation interval.</p><h3>Energy in plain English</h3><p><b>MW</b> measures how much power can flow at once. <b>MWh</b> measures energy: running at 10 MW for two hours produces 20 MWh. <b>£/MWh</b> is the price per unit of energy.</p><p><b>Dispatch</b> means deciding when a plant runs. <b>Day-ahead</b> means agreeing tomorrow’s electricity sales. <b>Balancing</b> means offering extra power when the grid needs help. <b>Capacity contracts</b> pay you to be available during shortages.</p><p><b>Contribution</b> is income after an asset’s direct costs. <b>Company profit</b> also deducts shared site costs and interest. <b>Cash after planned payments</b> subtracts future commitments from today’s bank balance.</p>'+btn('Review financing','tab-financing');
+ '<h3>What can you control?</h3><div class="cost-help"><p><b>Fixed site costs:</b> staffing, insurance and administration for each operating building. Currently '+cashGBP(siteOverhead()*48)+' a full day, even while turbines are idle. More buildings increase this cost.</p><p><b>Gas generation:</b> fuel, carbon and running costs total '+cashGBP(runCost())+' per MWh. Each turbine start adds £2,200 and commits it to a minimum two-hour run. Choose blocks of profitable hours rather than many short runs.</p><p><b>Batteries:</b> buy low and sell high. Only about 81% of purchased energy can be sold back after charging and discharging losses. A small price gap can lose money.</p><p><b>Maintenance:</b> servicing costs money and stops production, but can reduce the risk of expensive breakdowns. Avoid servicing during promised deliveries.</p><p><b>Missed promises:</b> if your plant or grid cannot deliver agreed electricity, replacement costs or penalties can wipe out earnings.</p><p><b>Loans:</b> interest reduces profit. Repaying the original borrowed amount reduces cash but is not an operating cost.</p></div>'+
+ '<h3>Site overhead budget</h3><p>Lean cuts overhead by 15%, but equipment wears 45% faster while in use and worn equipment is 25% more likely to break down. It can suit a quiet summer with fewer runs. Extra cover costs 15% more, slows wear by 28% and reduces breakdown risk by 20%. Changing budget does not restore lost condition.</p>'+
+ '<div class="desk-actions">'+Object.entries(overheadPlans).map(([key,plan])=>btn(plan.label,'overhead-'+key,plan===overheadPlan()?'selected':'')).join('')+'</div>'+btn('Open help','tab-help');
+}
+function showHelp(){
+ return '<div class="desk-heading"><h2>Help</h2></div><h3>Energy in plain English</h3><p><b>MW</b> measures how much power can flow at once. <b>MWh</b> measures energy: running at 10 MW for two hours produces 20 MWh. <b>£/MWh</b> is the price per unit of energy.</p><p><b>Dispatch</b> means deciding when a plant runs. <b>Day-ahead</b> means agreeing tomorrow’s electricity sales. <b>Balancing</b> means offering extra power when the grid needs help. <b>Capacity contracts</b> pay you to be available during shortages.</p><p><b>Contribution</b> is income after an asset’s direct costs. <b>Company profit</b> also deducts shared site costs and interest. <b>Cash after planned payments</b> subtracts future commitments from today’s bank balance.</p>'+btn('Review financing','tab-financing');
 }
 function priceProfile(overrides){
  const prices=Array.from({length:24},(_,h)=>representative(h)),lo=Math.min(...prices,runCost())-10,hi=Math.max(...prices)+10;
