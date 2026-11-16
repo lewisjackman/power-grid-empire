@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v10.1.0</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#10242c"><title>Power Grid Empire v10.2.0</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10242c;color:#e9f4f4;font:13px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button{font:inherit;font-weight:650;color:inherit;background:#264d5b;border:1px solid #6d9099;border-radius:10px;min-height:44px;padding:10px 12px;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}button.active{background:#e0bd7d;color:#132932}button:disabled{opacity:.4}#world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:linear-gradient(#9eb9b7,#c0d2c2 70%,#88a591)}header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#10242cf5;padding:calc(8px + env(safe-area-inset-top)) 12px 9px}h1{font-size:16px;margin:0}.sub{font-size:10px;color:#b3cbd0;margin-top:3px}#stats{text-align:right;font-size:11px;white-space:nowrap}#stats b{font-size:16px;color:#f5d28b}#bar{position:absolute;z-index:5;bottom:0;left:0;right:0;background:#10242c;padding:8px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #4a717b}#clock{font-size:11px;color:#c6dadd;margin-bottom:6px}.toolbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.toolbar button{flex-shrink:0}#panel,#menu,#report{display:none;position:absolute;z-index:6;left:9px;right:9px;background:#15343ef5;border:1px solid #6b8d97;border-radius:13px;padding:12px;box-shadow:0 7px 25px #0006}#panel,#menu{bottom:calc(109px + env(safe-area-inset-bottom));max-height:38vh;overflow:auto}#report{top:calc(75px + env(safe-area-inset-top));bottom:calc(105px + env(safe-area-inset-bottom));overflow:auto}#panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #496a73;padding-bottom:6px}#panelTitle{font-size:14px;color:#f5d28b;margin:0;overflow-wrap:anywhere}#panelBody{line-height:1.5}#panelActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.option{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #46626b;padding:9px 0}.option small{display:block;color:#bbd0d5;margin-top:4px;line-height:1.45}.option button{flex-shrink:0}.wide{width:100%;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #395762}.row span{color:#bfd5da}.tabs,.periods{display:flex;gap:5px;margin:9px 0}.tabs button,.periods button{flex:1;padding:8px;font-size:11px}.chart{width:100%;height:160px;display:block;background:#0d2832;border-radius:8px;margin:8px 0 14px}.chartTitle{font-size:12px;color:#f5d28b;margin-top:12px}#shade{display:none;position:absolute;z-index:20;inset:0;background:#07141cd0;align-items:center;justify-content:center;padding:18px}#dialog{width:min(100%,410px);background:#183944;border:1px solid #8aa6ae;border-radius:14px;padding:17px}#dialog h2{margin:0;color:#f5d28b;font-size:17px}#dialog p{line-height:1.5}#dialogActions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}#ok{background:#e0bd7d;color:#132932}#toast{display:none;position:absolute;z-index:10;top:calc(80px + env(safe-area-inset-top));left:12px;right:12px;padding:10px;border-radius:9px;background:#163843ee;border:1px solid #6b929b;pointer-events:none}.good{color:#8af1b3}.bad{color:#ffa19c}.muted{color:#b7cbd0}
 </style><style>#businessOpen{background:#a7e7c5;color:#102a28;font-weight:800}
 #panelHead{align-items:flex-start}
@@ -119,7 +119,7 @@ header h1{color:#ffdc92;letter-spacing:-.035em}
 #businessDesk{overflow:hidden;overscroll-behavior:none}
 #businessDesk[open]{display:flex;flex-direction:column}
 #deskHeader{position:relative;top:auto;flex:0 0 auto}
-#deskScroll{flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:none;touch-action:pan-y pinch-zoom}
+#deskScroll{flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:none;touch-action:pan-x pan-y pinch-zoom}
 #businessLabel:focus{outline:none;box-shadow:none}
 </style><style>
 #businessDesk{position:fixed;inset:12px 0 auto;margin:0 auto;height:min(840px,calc(100dvh - 24px))}
@@ -149,7 +149,7 @@ header .sub{font-size:10px}
  #stats span{margin-left:8px}
  #inboxOpen{grid-column:2;grid-row:1 / span 2}
 }
-.tech-board{overflow-x:auto;overscroll-behavior-inline:contain;touch-action:pan-x pan-y;padding:10px 8px;background:#112930;border:1px solid #456569;border-radius:12px}
+.tech-board{min-width:0;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;touch-action:pan-x pan-y;padding:10px 8px;background:#112930;border:1px solid #456569;border-radius:12px}
 .tech-root{display:flex;margin-bottom:8px}
 .tech-lane,.tech-path,.tech-edge{display:flex;align-items:center;min-width:max-content}
 .tech-lane+.tech-lane{margin-top:8px}
@@ -163,6 +163,10 @@ header .sub{font-size:10px}
 .tech-tile.ready small{color:#ffdc92}
 #businessDesk .tech-tile[aria-pressed=true]{box-shadow:inset 0 0 0 2px #ffdc92}
 .tech-detail{margin-top:10px}
+#businessDesk .demolish-action{width:100%}
+#businessDesk .investment-grid article > button.primary{width:100%;min-height:64px}
+.research-branches{min-width:0;max-width:100%;overscroll-behavior-inline:contain}
+
 .research-branches{display:flex;gap:5px;overflow-x:auto;margin:8px 0;padding-bottom:4px}
 .research-branches button{flex:0 0 auto}
 @media(min-width:720px){.research-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,32%);gap:10px;align-items:start}.tech-detail{margin-top:0}}
@@ -252,7 +256,7 @@ header{padding:calc(env(safe-area-inset-top,0px) + 7px) 10px 7px}
 .uk-site-pin:focus-visible .uk-pin-target{stroke:#fff0cb;stroke-width:2}
 .uk-site-list{gap:5px}
 </style></head><body>
-<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div id="siteSubtitle" class="sub">Meridian Power · East Midlands · v10.1.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
+<canvas id="world"></canvas><header><div><h1>⚡ Power Grid Empire</h1><div id="siteSubtitle" class="sub">Meridian Power · East Midlands · v10.2.0</div></div><div id="stats"></div><button id="inboxOpen" aria-label="Messages">🔔</button><div id="siteNotices"><button id="siteObjective" hidden>Your First Season</button><button id="mapMessageAlert" hidden></button><div id="toast"></div></div></header>
 <section id="panel"><div id="panelHead"><h2 id="panelTitle"></h2><button id="panelClose" aria-label="Close">×</button></div><div id="assetScroll"><div id="panelBody"></div><div id="panelActions"></div></div></section>
 <section id="menu"><h2>🏗 Development</h2><div id="options"></div><button id="menuClose" class="wide">Close</button></section>
 <section id="report"><h2>📊 Management dashboard</h2><div class="tabs"><button data-tab="Operations">Operations</button><button data-tab="Finances">Finances</button><button data-tab="Assets">Assets</button></div><div id="reportBody"></div><button id="waterfallOpen" class="wide">Profit breakdown</button><button id="reportClose" class="wide">Close</button></section>
@@ -501,6 +505,10 @@ function addBuilding(a){
    box3(x+.12,y+.12,1.76,1.76,0,z*.62,'#c8cfbc');
    box3(x+.28,y+.28,1.44,1.44,z*.62,z*.25,'#dde3d1');
    box3(x+.49,y+.49,1.02,1.02,z*.87,z*.13,'#edf0de');
+  }else if(a.type==='Office'&&a.status==='operational'&&(a.planningExtension||career().planningOffice&&a===controlBuilding())){
+   box3(x+.12,y+.12,1.76,1.76,0,z,'#a9ad9c');
+   box3(x+.26,y+.26,1.48,1.48,z,10,'#c8cfbc');
+   box3(x+.22,y+.22,1.56,1.56,z+10,1,'#d9c38e');
   }else if(a.type==='Cooling'){
    box3(x+.09,y+.11,1.82,1.78,0,2,'#8b9b8d');
    addCoolingTower(x+.55,y+.63,z);
@@ -747,7 +755,7 @@ function assetPanel(){const a=state.assets.find(a=>a.id===selected);if(!a){close
  if(a.type==='Grid'){markTutorial('grid');const f=finance().lastFlow||{};html+='<p>Requested '+((f.out||0)+(f.curtailed||0)).toFixed(1)+' MW · delivered '+(f.out||0).toFixed(1)+' MW · connection '+gridMW()+' MW</p>';}if(a.dispatchReason)html+='<p>Dispatch: '+a.dispatchReason+'</p>';if(a.fundingHold)html+='<p>Funding hold · '+money(Math.max(0,(a.contract?.stages[a.contract.stage]?.cost||0)-state.cash))+' needed</p>';if(a.mw)html+='<p>Capacity: '+a.mw+' MW</p>';if(a.type==='Battery')html+='<p>Stored: '+(a.soc||0).toFixed(1)+' / '+batteryEnergy(a)+' MWh</p>';if(a.status==='building')html+='<p id="assetBuildProgress">Construction: '+Math.round(a.progress*100)+'%</p>';setPanel(a.name,html,[...(['OCGT','Battery'].includes(a.type)&&a.status==='operational'?[{text:'Review maintenance',fn:()=>{preferredServiceAsset=a.id;openDesk('plant');}}]:a.type==='Gas'?[{text:'Gas upgrades',fn:()=>openDesk('capital')}]:a.type==='Grid'?[{text:'Grid upgrades',fn:()=>openDesk('capital')}]:[]),...(a.status==='building'?[{text:a.constructionPaused?'Resume construction':'Pause construction',fn:()=>toggleConstruction(a)}]:[]),{text:'Minimise',fn:()=>{panelMin=true;assetPanel();}},{text:'Decommission',fn:()=>demolish(a)}]);}
 function placementPanel(){if(!mode)return;const t=TYPES[mode];let html='<p><b>Due today:</b> '+money(mode==='Road'?t.cost:t.cost*.2)+' · <b>Total:</b> '+money(t.cost)+' · '+t.days+' days</p>',valid=false;if(preview){valid=canPlace(mode,preview.x,preview.y);html+='<p><b>Plot:</b> '+(preview.x+1)+', '+(preview.y+1)+' · <span class="'+(valid?'good':'bad')+'">'+(valid?(t.requires.some(req=>!hasService(req,preview.x,preview.y))?'Buildable · services required to operate':'Buildable · services connected'):'Unavailable · check space and road access')+'</span></p>';for(const req of t.requires){const ok=hasService(req,preview.x,preview.y);html+='<span class="'+(ok?'good':'bad')+'">● '+req+': '+(ok?'Connected':'Missing')+'</span> ';}if(!t.requires.length)html+='<p class="good">No services required</p>';}else html+='<p class="muted">Tap a plot; tap elsewhere to change your selection.</p>';const actions=[];if(valid&&mode!=='Road'&&!['Wind','Solar'].includes(mode)){const {x,y}=preview;actions.push({text:'Review investment',fn:()=>{appraisal={type:mode,x,y,debt:0};openDesk('appraisal');}});}if(valid&&!['OCGT','Battery'].includes(mode)&&state.cash>=t.cost*(mode==='Road'?1:.2)){const x=preview.x,y=preview.y;actions.push({text:'Build · '+money(mode==='Road'?t.cost:t.cost*.2)+' today',fn:()=>askBuild(x,y)});}if(mode==='Road')actions.push({text:'Done',fn:cancelPlacement});setPanel('🏗 '+t.name,html,actions);}
 function askBuild(x,y,debt=0){if(!mode)return;if(mode==='Battery'&&!batteryBuildAvailable()){toast('Unlock Battery operations to build a battery.');return;}if(mode==='OCGT'&&!developmentHas('generation')){toast('Unlock Flexible generation to build a gas peaking turbine.');return;}const type=mode,t=TYPES[type],deposit=type==='Road'?t.cost:t.cost*.2,borrow=t.cost*debt/100,missing=t.requires.filter(req=>!hasService(req,x,y));if(borrow+(finance().loans||[]).reduce((n,l)=>n+l.balance,0)>10){toast('The bank limit is £10m total borrowing. Reduce the loan share.');return;}dialog('Confirm construction','<p><b>'+t.name+'</b> at '+(x+1)+', '+(y+1)+'</p><p>Cost: '+money(t.cost)+' · Due today: '+money(deposit)+(borrow?' · Borrow '+money(borrow)+' at '+rateText()+' APR':'')+' · '+t.days+' days</p><p class="'+(missing.length?'bad':'good')+'">'+(missing.length?'Missing: '+missing.join(', '):'Services satisfied')+'</p>',()=>{if(!canPlace(type,x,y)||state.cash+borrow<deposit){toast('Cannot build here');return;}if(borrow){(finance().loans??=[]).push({amount:borrow,balance:borrow,rate:difficulty().apr,remaining:12,term:12,next:state.day+30,project:state.nextId,label:t.name+' project'});}state.cash+=borrow-deposit;recordCapital(type==='Road'?t.name:nextAssetName(type),deposit,type==='Road'?null:state.nextId);if(type==='Road'){state.roads.push(key(x,y));mode='Road';preview=null;placementPanel();toast('Road built — choose another tile');}else{const id=state.nextId++;state.assets.push({id,type,x,y,name:nextAssetName(type),mw:t.mw||0,status:'building',progress:0,daysRequired:t.days,soc:0,contract:{stage:0,stages:[{at:.4,cost:t.cost*.45},{at:1,cost:t.cost*.35}]}});selected=id;mode=null;preview=null;panelMin=true;assetPanel();toast('Construction started');}uiDirty=true;chartDirty=true;reviewBoard();save(false);},'Build');}
-function demolish(a){if(a.suffolkCore||a.expansionCore){toast('Core station equipment is required for this site’s operations.');return;}const value=a.status==='building'?-TYPES[a.type].cost*.08:TYPES[a.type].cost*.06;dialog('Decommission asset','<p>'+a.name+'</p><p>'+(value>=0?'Net scrap proceeds: ':'Cost: ')+money(Math.abs(value))+'</p><p>Connected assets may lose service. Existing market or capacity obligations continue to settle.</p>',()=>{if(state.cash+value<0){toast('Insufficient funds');return;}state.cash+=value;recordCapital(a.name+' decommissioning',-value);state.assets=state.assets.filter(b=>b.id!==a.id);closePanel();uiDirty=true;save(false);toast('Asset decommissioned');},'Decommission');}
+function demolish(a){if(a.suffolkCore||a.expansionCore){toast('Core station equipment is required for this site’s operations.');return;}const value=a.status==='building'?-TYPES[a.type].cost*.08:TYPES[a.type].cost*.06;dialog('Decommission asset','<p>'+a.name+'</p><p>'+(value>=0?'Net scrap proceeds: ':'Cost: ')+money(Math.abs(value))+'</p><p>Connected assets may lose service. Existing market or capacity obligations continue to settle.</p>',()=>{if(state.cash+value<0){toast('Insufficient funds');return;}state.cash+=value;recordCapital(a.name+' decommissioning',-value);if(a.type==='Office'&&a===controlBuilding())career().planningOffice=false;state.assets=state.assets.filter(b=>b.id!==a.id);closePanel();uiDirty=true;save(false);toast('Asset decommissioned');},'Decommission');}
 function removeRoad(x,y){
  const tile=key(x,y);
  if(state.assets.some(a=>{const size=TYPES[a.type].size;return hasRoadAccess(a.x,a.y,size)&&!hasRoadAccess(a.x,a.y,size,tile);})){
@@ -764,7 +772,7 @@ function plot(c,data,field,color){const cw=c.clientWidth||320,ch=160,r=Math.min(
 function renderReport(){if(!reportOpen)return;document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));let html='';if(tab!=='Assets')html+='<div class="periods"><button data-period="day">Day</button><button data-period="month">Month</button><button data-period="year">Year</button></div>';if(tab==='Operations'){html+=row('Wholesale price','£'+state.price.toFixed(0)+'/MWh')+row('Gas capacity',gasMW()+' MW')+row('Battery power',batteryMW()+' MW')+row('Grid export',gridMW()+' MW')+row('Lifetime exports',state.exportMWh.toFixed(1)+' MWh');html+=chart('Electricity price (£/MWh)','price','#edca80')+chart('Export energy (MWh)','export','#7be5b2');}else if(tab==='Finances'){html+=row('Cash',money(state.cash))+row('Revenue',money(state.revenue))+row('Fuel',money(state.fuel))+row('Carbon',money(state.carbon))+row('Operating profit',money(state.profit));html+=chart('Cash (£m)','cash','#84bff5')+chart('Cumulative profit (£m)','profit','#f1b38a')+chart('Revenue (£m)','revenue','#b6e6f0');}else{html+=row('Land parcels',state.owned.length)+row('Road tiles',state.roads.length)+row('Assets',state.assets.length)+row('Under construction',state.assets.filter(a=>a.status==='building').length);for(const [k,t] of Object.entries(TYPES)){const n=state.assets.filter(a=>a.type===k).length;if(n)html+=row(t.name,n);}}$('reportBody').innerHTML=html;document.querySelectorAll('[data-period]').forEach(b=>{b.classList.toggle('active',b.dataset.period===period);b.onclick=()=>{period=b.dataset.period;renderReport();};});const data=historyFor(period);for(const c of $('reportBody').querySelectorAll('canvas'))plot(c,data,c.dataset.field,c.dataset.color);chartDirty=false;}
 function refresh(){migrateBatteryNames();
  if(isUKWorld()){refreshUKWorld();return;}
- $('siteNational').hidden=!homeState&&!managingMidlands;$('siteSubtitle').textContent='Meridian Power · '+(state.regionalSite?expansionCampaigns[state.regionalSite].label:homeState?'Suffolk':'East Midlands')+(managingMidlands?' · Under your control':'')+' · v10.1.0';const gas=state.assets.filter(a=>a.type==='OCGT').reduce((n,a)=>n+(a.mw||20),0),bat=state.assets.filter(a=>a.type==='Battery').reduce((n,a)=>n+power(a),0);$('stats').innerHTML='<b>'+money(state.cash)+'</b><br><span>After commitments '+money(reserveCash())+'</span><br>'+gas+'MW gas · '+bat+'MW batteries';$('clock').textContent='Day '+state.day+' · '+String(Math.floor(state.hour)).padStart(2,'0')+':'+(state.hour%1?'30':'00')+' · Power £'+state.price.toFixed(0)+'/MWh · Grid '+gridMW()+'MW';$('pause').textContent=state.paused?'▶ Resume':'⏸ Pause';$('speed').textContent='⏩ '+SPEEDS[state.speed]+'×';const regional=state.regionalSite&&homeState?.showcase.career.national.sites[state.regionalSite].ops;
+ $('siteNational').hidden=!homeState&&!managingMidlands;$('siteSubtitle').textContent='Meridian Power · '+(state.regionalSite?expansionCampaigns[state.regionalSite].label:homeState?'Suffolk':'East Midlands')+(managingMidlands?' · Under your control':'')+' · v10.2.0';const gas=state.assets.filter(a=>a.type==='OCGT').reduce((n,a)=>n+(a.mw||20),0),bat=state.assets.filter(a=>a.type==='Battery').reduce((n,a)=>n+power(a),0);$('stats').innerHTML='<b>'+money(state.cash)+'</b><br><span>After commitments '+money(reserveCash())+'</span><br>'+gas+'MW gas · '+bat+'MW batteries';$('clock').textContent='Day '+state.day+' · '+String(Math.floor(state.hour)).padStart(2,'0')+':'+(state.hour%1?'30':'00')+' · Power £'+state.price.toFixed(0)+'/MWh · Grid '+gridMW()+'MW';$('pause').textContent=state.paused?'▶ Resume':'⏸ Pause';$('speed').textContent='⏩ '+SPEEDS[state.speed]+'×';const regional=state.regionalSite&&homeState?.showcase.career.national.sites[state.regionalSite].ops;
  const n=!regional&&homeState?.showcase.career.national.nuclear;
  const objective=regional?expansionCampaigns[state.regionalSite].goals[regional.stage]?.[0]:n?nuclearObjectives[n.stage]?.[0]:activeStoryObjective();
  if(regional)$('stats').innerHTML='<b>'+money(state.cash)+'</b><br>'+expansionCampaigns[state.regionalSite].mw+' MW installed';
@@ -1252,7 +1260,7 @@ function tutorialAction(action){
  const q=tutorialState();if(q?.status!=='tutorial')return 'This tutorial step is unavailable.';
  if(action==='tutorial-next'){
   if(!winterLessonReady(q))return 'Complete this step first.';
-  if(q.lesson===winterLessons.length-1){q.status='complete';finance().complete=true;desk.close();toast('Winter Peak tutorial complete. Meridian is yours.');}
+  if(q.lesson===winterLessons.length-1){q.status='complete';finance().complete=true;deskTab='scenarios';postMessage('Winter Peak complete · Work towards Go national','Complete scenarios to earn development tokens and unlock technologies. Your ultimate goal is the Go national mandate.','scenarios','winter-national-next');}
   else q.lesson++;
   return;
  }
@@ -1568,11 +1576,12 @@ function batteryBuildAvailable(){
  const winter=tutorialState();
  return developmentHas('storage')||winter?.status==='tutorial'&&winter.lesson===2;
 }
+const projectSections={generation:'generation',storage:'storage',fast:'fast','combined-cycle':'combined-cycle','long-storage':'long-storage',wind:'wind',solar:'solar',wire:'wire'};
 function showMajorProjects(){
  return '<h2>Major projects</h2><p>Choose a plot beside a road, then check the investment and financing before building.</p>'+
  (developmentHas('combined-cycle')?repowerCard('combined-cycle'):'')+
  '<div class="investment-grid">'+Object.entries(investment).filter(([type])=>type!=='Grid').map(([type,x])=>{
-  const t=TYPES[type];return '<article><small>'+x.headline+'</small><h3>'+x.name+'</h3><div class="investment-details"><b>'+money(t.cost)+'</b><p>Estimated yearly earnings before shared costs '+money(x.base)+'<br>Downside '+money(x.down)+'<br>Simple payback '+(t.cost/x.base).toFixed(1)+' years</p></div>'+(type==='OCGT'&&!developmentHas('generation')?'<p class="bad">Locked · requires Flexible generation</p>'+btn('Open Flexible generation research','research-open-generation','primary'):type==='Battery'&&!batteryBuildAvailable()?'<p class="bad">Locked · requires Battery operations</p>'+btn('Open Battery operations research','research-open-storage','primary'):btn('Choose plot','build-'+type,'primary'))+'</article>';
+  const t=TYPES[type];return '<article id="project-'+(type==='Battery'?'storage':'generation')+'"><small>'+x.headline+'</small><h3>'+x.name+'</h3><div class="investment-details"><b>'+money(t.cost)+'</b><p>Estimated yearly earnings before shared costs '+money(x.base)+'<br>Downside '+money(x.down)+'<br>Simple payback '+(t.cost/x.base).toFixed(1)+' years</p></div>'+(type==='OCGT'&&!developmentHas('generation')?'<p class="bad">Locked · requires Flexible generation</p>'+btn('Open Flexible generation research','research-open-generation','primary'):type==='Battery'&&!batteryBuildAvailable()?'<p class="bad">Locked · requires Battery operations</p>'+btn('Open Battery operations research','research-open-storage','primary'):btn('Choose plot','build-'+type,'primary'))+'</article>';
  }).join('')+'</div>'+showProjectCommitments();
 }
 function showInvestment(){
@@ -1581,12 +1590,12 @@ function showInvestment(){
  return '<div class="desk-heading"><h2>Upgrades & land</h2><p>Expand the grid connection or buy adjoining land.</p></div>'+
  '<div class="investment-grid"><article><h3>Transformer upgrade</h3><p>Add 40 MW to the existing '+gridMW()+' MW connection.</p>'+
  '<div class="investment-details"><b>'+money(2)+'</b><p>'+(upgrade?'Due on day '+upgrade.day:'2 days to complete')+'</p></div>'+
- (upgrade?'':btn('Approve upgrade','upgrade','primary'))+'</article>'+
+ (upgrade?'':developmentHas('grid')?btn('Approve upgrade','upgrade','primary'):btn('View Grid engineering','research-open-grid','primary'))+'</article>'+
  '<article><h3>Adjoining land</h3><p>Expand the site by buying a neighbouring parcel.</p>'+
  '<div class="investment-details"><b>'+money(landCost)+'</b><p>Immediate</p></div>'+
  (developmentHas('land')?btn('Choose plot','site-land','primary'):
- '<p class="bad">Unlock Estate planning in Development to buy land.</p>'+btn('Open research tree','tab-development','primary'))+'</article>'+
- '<article><h3>Gas receiving</h3><p>'+gasCapacity()+' MW of site fuel capacity. Upgrade each station in two tiers.</p>'+
+ '<p class="bad">Unlock Estate planning in Development to buy land.</p>'+btn('View Estate planning','research-open-land','primary'))+'</article>'+
+ '<article id="project-gas-hub"><h3>Gas receiving</h3><p>'+gasCapacity()+' MW of site fuel capacity. Upgrade each station in two tiers.</p>'+
  gasStations().map(gasUpgradeOptions).join('')+
  '</article>'+planningOfficeUpgrade()+'</div>';
 }
@@ -1677,7 +1686,7 @@ function recordQuarter(records,capacity,owners,interest){
  }
  for(const a of state.assets)if(a.commissionedDay===state.day)d.commissioned[a.id]=a.commissionedDay;
 }
-let reportScope='all',reportQuarter='current',waterfallDetail='wholesale';
+let reportScope='all',reportQuarter='current',reportPeriod='week',waterfallDetail='wholesale';
 function portfolioData(q,scope){
  const assetIds=Object.keys(q.assets).filter(id=>scope==='all'||scope==='gas'&&q.assets[id].type==='OCGT'||scope==='storage'&&q.assets[id].type==='Battery'||scope==='asset-'+id);
  const forecast=assetIds.reduce((n,id)=>addTotals(n,q.assets[id].expected),emptyTotals());
@@ -1752,6 +1761,23 @@ function showExpansionResults(q){
  (data.serviceSavings?row('Service workshop savings already reflected in costs',cashGBP(data.serviceSavings)):'')+
  '<p class="desk-note">Gas and grid upgrades enable output. Condition monitoring reduces wear. Their effects flow through asset results as they occur. Detailed operating figures are recorded from this release onward.</p>';
 }
+function resultsByPeriod(q,rows){
+ const periods={day:1,week:7,month:30,quarter:90,season:90};
+ const days=periods[reportPeriod],first=q.index*90+1,groups=new Map();
+ for(const row of rows){
+  const start=reportPeriod==='week'?1+Math.floor((row.day-1)/days)*days:first+Math.floor((row.day-first)/days)*days;
+  const group=groups.get(start)||{start:row.day,end:row.day,plan:0,actual:0,export:0};
+  group.end=row.day;group.plan+=currencyTotal(row.forecast);group.actual+=currencyTotal(row.actual);group.export+=row.actual.export;
+  groups.set(start,group);
+ }
+ const options=Object.keys(periods).map(period=>'<option value="'+period+'" '+(reportPeriod===period?'selected':'')+'>'+period[0].toUpperCase()+period.slice(1)+'</option>').join('');
+ return '<h3>Results by period</h3><label>Group results by<select id="reportPeriod">'+options+'</select></label>'+
+ '<p class="desk-note">Each quarter covers one 90-day season. Weeks follow the game calendar and are clipped to the selected quarter.</p>'+
+ (groups.size?table(['Period','Planned profit','Actual profit','Export'],[...groups.values()].map(g=>[
+  reportPeriod==='season'?seasonName(q.index):g.start===g.end?'Day '+g.start:'Days '+g.start+'–'+g.end,
+  cashGBP(g.plan),cashGBP(g.actual),g.export.toFixed(1)+' MWh'
+ ])):'<p>Advance time to collect results.</p>');
+}
 function showQuarter(waterfallOnly=false){
  const f=finance(),current=activeQuarter(),q=(f.archives||[]).find(a=>String(a.index)===reportQuarter)||current;
  const x=portfolioData(q,reportScope), actual=currencyTotal(x.actual), expected=currencyTotal(x.forecast);
@@ -1775,7 +1801,7 @@ function showQuarter(waterfallOnly=false){
  '<div class="desk-metrics">'+card('Planned profit',cashGBP(expected))+card('Actual profit',cashGBP(actual))+card('Cash after planned payments',money(state.cash-committedCapital()-loanDue()))+'</div>'+
  profitWaterfall(q,x)+details+'<div class="desk-actions">'+btn('Understand costs','tab-costs')+btn('Loans & project funding','tab-financing')+'</div>'+
  (q===current?'<p>'+explanation+'</p><p>'+note[4].message+'</p>':'')+
- (waterfallOnly?'':showExpansionResults(q)+'<h3>Cumulative operating profit</h3>'+comparePlot(rows,d=>d.p,d=>d.a)+
+ (waterfallOnly?'':resultsByPeriod(q,x.rows)+showExpansionResults(q)+'<h3>Cumulative operating profit</h3>'+comparePlot(rows,d=>d.p,d=>d.a)+
  '<h3>Cumulative exports</h3>'+comparePlot(rows,d=>d.ep,d=>d.ea)+row('Plan / actual',x.forecast.export.toFixed(0)+' / '+x.actual.export.toFixed(0)+' MWh')+row('Asset downtime',x.actual.downtime.toFixed(1)+' hours')+
  '<h3>Cash balance</h3>'+comparePlot(rows,d=>q.openingCash+d.p/1e6-d.cpp/1e6,d=>d.cash,true)+
  '<h3>Construction</h3>'+comparePlot(rows,d=>d.cpp,d=>d.cp)+row('Capital paid · plan / actual',cashGBP(capexPlan)+' / '+cashGBP(capex))+
@@ -1947,7 +1973,8 @@ function applyServiceReturns(){
 function showMaintenance(){
  const f=finance(),assets=assetsForDispatch(),plans=f.maintenance.filter(m=>!m.completed);
  return '<div class="desk-heading"><h2>Plant operations</h2><p>'+gridMW()+' MW grid connection · '+(f.lastFlow?.out||0).toFixed(1)+' MW export · '+(f.lastFlow?.charge||0).toFixed(1)+' MW import</p></div>'+
- table(['Asset','Status','Condition','Storage'],assets.map(a=>[a.name,a.dispatchReason||status(a),condition(a)+'%',a.type==='Battery'?(a.soc||0).toFixed(1)+' / '+batteryEnergy(a)+' MWh':'—']))+
+ row('Gas imported / site fuel capacity',(f.lastGasFlow?.used||0).toFixed(1)+' / '+gasCapacity()+' MW fuel')+row('Unserved gas demand',(f.lastGasFlow?.short||0).toFixed(1)+' MW fuel')+(developmentHas('wire')?row('Direct-wire exports',f.privateWire?(f.privateWire.delivered||0).toFixed(1)+' MWh delivered to '+wireOffers[f.privateWire.id].name:'No customer connected'):'')+
+ table(['Asset','Installed output','Status','Condition','Storage'],state.assets.filter(a=>assets.includes(a)||renewable(a)).map(a=>[a.name,(a.mw||power(a))+' MW',a.dispatchReason||status(a),renewable(a)?'—':condition(a)+'%',a.type==='Battery'?(a.soc||0).toFixed(1)+' / '+batteryEnergy(a)+' MWh':'—']))+
  '<h3>Schedule maintenance</h3>'+maintenanceDelegation()+
  (assets.length?'<label>Asset<select id="maintenanceAsset">'+assets.filter(a=>a.status==='operational').map(a=>'<option value="'+a.id+'">'+a.name+'</option>').join('')+'</select></label>'+
  '<div class="desk-fields">'+field('serviceDay','Days from today',1,0,45)+'<label>Start time<select id="serviceHour">'+Array.from({length:24},(_,h)=>'<option value="'+h+'" '+(h===2?'selected':'')+'>'+hours(h)+'</option>').join('')+'</select></label>'+'</div>'+
@@ -2319,6 +2346,8 @@ function showSettings(){
 const views={regional:showExpansionSite,nuclear:()=>showNuclear(homeState.showcase.career.national,homeState.showcase.career.national.nuclear),national:showNationalMap,expansion:showProjectPage,scenarios:showCareerPage,story:showActiveStory,development:showCareerPage,heavy:showProjectPage,financing:showFinancing,costs:showCosts,help:showHelp,dismissed:showDismissed,winter:showWinter,build:showInfrastructure,settings:showSettings,overview:showOverview,campaign:showCampaign,dispatch:seasonalDesk,capital:showInfrastructure,plant:showMaintenance,capacity:showAuction,report:()=>showQuarter(),variance:()=>showQuarter(true),advisors:showAdvisors,messages:showMessages,appraisal:plotAppraisal};
 let renderedDeskPage;
 const progressionScroll={scenarios:0,development:0};
+const researchScroll={board:0,branches:0};
+const researchSelectors={board:'.tech-board',branches:'.research-branches'};
 function objectiveFooter(){
  const q=tutorialState();
  const routes=['dispatch',null,'appraisal','dispatch','plant','capacity','messages','report'];
@@ -2334,6 +2363,7 @@ function objectiveFooter(){
  return '<p class="desk-note" role="status">'+story[1]+' · '+title+(check?.(active)?' · Complete':'')+'</p>'+btn('Continue assignment','tab-story','primary');
 }
 function renderDesk(){
+ for(const [key,selector] of Object.entries(researchSelectors)){const element=document.querySelector(selector);if(element)researchScroll[key]=element.scrollLeft;}
  if(finance().career?.active)(finance().career.active.visited??={})[deskTab]=true;
  if(deskTab==='messages'){finance().readMessageSeq=finance().messageSeq||0;uiDirty=true;}
  const picking=!hasChosenCEO(),choosingDifficulty=needsDifficulty(),onboarding=picking||choosingDifficulty;
@@ -2351,6 +2381,7 @@ function renderDesk(){
  const locked=tutorialGate('tab-'+deskTab);
  $('deskBody').innerHTML=(locked?'<p>'+locked+'</p>':views[deskTab]())+
  (!onboarding&&!tutorialFinished()?'<div class="desk-actions">'+btn('Skip tutorial','skip-winter')+'</div>':'');
+ for(const [key,selector] of Object.entries(researchSelectors)){const element=document.querySelector(selector);if(element)element.scrollLeft=researchScroll[key];}
  $('deskFooter').innerHTML=deskTab==='dispatch'&&dispatchDraft?.editing?
  '<p id="seasonGridWarning" class="desk-note"></p><div class="desk-actions">'+btn('Apply plan','season-apply','primary')+'</div>':(!onboarding&&!locked?objectiveFooter():'');
 
@@ -2373,6 +2404,7 @@ function renderDesk(){
   preferredServiceAsset=null;
  }
  const connect=(id,event,handler)=>{if($(id))$(id)[event]=handler;};
+ connect('reportPeriod','onchange',e=>{reportPeriod=e.target.value;renderDesk();});
  connect('reportQuarter','onchange',e=>{reportQuarter=e.target.value;renderDesk();});
  connect('reportScope','onchange',e=>{reportScope=e.target.value;renderDesk();});
  if($('auctionChart')){
@@ -2427,6 +2459,11 @@ function doDesk(action){
  if(action==='delegate-maintenance'){
   if(tutorialGate('tab-plant'))return tutorialGate('tab-plant');
   f.delegateMaintenance=!f.delegateMaintenance;
+  const active=f.career?.active;
+  if(active?.id==='healthy-plant'){
+   if(f.delegateMaintenance)active.delegatedMaintenance=true;
+   else if(active.delegatedMaintenance)active.reclaimedMaintenance=true;
+  }
   if(f.delegateMaintenance)scheduleDelegatedMaintenance();
   return;
  }
@@ -2456,6 +2493,8 @@ function doDesk(action){
   if(!error&&desk.open)deskTab='winter';
   return error;
  }
+ if(action==='upgrade-open-gas'){deskTab='capital';return;}
+ if(action.startsWith('project-open-')){if(projectSections[action.slice(13)])deskTab='heavy';return;}
  if(action.startsWith('research-open-')){
   const id=action.slice(14);
   if(developmentNodes.some(node=>node[0]===id)){selectedResearch=id;deskTab='development';}
@@ -2570,15 +2609,13 @@ desk.addEventListener('click',event=>{
  if(previousTab==='story'&&isUKWorld()){finance().career.national.homeCamera=camera;openUKWorld();toast('Board approval · Meridian goes national');save(false);return;}
  if(!isUKWorld())reviewBoard();save(false);
  if(desk.open){
-  const board=document.querySelector('.tech-board'),left=board?.scrollLeft||0;
   renderDesk();
   if(action.startsWith('national-location-')){
    $('ukLocation')?.scrollIntoView({block:'nearest'});
 
   }
-  const current=document.querySelector('.tech-board');
-  if(current)current.scrollLeft=left;
-  if(action.startsWith('research-select-'))document.querySelector('.tech-detail')?.scrollIntoView({block:'nearest'});
+  if(action.startsWith('project-open-'))$('project-'+action.slice(13))?.scrollIntoView({block:'start'});
+  if(action==='upgrade-open-gas')$('project-gas-hub')?.scrollIntoView({block:'start'});
  }
 });
 
@@ -2900,7 +2937,7 @@ function selectUKLocation(x,y){
 }
 function refreshUKWorld(){
  const national=finance().career.national;
- $('siteSubtitle').textContent='Meridian Power · UK portfolio · v10.1.0';
+ $('siteSubtitle').textContent='Meridian Power · UK portfolio · v10.2.0';
  $('stats').innerHTML='<b>'+money(state.cash)+'</b><br> Portfolio cash';
  $('clock').textContent='National day '+((national.elapsedDays||0)+1);
  $('pause').textContent=state.paused?'▶ Resume':'⏸ Pause';
@@ -3418,7 +3455,7 @@ function showRegions(){
  return '<h3>National portfolio</h3><p>Regional concessions have separate grid limits. Compare the investment and likely operating profile before expanding.</p>'+
  Object.entries(regionalProjects).map(([id,p])=>{
   const r=regions[id];
-  return '<article class="notice"><h3>'+p.name+'</h3><p>'+p.mw+' MW installed · '+p.exportLimit+' MW local export limit · '+money(p.cost)+' investment</p>'+
+  return '<article class="notice" id="project-'+id+'"><h3>'+p.name+'</h3><p>'+p.mw+' MW installed · '+p.exportLimit+' MW local export limit · '+money(p.cost)+' investment</p>'+
   (r?(state.day<r.day?'<p>Commissioning on day '+r.day+'</p>':'<p>'+r.export.toFixed(1)+' MWh exported · '+cashGBP(r.profit)+' operating contribution</p>'+btn(r.paused?'Resume trading':'Suspend trading','expansion-region-toggle-'+id)):
    btn('Approve regional investment','expansion-region-build-'+id))+'</article>';
  }).join('');
@@ -3477,7 +3514,7 @@ function canRepower(asset,id){
 function repowerCard(id){
  const p=expansionProjects[id];
  const assets=state.assets.filter(a=>canRepower(a,id));
- return '<article class="notice"><h3>'+p.name+'</h3><p>'+money(p.cost)+' · '+p.days+' days · '+p.mw+' MW</p>'+
+ return '<article class="notice" id="project-'+id+'"><h3>'+p.name+'</h3><p>'+money(p.cost)+' · '+p.days+' days · '+p.mw+' MW</p>'+
  (id==='combined-cycle'?'<p>Convert an operating gas peaking turbine to combined cycle. The conversion reduces fuel use and requires a longer minimum run.</p>':'')+
  (assets.length?assets.map(a=>a.repowerDue?'<p>'+a.name+' · upgrade due day '+a.repowerDue.day+'</p>':
  btn('Upgrade '+a.name,'expansion-repower-'+id+':'+a.id,'primary')).join(''):
@@ -3487,14 +3524,14 @@ function showExpansion(){
  const f=finance(),c=career();
  const upgrades=Object.keys(expansionProjects).filter(id=>!['gas-hub','combined-cycle'].includes(id)&&developmentHas(id)).map(repowerCard).join('');
  const renewables=['Wind','Solar'].filter(type=>developmentHas(type.toLowerCase())).map(type=>
-  '<article class="notice"><h3>'+TYPES[type].name+'</h3><p>'+TYPES[type].desc+' · '+money(TYPES[type].cost)+'</p>'+btn('Choose plot','build-'+type,'primary')+'</article>').join('');
+  '<article class="notice" id="project-'+type.toLowerCase()+'"><h3>'+TYPES[type].name+'</h3><p>'+TYPES[type].desc+' · '+money(TYPES[type].cost)+'</p>'+btn('Choose plot','build-'+type,'primary')+'</article>').join('');
  const wire=f.privateWire;
  const links=!developmentHas('wire')?'':wire?
   '<article class="notice"><h3>'+wireOffers[wire.id].name+' direct wire</h3><p>'+(state.day<wire.day?'Commissioning day '+wire.day:(wire.delivered||0).toFixed(1)+' MWh delivered')+'</p>'+btn('Retire direct wire','expansion-retire-wire')+'</article>':
   '<h3>Direct wires</h3><p>One local connection. Uncommitted output is sold at a fixed price within the existing site export capacity. No minimum volume commitment.</p>'+
   Object.entries(wireOffers).map(([id,o])=>'<article class="notice"><h3>'+o.name+'</h3><p>'+o.mw+' MW · £'+o.price+'/MWh · '+(o.green?'Wind and solar only, all hours':o.from===0?'All hours':'07:00–19:00')+' · '+money(o.cost)+'</p>'+btn('Build direct wire','expansion-wire-'+id)+'</article>').join('');
  return '<h2>Expansion</h2>'+btn('Open Development tree','tab-development')+
- (upgrades+renewables+links||'<p>Research a technology to start your expansion programme.</p>')+
+ (upgrades+renewables+(links?'<section id="project-wire">'+links+'</section>':'')||'<p>Research a technology to start your expansion programme.</p>')+
  (c.national?btn('Open UK expansion map','tab-national','primary'):'');
 }
 function expansionAction(action){
@@ -3555,12 +3592,12 @@ function developmentHas(id){
  return career().unlocked.includes(id)||
   (id==='storage'&&winter?.status==='complete'&&winter.lesson===winterLessons.length-1&&!f.tutorialSkipped);
 }
-function controlBuilding(){return state.assets.find(a=>a.type==='Office'&&operating(a));}
+function controlBuilding(){const offices=state.assets.filter(a=>a.type==='Office'&&operating(a));return offices.find(a=>a.planningExtension)||offices[0];}
 function planningOfficeUpgrade(){
- if(!developmentHas('office'))return '';
+ if(!developmentHas('office'))return '<article><h3>Planning Office</h3><p>Extend an operating control building with a second floor.</p>'+btn('View Planning Office research','research-open-office','primary')+'</article>';
  return '<article><h3>Planning Office</h3><p>Upgrade your operating control building to house the development team.</p>'+
  (career().planningOffice?'<p class="good">Upgrade complete</p>':controlBuilding()?
- btn('Upgrade to Planning Office','develop-install-office','primary'):'<p class="bad">Requires an operating control building</p>')+'</article>';
+ btn('Upgrade to Planning Office','develop-install-office','primary'):'<p class="bad">Build and commission a control building first.</p>'+btn('Choose control building plot','build-Office','primary'))+'</article>';
 }
 function scenarioRequirements(id){
  if(id.startsWith('tech-')){
@@ -3592,7 +3629,7 @@ function boardApproval(){
 function careerSummary(){
  const c=career();
  return row('CEO level',1+Math.floor(c.completed.length/2))+row('Board approval',boardApproval()+'%')+row('Development tokens',c.tokens)+
- '<details><summary>How to earn tokens and improve approval</summary><p>Finish all eight steps of a story assignment and select Report to the board at the debrief to earn one token. Each assignment pays once. Spend tokens in Development. Your CEO level rises after every two completed assignments.</p><p>Board approval starts from 65%. Each £1m of cash after commitments above the £17m target adds 3 points, and a shortfall subtracts 3 points per £1m. Each completed assignment adds 4 points. Today’s operating profit adds 5 points if positive or subtracts 5 if negative. Hosting a community open day adds 4 points once.</p></details>';
+ '<details><summary>How to earn tokens and improve approval</summary><p>Finish the steps of a story assignment and select Report to the board at the debrief to earn one token. Each assignment pays once. Spend tokens in Development. Your CEO level rises after every two completed assignments.</p><p>Board approval starts from 65%. Each £1m of cash after commitments above the £17m target adds 3 points, and a shortfall subtracts 3 points per £1m. Each completed assignment adds 4 points. Today’s operating profit adds 5 points if positive or subtracts 5 if negative. Hosting a community open day adds 4 points once.</p></details>';
 }
 function developmentRequirements([id,,cost,assignments,,parent]){
  const c=career();
@@ -3644,7 +3681,8 @@ function showDevelopment(){
  (unlocked?'<p class="good">Unlocked</p>':'<p>'+cost+' development '+(cost===1?'token':'tokens')+'</p>'+requirements.map(showRequirement).join('')+
  (canUnlock?btn('Unlock '+name,'develop-'+id,'primary'):''))+
  (id==='office'&&unlocked&&!c.planningOffice?btn('Install Planning Office','tab-capital'):'')+
- (unlocked&&id==='combined-cycle'?btn('Open combined-cycle project','tab-heavy'):'')+
+ (unlocked&&projectSections[id]?btn('Open project in Major projects','project-open-'+id,'primary'):'')+
+ (unlocked&&id==='gas-hub'?btn('Open gas receiving upgrades','upgrade-open-gas'):'' )+
  (unlocked&&advancedLessons.some(([key])=>key===id)?btn('View training scenarios','tab-scenarios'):'')+'</article></div>';
 }
 function techTile(node){
@@ -3660,34 +3698,51 @@ function renderTechnologyPath(node){
 }
 function storyChapters(story){
  const [id,,advisor,brief,goal,check,advice]=story;
- const delivery={
-  'first-profit':['tab-dispatch','Open trading plan'],
-  'healthy-plant':['tab-plant','Review maintenance'],
-  reserve:['tab-financing','Review debt'],
-  team:['tab-build','Open Build'],
-  battery:['tab-capital','Review battery investment'],
-  grid:['tab-capital','Review transformer upgrades'],
-  contract:['tab-capacity','Open capacity auction'],
-  expansion:['tab-capital','Review land options']
- }[id]||(id==='tech-service-lab'?['tab-plant','Book maintenance']:id==='tech-gas-hub'?['tab-capital','Open gas receiving upgrades']:id==='tech-combined-cycle'?['tab-heavy','Open combined-cycle project']:id==='tech-national'?['tab-financing','Review debt']:['tab-expansion','Open Expansion']);
- return [
-  ['Board briefing',advisor,brief,'Accept the board’s brief.'],
-  ['Check the books','CFO','We need a clear view of what is already committed before taking on more.','Review Debt under Finance.',a=>a.visited?.financing,'tab-financing','Review debt'],
-  ['Inspect the site','Grid Director','Power sales depend on both the electrical connection and enough fuel reaching the turbines.','Review Plant operations.',a=>a.visited?.plant,'tab-plant','Review plant operations'],
-  ['Review the trading plan','Trading Director','The next decision is when to run. Check prices and see which hours your current plan uses.','Open the trading plan.',a=>a.visited?.dispatch,'tab-dispatch','Open trading plan'],
-  ['Choose your approach',advisor,advice,'Confirm your approach before taking action.'],
-  ['Deliver the assignment',advisor,id.startsWith('tech-')?advice:'Put your plan into practice and report back once the target is met.',goal,check,...delivery],
-  ['Check the outcome','CFO','The target tells us what you achieved. The quarterly results show what it cost and how the wider business performed.','Review the quarterly results.',a=>a.visited?.report,'tab-report','Open quarterly results'],
-  ['Board debrief','Board Chair','Bring us the outcome and what you learned. We’ll record the assignment and fund your next development decision.','Report to the board.']
- ];
+ const visit=(title,guide,text,route,label)=>[title,guide,text,label+'.',a=>a.visited?.[route.slice(4)],route,label];
+ const delivery=(route,label)=>['Deliver the assignment',advisor,advice,goal,check,route,label];
+ const project=id.startsWith('tech-')?id.slice(5):null;
+ const chapters={
+  'first-profit':[
+   visit('Check commitments','CFO','See how upcoming loan payments affect the cash you have available.','tab-financing','Review debt'),
+   visit('Check gas and export capacity','Grid Director','Compare installed MW with gas imports and grid headroom. Check private deliveries if you have a direct wire.','tab-plant','Review plant operations'),
+   visit('Choose profitable hours','Trading Director','Compare peak prices with running costs before committing to a dispatch plan.','tab-dispatch','Review trading plan'),
+   ['Agree the target','CFO','The board wants £25,000 in operating profit since acceptance and a full week of operating evidence.','Confirm the target.'],
+   ['Run the site for a week','Operations Director','Advance time and check whether your plan delivers. After seven days we’ll send an inbox update.','Run seven days and earn £25,000 since acceptance.',a=>state.day>=a.day+7&&check(a),'advance-week','Advance one week'],
+   visit('Review the week','CFO','Use the weekly Results view to compare actual and planned profit.','tab-report','Open results')
+  ],
+  'healthy-plant':[
+   visit('Inspect maintenance','Operations Director','Check current condition and bookings before deciding whether a service is needed.','tab-plant','Review maintenance'),
+   ['Delegate scheduling','Operations Director','Try letting the director look for a low-margin service window.','Turn delegated maintenance on.',a=>a.delegatedMaintenance,'tab-plant','Open maintenance controls'],
+   ['Take back scheduling','Operations Director','Take control again. Existing service bookings stay in place and can be reviewed or cancelled.','Switch delegated maintenance off.',a=>a.reclaimedMaintenance,'tab-plant','Open maintenance controls'],
+   delivery('tab-plant','Book or review a service')
+  ],
+  reserve:[visit('Review payments','CFO','Compare scheduled debt payments and construction commitments.','tab-financing','Review debt'),delivery('tab-costs','Review operating costs')],
+  team:[delivery('tab-build','Open infrastructure')],
+  battery:[visit('Check the connection','Grid Director','A battery needs room to import overnight and export during the peak.','tab-plant','Review plant operations'),delivery('tab-heavy','Review battery projects')],
+  grid:[visit('Check export headroom','Grid Director','Compare the connection rating with the output of your units.','tab-plant','Review plant operations'),delivery('tab-capital','Review transformer upgrades')],
+  contract:[visit('Check reliable capacity','Operations Director','Allow for maintenance and fuel limits before offering capacity.','tab-plant','Review maintenance'),delivery('tab-capacity','Open capacity auction')],
+  expansion:[delivery('tab-capital','Review land options')]
+ };
+ const routes={'service-lab':['tab-plant','Book maintenance'],'gas-hub':['tab-capital','Open gas receiving upgrades'],national:['tab-overview','Review the portfolio']};
+ const specific=chapters[id]||[delivery(...(routes[project]||['project-open-'+project,'Open project']))];
+ return [['Board briefing',advisor,brief,'Accept the board’s brief.'],...specific,
+  ['Board debrief','Board Chair','We’ll record the outcome and award one development token to spend in the Development tree.','Report to the board.',check,...(specific.find(step=>step[0]==='Deliver the assignment'||step[0]==='Run the site for a week')||[]).slice(5)]];
 }
-function currentStoryChapter(story,active){return storyChapters(story)[active.chapter??5]||storyChapters(story)[0];}
+function currentStoryChapter(story,active){
+ const chapters=storyChapters(story);
+ if(active.storyVersion!==2){
+  active.chapter=active.chapter===0?0:active.chapter>=5?chapters.findIndex(step=>step[0]==='Deliver the assignment'||step[0]==='Run the site for a week'):1;
+  if(active.chapter<0)active.chapter=1;
+  active.storyVersion=2;
+ }
+ return chapters[active.chapter]||chapters[0];
+}
 function activeStoryObjective(){
  const active=finance().career?.active;
  const story=active&&stories.find(entry=>entry[0]===active.id);
  if(!story)return '';
  const chapter=currentStoryChapter(story,active);
- return story[1]+' · '+((active.chapter??5)+1)+'/8 · '+chapter[0];
+ return story[1]+' · '+((active.chapter??5)+1)+'/'+storyChapters(story).length+' · '+chapter[0];
 }
 let previewStory=null;
 function showActiveStory(){
@@ -3708,16 +3763,16 @@ function showActiveStory(){
  const directors=['Operations Director','Trading Director','Business Development Director','Grid Director','CFO','Commercial Director'];
  const director=directors.indexOf(advisor);
  const speaker=director>=0?portrait(advisor,director,3,2):'';
- return '<div class="desk-heading"><small>'+story[1]+' · STEP '+(chapter+1)+' OF 8</small><h2>'+title+'</h2></div>'+
+ return '<div class="desk-heading"><small>'+story[1]+' · STEP '+(chapter+1)+' OF '+storyChapters(story).length+'</small><h2>'+title+'</h2></div>'+
  '<div class="advisor-list tutorial-advisor"><article'+(speaker?'':' class="advisor-without-portrait"')+'>'+speaker+'<div><h3>'+advisor+'</h3><p>'+brief+'</p></div></article></div>'+
  row('Objective',goal)+storyMeasurement(story,active)+
- '<div class="desk-actions">'+(ready?btn(chapter===7?'Report to the board':chapter===0?'Accept briefing':'Next step','story-claim-'+chapter,'primary'):
+ '<div class="desk-actions">'+(ready?btn(chapter===storyChapters(story).length-1?'Report to the board':chapter===0?'Accept briefing':'Next step','story-claim-'+chapter,'primary'):
  btn(label,route,'primary'))+btn('Return to site','close')+'</div>'+
  (ready?'':'<p class="desk-note">Return to this briefing from the scenario card on the map.</p>')+
  '<div class="desk-actions">'+btn('Leave assignment','story-leave')+'</div>';
 }
 function storyMeasurement(story,active){
- if(story[0]==='first-profit')return row('Operating profit since acceptance',cashGBP((state.profit-active.profit)*1e6)+' / £25,000');
+ if(story[0]==='first-profit')return row('Operating profit since acceptance',cashGBP((state.profit-active.profit)*1e6)+' / £25,000')+row('Operating days since acceptance',Math.min(7,state.day-active.day)+' / 7');
  if(story[0]==='grid')return row('Grid connection',gridMW()+' / 120 MW');
  if(story[0]==='tech-wire')return row('Direct-wire delivery',(finance().privateWire?.delivered||0).toFixed(1)+' / 10 MWh');
  return '';
@@ -3732,7 +3787,7 @@ function showScenarios(){
  const current=active?'<article class="notice objective-card"><h3>'+active[1]+'</h3><p>'+activeStoryObjective().split(' · ').slice(1).join(' · ')+'</p>'+
  storyMeasurement(active,c.active)+btn('Continue assignment','story-resume','primary')+'</article>':
  available.length?'<article class="notice objective-card"><h3>Recommended · '+available[0][1]+'</h3><p>'+available[0][4]+'</p>'+btn('Open briefing','story-preview-'+available[0][0],'primary')+'</article>':'';
- return '<h2>Scenarios</h2>'+current+
+ return '<h2>Scenarios</h2>'+(c.lastAward?'<article class="notice good" role="status"><h3>Assignment complete · '+c.lastAward+'</h3><p>1 development token awarded. Spend it in the Development tree.</p>'+btn('Open Development','tab-development','primary')+'</article>':'')+(winter?.status==='complete'&&!f.tutorialSkipped?'<p>Winter Peak complete. Your ultimate goal is to go national. Complete scenarios to earn development tokens and build the portfolio the board requires.</p>':'')+current+
  '<h3>Available</h3>'+available.filter(story=>active||story!==available[0]).map(([id,title,,,goal])=>'<article class="notice"><h3>'+title+'</h3><p>'+goal+'</p><p>1 development token</p>'+btn('Open briefing','story-preview-'+id)+'</article>').join('')+
  '<details><summary>Upcoming · '+upcoming.length+'</summary>'+upcoming.map(([id,title])=>{
   const unmet=scenarioRequirements(id).find(([,met])=>!met);
@@ -3783,7 +3838,12 @@ for(let index=0;inboxStories.length<100;index++){
 }
 function tickInboxStories(){
  if(!hasChosenCEO()||needsDifficulty()||!tutorialFinished()||finance().dismissed)return;
- const c=career(),interval={often:8,normal:20,rare:45}[c.frequency];
+ const c=career(),active=c.active;
+ if(active?.id==='first-profit'&&state.day>=active.day+7&&!active.weekNotified){
+  active.weekNotified=true;
+  postMessage('Board · Your first week is complete','Review the assignment to see whether you met the profit target and what to do next.','story','first-profit-week');
+ }
+ const interval={often:8,normal:20,rare:45}[c.frequency];
  if(c.event&&state.day>=c.event.expires){delete c.event;finance().messages=inbox().filter(m=>m.key!=='career-event');}
  if(!interval||c.event||state.day<c.lastEvent+interval)return;
  const struggling=reserveCash()<17||state.cash<5;
@@ -3823,7 +3883,7 @@ function careerAction(action){
  if(!tutorialFinished())return 'Finish or skip Winter Peak first.';
  if(action==='develop-install-office'){
   if(!developmentHas('office')||!controlBuilding())return 'Unlock the Planning Office and have an operating control building first.';
-  c.planningOffice=true;
+  c.planningOffice=true;controlBuilding().planningExtension=true;
   return;
  }
  if(action==='story-leave'){delete c.active;deskTab='scenarios';return;}
@@ -3834,15 +3894,16 @@ function careerAction(action){
   if(check&&!check(c.active))return 'Complete this step first.';
   const chapter=c.active.chapter??5;
   if(action!=='story-claim'&&action!=='story-claim-'+chapter)return;
-  if(chapter<7){c.active.chapter=chapter+1;c.active.visited={};return;}
+  if(chapter<storyChapters(story).length-1){c.active.chapter=chapter+1;c.active.visited={};return;}
   if(story[0]==='tech-national'){
    if(!story[5](c.active))return 'Restore the required operating portfolio and reserve before reporting.';
    c.national={day:state.day};
   }
   (c.outcomes??={})[story[0]]={day:state.day,profit:state.profit-c.active.profit};
   c.completed.push(story[0]);c.tokens++;delete c.active;deskTab=story[0]==='tech-national'?'national':'scenarios';
+ c.lastAward=story[1];
   if(story[0]==='tech-national'){postMessage('Board · Meridian goes national','Congratulations. The board has approved UK expansion. Your original site is now on the UK portfolio map.','national');return;}
-  postMessage('Board · assignment complete','You completed '+story[1]+' and earned one development token.','development');return;
+  postMessage('Board · assignment complete','You completed '+story[1]+' and earned one development token. Spend it in the Development tree.','development');return;
  }
  if(action==='story-resume'){previewStory=null;deskTab='story';return;}
  if(action.startsWith('story-preview-')){
@@ -3854,7 +3915,7 @@ function careerAction(action){
   const id=action.slice(12);
   if(!scenarioRequirements(id).every(([,ready])=>ready))return 'Meet the scenario entry requirements first.';
   if((!c.active||previewStory===id&&c.active.id!==id)&&!c.completed.includes(id)&&stories.some(s=>s[0]===id)){
-   c.active={id,chapter:previewStory===id?1:0,day:state.day,visited:{},profit:state.profit,land:state.owned.length};
+   c.active={id,chapter:previewStory===id?1:0,storyVersion:2,day:state.day,visited:{},profit:state.profit,land:state.owned.length};
    if(previewStory===id){previewStory=null;deskTab='story';}else desk.close();
   }
   uiDirty=true;
@@ -3867,7 +3928,7 @@ function careerAction(action){
  if(id==='national'&&typeof homeState!=='undefined'&&homeState)return 'The national mandate was already awarded at East Midlands.';
  if(id==='national'&&c.active)return 'Finish or leave your active assignment before launching Go national.';
  c.tokens-=cost;c.unlocked.push(id);
- if(id==='national'){previewStory=null;c.active={id:'tech-national',chapter:0,day:state.day,visited:{},profit:state.profit,land:state.owned.length};deskTab='story';}
+ if(id==='national'){previewStory=null;c.active={id:'tech-national',chapter:0,storyVersion:2,day:state.day,visited:{},profit:state.profit,land:state.owned.length};deskTab='story';}
 }
 
 
